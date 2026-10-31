@@ -1,10 +1,14 @@
-# Source for index.html
+# Your Dream Motors website
 
-`index.html` in the repo root is generated from these files.
+- `index.html`: the website (built from the files in this folder)
+- `admin.html`: the stock admin. Sign in with a GitHub fine-grained token that has **Contents: Read and write** on this repository.
+- `data/cars.json`: the stock list. The admin edits this file; the website loads it on every visit (with a built-in copy as a fallback).
+- `images/cars/`: photos uploaded from the admin.
 
-- `index.tpl.html`: page structure
-- `style.css`: styles
-- `app.js`: router, transitions, loader, inventory filters, 3D viewer, forms
-- `cars.py`: the stock list (add or edit cars here); `photos_*.json` hold the Unsplash photo IDs
+## Source
+- `index.tpl.html`, `style.css`, `app.js`: the website
+- `admin.tpl.html`: the admin panel
+- `build.py`: builds `../index.html` and `../admin.html`. It embeds `../data/cars.json` as the fallback copy.
+- `cars.py`, `photos_*.json`: only used to create the very first stock list.
 
-Real stock lives in `REAL` in cars.py (from yourdreammotors.mu/showcase). Rebuild: `cd src && python3 build.py && cp your-dream-motors.html ../index.html`
+Rebuild: `cd src && python3 build.py`

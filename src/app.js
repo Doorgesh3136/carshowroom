@@ -1,4 +1,4 @@
-(function(){
+function YDM_BOOT(DATA){
 'use strict';
 
 /* ───────── settings you may want to change ───────── */
@@ -24,7 +24,7 @@ const store = {
   get(k, d){ try{ const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
-const U = (id, w, h) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? '&h=' + h : ''}&q=${w > 1200 ? 72 : 70}`;
+const U = (id, w, h) => !id ? 'data:image/gif;base64,AA==' : /^(https?:|images\/|data:|\/)/.test(id) ? id : `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? '&h=' + h : ''}&q=${w > 1200 ? 72 : 70}`;
 const ref = c => 'YDM-' + String(c.id).padStart(3, '0');
 const carName = c => `${c.year} ${c.make} ${c.model}`;
 const kmTxt = c => c.km == null ? 'Mileage on request' : fmt(c.km) + ' km';
@@ -41,11 +41,12 @@ function toast(msg){
 const MU_PHONE = v => /^(5\d{7}|[2-9]\d{6})$/.test(v.replace(/[\s\-().]/g, '').replace(/^(\+|00)?230(?=\d{7,8}$)/, ''));
 
 /* ───────── data ───────── */
-const CARS = window.YDM_CARS;
+const CARS = DATA.filter(c => c.status !== 'sold');
+CARS.forEach(c => { if(c.addedOn) c.added = Math.max(0, Math.round((Date.now() - Date.parse(c.addedOn)) / 864e5)); if(c.added == null) c.added = 30; c.photos = (c.photos || []).filter(Boolean); if(!c.photos.length) c.photos = ['']; if(!c.highlights) c.highlights = []; if(!c.features) c.features = []; });
 const byId = new Map(CARS.map(c => [c.id, c]));
 const MAKES = [...new Set(CARS.map(c => c.make))].sort();
-const BODIES = ['SUV','Sedan','Hatchback','Pickup','Coupé'].filter(b => CARS.some(c => c.body === b));
-const FUELS = ['Petrol','Diesel','Hybrid','Electric'].filter(f => CARS.some(c => c.fuel === f));
+const BODIES = [...new Set(['SUV','Sedan','Hatchback','Pickup','Coupé','MPV','Convertible','Van', ...CARS.map(c => c.body)])].filter(b => CARS.some(c => c.body === b));
+const FUELS = [...new Set(['Petrol','Diesel','Hybrid','Electric', ...CARS.map(c => c.fuel)])].filter(f => CARS.some(c => c.fuel === f));
 const TRANS = ['Automatic','Manual'].filter(t => CARS.some(c => c.trans === t));
 const PRICE_STEPS = (() => { const a = []; for(let v = 500000; v < 3000000; v += 100000) a.push(v); for(let v = 3000000; v < 6000000; v += 250000) a.push(v); for(let v = 6000000; v <= 17000000; v += 1000000) a.push(v); return a; })();
 const YMIN = Math.min(...CARS.map(c => c.year)), YMAX = Math.max(...CARS.map(c => c.year));
@@ -102,6 +103,7 @@ document.addEventListener('click', e => {
 
 /* ───────── car card ───────── */
 function tagFor(c){
+  if(c.status === 'reserved') return '<span class="card-tag navy">Reserved</span>';
   if(c.was) return '<span class="card-tag red">Price drop</span>';
   if(c.added <= 3) return '<span class="card-tag red">Just arrived</span>';
   if(c.fuel === 'Electric') return '<span class="card-tag green">Electric</span>';
@@ -111,7 +113,7 @@ function tagFor(c){
 function cardHTML(c, i, lazy){
   const p = c.photos[0];
   return `<article class="card${i != null ? ' enter' : ''}" data-id="${c.id}" style="--d:${Math.min((i||0) * 55, 440)}ms">
-  <div class="card-media ph"><img src="${U(p, 640, 440)}" srcset="${U(p, 480, 330)} 480w, ${U(p, 640, 440)} 640w, ${U(p, 960, 660)} 960w" sizes="(max-width:640px) 92vw, 340px" alt="${esc(carName(c))}${c.color ? ' in ' + esc(c.color.toLowerCase()) : ''}" width="640" height="440" ${lazy === false ? '' : 'loading="lazy"'} decoding="async"></div>
+  <div class="card-media ph" data-n="${c.photos.length}"><img src="${U(p, 640, 440)}" srcset="${U(p, 480, 330)} 480w, ${U(p, 640, 440)} 640w, ${U(p, 960, 660)} 960w" sizes="(max-width:640px) 92vw, 340px" alt="${esc(carName(c))}${c.color ? ' in ' + esc(c.color.toLowerCase()) : ''}" width="640" height="440" ${lazy === false ? '' : 'loading="lazy"'} decoding="async">${c.photos.length > 1 ? `<span class="card-dots">${c.photos.map((_, k) => `<i${k ? '' : ' class="on"'}></i>`).join('')}</span>` : ''}<span class="card-peek"><b>${esc(c.power)}</b><span>${esc(c.drive)}</span><span>${c.photos.length} photo${c.photos.length === 1 ? '' : 's'}</span></span></div>
   ${tagFor(c)}
   <button class="fav${favs.has(c.id) ? ' on' : ''}" data-fav="${c.id}" aria-pressed="${favs.has(c.id)}" aria-label="Save ${esc(carName(c))}"><svg><use href="#i-heart"/></svg></button>
   <div class="card-body">
@@ -122,6 +124,34 @@ function cardHTML(c, i, lazy){
   </div>
   <a class="card-link" href="#/car/${c.id}" aria-label="View ${esc(carName(c))}, ${rs(c.price)}"></a>
 </article>`;
+}
+
+/* ───────── move across a card's photo to flick through its pictures ───────── */
+const preloaded = new Set();
+function scrub(media, x){
+  const card = media.closest('.card'), c = byId.get(+card.dataset.id); if(!c || c.photos.length < 2) return;
+  const k = Math.min(c.photos.length - 1, Math.max(0, Math.floor(x * c.photos.length)));
+  if(media._k === k) return; media._k = k;
+  const img = media.querySelector('img'), p = c.photos[k];
+  img.removeAttribute('srcset'); img.src = U(p, 640, 440);
+  $$('.card-dots i', media).forEach((d, j) => d.classList.toggle('on', j === k));
+}
+if(fine){
+  document.addEventListener('pointerover', e => {
+    const m = e.target.closest && e.target.closest('.card'); if(!m) return;
+    const c = byId.get(+m.dataset.id); if(!c || preloaded.has(c.id)) return; preloaded.add(c.id);
+    c.photos.slice(1).forEach(p => { const im = new Image(); im.src = U(p, 640, 440); });
+  });
+  document.addEventListener('pointermove', e => {
+    const card = e.target.closest && e.target.closest('.card'); if(!card) return;
+    const media = card.querySelector('.card-media'), r = media.getBoundingClientRect();
+    if(e.clientY > r.bottom){ return; }
+    scrub(media, (e.clientX - r.left) / r.width);
+  }, {passive: true});
+  document.addEventListener('pointerout', e => {
+    const card = e.target.closest && e.target.closest('.card'); if(!card || card.contains(e.relatedTarget)) return;
+    const media = card.querySelector('.card-media'); if(media._k) scrub(media, 0);
+  });
 }
 
 /* ───────── 3D tilt: cards follow the mouse ───────── */
@@ -173,7 +203,8 @@ const muNow = () => new Date(new Date().toLocaleString('en-US', {timeZone: 'Indi
 })();
 
 /* ════════════════════ HOME ════════════════════ */
-const HERO = ['Panamera 4','Taycan 4S','CLS 53','E 200'].map(m => CARS.find(c => c.model === m)).filter(Boolean);
+const FEAT = CARS.filter(c => c.featured && c.photos.length);
+const HERO = (FEAT.length >= 2 ? FEAT : ['Panamera 4','Taycan 4S','CLS 53','E 200'].map(m => CARS.find(c => c.model === m)).filter(Boolean)).slice(0, 6);
 let heroK = 0, heroT = 0, heroBusy = false;
 const HDUR = 7000;
 (function heroBuild(){
@@ -235,11 +266,12 @@ $('#quickSearch').addEventListener('submit', e => {
 
 /* body type rail */
 const TYPE_PIC = {SUV:'Sportage', Sedan:'Panamera 4', Hatchback:'Golf GTI', Pickup:'Ranger', 'Coupé':'M4'};
+const EV_PIC = CARS.find(c => c.model === 'Model Y' && c.photos[0]) || CARS.find(c => (c.fuel === 'Electric' || c.fuel === 'Hybrid') && c.photos[0]);
 $('#typeRail').innerHTML = BODIES.map(b => {
   const n = CARS.filter(c => c.body === b).length;
-  const c = CARS.find(x => x.model === TYPE_PIC[b] && x.body === b) || CARS.find(x => x.body === b);
-  return `<a class="type ph" href="#/inventory?body=${encodeURIComponent(b)}"><img src="${U(c.photos[0], 600, 800)}" alt="${b}: ${esc(carName(c))}" loading="lazy" decoding="async" width="600" height="800"><div class="type-in"><div><b>${b === 'Pickup' ? 'Pickups' : b === 'Coupé' ? 'Coupés' : b + 's'}</b><span>${n} in stock</span></div><span class="type-go"><svg><use href="#i-arrow"/></svg></span></div></a>`;
-}).join('') + `<a class="type ph" href="#/inventory?fuel=Electric,Hybrid"><img src="${U((CARS.find(c => c.model === 'Model Y') || CARS.find(c => c.fuel === 'Electric')).photos[0], 600, 800)}" alt="Electric and hybrid cars" loading="lazy" decoding="async" width="600" height="800"><div class="type-in"><div><b>Electric &amp; hybrid</b><span>${CARS.filter(c => c.fuel === 'Electric' || c.fuel === 'Hybrid').length} in stock</span></div><span class="type-go"><svg><use href="#i-arrow"/></svg></span></div></a>`;
+  const c = CARS.find(x => x.model === TYPE_PIC[b] && x.body === b && x.photos.length) || CARS.find(x => x.body === b && x.photos.length) || CARS.find(x => x.body === b);
+  return `<a class="type ph" href="#/inventory?body=${encodeURIComponent(b)}"><img src="${U(c.photos[0], 600, 800)}" alt="${b}: ${esc(carName(c))}" loading="lazy" decoding="async" width="600" height="800"><div class="type-in"><div><b>${({Pickup:'Pickups','Coupé':'Coupés',MPV:'MPVs',Van:'Vans',Convertible:'Convertibles'})[b] || b + 's'}</b><span>${n} in stock</span></div><span class="type-go"><svg><use href="#i-arrow"/></svg></span></div></a>`;
+}).join('') + (EV_PIC ? `<a class="type ph" href="#/inventory?fuel=Electric,Hybrid"><img src="${EV_PIC ? U(EV_PIC.photos[0], 600, 800) : ''}" alt="Electric and hybrid cars" loading="lazy" decoding="async" width="600" height="800"><div class="type-in"><div><b>Electric &amp; hybrid</b><span>${CARS.filter(c => c.fuel === 'Electric' || c.fuel === 'Hybrid').length} in stock</span></div><span class="type-go"><svg><use href="#i-arrow"/></svg></span></div></a>` : '');
 
 /* just arrived rail */
 $('#newRail').innerHTML = [...CARS].sort((a, b) => a.added - b.added || b.id - a.id).slice(0, 10).map(c => cardHTML(c)).join('');
@@ -526,33 +558,38 @@ function tab(name){
   $$('#carTabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
   $$('.tab-pane').forEach(p => p.classList.toggle('on', p.dataset.pane === name));
   tabInd();
+  if(name === 'ov') runGauges();
 }
 $('#carTabs').addEventListener('click', e => { const b = e.target.closest('button'); if(b) tab(b.dataset.tab); });
 
 /* finance calculator */
 function calc(){
   const c = cur.car; if(!c) return;
-  const dep = +$('#cDep').value, term = +$('#cTerm').value, m = monthly(c.price, dep, term);
+  const dep = +$('#cDep').value, term = +$('#cTerm').value, trade = +$('#cTrade').value || 0;
+  const P = Math.max(0, c.price * (1 - dep / 100) - trade), r_ = CFG.rate / 12, m = P ? P * r_ / (1 - Math.pow(1 + r_, -term)) : 0;
+  $('#cTradeV').textContent = trade ? rs(trade) : 'None';
   $('#cDepV').textContent = `${dep}% (${rs(c.price * dep / 100)})`;
   $('#cTermV').textContent = `${term} months`;
   $('#cOut').textContent = rs(m);
-  $('#cNote').textContent = `Borrowing ${rs(c.price * (1 - dep / 100))} over ${term / 12} years`;
+  $('#cNote').textContent = P ? `Borrowing ${rs(P)} over ${term / 12} years` : 'Your deposit and trade-in cover the car';
 }
-$('#cDep').addEventListener('input', calc); $('#cTerm').addEventListener('input', calc);
+$('#cDep').addEventListener('input', calc); $('#cTerm').addEventListener('input', calc); $('#cTrade').addEventListener('input', calc);
 
 function renderCar(c){
   cur.car = c;
+  carExtras(c);
   const name = `${c.make} ${c.model}`;
   $('#carCrumb').textContent = name;
   $('#carEyebrow').textContent = `${c.year} ${c.body}, ref ${ref(c)}`;
   $('#carTitle').textContent = name;
   $('#carVar').textContent = c.variant;
-  $('#carPrice').textContent = rs(c.price);
+  countUp($('#carPrice'), c.price, v => rs(v));
   $('#carWas').textContent = c.was ? rs(c.was) : '';
   $('#carMo').innerHTML = `About <b>${rs(monthly(c.price))}</b> a month with 20% down. <button type="button" id="toFin">Work it out</button>`;
   $('#toFin').onclick = () => { tab('fi'); $('#carTabs').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'}); };
   $('#carFacts').innerHTML = [['Mileage', kmTxt(c)], ['Year', c.year], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Power', c.power], ['Colour', colTxt(c)]].map(([k, v]) => `<li><small>${k}</small><b>${esc(v)}</b></li>`).join('');
-  $('#carBook').href = `#/contact?topic=test-drive&car=${c.id}`;
+  $('#carBook').href = '#/car/' + c.id;
+  $('#carReserved').hidden = c.status !== 'reserved';
   $('#carWa').href = waLink(`Hi Your Dream Motors, is the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) still available?`);
   $('#carDesc').textContent = c.desc;
   $('#carHigh').innerHTML = c.highlights.map(h => `<li>${esc(h)}</li>`).join('');
@@ -580,6 +617,152 @@ function renderCar(c){
   requestAnimationFrame(tabInd);
 }
 $('#carSave').addEventListener('click', () => cur.car && toggleFav(cur.car.id));
+$('#carBook').addEventListener('click', e => { e.preventDefault(); $('#td').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'}); $('#td').classList.remove('pulse'); void $('#td').offsetWidth; $('#td').classList.add('pulse'); });
+
+function countUp(el, to, f){
+  if(reduced){ el.textContent = f(to); return; }
+  const from = to * .82, t0 = performance.now(), d = 800;
+  (function s(t){ const p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 3); el.textContent = f(Math.round((from + (to - from) * e) / 1000) * 1000 || to); if(p < 1) requestAnimationFrame(s); else el.textContent = f(to); })(t0);
+}
+const hp = c => parseInt(String(c.power).replace(/[^0-9]/g, '').slice(0, 4)) || 0;
+const NOW_YEAR = new Date().getFullYear();
+
+/* gauges: power, mileage and age at a glance */
+function gauges(c){
+  const kmR = c.km == null ? null : c.km;
+  const items = [
+    {v: hp(c), max: 600, unit: 'hp', label: 'Power', note: hp(c) > 300 ? 'Quick' : hp(c) > 150 ? 'Lively' : 'Easy-going'},
+    {v: kmR, max: 160000, unit: 'km', label: 'Mileage', note: kmR == null ? 'On request' : kmR < 20000 ? 'Very low' : kmR < 60000 ? 'Low' : kmR < 110000 ? 'Average' : 'Well used', fmtV: v => v >= 1000 ? Math.round(v / 1000) + 'k' : v},
+    {v: Math.max(0, NOW_YEAR - c.year), max: 14, unit: 'yrs', label: 'Age', note: c.year + ' model'}
+  ];
+  $('#carGauges').innerHTML = items.map((g, i) => {
+    const p = g.v == null ? 0 : Math.min(1, g.v / g.max);
+    return `<div class="gauge" style="--p:${p}"><svg viewBox="0 0 120 70" aria-hidden="true"><path class="g-bg" d="M10 62 A50 50 0 0 1 110 62"/><path class="g-fg" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>${Array.from({length: 11}, (_, k) => { const a = Math.PI * (1 - k / 10), x1 = 60 + Math.cos(a) * 41, y1 = 62 - Math.sin(a) * 41, x2 = 60 + Math.cos(a) * 36, y2 = 62 - Math.sin(a) * 36; return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`; }).join('')}<g class="g-needle"><line x1="60" y1="62" x2="60" y2="22"/><circle cx="60" cy="62" r="4"/></g></svg><b data-v="${g.v == null ? '' : g.v}" data-f="${i === 1 ? 'k' : ''}">${g.v == null ? 'n/a' : 0}</b><span>${g.unit}</span><small>${g.label}: ${g.note}</small></div>`;
+  }).join('');
+  runGauges();
+}
+function runGauges(){
+  const box = $('#carGauges'); if(!box || !box.offsetParent) return;
+  box.classList.remove('go'); void box.offsetWidth; box.classList.add('go');
+  $$('b[data-v]', box).forEach(b => { if(b.dataset.v === '') return; const to = +b.dataset.v, k = b.dataset.f === 'k', t0 = performance.now();
+    (function s(t){ const p = Math.min(1, (t - t0) / 1200), e = 1 - Math.pow(1 - p, 3), v = to * e; b.textContent = k ? (v >= 1000 ? Math.round(v / 1000) + 'k' : Math.round(v)) : Math.round(v); if(p < 1 && !reduced) requestAnimationFrame(s); else b.textContent = k ? (to >= 1000 ? Math.round(to / 1000) + 'k' : to) : to; })(t0); });
+}
+
+/* running costs */
+const FUEL_PRICE = {Petrol: 70.65, Diesel: 71.25, Hybrid: 70.65, Electric: 7.5};
+function consumption(c){
+  if(c.fuel === 'Electric') return 17;
+  if(c.fuel === 'Hybrid') return 6;
+  if(c.fuel === 'Diesel') return c.body === 'Pickup' ? 8.5 : 7;
+  return Math.min(14, Math.max(5, Math.round((4.6 + hp(c) / 85 + (c.body === 'SUV' ? .8 : 0)) * 10) / 10));
+}
+function runCost(){
+  const c = cur.car; if(!c) return;
+  const km = +$('#rcKm').value, cons = +$('#rcCons').value || 0, price = +$('#rcPrice').value || 0;
+  const unit = c.fuel === 'Electric' ? 'kWh' : 'L';
+  const month = km / 100 * cons * price, ref = km / 100 * 5 * FUEL_PRICE.Petrol;
+  $('#rcKmV').textContent = fmt(km) + ' km a month';
+  $('#rcMonth').textContent = rs(month);
+  $('#rcYear').textContent = rs(month * 12);
+  $('#rcPerKm').textContent = 'Rs ' + (cons * price / 100).toFixed(2);
+  const mx = Math.max(month, ref, 1);
+  $('#rcBarThis').style.setProperty('--w', (month / mx * 100) + '%'); $('#rcBarRef').style.setProperty('--w', (ref / mx * 100) + '%');
+  $('#rcThisV').textContent = rs(month); $('#rcRefV').textContent = rs(ref);
+  $('#rcUnit').textContent = `${unit} per 100 km`; $('#rcPriceL').textContent = `Price per ${unit} (Rs)`;
+}
+['#rcKm','#rcCons','#rcPrice'].forEach(s => $(s).addEventListener('input', runCost));
+
+/* test-drive slot picker (next open days, Mauritius time) */
+function tdDays(){
+  const out = [], n = muNow();
+  for(let i = 0; out.length < 6 && i < 10; i++){
+    const d = new Date(n); d.setDate(n.getDate() + i); const w = d.getDay(); if(w === 0) continue;
+    let slots = w === 6 ? ['09:30','10:30','11:15'] : ['09:30','11:00','13:30','15:00','16:15'];
+    if(i === 0) slots = slots.filter(s => { const [h, m] = s.split(':').map(Number); return h * 60 + m > n.getHours() * 60 + n.getMinutes() + 60; });
+    if(slots.length) out.push({d, slots, label: i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : d.toLocaleDateString('en-GB', {weekday: 'short'}), date: d.toLocaleDateString('en-GB', {day: 'numeric', month: 'short'})});
+  }
+  return out;
+}
+let TD = {day: 0, slot: null};
+function renderTD(){
+  const days = tdDays();
+  $('#tdDays').innerHTML = days.map((x, i) => `<button type="button" class="td-day" role="radio" aria-checked="${i === TD.day}" data-i="${i}"><small>${x.label}</small><b>${x.date}</b></button>`).join('');
+  const d = days[TD.day] || days[0];
+  $('#tdSlots').innerHTML = d.slots.map(s => `<button type="button" class="chip" role="radio" aria-pressed="${s === TD.slot}" data-s="${s}">${s}</button>`).join('');
+  const go = $('#tdGo');
+  if(TD.slot){ go.disabled = false; go.innerHTML = `<svg><use href="#i-wa"/></svg>Book ${d.label === 'Today' || d.label === 'Tomorrow' ? d.label.toLowerCase() : d.label + ' ' + d.date} at ${TD.slot}`; }
+  else { go.disabled = true; go.innerHTML = 'Pick a time'; }
+  TD._d = d;
+}
+$('#tdDays').addEventListener('click', e => { const b = e.target.closest('.td-day'); if(!b) return; TD.day = +b.dataset.i; TD.slot = null; renderTD(); });
+$('#tdSlots').addEventListener('click', e => { const b = e.target.closest('.chip'); if(!b) return; TD.slot = b.dataset.s; renderTD(); });
+$('#tdGo').addEventListener('click', () => {
+  const c = cur.car, d = TD._d; if(!c || !TD.slot) return;
+  window.open(waLink(`Hi Your Dream Motors, I'd like to test drive the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) on ${d.d.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'})} at ${TD.slot}. Is that time free?`), '_blank', 'noopener');
+  track('test_drive_request', {car: ref(c)}); toast('WhatsApp opened with your booking. Press send to confirm.');
+});
+
+/* compare up to 3 cars */
+let cmp = store.get('ydm-cmp', []).filter(id => byId.has(id));
+function syncCmp(){
+  store.set('ydm-cmp', cmp);
+  const tray = $('#cmpTray');
+  tray.hidden = !cmp.length; tray.classList.toggle('on', cmp.length > 0);
+  $('#cmpThumbs').innerHTML = cmp.map(id => { const c = byId.get(id); return `<span class="cmp-th"><img src="${U(c.photos[0], 160, 110)}" alt=""><button type="button" data-rm="${id}" aria-label="Remove ${esc(c.make + ' ' + c.model)} from compare"><svg><use href="#i-x"/></svg></button></span>`; }).join('') + (cmp.length < 3 ? `<span class="cmp-slot">${3 - cmp.length} more</span>` : '');
+  $('#cmpGo').textContent = `Compare ${cmp.length}`; $('#cmpGo').disabled = cmp.length < 2;
+  const b = $('#carCmp'); if(b && cur.car){ const on = cmp.includes(cur.car.id); b.classList.toggle('on', on); b.querySelector('span').textContent = on ? 'Comparing' : 'Compare'; }
+}
+function toggleCmp(id){
+  const i = cmp.indexOf(id);
+  if(i >= 0) cmp.splice(i, 1);
+  else { if(cmp.length >= 3){ toast('You can compare up to 3 cars. Remove one first.'); return; } cmp.push(id); toast(cmp.length < 2 ? 'Added. Pick another car to compare.' : 'Added to compare'); }
+  syncCmp();
+}
+$('#carCmp').addEventListener('click', () => cur.car && toggleCmp(cur.car.id));
+$('#cmpThumbs').addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if(b){ toggleCmp(+b.dataset.rm); } });
+$('#cmpClear').addEventListener('click', () => { cmp = []; syncCmp(); });
+$('#cmpGo').addEventListener('click', () => {
+  const cs = cmp.map(id => byId.get(id));
+  const rows = [
+    ['Price', c => c.price, 'min', c => rs(c.price)],
+    ['Monthly from', c => monthly(c.price), 'min', c => rs(monthly(c.price))],
+    ['Year', c => c.year, 'max', c => c.year],
+    ['Mileage', c => c.km ?? Infinity, 'min', c => kmTxt(c)],
+    ['Power', c => hp(c), 'max', c => c.power],
+    ['Fuel', null, '', c => c.fuel], ['Gearbox', null, '', c => c.trans], ['Body', null, '', c => c.body],
+    ['Engine', null, '', c => c.engine], ['Drive', null, '', c => c.drive], ['Seats', c => c.seats, 'max', c => c.seats],
+    ['Running cost a month', c => 1500 / 100 * consumption(c) * FUEL_PRICE[c.fuel], 'min', c => rs(1500 / 100 * consumption(c) * FUEL_PRICE[c.fuel])]
+  ];
+  $('#cmpTable').innerHTML = `<thead><tr><th></th>${cs.map(c => `<th><a href="#/car/${c.id}" class="cmp-car"><span class="cmp-pic" style="background-image:url('${U(c.photos[0], 400, 260)}')"></span><b>${esc(c.make)} ${esc(c.model)}</b><span>${esc(c.variant)}</span></a></th>`).join('')}</tr></thead><tbody>${rows.map(([k, val, best, show]) => {
+    let win = null; if(val){ const vs = cs.map(val); const t = best === 'min' ? Math.min(...vs) : Math.max(...vs); if(vs.filter(v => v === t).length < vs.length) win = t; }
+    return `<tr><th scope="row">${k}</th>${cs.map(c => `<td class="${win != null && val(c) === win ? 'best' : ''}">${esc(show(c))}</td>`).join('')}</tr>`; }).join('')}</tbody>`;
+  $('#cmpNote').textContent = 'Best value in each row is marked. Running cost assumes 1,500 km a month at today\'s pump prices.';
+  const d = $('#cmpDlg'); d.showModal ? d.showModal() : d.setAttribute('open', '');
+});
+$('#cmpClose').addEventListener('click', () => $('#cmpDlg').close());
+$('#cmpDlg').addEventListener('click', e => { if(e.target === $('#cmpDlg')) $('#cmpDlg').close(); });
+$('#cmpDlg').addEventListener('click', e => { if(e.target.closest('.cmp-car')) $('#cmpDlg').close(); });
+
+/* spec sheet: copy or print */
+$('#specCopy').addEventListener('click', async () => {
+  const c = cur.car; const txt = `${carName(c)} ${c.variant}\n${rs(c.price)}\n` + $$('#carSpec div').map(d => d.children[0].textContent + ': ' + d.children[1].textContent).join('\n') + `\n\nYour Dream Motors, Royal Road, Moka. +230 433 8026\n${location.href}`;
+  try{ await navigator.clipboard.writeText(txt); toast('Specs copied'); }catch(e){ toast('Copy not allowed in this browser'); }
+});
+$('#specPrint').addEventListener('click', () => {
+  const c = cur.car;
+  $('#printSheet').innerHTML = `<header><b>Your Dream Motors</b><span>Royal Road, Moka, Mauritius. +230 433 8026. info@yourdreammotors.mu</span></header><h1>${esc(carName(c))}</h1><p class="ps-v">${esc(c.variant)}, ref ${ref(c)}</p><img src="${U(c.photos[0], 1200, 700)}" alt=""><p class="ps-price">${rs(c.price)} <span>or about ${rs(monthly(c.price))} a month with 20% down</span></p><div class="ps-cols"><dl>${$('#carSpec').innerHTML}</dl><div><h2>Equipment</h2><ul>${c.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div></div><footer>Printed ${new Date().toLocaleDateString('en-GB')}. Prices and details can change; please confirm with our sales team.</footer>`;
+  const im = $('#printSheet img'); const p = () => window.print();
+  if(im.complete) p(); else { im.onload = im.onerror = p; setTimeout(p, 2500); }
+});
+
+function carExtras(c){
+  gauges(c);
+  $('#rcKm').value = 1500; $('#rcCons').value = consumption(c); $('#rcPrice').value = FUEL_PRICE[c.fuel] || 70.65; runCost();
+  $('#rcFuelNote').textContent = c.fuel === 'Electric' ? 'Home charging at about Rs 7.50 per kWh. Change it to match your CEB tariff.' : `Pump price set to Rs ${FUEL_PRICE[c.fuel]} a litre. Fuel prices in Mauritius change by decree, so edit it if it has moved.`;
+  $('#cTrade').max = Math.round(c.price * .7 / 25000) * 25000; $('#cTrade').value = 0;
+  TD = {day: 0, slot: null}; renderTD();
+  syncCmp();
+}
 $('#carShare').addEventListener('click', async () => {
   const c = cur.car, url = location.href, text = `${carName(c)}, ${rs(c.price)} at Your Dream Motors`;
   if(navigator.share){ try{ await navigator.share({title: text, url}); }catch(e){} return; }
@@ -754,6 +937,7 @@ addEventListener('keydown', e => { if(e.key === 'Escape'){ menu(false); sheet(fa
 /* ───────── scroll: progress bar, header shadow, back to top ───────── */
 function onScroll(){
   const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
+  if(cur.view === 'home' && !reduced && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
   $('#sprog').style.setProperty('--p', H > 0 ? (y / H).toFixed(4) : 0);
   $('#hdr').classList.toggle('up', y > 10);
   $('#toTop').classList.toggle('on', y > innerHeight * 1.2);
@@ -834,4 +1018,11 @@ route(true);
       })(s0);
     }, 620);
   }
-})();})();
+})();}
+
+/* load the live stock list (edited in admin.html); fall back to the copy built into this page */
+(function(){
+  const go = d => YDM_BOOT(Array.isArray(d) && d.length ? d : window.YDM_CARS);
+  if(location.protocol === 'file:'){ go(null); return; }
+  fetch('data/cars.json?v=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(go);
+})();

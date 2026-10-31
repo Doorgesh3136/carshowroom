@@ -8,8 +8,13 @@ for f in ('photos_A.json','photos_B.json','photos_C.json'):
 seen = set()
 for k,p in photos.items():
     p['photos'] = [x for x in p['photos'] if not (x in seen or seen.add(x))]
-cars = build(photos)
-print(len(cars), 'cars')
+DATA = os.path.join(D,'..','data','cars.json')
+if os.path.exists(DATA):            # the admin panel's copy is the master list
+    cars = json.load(open(DATA,encoding='utf-8'))
+else:
+    cars = build(photos)
+live = [c for c in cars if c.get('status') != 'sold']
+print(len(live), 'cars on sale')
 tpl = open(os.path.join(D,'index.tpl.html'),encoding='utf-8').read()
 ld = {"@context":"https://schema.org","@type":"AutoDealer","name":"Your Dream Motors","url":"https://yourdreammotors.mu/",
  "logo":"https://yourdreammotors.mu/favicon.svg","image":"https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
@@ -25,9 +30,12 @@ js = open(os.path.join(D,'app.js'),encoding='utf-8').read()
 # light minify of css
 css = re.sub(r'/\*.*?\*/','',css,flags=re.S); css = re.sub(r'\n\s*','\n',css)
 out = (tpl.replace('{{CSS}}',css).replace('{{JS}}',js).replace('{{JSONLD}}',json.dumps(ld,ensure_ascii=False))
-          .replace('{{DATA}}',json.dumps(cars,ensure_ascii=False,separators=(',',':'))).replace('{{COUNT}}',str(len(cars))))
+          .replace('{{DATA}}',json.dumps(cars,ensure_ascii=False,separators=(',',':'))).replace('{{COUNT}}',str(len(live))))
 assert '{{' not in out
-open(os.path.join(D,'your-dream-motors.html'),'w',encoding='utf-8').write(out)
+open(os.path.join(D,'..','index.html'),'w',encoding='utf-8').write(out)
 print(len(out)//1024,'KB')
+adm = open(os.path.join(D,'admin.tpl.html'),encoding='utf-8').read().replace('{{REPO}}','Doorgesh3136/carshowroom')
+open(os.path.join(D,'..','admin.html'),'w',encoding='utf-8').write(adm)
+print('admin.html written')
 for ch in ['—','–']:
     for m in re.finditer(ch, out): print('DASH:', out[max(0,m.start()-50):m.start()+30].replace('\n',' '))

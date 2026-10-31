@@ -334,18 +334,34 @@
         <button role="tab" aria-selected="false" data-tab="sp">Specifications</button>
         <button role="tab" aria-selected="false" data-tab="ft">Features</button>
         <button role="tab" aria-selected="false" data-tab="fi">Finance</button>
+        <button role="tab" aria-selected="false" data-tab="rc">Running costs</button>
         <span class="tab-ind" aria-hidden="true"></span>
       </div>
-      <div class="tab-pane on" data-pane="ov"><p class="car-desc" id="carDesc"></p><ul class="ticks" id="carHigh"></ul></div>
-      <div class="tab-pane" data-pane="sp"><dl class="spec" id="carSpec"></dl></div>
+      <div class="tab-pane on" data-pane="ov"><div class="gauges" id="carGauges"></div><p class="car-desc" id="carDesc"></p><ul class="ticks" id="carHigh"></ul></div>
+      <div class="tab-pane" data-pane="sp"><dl class="spec" id="carSpec"></dl>
+        <div class="spec-tools"><button class="btn btn-line" type="button" id="specPrint">Print spec sheet</button><button class="btn btn-line" type="button" id="specCopy">Copy specs</button></div></div>
       <div class="tab-pane" data-pane="ft"><ul class="feats" id="carFeat"></ul></div>
       <div class="tab-pane" data-pane="fi">
         <div class="calc">
           <div class="calc-f"><label for="cDep">Deposit <b id="cDepV">20%</b></label><input type="range" id="cDep" min="10" max="60" step="5" value="20"></div>
           <div class="calc-f"><label for="cTerm">Term <b id="cTermV">60 months</b></label><input type="range" id="cTerm" min="12" max="84" step="12" value="60"></div>
+          <div class="calc-f calc-wide"><label for="cTrade">Trade-in value <b id="cTradeV">None</b></label><input type="range" id="cTrade" min="0" max="3000000" step="25000" value="0"></div>
           <div class="calc-out"><span>Estimated monthly</span><b id="cOut">Rs 0</b><small id="cNote"></small></div>
         </div>
-        <p class="fine">An estimate only, at 8.5% a year. Your bank sets the final rate. We can introduce you to lenders we work with.</p>
+        <p class="fine">Not sure what your car is worth? <a href="#/sell">Get a free valuation</a>. An estimate only, at 8.5% a year. Your bank sets the final rate. We can introduce you to lenders we work with.</p>
+      </div>
+      <div class="tab-pane" data-pane="rc">
+        <div class="rc">
+          <div class="calc-f calc-wide"><label for="rcKm">How far you drive <b id="rcKmV">1,500 km a month</b></label><input type="range" id="rcKm" min="300" max="5000" step="100" value="1500"></div>
+          <label class="fld"><span id="rcUnit">L per 100 km</span><input type="number" id="rcCons" step="0.1" min="1" max="40" inputmode="decimal"></label>
+          <label class="fld"><span id="rcPriceL">Price per L (Rs)</span><input type="number" id="rcPrice" step="0.05" min="1" inputmode="decimal"></label>
+          <div class="rc-out"><div><span>A month</span><b id="rcMonth">Rs 0</b></div><div><span>A year</span><b id="rcYear">Rs 0</b></div><div><span>Per km</span><b id="rcPerKm">Rs 0</b></div></div>
+          <div class="rc-bars">
+            <div class="rc-bar"><span>This car</span><i id="rcBarThis"></i><b id="rcThisV"></b></div>
+            <div class="rc-bar ref"><span>A small petrol hatchback</span><i id="rcBarRef"></i><b id="rcRefV"></b></div>
+          </div>
+        </div>
+        <p class="fine" id="rcFuelNote"></p>
       </div>
     </div>
     <aside class="car-r">
@@ -356,14 +372,23 @@
         <div class="car-price"><b id="carPrice"></b><s id="carWas"></s></div>
         <p class="car-mo" id="carMo"></p>
         <ul class="car-facts" id="carFacts"></ul>
+        <p class="car-res" id="carReserved" hidden>This car is reserved. Ask us to join the waiting list in case the sale falls through.</p>
         <a class="btn btn-red btn-block btn-lg" id="carBook" href="#/contact">Book a test drive <svg><use href="#i-arrow"/></svg></a>
         <a class="btn btn-wa btn-block" id="carWa" target="_blank" rel="noopener" data-track="whatsapp"><svg><use href="#i-wa"/></svg>Ask on WhatsApp</a>
         <div class="car-mini">
           <a href="tel:+2304338026" class="btn btn-line" data-track="call"><svg><use href="#i-phone"/></svg>Call</a>
           <button class="btn btn-line" id="carSave" type="button"><svg><use href="#i-heart"/></svg><span>Save</span></button>
+          <button class="btn btn-line" id="carCmp" type="button"><svg><use href="#i-grid"/></svg><span>Compare</span></button>
           <button class="btn btn-line" id="carShare" type="button"><svg><use href="#i-share"/></svg>Share</button>
         </div>
         <p class="car-trust">Inspected, registered and delivered free anywhere in Mauritius.</p>
+      </div>
+      <div class="td" id="td">
+        <h2>Book a test drive</h2>
+        <p>Pick a day and time. We confirm on WhatsApp.</p>
+        <div class="td-days" id="tdDays" role="radiogroup" aria-label="Day"></div>
+        <div class="chips td-slots" id="tdSlots" role="radiogroup" aria-label="Time"></div>
+        <button class="btn btn-wa btn-block" id="tdGo" type="button" disabled>Pick a time</button>
       </div>
     </aside>
   </div>
@@ -578,6 +603,17 @@
 
 <a class="fab" href="https://wa.me/23054742683?text=Hi%20Your%20Dream%20Motors" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" data-track="whatsapp"><svg><use href="#i-wa"/></svg></a>
 <button class="totop" id="toTop" aria-label="Back to top"><svg><use href="#i-left"/></svg></button>
+
+<!-- COMPARE -->
+<div class="cmp-tray" id="cmpTray" hidden>
+  <div class="cmp-in"><div class="cmp-thumbs" id="cmpThumbs"></div><button class="btn btn-line" type="button" id="cmpClear">Clear</button><button class="btn btn-red" type="button" id="cmpGo" disabled>Compare</button></div>
+</div>
+<dialog class="cmp-dlg" id="cmpDlg" aria-labelledby="cmpH">
+  <div class="cmp-head"><h2 id="cmpH">Side by side</h2><button class="icon-btn" type="button" id="cmpClose" aria-label="Close compare"><svg><use href="#i-x"/></svg></button></div>
+  <div class="cmp-scroll"><table class="cmp-t" id="cmpTable"></table></div>
+  <p class="fine" id="cmpNote"></p>
+</dialog>
+<div id="printSheet" aria-hidden="true"></div>
 
 <!-- COOKIE CONSENT (small card, never covers the page) -->
 <div class="cookie" id="cookie" role="dialog" aria-live="polite" aria-label="Cookie choice" hidden>
