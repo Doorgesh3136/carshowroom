@@ -210,6 +210,7 @@ function heroBars(k){
   const b = $$('#heroBars i')[k]; void b.offsetWidth; b.classList.add('on');
   $('#heroIdx').textContent = String(k + 1).padStart(2, '0');
 }
+function heroGleam(){ const g = $('#heroGleam'); if(!g) return; g.classList.remove('go'); void g.offsetWidth; g.classList.add('go'); }
 function heroGo(k){
   if(heroBusy) return; k = (k + HERO.length) % HERO.length;
   clearTimeout(heroT);
@@ -217,6 +218,7 @@ function heroGo(k){
     heroBusy = true;
     const S = $$('.slide'), old = S[heroK], nw = S[k];
     nw.classList.add('in');
+    if(!reduced) setTimeout(heroGleam, 450);
     setTimeout(() => { old.classList.remove('on'); nw.classList.remove('in'); nw.classList.add('on'); heroBusy = false; }, reduced ? 0 : 1300);
     heroCap(HERO[k], true); heroK = k;
   }
@@ -933,7 +935,15 @@ const io = new IntersectionObserver(es => es.forEach(en => {
     (function step(t){ const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 4); el.textContent = fmt(to * e) + (p === 1 && to >= 1000 ? '+' : ''); if(p < 1) requestAnimationFrame(step); })(t0);
   }
 }), {threshold: .25});
-function observe(root){ $$('.clip-in:not(.shown),[data-count]', root).forEach(el => io.observe(el)); }
+// clipped photos need their own observer: Chromium measures an element *after* its own clip-path,
+// so a fully clipped photo always reports 0% visible and a 25% threshold would never fire
+const ioClip = new IntersectionObserver(es => es.forEach(en => {
+  if(!en.isIntersecting) return; ioClip.unobserve(en.target); en.target.classList.add('shown');
+}), {threshold: 0, rootMargin: '0px 0px -12% 0px'});
+function observe(root){
+  $$('.clip-in:not(.shown)', root).forEach(el => ioClip.observe(el));
+  $$('[data-count]', root).forEach(el => io.observe(el));
+}
 
 /* ════════════════════ LOADER ════════════════════ */
 document.getElementById('yr').textContent = muNow().getFullYear();
@@ -942,33 +952,103 @@ route(true);
 (function loader(){
   const L = $('#loader'), hv = $('.view[data-view="home"]');
   const intro = () => { if(cur.view === 'home'){ hv.classList.remove('intro'); void hv.offsetWidth; hv.classList.add('intro'); } };
-  const done = () => { document.body.classList.remove('is-loading'); L.remove(); if(!consent) setTimeout(showCookie, 1600); if(MOTION) ST.refresh(); };
+  let finished = false;
+  const done = () => { if(finished) return; finished = true; document.body.classList.remove('is-loading'); L.remove(); if(!consent) setTimeout(showCookie, 1600); if(MOTION) ST.refresh(); };
   if(cur.view === 'home') hv.classList.remove('intro');
   if(!MOTION){ intro(); done(); return; }
-  // letters of the name rise in, the brass line fills as fonts and the first photo arrive
+
+  /* ── build the rev counter: 0 to 8 (x1000 r/min) over 270 degrees, redline from 6.5 ── */
+  const NS = 'http://www.w3.org/2000/svg', C = 200, MAXV = 8, RED = 6.5;
+  const ang = v => -135 + v / MAXV * 270;
+  const pt = (v, r) => { const a = ang(v) * Math.PI / 180; return [C + r * Math.sin(a), C - r * Math.cos(a)]; };
+  const mk = (tag, at) => { const e = document.createElementNS(NS, tag); for(const k in at) e.setAttribute(k, at[k]); return e; };
+  const ticksG = $('#ldTicks'), ticks = [];
+  const [rx0, ry0] = pt(RED, 182), [rx1, ry1] = pt(MAXV, 182);
+  ticksG.append(mk('circle', {cx: C, cy: C, r: 182, class: 'ld-ring'}));
+  ticksG.append(mk('path', {d: `M${rx0} ${ry0} A182 182 0 0 1 ${rx1} ${ry1}`, class: 'ld-red'}));
+  for(let v = 0; v <= MAXV + 1e-6; v += .5){
+    const maj = v % 1 === 0, [x1, y1] = pt(v, maj ? 146 : 156), [x2, y2] = pt(v, 170);
+    const t = mk('line', {x1, y1, x2, y2, class: 'ld-tick' + (maj ? ' maj' : '') + (v >= RED ? ' hot' : '')});
+    ticksG.append(t); ticks.push([v, t]);
+    if(maj){
+      const [nx, ny] = pt(v, 120), n = mk('text', {x: nx, y: ny, class: 'ld-num' + (v >= RED ? ' hot' : '')});
+      n.textContent = v; ticksG.append(n); ticks.push([v, n]);
+    }
+  }
+  const needle = $('#ldNeedle'), rpm = $('#ldRpm'), shift = $('#ldShift'), gauge = $('#ldGauge');
+  const rev = {v: 0};
+  const paint = () => {
+    const v = Math.max(0, Math.min(MAXV, rev.v));
+    needle.setAttribute('transform', `rotate(${ang(v).toFixed(2)} ${C} ${C})`);
+    rpm.textContent = fmt(Math.round(v * 1000 / 50) * 50);
+    ticks.forEach(([tv, el]) => el.classList.toggle('lit', tv <= v + .01));
+    gauge.style.setProperty('--heat', (v / MAXV).toFixed(3));
+    shift.classList.toggle('on', v >= 7);
+  };
+  paint();
+
   $('#ldWord').innerHTML = [...'V8 Motors'].map(ch => `<span class="ch">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('');
-  const pct = $('#ldPct'), bar = $('#ldBar'), prog = {v: 0};
-  const paint = () => { pct.textContent = String(Math.round(prog.v)).padStart(3, '0'); bar.style.transform = `scaleX(${prog.v / 100})`; };
+  const pct = $('#ldPct'), prog = {v: 0};
+  const paintPct = () => pct.textContent = String(Math.round(prog.v)).padStart(3, '0');
+
   let fontsOk = !document.fonts, imgOk = false;
   if(document.fonts) document.fonts.ready.then(() => fontsOk = true);
   const first = $('.view.on img'); if(!first || first.complete) imgOk = true; else { first.addEventListener('load', () => imgOk = true, {once: true}); first.addEventListener('error', () => imgOk = true, {once: true}); }
-  G.timeline()
-    .from('#ldWord .ch', {yPercent: 115, rotate: 4, duration: 1.1, stagger: .045, ease: 'expo.out'})
-    .from('.ld-meta > *, .ld-bar', {opacity: 0, y: 14, duration: .9, stagger: .08, ease: 'expo.out'}, '-=.75');
-  G.to(prog, {v: 86, duration: 1.5, ease: 'power2.out', onUpdate: paint});
+
+  // first visit this session: the full ignition sweep. After that, just a quick start.
+  let quick = false;
+  try { quick = !!sessionStorage.getItem('v8rev'); sessionStorage.setItem('v8rev', '1'); } catch(e){}
+
+  let idle = null, introDone = false;
+  const tl = G.timeline({onComplete: () => {
+    introDone = true;
+    // idling: the needle trembles a little around 900 r/min
+    idle = G.to(rev, {v: 1.05, duration: .11, repeat: -1, yoyo: true, ease: 'sine.inOut', onUpdate: paint});
+  }})
+    .from(gauge, {scale: .85, autoAlpha: 0, duration: .7, ease: 'expo.out'})
+    .from('#ldWord .ch', {yPercent: 115, duration: .9, stagger: .04, ease: 'expo.out'}, .1)
+    .from('.ld-meta', {autoAlpha: 0, y: 10, duration: .6, ease: 'expo.out'}, .3);
+  if(!quick) tl.to(rev, {v: MAXV, duration: .6, ease: 'power2.inOut', onUpdate: paint}, .3)
+               .to(rev, {v: 0, duration: .65, ease: 'power2.inOut', onUpdate: paint});
+  tl.to(rev, {v: .9, duration: .35, ease: 'power2.out', onUpdate: paint});
+  G.to(prog, {v: 86, duration: quick ? .8 : 1.6, ease: 'power2.out', onUpdate: paintPct});
+
   const t0 = performance.now();
   (function wait(){
     const el = performance.now() - t0;
-    if((fontsOk && imgOk && el > 1500) || el > 4500) finish(); else setTimeout(wait, 90);
+    if((fontsOk && imgOk && introDone) || el > 5000) finish(); else setTimeout(wait, 60);
   })();
+
   function finish(){
-    G.timeline({onComplete: done})
-      .to(prog, {v: 100, duration: .45, ease: 'power2.inOut', onUpdate: paint})
-      .to('#ldWord .ch', {yPercent: -115, duration: .55, stagger: .025, ease: 'expo.in'}, '+=.08')
-      .to('.ld-meta, .ld-bar', {opacity: 0, duration: .3}, '<')
-      .to('.ld-cols i', {yPercent: -100, duration: 1.05, stagger: .07, ease: 'expo.inOut'}, '-=.2')
-      .add(intro, '-=.75')
-      .fromTo('#heroSlides', {'--hz': 1.22}, {'--hz': 1, duration: 1.9, ease: 'expo.out'}, '<');
+    if(idle) idle.kill();
+    tl.progress(1);
+    // launch streaks: lines shoot out from the middle of the screen
+    const box = $('#ldStreaks'), far = Math.max(innerWidth, innerHeight) * .9;
+    box.innerHTML = '<i></i>'.repeat(42);
+    const st = $$('i', box).map(el => { const a = Math.random() * Math.PI * 2; return {el, a, d: 60 + Math.random() * 120}; });
+    st.forEach(s => G.set(s.el, {rotation: s.a * 180 / Math.PI, x: Math.cos(s.a) * s.d, y: Math.sin(s.a) * s.d, scaleX: .05, opacity: 0}));
+
+    G.timeline()
+      .to(prog, {v: 100, duration: .3, ease: 'power2.out', onUpdate: paintPct}, 0)
+      // throttle blip, settle, then wind it up to the redline
+      .to(rev, {v: 4.2, duration: .2, ease: 'power2.out', onUpdate: paint}, 0)
+      .to(rev, {v: 2.1, duration: .28, ease: 'power2.in', onUpdate: paint})
+      .to(rev, {v: 7.85, duration: .8, ease: 'power2.in', onUpdate: paint})
+      .to(gauge, {x: 'random(-4,4)', y: 'random(-3,3)', duration: .035, repeat: 9, yoyo: true, repeatRefresh: true, ease: 'none'}, '-=.32')
+      .addLabel('go')
+      // the clutch drops: needle falls back a shift, the gauge rushes at you, streaks fly past
+      .to(rev, {v: 5.4, duration: .16, ease: 'power3.out', onUpdate: paint}, 'go')
+      .set(gauge, {x: 0, y: 0}, 'go')
+      .to('.ld-in', {scale: 3.4, autoAlpha: 0, duration: .65, ease: 'expo.in'}, 'go')
+      .to(st.map(s => s.el), {
+        x: i => Math.cos(st[i].a) * far, y: i => Math.sin(st[i].a) * far,
+        scaleX: 1, opacity: 1, duration: .7, ease: 'power3.in', stagger: {each: .006, from: 'random'}
+      }, 'go+=.05')
+      .to(L, {autoAlpha: 0, duration: .4, ease: 'power2.in'}, 'go+=.5')
+      .add(intro, 'go+=.55')
+      .fromTo('#heroSlides', {'--hz': 1.3, '--hb': 10}, {'--hz': 1, '--hb': 0, duration: 1.6, ease: 'expo.out'}, 'go+=.5')
+      .add(done, 'go+=.92')
+      .add(heroGleam, 'go+=1.05');
   }
 })();}
 

@@ -1,0 +1,107 @@
+// ───────── car-themed set pieces: hero gleam, scroll speedo, pass-by page change ─────────
+
+// hero: a headlight gleam sweeps across the photo (JS adds .go)
+.hero-gleam {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 55%;
+    background: linear-gradient(100deg, transparent 0%, rgba(255,236,196,.0) 25%, rgba(255,236,196,.5) 50%, rgba(255,236,196,0) 75%, transparent 100%);
+    mix-blend-mode: screen;
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  &.go::before { animation: gleam 1.6s $ease-io both; }
+}
+@keyframes gleam { to { transform: translateX(330%) skewX(-12deg); } }
+
+// scroll speedometer (desktop only; JS adds .on once you are past the hero)
+.speedo {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 140;
+  display: none;
+  grid-template-columns: auto auto;
+  align-items: end;
+  gap: 4px 14px;
+  padding: 12px 16px 12px 12px;
+  border-radius: 16px;
+  background: rgba(#{$deep-rgb}, .82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(#{$amber-rgb}, .22);
+  box-shadow: 0 20px 40px -18px rgba(0,0,0,.5);
+  color: $bone;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s, transform .7s $expo;
+  &.on { opacity: 1; transform: none; }
+  svg { grid-row: span 2; width: 96px; height: 56px; overflow: visible; }
+  .sp-track { fill: none; stroke: rgba(255,255,255,.12); stroke-width: 6; stroke-linecap: round; }
+  .sp-fill { fill: none; stroke: $amber; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; }
+  #spNeedle { stroke: $bone; stroke-width: 2.5; stroke-linecap: round; }
+  circle { fill: $amber; }
+  &.hot .sp-fill { stroke: #E5482E; }
+}
+.sp-read, .sp-gear { display: grid; line-height: 1; }
+.sp-read b { font: 900 26px $hd; font-stretch: 120%; font-variant-numeric: tabular-nums; min-width: 2.2ch; }
+.sp-read small, .sp-gear small { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-top: 3px; }
+.sp-gear { grid-column: 2; }
+.sp-gear small { margin: 0 0 3px; order: -1; }
+.sp-gear b { font: 900 20px $hd; color: $amber; }
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) {
+  html.js-motion .speedo { display: grid; }
+}
+
+// page change: layered panels pass the screen right to left, like a car going by
+html.js-motion .wipe {
+  i {
+    top: -10%;
+    bottom: -10%;
+    left: -15%;
+    width: 130%;
+    transform: translateX(160%) skewX(-14deg);
+    box-shadow: none;
+  }
+  .w1 { background: $brass; }
+  .w2 { background: $navy-3; }
+  .w3 { background: $navy; }
+  .w4 { background: $deep; @include grain; }
+  .w-label {
+    z-index: 3;
+    b { color: $bone; overflow: hidden; padding: 0 .1em .08em; font-style: italic; }
+    small { color: $amber; }
+  }
+  .w-bar { background: $brass; }
+}
+.w-streaks {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  span {
+    position: absolute;
+    left: 0;
+    width: 38vw;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, rgba(#{$amber-rgb}, .85), transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speedo { display: none !important; }
+  .hero-gleam { display: none; }
+}
+
+// hero photo comes into focus out of a speed blur on the first load
+#heroSlides { filter: blur(calc(var(--hb, 0) * 1px)); }

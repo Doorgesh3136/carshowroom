@@ -51,23 +51,3 @@ html.js-motion .menu.open nav > a {
 #heroSlides { scale: var(--hz, 1); translate: 0 calc(var(--hy, 0) * 1px); }
 .phead-bg { translate: 0 calc(var(--py, 0) * 1%); }
 .cars-rail { transform-origin: center; }
-
-// page change: four forest columns rise from the bottom
-html.js-motion .wipe {
-  i {
-    top: 0;
-    bottom: 0;
-    width: 25.4%;
-    transform: translateY(100%);
-    box-shadow: inset 0 2px 0 rgba(#{$amber-rgb}, .55);
-  }
-  @for $i from 1 through 4 {
-    i:nth-child(#{$i}) { left: ($i - 1) * 25%; }
-  }
-  .w1 { background: $navy-3; }
-  .w2 { background: $navy-2; }
-  .w3 { background: $navy; }
-  .w4 { background: $deep; }
-  .w-bar { background: $brass; }
-  .w-label b { color: $bone; overflow: hidden; padding-bottom: .08em; }
-}

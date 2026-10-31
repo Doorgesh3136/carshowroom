@@ -163,22 +163,10 @@ function buildScenes(view, R){
       .fromTo('.hero-foot', {y: 0}, {y: -60, ease: 'none'}, 0);
   }
 
-  // section titles float a little slower than the page
-  $$('.sec-head, .phead .wrap > *:not(nav)', view).forEach(el => {
-    G.fromTo(el, {y: 40}, {y: -40, ease: 'none', scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true}});
-  });
-
   // page header photos (sell, about, contact) drift behind the title
   $$('.phead-bg', view).forEach(bg => {
     G.fromTo(bg, {'--py': 0}, {'--py': 18, ease: 'none', scrollTrigger: {trigger: bg.parentElement, start: 'top top', end: 'bottom top', scrub: true}});
   });
-
-  // car rails lean with the speed of your scroll
-  const rails = $$('.cars-rail', view);
-  if(rails.length){
-    const lean = G.quickTo(rails, 'skewY', {duration: .6, ease: 'power3'});
-    ST.create({trigger: view, start: 'top top', end: 'bottom bottom', onUpdate: s => lean(G.utils.clamp(-2.5, 2.5, s.getVelocity() / -400))});
-  }
 
   // car page: the gallery trails the page slightly
   $$('#viewer', view).forEach(v => {
@@ -235,33 +223,40 @@ M.mount = function(view, R){
   requestAnimationFrame(() => ST.refresh());
 };
 
-/* ───────── page change: forest curtain rises, the page name lifts in, the new page settles up ───────── */
+/* ───────── page change: a pass-by. Layered panels rush across right to left with speed streaks,
+   the page name slides in at speed, the new page arrives from the right ───────── */
 M.wipe = async function(R, doMount){
-  const w = $('#wipe'), cols = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
+  const w = $('#wipe'), cols = $$('#wipe > i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
   const txt = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
   name.innerHTML = [...txt].map(ch => `<span class="ch">${ch === ' ' ? ' ' : esc(ch)}</span>`).join('');
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
-  const chs = $$('.ch', name), old = $('.view.on');
+  let sk = $('.w-streaks', w);
+  if(!sk){ sk = document.createElement('div'); sk.className = 'w-streaks'; sk.innerHTML = '<span></span>'.repeat(16); w.appendChild(sk); }
+  const lines = $$('span', sk), chs = $$('.ch', name), old = $('.view.on');
   w.classList.add('on');
-  // y:0 matters: the CSS already parks the columns at translateY(100%), and GSAP would add its own 100% on top
-  G.set(cols, {y: 0, yPercent: 100}); G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
+  G.set(cols, {xPercent: 0, x: '160%', skewX: -14});
+  G.set(lab, {opacity: 0}); G.set(chs, {x: 140, skewX: -20, opacity: 0}); G.set(bar, {scaleX: 0, transformOrigin: 'right center'});
+  G.set(lines, {top: () => (8 + Math.random() * 84) + '%', x: () => innerWidth * (1.1 + Math.random() * .4), opacity: () => .35 + Math.random() * .65, scaleX: () => .5 + Math.random()});
+  G.to(lines, {x: () => -innerWidth * (.5 + Math.random() * .4), duration: () => .5 + Math.random() * .35, ease: 'power2.in', stagger: {each: .02, from: 'random'}});
   await G.timeline()
-    .to(old, {y: -70, opacity: .3, duration: .55, ease: 'expo.in'}, 0)
-    .to(cols, {yPercent: 0, duration: .55, stagger: .045, ease: 'expo.inOut'}, 0)
-    .to(chs, {yPercent: 0, duration: .45, stagger: .014, ease: 'expo.out'}, '-=.25')
-    .to(bar, {scaleX: 1, duration: .4, ease: 'expo.out'}, '<')
+    .to(old, {x: -90, skewX: 3, opacity: .25, duration: .5, ease: 'expo.in'}, 0)
+    .to(cols, {x: '0%', duration: .6, stagger: .06, ease: 'expo.inOut'}, 0)
+    .to(lab, {opacity: 1, duration: .25}, '-=.3')
+    .to(chs, {x: 0, skewX: 0, opacity: 1, duration: .5, stagger: .018, ease: 'expo.out'}, '<')
+    .to(bar, {scaleX: 1, duration: .45, ease: 'expo.out'}, '<')
     .then();
   G.set(old, {clearProps: 'transform,opacity'});
   doMount();
-  // the new page settles up while the columns leave (not awaited, so clicks work straight away)
-  G.fromTo($('.view.on'), {y: 100}, {y: 0, duration: 1, ease: 'expo.out', delay: .2, clearProps: 'transform', onComplete: () => ST.refresh()});
+  // the new page rolls in from the right while the panels carry on off to the left (not awaited, so clicks work at once)
+  G.fromTo($('.view.on'), {x: 120, skewX: -2}, {x: 0, skewX: 0, duration: 1, ease: 'expo.out', delay: .2, clearProps: 'transform', onComplete: () => ST.refresh()});
   await G.timeline()
-    .to(chs, {yPercent: -120, duration: .3, stagger: .01, ease: 'expo.in'})
-    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .28, ease: 'expo.in'}, '<')
-    .to(cols, {yPercent: -100, duration: .65, stagger: .045, ease: 'expo.inOut'}, '-=.08')
+    .to(chs, {x: -120, skewX: 20, opacity: 0, duration: .32, stagger: .012, ease: 'expo.in'})
+    .to(bar, {scaleX: 0, transformOrigin: 'left center', duration: .28, ease: 'expo.in'}, '<')
+    .to(lab, {opacity: 0, duration: .25}, '<')
+    .to([...cols].reverse(), {x: '-160%', duration: .7, stagger: .06, ease: 'expo.inOut'}, '-=.1')
     .then();
   w.classList.remove('on');
-  G.set([...cols, lab, bar], {clearProps: 'all'});
+  G.set([...cols, lab, bar, ...lines], {clearProps: 'all'});
 };
 
 /* ───────── car tabs: what each tab does as it opens ───────── */
@@ -377,4 +372,31 @@ if(MOTION && fine){
     G.to(b, {'--mx': (e.clientX - r.left - r.width / 2) * .3, '--my': (e.clientY - r.top - r.height / 2) * .4, duration: .5, ease: 'power3.out', overwrite: true});
   }, {passive: true});
 
+}
+
+/* ───────── scroll speedometer: km/h from how fast you scroll, gear from how far down you are ───────── */
+if(MOTION && fine){
+  const sp = $('#speedo'), needle = $('#spNeedle'), fill = $('#spFill'), kmhEl = $('#spKmh'), gearEl = $('#spGear');
+  const MAX = 240;
+  let lastY = scrollY, lastT = performance.now(), vel = 0, shown = 0, raf = 0, lastGear = '';
+  const paint = () => {
+    const now = performance.now(), dt = Math.max(16, now - lastT), y = scrollY;
+    const inst = Math.abs(y - lastY) / dt * 1000;          // px per second
+    lastY = y; lastT = now;
+    vel += (inst - vel) * .18;                              // smooth it
+    const target = Math.min(MAX, vel * .07);                // 1000 px/s reads 70 km/h
+    shown += (target - shown) * .2;
+    if(shown < .4) shown = 0;
+    needle.setAttribute('transform', `rotate(${(-90 + shown / MAX * 180).toFixed(1)} 60 64)`);
+    fill.style.strokeDashoffset = (100 - shown / MAX * 100).toFixed(1);
+    kmhEl.textContent = Math.round(shown);
+    sp.classList.toggle('hot', shown > MAX * .75);
+    const H = document.documentElement.scrollHeight - innerHeight;
+    const g = y < 40 ? 'N' : String(Math.min(6, 1 + Math.floor((H > 0 ? y / H : 0) * 6)));
+    if(g !== lastGear){ gearEl.textContent = g; if(lastGear) G.fromTo(gearEl, {yPercent: g > lastGear ? 60 : -60, opacity: 0}, {yPercent: 0, opacity: 1, duration: .35, ease: 'back.out(2)'}); lastGear = g; }
+    sp.classList.toggle('on', y > innerHeight * .6 && !document.body.classList.contains('is-loading'));
+    raf = (shown > 0 || vel > 1) ? requestAnimationFrame(paint) : 0;
+  };
+  addEventListener('scroll', () => { if(!raf){ lastT = performance.now() - 16; raf = requestAnimationFrame(paint); } }, {passive: true});
+  paint();
 }
