@@ -518,9 +518,17 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
 /* tabs with sliding underline */
 function tabInd(){ const t = $('#carTabs button[aria-selected=true]'), ind = $('#carTabs .tab-ind'); if(!t || !t.offsetWidth) return; ind.style.width = t.offsetWidth + 'px'; ind.style.transform = `translateX(${t.offsetLeft}px)`; }
 function tab(name){
+  const prev = $('.tab-pane.on'), next = $(`.tab-pane[data-pane="${name}"]`);
   $$('#carTabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
-  $$('.tab-pane').forEach(p => p.classList.toggle('on', p.dataset.pane === name));
   tabInd();
+  if(prev !== next){
+    if(MOTION && prev){
+      G.killTweensOf([...prev.children, ...next.children]);
+      G.set(prev.children, {clearProps: 'opacity,transform'});
+      prev.classList.remove('on'); next.classList.add('on');
+      G.fromTo(next.children, {opacity: 0, y: 22}, {opacity: 1, y: 0, duration: .65, stagger: .06, ease: 'expo.out', clearProps: 'opacity,transform'});
+    } else $$('.tab-pane').forEach(p => p.classList.toggle('on', p === next));
+  }
   if(name === 'ov') runGauges();
 }
 $('#carTabs').addEventListener('click', e => { const b = e.target.closest('button'); if(b) tab(b.dataset.tab); });
@@ -903,7 +911,7 @@ addEventListener('keydown', e => { if(e.key === 'Escape'){ menu(false); sheet(fa
 /* ───────── scroll: progress bar, header shadow, back to top ───────── */
 function onScroll(){
   const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
-  if(cur.view === 'home' && !reduced && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
+  if(!MOTION && cur.view === 'home' && !reduced && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
   $('#sprog').style.setProperty('--p', H > 0 ? (y / H).toFixed(4) : 0);
   $('#hdr').classList.toggle('up', y > 10);
   $('#toTop').classList.toggle('on', y > innerHeight * 1.2);
@@ -928,61 +936,35 @@ document.getElementById('yr').textContent = muNow().getFullYear();
 syncFavs();
 route(true);
 (function loader(){
-  const L = $('#loader'), ring = $('#ldRing');
-  const done = () => { document.body.classList.remove('is-loading'); if(!consent) setTimeout(showCookie, 1600); };
-  if(reduced){ done(); return; }
-  $('#ldWord').innerHTML = [...'V8 Motors'].map((ch, i) => `<span style="animation-delay:${.25 + i * .03}s">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('');
-  const hv = $('.view[data-view="home"]'); if(cur.view === 'home') hv.classList.remove('intro');
-  // a little parallax: the car leans toward the pointer
-  const scene = $('#ldScene');
-  const par = e => { scene.style.setProperty('--mx', ((e.clientX / innerWidth - .5) * 18) + 'px'); scene.style.setProperty('--my', ((e.clientY / innerHeight - .5) * 10) + 'px'); };
-  addEventListener('pointermove', par);
-  // progress: fonts, the first photo, and a minimum time so the drawing can finish
-  let shown = 0, fontsOk = !document.fonts, imgOk = false;
+  const L = $('#loader'), hv = $('.view[data-view="home"]');
+  const intro = () => { if(cur.view === 'home'){ hv.classList.remove('intro'); void hv.offsetWidth; hv.classList.add('intro'); } };
+  const done = () => { document.body.classList.remove('is-loading'); L.remove(); if(!consent) setTimeout(showCookie, 1600); if(MOTION) ST.refresh(); };
+  if(cur.view === 'home') hv.classList.remove('intro');
+  if(!MOTION){ intro(); done(); return; }
+  // letters of the name rise in, the brass line fills as fonts and the first photo arrive
+  $('#ldWord').innerHTML = [...'V8 Motors'].map(ch => `<span class="ch">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('');
+  const pct = $('#ldPct'), bar = $('#ldBar'), prog = {v: 0};
+  const paint = () => { pct.textContent = String(Math.round(prog.v)).padStart(3, '0'); bar.style.transform = `scaleX(${prog.v / 100})`; };
+  let fontsOk = !document.fonts, imgOk = false;
   if(document.fonts) document.fonts.ready.then(() => fontsOk = true);
   const first = $('.view.on img'); if(!first || first.complete) imgOk = true; else { first.addEventListener('load', () => imgOk = true, {once: true}); first.addEventListener('error', () => imgOk = true, {once: true}); }
-  const t0 = performance.now(), trail = $('#ldTrail'), pct = $('#ldPct');
-  const words = [[0, 'Starting the engine'], [.35, 'Warming up the showroom'], [.7, 'Polishing ' + CARS.length + ' cars'], [.97, 'Ready']];
-  (function tick(t){
-    const el = t - t0;
-    let target = Math.min(1, el / 2400);
-    if(!(fontsOk && imgOk) && el < 5000) target = Math.min(target, .9);
-    shown += (target - shown) * .07;
-    if(target >= 1 && shown > .992) shown = 1;
-    trail.style.setProperty('--p', shown.toFixed(4));
-    let w = words[0][1]; for(const [k, s] of words) if(shown >= k) w = s;
-    pct.textContent = `${w}  ${Math.round(shown * 100)}%`;
-    if(shown < 1){ requestAnimationFrame(tick); return; }
-    exit();
-  })(t0);
-  function exit(){
-    removeEventListener('pointermove', par);
-    const car = $('.ld-car'), r = car.getBoundingClientRect();
-    // the car pulls away, the trail stretches behind it
-    car.animate([{transform: 'none'}, {transform: 'translateX(-14px)', offset: .22}, {transform: `translateX(${innerWidth}px) skewX(-12deg)`}], {duration: 900, easing: 'cubic-bezier(.55,0,.8,.3)', fill: 'forwards'});
-    trail.animate([{transform: 'scaleX(1)', opacity: 1}, {transform: 'scaleX(1.25) translateX(' + innerWidth * .9 + 'px)', opacity: .9}], {duration: 900, easing: 'cubic-bezier(.55,0,.8,.3)', fill: 'forwards'});
-    $('.ld-brand').animate([{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateY(16px)'}], {duration: 450, delay: 150, easing: 'ease-in', fill: 'forwards'});
-    $('.ld-road').animate([{opacity: 1}, {opacity: 0}], {duration: 500, delay: 300, fill: 'forwards'});
-    // then the site opens through a circle of headlight, from where the car left
-    const cx = Math.min(innerWidth - 40, r.right + 30), cy = r.top + r.height * .58;
-    const R = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 40;
-    setTimeout(() => {
-      if(cur.view === 'home'){ void hv.offsetWidth; hv.classList.add('intro'); }
-      $$('.slide.on img').forEach(i => i.animate([{transform: 'scale(1.35)', filter: 'brightness(1.6)'}, {transform: 'scale(1.16) translateX(2%)', filter: 'brightness(1)'}], {duration: 1600, easing: 'cubic-bezier(.22,1,.36,1)'}));
-      L.style.setProperty('--cx', cx + 'px'); L.style.setProperty('--cy', cy + 'px');
-      L.style.setProperty('--r', '0px'); L.classList.add('opening');
-      ring.style.display = 'block';
-      const T = 1150, s0 = performance.now();
-      const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-      (function open(t){
-        const p = Math.min(1, (t - s0) / T), rad = ease(p) * R;
-        L.style.setProperty('--r', rad + 'px');
-        ring.style.transform = `translate(${cx - 1}px,${cy - 1}px) scale(${rad})`;
-        ring.style.boxShadow = `0 0 0 ${3 / Math.max(rad, 1)}px #D3202F, 0 0 ${40 / Math.max(rad, 1)}px ${6 / Math.max(rad, 1)}px rgba(255,59,85,.5)`;
-        ring.style.opacity = p < .1 ? p * 10 : 1 - Math.max(0, p - .7) / .3;
-        if(p < 1) requestAnimationFrame(open); else { ring.remove(); done(); L.remove(); }
-      })(s0);
-    }, 620);
+  G.timeline()
+    .from('#ldWord .ch', {yPercent: 115, rotate: 4, duration: 1.1, stagger: .045, ease: 'expo.out'})
+    .from('.ld-meta > *, .ld-bar', {opacity: 0, y: 14, duration: .9, stagger: .08, ease: 'expo.out'}, '-=.75');
+  G.to(prog, {v: 86, duration: 1.5, ease: 'power2.out', onUpdate: paint});
+  const t0 = performance.now();
+  (function wait(){
+    const el = performance.now() - t0;
+    if((fontsOk && imgOk && el > 1500) || el > 4500) finish(); else setTimeout(wait, 90);
+  })();
+  function finish(){
+    G.timeline({onComplete: done})
+      .to(prog, {v: 100, duration: .45, ease: 'power2.inOut', onUpdate: paint})
+      .to('#ldWord .ch', {yPercent: -115, duration: .55, stagger: .025, ease: 'expo.in'}, '+=.08')
+      .to('.ld-meta, .ld-bar', {opacity: 0, duration: .3}, '<')
+      .to('.ld-cols i', {yPercent: -100, duration: 1.05, stagger: .07, ease: 'expo.inOut'}, '-=.2')
+      .add(intro, '-=.75')
+      .fromTo('#heroSlides', {'--hz': 1.22}, {'--hz': 1, duration: 1.9, ease: 'expo.out'}, '<');
   }
 })();}
 

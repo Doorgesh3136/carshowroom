@@ -28,44 +28,11 @@ html.has-smooth { scroll-behavior: auto !important; }
 // magnetic buttons: pulled toward the pointer with individual translate
 .mag { translate: calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px); }
 
-// a disc that follows the pointer over cars ("View") and rails ("Drag").
-// GSAP moves the outer box; the disc inside does the scaling (GSAP would swallow a CSS scale on the box it moves).
-.cur {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 4000;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  b {
-    position: absolute;
-    left: -48px;
-    top: -48px;
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    background: $red;
-    color: #fff;
-    display: grid;
-    place-items: center;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: .01em;
-    opacity: 0;
-    scale: .2;
-    transition: scale .55s $expo, opacity .3s, background .3s, color .3s;
-  }
-  &.on b { opacity: 1; scale: 1; }
-  &.drag b { background: $amber; color: $ink; }
-}
-body.cur-on, body.cur-on a, body.cur-on .card, body.cur-on .rail { cursor: none; }
-
 // page transition label, split into letters
 .w-label .ch { display: inline-block; white-space: pre; }
 
-// tab panes: children step in when a tab opens
-html.js-motion .tab-pane.on > * { @include riser; }
+// tab panes: GSAP staggers the new tab in, so the old CSS fade is switched off
+html.js-motion .tab-pane.on { animation: none; }
 
 // mobile menu links cascade in
 html.js-motion .menu.open nav > a {
@@ -77,6 +44,30 @@ html.js-motion .menu.open nav > a {
 @keyframes menuIn { from { opacity: 0; transform: translateY(26px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .cur { display: none; }
   .hdr.hide { transform: none; }
+}
+
+// scroll-driven layers set through custom properties (so CSS animations on the same element keep working)
+#heroSlides { scale: var(--hz, 1); translate: 0 calc(var(--hy, 0) * 1px); }
+.phead-bg { translate: 0 calc(var(--py, 0) * 1%); }
+.cars-rail { transform-origin: center; }
+
+// page change: four forest columns rise from the bottom
+html.js-motion .wipe {
+  i {
+    top: 0;
+    bottom: 0;
+    width: 25.4%;
+    transform: translateY(100%);
+    box-shadow: inset 0 2px 0 rgba(#{$amber-rgb}, .55);
+  }
+  @for $i from 1 through 4 {
+    i:nth-child(#{$i}) { left: ($i - 1) * 25%; }
+  }
+  .w1 { background: $navy-3; }
+  .w2 { background: $navy-2; }
+  .w3 { background: $navy; }
+  .w4 { background: $deep; }
+  .w-bar { background: $brass; }
+  .w-label b { color: $bone; overflow: hidden; padding-bottom: .08em; }
 }

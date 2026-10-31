@@ -12,8 +12,8 @@
   - `main.scss` imports everything in order
   - `_tokens.scss` colours, easings, `:root` variables and mixins (`bp`, `above`, `fine`, `slant`, `riser`, `diamond`, `outline-text`)
   - `_legacy.scss` the original plain CSS (copied through as-is)
-  - `_palette.scss`, `_sections.scss`, `_motion.scss`, `_responsive.scss`
-- `app.js`: all site code. `motion.js` (smooth scroll, ScrollTrigger scenes, page transition, cursor, magnetic buttons) is inserted into it at `/*@@MOTION@@*/`.
+  - `_palette.scss`, `_sections.scss`, `_motion.scss`, `_loader.scss`, `_responsive.scss`
+- `app.js`: all site code. `motion.js` (smooth scroll, ScrollTrigger scenes, page transition, parallax, magnetic buttons) is inserted into it at `/*@@MOTION@@*/`.
 - `admin.tpl.html`: the admin panel
 - `build.py`: builds `../index.html`, `../catalogue.html` and `../admin.html`, embedding `../data/cars.json` as the fallback copy.
 - `scss_build.py`: a small SCSS compiler used when no `sass` or `sassc` is installed. If either is on your PATH, build.py uses it instead.

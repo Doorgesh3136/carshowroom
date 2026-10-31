@@ -7,7 +7,7 @@
 
 // Saturday deals: dark band so the week's offers stand apart
 .deals-sec {
-  background: linear-gradient(180deg, #0B2227, $navy);
+  background: linear-gradient(180deg, #0E1D15, $navy);
   color: #fff;
   position: relative;
   &::before {
@@ -38,5 +38,18 @@
   .g-fg { stroke: $amber; }
 }
 .hero-bars i::after { background: $amber; }
-.sec-navy { background: radial-gradient(ellipse 80% 80% at 0% 100%, #1A4A55, $navy 60%); }
+.sec-navy { background: radial-gradient(ellipse 80% 80% at 0% 100%, #21402F, $navy 60%); }
 ::selection { background: $amber; color: $ink; }
+
+// brass buttons with forest text
+.btn-red {
+  background: $brass;
+  color: $ink;
+  &:hover { background: $brass-2; }
+}
+.hero, .deals-sec, .sec-navy, .visit, .ftr { position: relative; @include grain; }
+.ftr { overflow: hidden; }
+.hero-h, .visit h2, .sec-navy h2 { color: $bone; }
+.wipe .w1 { background: $navy-3; }
+.logo-mark.v8 { color: $amber; }
+.mani-k { position: sticky; top: 110px; }

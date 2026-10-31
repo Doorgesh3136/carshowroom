@@ -91,6 +91,7 @@ function buildScenes(view, R){
       const tl = G.timeline({scrollTrigger: {trigger: sec, start: 'top top', end: () => '+=' + Math.round(dist() * 1.15), pin: true, scrub: .9, invalidateOnRefresh: true, anticipatePin: 1}});
       tl.to(rail, {x: () => -dist(), ease: 'none'}, 0).fromTo('#typesBar', {scaleX: 0}, {scaleX: 1, ease: 'none'}, 0);
       $$('.type-in > div', rail).forEach((t, i) => tl.fromTo(t, {x: 50 + i * 12}, {x: 0, ease: 'none'}, 0));
+      $$('.type img', rail).forEach(im => tl.fromTo(im, {objectPosition: '20% 50%'}, {objectPosition: '80% 50%', ease: 'none'}, 0));
       return () => document.documentElement.classList.remove('js-pin');
     });
   }
@@ -153,6 +154,40 @@ function buildScenes(view, R){
       }});
   });
 
+  // hero: the photo sinks and the frame tucks into a rounded card as you scroll away
+  if(home){
+    G.timeline({scrollTrigger: {trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true}})
+      .fromTo('#hero', {clipPath: 'inset(0% 0% 0% 0% round 0px)'}, {clipPath: 'inset(0% 2.5% 6% 2.5% round 28px)', ease: 'none'}, 0)
+      .fromTo('#heroSlides', {'--hy': 0}, {'--hy': 220, ease: 'none'}, 0)
+      .fromTo('.hero-in', {y: 0, opacity: 1}, {y: -140, opacity: 0, ease: 'none'}, 0)
+      .fromTo('.hero-foot', {y: 0}, {y: -60, ease: 'none'}, 0);
+  }
+
+  // section titles float a little slower than the page
+  $$('.sec-head, .phead .wrap > *:not(nav)', view).forEach(el => {
+    G.fromTo(el, {y: 40}, {y: -40, ease: 'none', scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true}});
+  });
+
+  // page header photos (sell, about, contact) drift behind the title
+  $$('.phead-bg', view).forEach(bg => {
+    G.fromTo(bg, {'--py': 0}, {'--py': 18, ease: 'none', scrollTrigger: {trigger: bg.parentElement, start: 'top top', end: 'bottom top', scrub: true}});
+  });
+
+  // car rails lean with the speed of your scroll
+  const rails = $$('.cars-rail', view);
+  if(rails.length){
+    const lean = G.quickTo(rails, 'skewY', {duration: .6, ease: 'power3'});
+    ST.create({trigger: view, start: 'top top', end: 'bottom bottom', onUpdate: s => lean(G.utils.clamp(-4, 4, s.getVelocity() / -320))});
+  }
+
+  // car page: the gallery trails the page slightly
+  $$('#viewer', view).forEach(v => {
+    G.fromTo(v, {y: 0}, {y: 60, ease: 'none', scrollTrigger: {trigger: v, start: 'top 20%', end: 'bottom top', scrub: true}});
+  });
+
+  // statement band: big words drift apart as it passes
+  $$('.mani-t', view).forEach(t => G.fromTo(t, {y: 60}, {y: -60, ease: 'none', scrollTrigger: {trigger: t, start: 'top bottom', end: 'bottom top', scrub: true}}));
+
   // the car page: buy box steps in
   if(R.r.v === 'car'){
     const k = $$('.car-r > *', view);
@@ -172,29 +207,33 @@ M.mount = function(view, R){
   requestAnimationFrame(() => ST.refresh());
 };
 
-/* ───────── page change: skewed bars sweep across, the page name rises letter by letter ───────── */
+/* ───────── page change: forest curtain rises, the page name lifts in, the new page settles up ───────── */
 M.wipe = async function(R, doMount){
-  const w = $('#wipe'), bars = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
+  const w = $('#wipe'), cols = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
   const txt = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
   name.innerHTML = [...txt].map(ch => `<span class="ch">${ch === ' ' ? ' ' : esc(ch)}</span>`).join('');
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
-  const chs = $$('.ch', name);
+  const chs = $$('.ch', name), old = $('.view.on');
   w.classList.add('on');
-  G.set(bars, {x: 0, xPercent: 160, skewX: -14});
-  G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120, opacity: 0}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
+  G.set(cols, {yPercent: 100}); G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
   await G.timeline()
-    .to(bars, {xPercent: 0, duration: .55, stagger: .045, ease: 'expo.inOut'})
-    .to(chs, {yPercent: 0, opacity: 1, duration: .5, stagger: .016, ease: 'expo.out'}, '-=.3')
-    .to(bar, {scaleX: 1, duration: .45, ease: 'expo.out'}, '<')
+    .to(old, {y: -90, opacity: .25, duration: .7, ease: 'expo.in'}, 0)
+    .to(cols, {yPercent: 0, duration: .7, stagger: .06, ease: 'expo.inOut'}, 0)
+    .to(chs, {yPercent: 0, duration: .6, stagger: .018, ease: 'expo.out'}, '-=.3')
+    .to(bar, {scaleX: 1, duration: .5, ease: 'expo.out'}, '<')
     .then();
+  G.set(old, {clearProps: 'transform,opacity'});
   doMount();
+  const view = $('.view.on');
   await G.timeline()
-    .to(chs, {yPercent: -120, opacity: 0, duration: .35, stagger: .01, ease: 'expo.in'})
-    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .3, ease: 'expo.in'}, '<')
-    .to(bars.slice().reverse(), {xPercent: -160, duration: .6, stagger: .045, ease: 'expo.inOut'}, '-=.12')
+    .to(chs, {yPercent: -120, duration: .4, stagger: .012, ease: 'expo.in'})
+    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .35, ease: 'expo.in'}, '<')
+    .to(cols, {yPercent: -100, duration: .85, stagger: .06, ease: 'expo.inOut'}, '-=.1')
+    .fromTo(view, {y: 120}, {y: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform'}, '-=.75')
     .then();
   w.classList.remove('on');
-  G.set([...bars, lab, bar], {clearProps: 'all'});
+  G.set([...cols, lab, bar], {clearProps: 'all'});
+  ST.refresh();
 };
 
 /* ───────── always-on pieces (not tied to one page) ───────── */
@@ -209,12 +248,6 @@ if(MOTION){
 
   // footer wordmark rises as you reach the end
   G.fromTo('.ftr-mark span', {yPercent: 75}, {yPercent: 0, ease: 'none', scrollTrigger: {trigger: '.ftr', start: 'top bottom', end: 'bottom bottom', scrub: true}});
-
-  // car tabs: the content of the new tab steps in
-  $('#carTabs').addEventListener('click', e => {
-    if(!e.target.closest('button')) return;
-    G.fromTo($$('.tab-pane.on > *'), {'--rise': 26, opacity: 0}, {'--rise': 0, opacity: 1, duration: .8, stagger: .06, ease: 'expo.out', overwrite: true});
-  });
 
   // page height changes (show more, filters, images): keep every scene lined up
   let rt = 0;
@@ -236,21 +269,4 @@ if(MOTION && fine){
     G.to(b, {'--mx': (e.clientX - r.left - r.width / 2) * .3, '--my': (e.clientY - r.top - r.height / 2) * .4, duration: .5, ease: 'power3.out', overwrite: true});
   }, {passive: true});
 
-  // a disc follows the pointer over cars ("View"), body types ("Open") and rails or the gallery ("Drag")
-  const disc = $('#cur'), label = $('#curT');
-  const mx = G.quickTo(disc, 'x', {duration: .5, ease: 'power3'}), my = G.quickTo(disc, 'y', {duration: .5, ease: 'power3'});
-  let mode = '';
-  const setMode = m => {
-    if(m === mode) return; mode = m;
-    disc.classList.toggle('on', !!m); disc.classList.toggle('drag', m === 'Drag');
-    document.body.classList.toggle('cur-on', !!m);
-    if(m) label.textContent = m;
-  };
-  document.addEventListener('pointermove', e => {
-    mx(e.clientX); my(e.clientY);
-    const t = e.target;
-    if(!t.closest || t.closest('.fav, button, input, select, .cmp-tray, dialog, .hdr, .rail.drag')) return setMode(t.closest && t.closest('.rail.drag') ? 'Drag' : '');
-    setMode(t.closest('.card') ? 'View' : t.closest('.types .type') ? 'Open' : t.closest('.cars-rail, #viewer') ? 'Drag' : '');
-  }, {passive: true});
-  document.documentElement.addEventListener('pointerleave', () => setMode(''));
 }

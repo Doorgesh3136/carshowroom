@@ -1,26 +1,33 @@
 // ───────── design tokens ─────────
-// Petrol, signal red, indicator amber, sea mist. Change a colour here and rebuild.
-$navy: #0F2C33;
-$navy-2: #16404A;
-$navy-3: #1F5866;
-$ink: #0B1B1F;
-$deep: #081A1E;
-$red: #D3202F;
-$red-2: #AD1723;
-$amber: #F2A516;
-$amber-2: #C98400;
-$paper: #E6EFED;
-$line: #CEDDD9;
-$line-2: #DCE8E5;
-$muted: #4A5C60;
-$muted-2: #5A6B6F;
+// Forest greens with a brass accent on a pale stone. Change a colour here and rebuild.
+// Note: the legacy CSS calls the accent var(--red); it is dark brass now (text-safe on white).
+$navy: #12241B;
+$navy-2: #183224;
+$navy-3: #24493A;
+$ink: #0C1712;
+$deep: #08110C;
+$red: #8C6A2C;
+$red-2: #6F5322;
+$amber: #D4B46A;
+$amber-2: #A8873F;
+$paper: #E8ECE7;
+$line: #D3DBD4;
+$line-2: #DFE5DF;
+$muted: #4E5B53;
+$muted-2: #5E6A62;
 $wa: #167C45;
+$brass: #C9A55C;     // button fills
+$brass-2: #B38D45;   // button hover
+$bone: #F3F1EA;      // light text on forest
+
+// film grain for the dark forest surfaces
+$grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
 // rgb triples for rgba(#{$x-rgb}, .5)
-$navy-rgb: 15,44,51;
-$deep-rgb: 8,26,30;
-$amber-rgb: 242,165,22;
-$red-rgb: 211,32,47;
+$navy-rgb: 18,36,27;
+$deep-rgb: 8,17,12;
+$amber-rgb: 212,180,106;
+$red-rgb: 140,106,44;
 
 // motion
 $ease: cubic-bezier(.22,1,.36,1);
@@ -37,7 +44,7 @@ $bd: "Hanken Grotesk", system-ui, sans-serif;
   --amber: #{$amber}; --amber-2: #{$amber-2}; --mist: #{$paper};
   --paper: #{$paper}; --white: #fff; --line: #{$line}; --line-2: #{$line-2};
   --text: #{$ink}; --muted: #{$muted}; --muted-2: #{$muted-2};
-  --wa: #{$wa};
+  --wa: #{$wa}; --brass: #{$brass}; --bone: #{$bone};
   --r: 12px; --r-lg: 18px;
   --ease: #{$ease}; --ease-io: #{$ease-io}; --expo: #{$expo}; --back: #{$back};
   --wrap: min(1280px, calc(100% - 48px));
@@ -79,4 +86,17 @@ $bd: "Hanken Grotesk", system-ui, sans-serif;
 @mixin riser {
   translate: 0 calc(var(--rise, 0) * 1px);
   scale: var(--rs, 1);
+}
+
+// forest grain on dark surfaces (host must be positioned)
+@mixin grain($o: .07) {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $grain;
+    opacity: $o;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
 }

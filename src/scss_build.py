@@ -8,7 +8,7 @@ is a lock-in.
 Supported (everything the partials in src/scss use):
   // and /* */ comments, $variables, #{interpolation}, nested rules with &,
   nested @media / @supports (bubbled up), @mixin / @include with default args and @content,
-  @each $x in a, b, c   @for $i from 1 through N,   number maths with * and + (outside calc()).
+  @each $x in a, b, c   @for $i from 1 through N,   number maths with * + - and (brackets) (outside calc()).
 A file whose first line is `/* @raw */` is copied untouched (used for the legacy plain-CSS partial).
 """
 import os, re
@@ -102,7 +102,8 @@ def _fmt(x):
     return '0' if s in ('-0', '') else s
 
 _NUM = r'(-?\d*\.?\d+)([a-z%]*)'
-_MATH = re.compile(r'(?<![\w.#$-])' + _NUM + r'\s+([*+])\s+' + _NUM + r'(?![\w.])')
+_MATH = re.compile(r'(?<![\w.#$-])' + _NUM + r'\s+([*+-])\s+' + _NUM + r'(?![\w.])')
+_PAREN = re.compile(r'(?<![\w-])\(\s*(-?\d*\.?\d+[a-z%]*)\s*\)')
 
 def _maths(s):
     keep = []
@@ -119,8 +120,9 @@ def _maths(s):
                 if ua and ub: return m.group(0)
                 return _fmt(a * b) + (ua or ub)
             if ua != ub and ua and ub: return m.group(0)
-            return _fmt(a + b) + (ua or ub)
+            return _fmt(a + b if op == '+' else a - b) + (ua or ub)
         s = _MATH.sub(rep, s)
+        s = _PAREN.sub(lambda m: m.group(1), s)
     return re.sub(r'\x00(\d+)\x00', lambda m: keep[int(m.group(1))], s)
 
 class Ctx:
