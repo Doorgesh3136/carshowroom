@@ -29,7 +29,8 @@
   z-index: 2;
   display: grid;
   gap: 22px;
-  width: min(760px, 86vw);
+  width: max-content;
+  max-width: 92vw;
 }
 .ld-word {
   display: flex;
@@ -38,7 +39,8 @@
   font-family: $hd;
   font-stretch: 125%;
   font-weight: 900;
-  font-size: clamp(56px, 11vw, 168px);
+  white-space: nowrap;
+  font-size: clamp(44px, 9vw, 150px);
   line-height: .9;
   letter-spacing: -.045em;
   color: $bone;

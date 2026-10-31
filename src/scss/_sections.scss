@@ -6,7 +6,7 @@
 
 // manifesto: big statement that lights up word by word as you scroll
 .mani {
-  background: #fff;
+  background: transparent;
   padding-block: clamp(96px, 12vw, 180px);
   &-in {
     display: grid;
@@ -30,7 +30,7 @@
     font-size: clamp(28px, 3.7vw, 56px);
     line-height: 1.1;
     letter-spacing: -.025em;
-    color: $navy;
+    color: $bone;
   }
   &-facts {
     grid-column: 2;
@@ -38,7 +38,7 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 28px;
     margin-top: clamp(36px, 5vw, 64px);
-    border-top: 1px solid $line;
+    border-top: 1px solid var(--line);
     padding-top: 28px;
     b {
       display: block;
@@ -47,10 +47,10 @@
       font-weight: 900;
       font-size: clamp(34px, 4vw, 58px);
       line-height: 1;
-      color: $navy;
+      color: $bone;
       font-variant-numeric: tabular-nums;
     }
-    span { display: block; margin-top: 8px; color: $muted; font-weight: 600; }
+    span { display: block; margin-top: 8px; color: var(--muted); font-weight: 600; }
     div { position: relative; padding-top: 18px; }
     div::before { content: ""; position: absolute; left: 0; top: 0; width: 28px; height: 4px; background: $amber; }
   }
@@ -92,7 +92,7 @@
   margin: 4px auto 0;
   height: 3px;
   border-radius: 3px;
-  background: $line-2;
+  background: var(--line);
   overflow: hidden;
   display: none;
   i { display: block; height: 100%; background: $red; transform-origin: left; transform: scaleX(0); }

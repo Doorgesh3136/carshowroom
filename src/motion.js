@@ -177,7 +177,7 @@ function buildScenes(view, R){
   const rails = $$('.cars-rail', view);
   if(rails.length){
     const lean = G.quickTo(rails, 'skewY', {duration: .6, ease: 'power3'});
-    ST.create({trigger: view, start: 'top top', end: 'bottom bottom', onUpdate: s => lean(G.utils.clamp(-4, 4, s.getVelocity() / -320))});
+    ST.create({trigger: view, start: 'top top', end: 'bottom bottom', onUpdate: s => lean(G.utils.clamp(-2.5, 2.5, s.getVelocity() / -400))});
   }
 
   // car page: the gallery trails the page slightly
