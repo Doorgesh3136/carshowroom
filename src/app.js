@@ -9,6 +9,9 @@ const CFG = {
   pageSize: 12
 };
 
+/* ───────── always HTTPS on the live site ───────── */
+if(location.protocol === 'http:' && !/^(localhost|127\.|192\.168\.)/.test(location.hostname)) location.replace('https://' + location.host + location.pathname + location.search + location.hash);
+
 /* ───────── helpers ───────── */
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
@@ -124,8 +127,6 @@ function applyTilt(){
   el.style.setProperty('--rx', ((.5 - y) * 11).toFixed(2) + 'deg');
   el.style.setProperty('--px', ((.5 - x) * 18).toFixed(1) + 'px');
   el.style.setProperty('--py', ((.5 - y) * 14).toFixed(1) + 'px');
-  el.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
-  el.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
 }
 if(fine && !reduced){
   document.addEventListener('pointermove', e => {
@@ -141,7 +142,7 @@ function railify(rail){
   let down = false, sx = 0, sl = 0, moved = false;
   rail.addEventListener('dragstart', e => e.preventDefault());
   rail.addEventListener('pointerdown', e => { if(e.pointerType !== 'mouse' || e.target.closest('.fav')) return; down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; });
-  addEventListener('pointermove', e => { if(!down) return; const dx = e.clientX - sx; if(Math.abs(dx) > 6){ moved = true; rail.classList.add('drag'); } if(moved) rail.scrollLeft = sl - dx; });
+  addEventListener('pointermove', e => { if(!down) return; const dx = e.clientX - sx; if(Math.abs(dx) > 10){ moved = true; rail.classList.add('drag'); } if(moved) rail.scrollLeft = sl - dx; });
   addEventListener('pointerup', () => { if(!down) return; down = false; setTimeout(() => rail.classList.remove('drag'), 0); });
 }
 $$('.rail').forEach(railify);
@@ -256,13 +257,10 @@ const TEAM = [
 ];
 
 /* reviews */
-const REVIEWS = [
-  ['Rakesh D.','Quatre Bornes','Bought a BMW X1. They handled the registration and delivered it to my home in Quatre Bornes. Four days from first call to keys.'],
-  ['Priya S.','Moka','Fair trade-in price for my old Swift and nobody pushed me toward something I didn\'t want. Refreshing.'],
-  ['Jean-Marc L.','Curepipe','Any question after the sale, they answer the same day. I feel looked after, not like another number.'],
-  ['Anisha R.','Flic en Flac','The car was exactly as described, down to the small scratch they had pointed out in the photos. Honest people.'],
-  ['Kevin T.','Port Louis','Sorted the bank loan paperwork for me in two days. I only went to the showroom twice.'],
-  ['Sophie M.','Grand Baie','Test drove three SUVs in one Saturday morning. No pressure at all. Bought the Tucson the week after.']
+const REVIEWS = [   // from your original template; swap in real Google or Facebook reviews before launch
+  ['Rakesh D.','Quatre Bornes','Bought a BMW X1 from them. They handled the registration and delivered to my home in Quatre Bornes. The whole thing took four days, couldn\'t be easier.'],
+  ['Priya S.','Moka','Honest team. They gave me a fair trade-in value for my old car and never once pushed me toward something I didn\'t want. Genuinely refreshing.'],
+  ['Jean-Marc L.','Curepipe','The after-sales is what sets them apart. Any question I have, they answer the same day. I feel looked after, not just another sale.']
 ];
 (function quotes(){
   const st = $('#quoteStage');
@@ -439,7 +437,9 @@ function renderInv(append){
     const from = (page - 1) * CFG.pageSize;
     g.insertAdjacentHTML('beforeend', list.slice(from, shown).map((c, i) => cardHTML(c, i)).join(''));
   } else {
-    g.innerHTML = list.slice(0, shown).map((c, i) => cardHTML(c, i, i < 3 ? false : undefined)).join('');
+    const had = new Set($$('.card', g).map(el => +el.dataset.id));
+    let k = 0;
+    g.innerHTML = list.slice(0, shown).map((c, i) => had.size && had.has(c.id) ? cardHTML(c, null, i < 3 ? false : undefined) : cardHTML(c, k++, i < 3 ? false : undefined)).join('');
   }
   settle(g);
   $('#invEmpty').hidden = total > 0;
@@ -492,7 +492,6 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
   vw.addEventListener('pointerdown', e => { if(e.target.closest('button')) return; if(e.pointerType === 'mouse') e.preventDefault(); drag = {x: e.clientX, y: e.clientY, p: V.pos, w: vw.clientWidth, moved: false, id: e.pointerId}; });
   vw.addEventListener('pointermove', e => {
     const r = vw.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    vw.style.setProperty('--gx', (x * 100) + '%'); vw.style.setProperty('--gy', (y * 100) + '%');
     if(drag){
       const dx = e.clientX - drag.x;
       if(!drag.moved && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - drag.y)){ drag.moved = true; vw.classList.add('grab'); try{ vw.setPointerCapture(drag.id); }catch(_){} }
@@ -687,19 +686,14 @@ async function wipe(R, doMount){
   $('#wipeName').textContent = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'Your Dream Motors';
   w.classList.add('on');
-  const view = $('.view.on');
-  if(view) view.animate([{transform: 'none', opacity: 1}, {transform: 'scale(.97) translateY(-14px)', opacity: .6}], {duration: 520, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards'});
-  await Promise.all([
-    ...bars.map((b, i) => anim(b, [{transform: 'translateX(160%) skewX(-14deg)'}, {transform: 'translateX(0) skewX(-14deg)'}], {duration: 540, delay: i * 55})),
-    anim(lab, [{opacity: 0, transform: 'translateX(40px)'}, {opacity: 1, transform: 'none'}], {duration: 380, delay: 300, easing: 'cubic-bezier(.22,1,.36,1)'}),
-    anim(bar, [{transform: 'scaleX(0)'}, {transform: 'scaleX(1)'}], {duration: 460, delay: 330, easing: 'cubic-bezier(.22,1,.36,1)'})
-  ]);
-  if(view) view.getAnimations().forEach(a => a.cancel());
+  const E = 'cubic-bezier(.65,0,.35,1)';
+  anim(lab, [{opacity: 0, transform: 'translateX(30px)'}, {opacity: 1, transform: 'none'}], {duration: 200, delay: 110, easing: 'cubic-bezier(.22,1,.36,1)'});
+  anim(bar, [{transform: 'scaleX(0)'}, {transform: 'scaleX(1)'}], {duration: 240, delay: 120, easing: 'cubic-bezier(.22,1,.36,1)'});
+  await Promise.all(bars.map((b, i) => anim(b, [{transform: 'translateX(160%) skewX(-14deg)'}, {transform: 'translateX(0) skewX(-14deg)'}], {duration: 250, delay: i * 22, easing: E})));
   doMount();
-  await new Promise(r => setTimeout(r, 70));
   await Promise.all([
-    anim(lab, [{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateX(-60px)'}], {duration: 320, easing: 'cubic-bezier(.55,0,.67,.2)'}),
-    ...bars.slice().reverse().map((b, i) => anim(b, [{transform: 'translateX(0) skewX(-14deg)'}, {transform: 'translateX(-160%) skewX(-14deg)'}], {duration: 600, delay: 40 + i * 55}))
+    anim(lab, [{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateX(-40px)'}], {duration: 180, easing: 'ease-in'}),
+    ...bars.slice().reverse().map((b, i) => anim(b, [{transform: 'translateX(0) skewX(-14deg)'}, {transform: 'translateX(-160%) skewX(-14deg)'}], {duration: 320, delay: 60 + i * 25, easing: E}))
   ]);
   w.classList.remove('on');
   [...bars, lab, bar].forEach(el => el.getAnimations().forEach(a => a.cancel()));
@@ -730,6 +724,8 @@ async function route(first){
 }
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href^="#/"]'); if(!a) return;
+  const rk = (a.getAttribute('href').replace(/^#\/?/, '').split(/[/?]/)[0]) || '';
+  $$('[data-nav]').forEach(n => n.classList.toggle('on', n.dataset.nav === (rk === 'car' ? 'inventory' : rk))); navInd();
   if(a.classList.contains('card-link')){ const im = a.closest('.card').querySelector('.card-media img'); if(im && im.complete && im.naturalWidth) vtImg = im; }
   if(a.getAttribute('href') === location.hash || (a.getAttribute('href') === '#/' && (location.hash === '' || location.hash === '#/'))){ e.preventDefault(); menu(false); scrollTo({top: 0, behavior: reduced ? 'auto' : 'smooth'}); }
 });

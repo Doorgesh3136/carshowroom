@@ -32,7 +32,7 @@
 --navy:#0A1F33;--navy-2:#11304D;--navy-3:#1B4266;--ink:#0B1624;
 --red:#C8102E;--red-2:#A50D26;
 --paper:#EEF1F5;--white:#fff;--line:#DDE2E9;--line-2:#E8ECF1;
---text:#0B1624;--muted:#535D6B;--muted-2:#7A8390;
+--text:#0B1624;--muted:#535D6B;--muted-2:#626C79;
 --wa:#167C45;
 --r:12px;--r-lg:18px;
 --ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.77,0,.18,1);
@@ -254,9 +254,9 @@ img.bad{opacity:0 !important;}
 .qs-go{min-width:200px;border-radius:12px;font-size:16px;}
 .qs-go #qsCount{font-variant-numeric:tabular-nums;}
 .rail-wrap{width:100%;}
-.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:max(24px,calc((100% - 1280px)/2));padding:6px max(24px,calc((100% - 1280px)/2)) 30px;scrollbar-width:none;cursor:grab;}
+.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:max(24px,calc((100% - 1280px)/2));padding:6px max(24px,calc((100% - 1280px)/2)) 30px;scrollbar-width:none;}
 .rail::-webkit-scrollbar{display:none;}
-.rail.drag{cursor:grabbing;scroll-snap-type:none;}
+.rail.drag{cursor:grabbing;scroll-snap-type:none;user-select:none;}
 .rail.drag a{pointer-events:none;}
 .rail>*{scroll-snap-align:start;flex:none;}
 .types .type{width:clamp(220px,22vw,290px);aspect-ratio:3/4;border-radius:var(--r-lg);overflow:hidden;position:relative;color:#fff;isolation:isolate;}
@@ -339,8 +339,6 @@ img.bad{opacity:0 !important;}
 .card-media{position:relative;aspect-ratio:16/11;border-radius:var(--r-lg) var(--r-lg) 0 0;overflow:hidden;}
 .card-media img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;transform:translate(var(--px,0),var(--py,0)) scale(1.02);transition:transform .7s var(--ease),opacity .5s;}
 .card.tilting .card-media img{transition:transform .12s linear,opacity .5s;}
-.card-media::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.38),transparent 55%);opacity:0;transition:opacity .4s;pointer-events:none;mix-blend-mode:soft-light;}
-.card:hover .card-media::after{opacity:1;}
 .card-tag{position:absolute;top:14px;left:14px;z-index:2;padding:6px 10px;border-radius:7px;font-size:12px;font-weight:700;background:#fff;color:var(--navy);transform:translateZ(40px);}
 .card-tag.red{background:var(--red);color:#fff;}
 .card-tag.green{background:var(--wa);color:#fff;}
@@ -465,7 +463,7 @@ img.bad{opacity:0 !important;}
 .v-panel{position:absolute;left:12%;right:12%;top:9%;bottom:15%;border-radius:14px;overflow:hidden;background:var(--navy-2);box-shadow:0 40px 70px -30px rgba(0,0,0,.8);backface-visibility:hidden;will-change:transform,opacity;}
 .v-panel img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
 .v-panel::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,31,51,var(--shade,0)),rgba(10,31,51,var(--shade,0)));pointer-events:none;}
-.v-glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.14),transparent 45%);}
+.v-glare{display:none;}
 .v-ui{position:absolute;left:20px;right:20px;bottom:16px;display:flex;align-items:center;gap:10px;color:#fff;z-index:5;}
 .v-hint{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.75);margin-right:auto;transition:opacity .5s;}
 .v-hint.gone{opacity:0;}
@@ -473,10 +471,10 @@ img.bad{opacity:0 !important;}
 .v-ui .round-btn{width:44px;height:44px;background:rgba(10,31,51,.5);}
 .v-ui .round-btn:hover{background:#fff;}
 .v-thumbs{display:flex;gap:10px;margin:14px 0 40px;overflow-x:auto;scrollbar-width:none;}
-.v-thumbs button{width:104px;aspect-ratio:4/3;border-radius:10px;overflow:hidden;flex:none;border:2.5px solid transparent;opacity:.65;transition:opacity .25s,border-color .25s,transform .3s var(--ease);background:var(--navy-2);}
+.v-thumbs button{width:104px;aspect-ratio:4/3;border-radius:10px;overflow:hidden;flex:none;border:2.5px solid transparent;transition:border-color .25s,transform .3s var(--ease);background:var(--navy-2);}
 .v-thumbs button img{width:100%;height:100%;object-fit:cover;}
-.v-thumbs button.on{border-color:var(--red);opacity:1;}
-.v-thumbs button:hover{opacity:1;transform:translateY(-3px);}
+.v-thumbs button.on{border-color:var(--red);}
+.v-thumbs button:hover{border-color:var(--navy-3);transform:translateY(-3px);}
 .tabs{position:relative;display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:26px;overflow-x:auto;scrollbar-width:none;}
 .tabs button{padding:14px 16px;font-weight:700;color:var(--muted);white-space:nowrap;transition:color .2s;min-height:48px;}
 .tabs button[aria-selected=true]{color:var(--navy);}
@@ -705,6 +703,29 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom));}
 .sales a span{color:var(--muted);font-size:14.5px;}
 .sales a:hover b{color:var(--wa);}
 .feats .feat-note{grid-column:1/-1;border:0;font-size:14px;color:var(--muted);padding-top:16px;}
+.card{cursor:pointer;}
+.card:active{transform:perspective(1000px) scale(.985);transition-duration:.12s;}
+.card-link:focus-visible{outline:3px solid var(--red);outline-offset:3px;}
+a,button,select,summary,label{-webkit-tap-highlight-color:transparent;}
+.logo{min-height:44px;}
+.link-arrow{min-height:44px;}
+.crumbs a{display:inline-flex;align-items:center;min-height:44px;margin-block:-11px;}
+.ftr nav a{padding:11px 0;}
+.ftr-legal a,.ftr-legal button{display:inline-flex;align-items:center;min-height:44px;}
+.f-reset{min-height:44px;}
+.chip{min-height:44px;}
+.seg button{height:44px;}
+.qs-f select{min-height:44px;}
+.inv-q input{height:100%;}
+.car-mo button{min-height:44px;}
+.car-eyebrow{order:3;color:var(--muted);font-weight:600;}
+.car-box{display:flex;flex-direction:column;}
+.car-title{order:1;}.car-var{order:2;}.car-eyebrow{margin-top:-6px;}.car-price{order:4;}.car-mo{order:5;}.car-facts{order:6;}#carBook{order:7;}#carWa{order:8;}.car-mini{order:9;}.car-trust{order:10;}
+.ftr-in p a{display:inline-flex;align-items:center;min-height:44px;}
+.crumbs a,.ftr-legal a,.ftr-legal button{min-width:44px;justify-content:center;}
+.c-item b a{display:inline-flex;align-items:center;min-height:44px;}
+.seg button{width:44px;flex:none;}
+.r-tools .seg{flex:none;}
 </style>
 </head>
 <body class="is-loading">
@@ -1242,7 +1263,7 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom));}
     <nav aria-label="Company"><h3>Company</h3><a href="#/sell">Sell your car</a><a href="#/about">About us</a><a href="#/contact">Contact</a><a href="#/saved">Saved cars</a></nav>
     <div><h3>Visit</h3><p>Royal Road, Moka<br>Republic of Mauritius</p><p><a href="tel:+2304338026">+230 433 8026</a><br><a href="mailto:info@yourdreammotors.mu">info@yourdreammotors.mu</a></p></div>
   </div>
-  <div class="wrap ftr-base"><span>© <span id="yr">2026</span> Your Dream Motors Ltd. All rights reserved.</span><span class="ftr-legal"><a href="#/privacy">Privacy</a><a href="#/terms">Terms</a><button type="button" data-cookie-settings>Cookies</button><span>Site by Webmate</span></span></div>
+  <div class="wrap ftr-base"><span>© <span id="yr">2026</span> Your Dream Motors Ltd. All rights reserved.</span><span class="ftr-legal"><a href="#/privacy">Privacy</a><a href="#/terms">Terms</a><button type="button" data-cookie-settings>Cookies</button><a href="https://buildyourdreamwebsite.com" target="_blank" rel="noopener">Site by Build Your Dream Website</a></span></div>
 </footer>
 
 <!-- MOBILE THUMB BAR -->
@@ -1275,6 +1296,9 @@ const CFG = {
   rate: 0.085,         // finance estimate, yearly
   pageSize: 12
 };
+
+/* ───────── always HTTPS on the live site ───────── */
+if(location.protocol === 'http:' && !/^(localhost|127\.|192\.168\.)/.test(location.hostname)) location.replace('https://' + location.host + location.pathname + location.search + location.hash);
 
 /* ───────── helpers ───────── */
 const $ = (s, r=document) => r.querySelector(s);
@@ -1391,8 +1415,6 @@ function applyTilt(){
   el.style.setProperty('--rx', ((.5 - y) * 11).toFixed(2) + 'deg');
   el.style.setProperty('--px', ((.5 - x) * 18).toFixed(1) + 'px');
   el.style.setProperty('--py', ((.5 - y) * 14).toFixed(1) + 'px');
-  el.style.setProperty('--gx', (x * 100).toFixed(1) + '%');
-  el.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
 }
 if(fine && !reduced){
   document.addEventListener('pointermove', e => {
@@ -1408,7 +1430,7 @@ function railify(rail){
   let down = false, sx = 0, sl = 0, moved = false;
   rail.addEventListener('dragstart', e => e.preventDefault());
   rail.addEventListener('pointerdown', e => { if(e.pointerType !== 'mouse' || e.target.closest('.fav')) return; down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; });
-  addEventListener('pointermove', e => { if(!down) return; const dx = e.clientX - sx; if(Math.abs(dx) > 6){ moved = true; rail.classList.add('drag'); } if(moved) rail.scrollLeft = sl - dx; });
+  addEventListener('pointermove', e => { if(!down) return; const dx = e.clientX - sx; if(Math.abs(dx) > 10){ moved = true; rail.classList.add('drag'); } if(moved) rail.scrollLeft = sl - dx; });
   addEventListener('pointerup', () => { if(!down) return; down = false; setTimeout(() => rail.classList.remove('drag'), 0); });
 }
 $$('.rail').forEach(railify);
@@ -1523,13 +1545,10 @@ const TEAM = [
 ];
 
 /* reviews */
-const REVIEWS = [
-  ['Rakesh D.','Quatre Bornes','Bought a BMW X1. They handled the registration and delivered it to my home in Quatre Bornes. Four days from first call to keys.'],
-  ['Priya S.','Moka','Fair trade-in price for my old Swift and nobody pushed me toward something I didn\'t want. Refreshing.'],
-  ['Jean-Marc L.','Curepipe','Any question after the sale, they answer the same day. I feel looked after, not like another number.'],
-  ['Anisha R.','Flic en Flac','The car was exactly as described, down to the small scratch they had pointed out in the photos. Honest people.'],
-  ['Kevin T.','Port Louis','Sorted the bank loan paperwork for me in two days. I only went to the showroom twice.'],
-  ['Sophie M.','Grand Baie','Test drove three SUVs in one Saturday morning. No pressure at all. Bought the Tucson the week after.']
+const REVIEWS = [   // from your original template; swap in real Google or Facebook reviews before launch
+  ['Rakesh D.','Quatre Bornes','Bought a BMW X1 from them. They handled the registration and delivered to my home in Quatre Bornes. The whole thing took four days, couldn\'t be easier.'],
+  ['Priya S.','Moka','Honest team. They gave me a fair trade-in value for my old car and never once pushed me toward something I didn\'t want. Genuinely refreshing.'],
+  ['Jean-Marc L.','Curepipe','The after-sales is what sets them apart. Any question I have, they answer the same day. I feel looked after, not just another sale.']
 ];
 (function quotes(){
   const st = $('#quoteStage');
@@ -1706,7 +1725,9 @@ function renderInv(append){
     const from = (page - 1) * CFG.pageSize;
     g.insertAdjacentHTML('beforeend', list.slice(from, shown).map((c, i) => cardHTML(c, i)).join(''));
   } else {
-    g.innerHTML = list.slice(0, shown).map((c, i) => cardHTML(c, i, i < 3 ? false : undefined)).join('');
+    const had = new Set($$('.card', g).map(el => +el.dataset.id));
+    let k = 0;
+    g.innerHTML = list.slice(0, shown).map((c, i) => had.size && had.has(c.id) ? cardHTML(c, null, i < 3 ? false : undefined) : cardHTML(c, k++, i < 3 ? false : undefined)).join('');
   }
   settle(g);
   $('#invEmpty').hidden = total > 0;
@@ -1759,7 +1780,6 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
   vw.addEventListener('pointerdown', e => { if(e.target.closest('button')) return; if(e.pointerType === 'mouse') e.preventDefault(); drag = {x: e.clientX, y: e.clientY, p: V.pos, w: vw.clientWidth, moved: false, id: e.pointerId}; });
   vw.addEventListener('pointermove', e => {
     const r = vw.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    vw.style.setProperty('--gx', (x * 100) + '%'); vw.style.setProperty('--gy', (y * 100) + '%');
     if(drag){
       const dx = e.clientX - drag.x;
       if(!drag.moved && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - drag.y)){ drag.moved = true; vw.classList.add('grab'); try{ vw.setPointerCapture(drag.id); }catch(_){} }
@@ -1954,19 +1974,14 @@ async function wipe(R, doMount){
   $('#wipeName').textContent = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'Your Dream Motors';
   w.classList.add('on');
-  const view = $('.view.on');
-  if(view) view.animate([{transform: 'none', opacity: 1}, {transform: 'scale(.97) translateY(-14px)', opacity: .6}], {duration: 520, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards'});
-  await Promise.all([
-    ...bars.map((b, i) => anim(b, [{transform: 'translateX(160%) skewX(-14deg)'}, {transform: 'translateX(0) skewX(-14deg)'}], {duration: 540, delay: i * 55})),
-    anim(lab, [{opacity: 0, transform: 'translateX(40px)'}, {opacity: 1, transform: 'none'}], {duration: 380, delay: 300, easing: 'cubic-bezier(.22,1,.36,1)'}),
-    anim(bar, [{transform: 'scaleX(0)'}, {transform: 'scaleX(1)'}], {duration: 460, delay: 330, easing: 'cubic-bezier(.22,1,.36,1)'})
-  ]);
-  if(view) view.getAnimations().forEach(a => a.cancel());
+  const E = 'cubic-bezier(.65,0,.35,1)';
+  anim(lab, [{opacity: 0, transform: 'translateX(30px)'}, {opacity: 1, transform: 'none'}], {duration: 200, delay: 110, easing: 'cubic-bezier(.22,1,.36,1)'});
+  anim(bar, [{transform: 'scaleX(0)'}, {transform: 'scaleX(1)'}], {duration: 240, delay: 120, easing: 'cubic-bezier(.22,1,.36,1)'});
+  await Promise.all(bars.map((b, i) => anim(b, [{transform: 'translateX(160%) skewX(-14deg)'}, {transform: 'translateX(0) skewX(-14deg)'}], {duration: 250, delay: i * 22, easing: E})));
   doMount();
-  await new Promise(r => setTimeout(r, 70));
   await Promise.all([
-    anim(lab, [{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateX(-60px)'}], {duration: 320, easing: 'cubic-bezier(.55,0,.67,.2)'}),
-    ...bars.slice().reverse().map((b, i) => anim(b, [{transform: 'translateX(0) skewX(-14deg)'}, {transform: 'translateX(-160%) skewX(-14deg)'}], {duration: 600, delay: 40 + i * 55}))
+    anim(lab, [{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateX(-40px)'}], {duration: 180, easing: 'ease-in'}),
+    ...bars.slice().reverse().map((b, i) => anim(b, [{transform: 'translateX(0) skewX(-14deg)'}, {transform: 'translateX(-160%) skewX(-14deg)'}], {duration: 320, delay: 60 + i * 25, easing: E}))
   ]);
   w.classList.remove('on');
   [...bars, lab, bar].forEach(el => el.getAnimations().forEach(a => a.cancel()));
@@ -1997,6 +2012,8 @@ async function route(first){
 }
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href^="#/"]'); if(!a) return;
+  const rk = (a.getAttribute('href').replace(/^#\/?/, '').split(/[/?]/)[0]) || '';
+  $$('[data-nav]').forEach(n => n.classList.toggle('on', n.dataset.nav === (rk === 'car' ? 'inventory' : rk))); navInd();
   if(a.classList.contains('card-link')){ const im = a.closest('.card').querySelector('.card-media img'); if(im && im.complete && im.naturalWidth) vtImg = im; }
   if(a.getAttribute('href') === location.hash || (a.getAttribute('href') === '#/' && (location.hash === '' || location.hash === '#/'))){ e.preventDefault(); menu(false); scrollTo({top: 0, behavior: reduced ? 'auto' : 'smooth'}); }
 });
