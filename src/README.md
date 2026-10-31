@@ -5,14 +5,20 @@
 - `data/cars.json`: the stock list. The admin edits this file; the website loads it on every visit (with a built-in copy as a fallback).
 - `images/cars/`: photos uploaded from the admin.
 - `vendor/gsap/`: GSAP 3.15 and ScrollTrigger, self-hosted.
-- `vendor/three/`: three.js r170 (MIT), self-hosted: the core module plus GLTFLoader, BufferGeometryUtils and the meshopt decoder. Mapped by the import map in the page head.
-- `assets/showroom.js`: the 3D showroom in the home hero (plain ES module, no build step). A car on a turntable in a forest-green studio: it turns slowly, you can drag it round, the wheels roll and the body squats with your scroll speed, and it "starts" (studio lights, headlamps, hazards) when the loader hits the redline. Colours are at the top of the file.
-- `assets/showroom-car.glb`: the car (2.3 MB). See `assets/CREDITS.txt`.
+- `assets/showroom.bundle.js`: the 3D showroom (three.js r170, MIT, plus `src/3d/showroom.js`) as one plain script.
+- `assets/showroom-car.glb`: the car (2.3 MB). `assets/showroom-car.js` is the same model packed in a script, used only when the site is opened straight from disk (browsers block downloads on file://). See `assets/CREDITS.txt`.
 
-## When the 3D car shows
-Only on the home page, and only with WebGL2, no reduced-motion setting, no Data Saver and at least 4 GB of device memory. Everyone else gets the original photo slideshow, which also stays underneath as the fallback if the model fails to load or the graphics context is lost. Landing on the catalogue (or any other page) downloads nothing 3D until you go home.
-The loader's percentage counts the real model download on the home page and waits for it (at most 9 seconds; after that the photos show and the car swaps in when it arrives).
-Where the car sits is set in CSS, not JS: `.stage-mark` in `scss/_showroom.scss` is an invisible box the turntable is fitted into (right of the headline on wide screens, in its own band above the headline on phones).
+## Opening it
+Double-click `index.html` and it works, 3D included, no server needed (the car photos and fonts still need an internet connection). Online it is the same site.
+
+## The 3D
+- Home hero: a car on a turntable in a forest-green studio. It turns slowly, drag it round, the wheels roll and the body squats with your scroll speed, and it "starts" (studio lights, headlamps, hazards) when the loader hits the redline.
+- The V8 check (`#journey`, under the quick search): scroll and the camera walks round the car: side profile, tyres, brakes, the front clamshell lifting, the door opening into the cabin, with labels pinned to the parts. At the end it drives off the turntable.
+- Page changes: the page swings away into depth and the next one swings in.
+- Catalogue: cards flip up out of depth as they arrive, and the grid leans back with your scroll speed. Body types curve round like a carousel.
+- When it runs: home page only, with WebGL2, no reduced-motion setting, no Data Saver and at least 4 GB of memory. Everyone else gets the photo slideshow and the chapters as a plain dark band. Landing on another page downloads nothing 3D until you go home.
+- Where the car sits on screen is set in CSS: `.stage-mark` (hero) and `.stage-mark-j` (journey) in `scss/_showroom.scss` are invisible boxes the camera frames the car into. Shots, colours and label positions are at the top of `src/3d/showroom.js` and in the `.pin` elements of the template.
+- Changing the 3D code: edit `src/3d/showroom.js`, then `cd src/3d && npm install && npm run build` (Node 18+). This rewrites the two `assets/showroom*.js` files. Then run `build.py` as usual.
 
 ## Source
 - `index.tpl.html`: page template

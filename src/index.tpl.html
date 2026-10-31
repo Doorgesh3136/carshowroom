@@ -29,7 +29,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">{{JSONLD}}</script>
 <style>{{CSS}}</style>
-<script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.min.js","three/addons/":"./vendor/three/addons/"}}</script>
 <script defer src="vendor/gsap/gsap.min.js"></script>
 <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
 </head>
@@ -134,9 +133,21 @@
 
 <!-- ═══════════ HOME ═══════════ -->
 <section class="view" data-view="home" aria-label="Home">
+ <div class="stage-wrap" id="stageWrap">
+  <div class="stage-sticky" aria-hidden="true">
+    <div class="hero-stage" id="heroStage"><i class="stage-mark"></i><i class="stage-mark-j"></i></div>
+    <div class="stage-pins" id="stagePins">
+      <p class="pin" data-shot="2" data-p="1.26,.7,1.38"><i></i><span>Tread and sidewalls</span></p>
+      <p class="pin" data-shot="2" data-p="1.22,.3,1.0"><i></i><span>Wheels and alignment</span></p>
+      <p class="pin" data-shot="3" data-p="1.05,.52,1.08"><i></i><span>Discs and pads</span></p>
+      <p class="pin" data-shot="4" data-p="0,.66,1.55"><i></i><span>Engine bay and fluids</span></p>
+      <p class="pin" data-shot="4" data-p=".78,.58,2.12"><i></i><span>Lights</span></p>
+      <p class="pin" data-shot="5" data-p="1.12,.8,-.55"><i></i><span>Paint and panels</span></p>
+      <p class="pin" data-shot="5" data-p=".45,.72,-.15"><i></i><span>Seats and cabin</span></p>
+    </div>
+  </div>
   <div class="hero" id="hero">
     <div class="hero-slides" id="heroSlides"></div>
-    <div class="hero-stage" id="heroStage"><i class="stage-mark"></i></div>
     <div class="hero-shade"></div>
     <div class="hero-gleam" id="heroGleam" aria-hidden="true"></div>
     <p class="stage-hint" id="stageHint" aria-hidden="true"><i><svg><use href="#i-rotate"/></svg></i>Drag to turn it</p>
@@ -168,6 +179,26 @@
       <button class="btn btn-red qs-go" type="submit"><svg><use href="#i-search"/></svg><span id="qsCount">Show {{COUNT}} cars</span></button>
     </form>
   </div>
+
+  <!-- THE V8 CHECK: scroll walks the camera round the car (assets/showroom.bundle.js); plain chapters without 3D -->
+  <section class="journey" id="journey" aria-labelledby="hJourney">
+    <div class="wrap jr-in">
+      <header class="jr-step jr-intro">
+        <p class="jr-k">The V8 check</p>
+        <h2 id="hJourney">Every car is checked before it goes on sale.</h2>
+        <p>Walk round it with us. Keep scrolling.</p>
+        <span class="jr-scroll" aria-hidden="true"><i></i></span>
+      </header>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">01</span><h3>Tyres and wheels</h3><p>We look at the tread and the sidewalls on every tyre, and at the wheels themselves, before a car goes on the floor.</p></div></article>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">02</span><h3>Brakes</h3><p>Discs, pads and the way the car stops. If something needs doing, it is done before the car is offered for sale.</p></div></article>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">03</span><h3>Under the bonnet</h3><p>The engine, the fluids and the lights get a look over, and we start it and listen.</p></div></article>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">04</span><h3>Body and cabin</h3><p>Paint, panels, doors, seats and the electrics inside. What you see on the floor is what you drive away.</p></div></article>
+      <article class="jr-step jr-end"><div class="jr-card"><span class="jr-n">05</span><h3>Then it is ready for you.</h3><p>Pick one, book a test drive, and drive it home. Cash, a bank loan, leasing through Rogers Capital, or trade in your car.</p>
+        <div class="acts"><a href="#/inventory" class="btn btn-red btn-lg">Browse the catalogue <svg><use href="#i-arrow"/></svg></a><a href="#/contact?topic=test-drive" class="btn btn-line-w btn-lg">Book a test drive</a></div>
+      </div></article>
+    </div>
+  </section>
+ </div>
 
   <section class="sec types-sec" aria-labelledby="hTypes" id="typesSec">
     <div class="wrap">

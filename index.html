@@ -982,7 +982,7 @@ linear-gradient(180deg, #EEF2EC, #E3EAE3)}
 .how-media:hover img,.sell-pic:hover img,.about-pic:hover img{scale:1.05}
 .dp{translate:calc(var(--dx, 0) * 1px) calc(var(--dy, 0) * 1px)}
 #heroSlides{inset:-30px;translate:calc(var(--dx, 0) * 1px) calc((var(--hy, 0) + var(--dy, 0)) * 1px)}
-.types .type{transform:perspective(900px) rotateX(calc(var(--trx, 0) * 1deg)) rotateY(calc(var(--try, 0) * 1deg));transform-style:preserve-3d}
+.types .type{transform:perspective(900px) translateZ(calc(var(--cz, 0) * 1px)) rotateX(calc(var(--trx, 0) * 1deg)) rotateY(calc((var(--try, 0) + var(--cy, 0)) * 1deg));transform-style:preserve-3d}
 .types .type .type-in{transform:translateZ(30px)}
 .mani-in{grid-template-columns:minmax(0, .42fr) minmax(0, 1fr)}
 .mani-side{position:sticky;top:110px;display:grid;gap:34px}
@@ -1050,11 +1050,20 @@ html.js-motion .wipe .w-bar{background:#C9A55C}
 }
 #heroSlides{filter:blur(calc(var(--hb, 0) * 1px))}
 @property --hint-a{syntax:'<angle>';inherits:false;initial-value:0deg}
-.hero-stage{position:absolute;inset:0;z-index:-2;opacity:0;transition:opacity 1.4s cubic-bezier(.22,1,.36,1)}
+.stage-sticky{display:none}
+html.can-3d .stage-sticky{display:block;position:sticky;top:0;z-index:0;height:100vh;height:100svh;overflow:hidden;background:radial-gradient(ellipse 90% 75% at 72% 32%, #24493A 0%, #12241B 48%, #08110C 100%)}
+html.can-3d .stage-sticky::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.07;pointer-events:none;mix-blend-mode:overlay}
+.stage-wrap > .hero,.stage-wrap > .wrap,.stage-wrap > .journey{position:relative;z-index:1}
+html.can-3d .stage-sticky + .hero{margin-top:-100vh;margin-top:-100svh}
+.hero-stage{position:absolute;inset:0;opacity:0;transition:opacity 1.4s cubic-bezier(.22,1,.36,1)}
 .hero-stage canvas{display:block;width:100%;height:100%}
 .hero-stage.live{opacity:1}
 .hero-cap-img{display:none}
-.stage-mark{position:absolute;visibility:hidden;pointer-events:none;right:max(24px, calc((100% - 1280px) / 2));width:min(44%, 700px);top:30%;height:40%}
+.stage-mark,.stage-mark-j{position:absolute;visibility:hidden;pointer-events:none}
+.stage-mark{right:max(24px, calc((100% - 1280px) / 2));width:min(44%, 700px);top:30%;height:40%}
+.stage-mark-j{right:max(16px, calc((100% - 1280px) / 2 - 40px));width:58%;top:12%;height:76%}
+.hero.has-3d{background:transparent}
+.hero.has-3d::after{display:none}
 .hero.has-3d{touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
 .hero.has-3d.turning{cursor:grabbing}
 .hero.has-3d a,.hero.has-3d button{cursor:pointer}
@@ -1080,6 +1089,7 @@ linear-gradient(0deg, rgba(8,17,12, .92) 0%, rgba(8,17,12, .4) 20%, transparent 
 @media (max-width: 899px){
 html.can-3d .hero-in{padding-top:calc(min(58vw, 300px) + 56px)}
 .stage-mark{right:4%;width:92%;top:14px;height:min(58vw, 300px)}
+.stage-mark-j{right:0;width:100%;top:6%;height:50%}
 .stage-hint{top:calc(min(58vw, 300px) + 14px);right:50%;translate:50% -10px}
 .stage-hint.on{translate:50% 0}
 .hero.has-3d .hero-shade{background:linear-gradient(0deg, rgba(8,17,12, .94) 0%, rgba(8,17,12, .6) 42%, transparent 64%)}
@@ -1087,6 +1097,53 @@ html.can-3d .hero-in{padding-top:calc(min(58vw, 300px) + 56px)}
 }
 @media (prefers-reduced-motion: reduce){
 .stage-hint i::before,.stage-hint svg{animation:none}
+}
+.journey{color:#F3F1EA}
+.jr-step{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;max-width:460px}
+.jr-step h2,.jr-step h3{color:#F3F1EA;font-stretch:115%;letter-spacing:-.03em;line-height:.98}
+.jr-step h3{font-size:clamp(30px, 3.6vw, 52px);margin:12px 0 16px}
+.jr-step p{color:rgba(243,241,234,.74);font-size:clamp(16px, 1.3vw, 18px);max-width:40ch}
+html.can-3d .jr-step:not(.jr-intro) > *{position:relative;z-index:1}
+html.can-3d .jr-step:not(.jr-intro)::before{content:none}
+html.can-3d .jr-card{padding:clamp(22px, 2.4vw, 34px);border-radius:22px;background:rgba(8,17,12, .52);border:1px solid rgba(212,180,106, .2);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.jr-intro{max-width:620px}
+.jr-intro h2{font-size:clamp(38px, 5.4vw, 80px);margin:14px 0 20px}
+.jr-k,.jr-n{font:800 13px "Archivo", system-ui, sans-serif;font-stretch:120%;letter-spacing:.22em;text-transform:uppercase;color:#D4B46A}
+.jr-n{display:flex;align-items:center;gap:14px}
+.jr-n::after{content:'';width:64px;height:1px;background:rgba(212,180,106, .5)}
+.jr-end .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.jr-scroll{position:relative;width:2px;height:64px;margin-top:34px;background:rgba(243,241,234,.18);overflow:hidden}
+.jr-scroll i{position:absolute;left:0;top:-20px;width:2px;height:20px;background:#D4B46A;animation:jr-cue 1.8s cubic-bezier(.77,0,.18,1) infinite}
+@keyframes jr-cue{to{top:64px}}
+html.has-3d .stage-sticky::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg, rgba(8,17,12, .55) 0%, rgba(8,17,12, .15) 40%, transparent 60%)}
+html:not(.can-3d) .journey{background:radial-gradient(ellipse 80% 60% at 80% 0%, #24493A, #12241B 55%, #08110C);padding:clamp(64px, 9vw, 120px) 0}
+html:not(.can-3d) .journey .jr-in{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:40px 48px}
+html:not(.can-3d) .journey .jr-step{min-height:0;justify-content:flex-start}
+html:not(.can-3d) .journey .jr-intro{grid-column:1 / -1}
+html:not(.can-3d) .journey .jr-scroll{display:none}
+.stage-pins{position:absolute;inset:0;z-index:2;pointer-events:none}
+.pin{position:absolute;left:0;top:0;margin:0;display:flex;align-items:center;gap:22px;white-space:nowrap;opacity:0;translate:-8px -50%;will-change:transform, opacity}
+.pin i{position:relative;flex:none;width:16px;height:16px;border-radius:50%;background:#D4B46A;box-shadow:0 0 0 4px rgba(212,180,106, .22), 0 0 18px rgba(212,180,106, .7)}
+.pin i::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid #D4B46A;animation:pin-ping 2s cubic-bezier(.22,1,.36,1) infinite}
+.pin::before{content:'';position:absolute;left:16px;top:50%;width:22px;height:1px;background:rgba(212,180,106, .7)}
+.pin span{padding:8px 14px;border-radius:99px;font:600 13px "Hanken Grotesk", system-ui, sans-serif;letter-spacing:.02em;color:#F3F1EA;background:rgba(8,17,12, .72);border:1px solid rgba(212,180,106, .32);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);clip-path:inset(0 100% 0 0 round 99px);transition:clip-path .7s cubic-bezier(.16,1,.3,1) .08s}
+.pin.on span{clip-path:inset(0 0 0 0 round 99px)}
+.pin-l{flex-direction:row-reverse;translate:calc(-100% + 8px) -50%}
+.pin-l::before{left:auto;right:16px}
+.pin-l span{clip-path:inset(0 0 0 100% round 99px)}
+@keyframes pin-ping{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
+@media (max-width: 899px){
+html.can-3d .jr-step{justify-content:flex-end;padding-bottom:9vh;max-width:none}
+html.can-3d .jr-step > :not(.jr-scroll){position:relative}
+html.can-3d .jr-step:not(.jr-intro) > *{max-width:none}
+html.has-3d .stage-sticky::before{background:linear-gradient(0deg, rgba(8,17,12, .85) 0%, rgba(8,17,12, .4) 38%, transparent 55%)}
+.jr-intro h2{font-size:clamp(34px, 9vw, 52px)}
+.pin{gap:14px}
+.pin::before{width:14px}
+.pin span{font-size:12px;padding:6px 11px}
+}
+@media (prefers-reduced-motion: reduce){
+.jr-scroll i,.pin i::after{animation:none}
 }
 .c-item,.c-item *{min-width:0;overflow-wrap:anywhere}
 .card-foot{flex-wrap:wrap;gap:6px 12px}
@@ -1107,7 +1164,6 @@ html.can-3d .hero-in{padding-top:calc(min(58vw, 300px) + 56px)}
 .wrap{width:calc(100% - 32px)}
 h1{overflow-wrap:break-word;hyphens:auto}
 }</style>
-<script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.min.js","three/addons/":"./vendor/three/addons/"}}</script>
 <script defer src="vendor/gsap/gsap.min.js"></script>
 <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
 </head>
@@ -1212,9 +1268,21 @@ h1{overflow-wrap:break-word;hyphens:auto}
 
 <!-- ═══════════ HOME ═══════════ -->
 <section class="view" data-view="home" aria-label="Home">
+ <div class="stage-wrap" id="stageWrap">
+  <div class="stage-sticky" aria-hidden="true">
+    <div class="hero-stage" id="heroStage"><i class="stage-mark"></i><i class="stage-mark-j"></i></div>
+    <div class="stage-pins" id="stagePins">
+      <p class="pin" data-shot="2" data-p="1.26,.7,1.38"><i></i><span>Tread and sidewalls</span></p>
+      <p class="pin" data-shot="2" data-p="1.22,.3,1.0"><i></i><span>Wheels and alignment</span></p>
+      <p class="pin" data-shot="3" data-p="1.05,.52,1.08"><i></i><span>Discs and pads</span></p>
+      <p class="pin" data-shot="4" data-p="0,.66,1.55"><i></i><span>Engine bay and fluids</span></p>
+      <p class="pin" data-shot="4" data-p=".78,.58,2.12"><i></i><span>Lights</span></p>
+      <p class="pin" data-shot="5" data-p="1.12,.8,-.55"><i></i><span>Paint and panels</span></p>
+      <p class="pin" data-shot="5" data-p=".45,.72,-.15"><i></i><span>Seats and cabin</span></p>
+    </div>
+  </div>
   <div class="hero" id="hero">
     <div class="hero-slides" id="heroSlides"></div>
-    <div class="hero-stage" id="heroStage"><i class="stage-mark"></i></div>
     <div class="hero-shade"></div>
     <div class="hero-gleam" id="heroGleam" aria-hidden="true"></div>
     <p class="stage-hint" id="stageHint" aria-hidden="true"><i><svg><use href="#i-rotate"/></svg></i>Drag to turn it</p>
@@ -1246,6 +1314,26 @@ h1{overflow-wrap:break-word;hyphens:auto}
       <button class="btn btn-red qs-go" type="submit"><svg><use href="#i-search"/></svg><span id="qsCount">Show 67 cars</span></button>
     </form>
   </div>
+
+  <!-- THE V8 CHECK: scroll walks the camera round the car (assets/showroom.bundle.js); plain chapters without 3D -->
+  <section class="journey" id="journey" aria-labelledby="hJourney">
+    <div class="wrap jr-in">
+      <header class="jr-step jr-intro">
+        <p class="jr-k">The V8 check</p>
+        <h2 id="hJourney">Every car is checked before it goes on sale.</h2>
+        <p>Walk round it with us. Keep scrolling.</p>
+        <span class="jr-scroll" aria-hidden="true"><i></i></span>
+      </header>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">01</span><h3>Tyres and wheels</h3><p>We look at the tread and the sidewalls on every tyre, and at the wheels themselves, before a car goes on the floor.</p></div></article>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">02</span><h3>Brakes</h3><p>Discs, pads and the way the car stops. If something needs doing, it is done before the car is offered for sale.</p></div></article>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">03</span><h3>Under the bonnet</h3><p>The engine, the fluids and the lights get a look over, and we start it and listen.</p></div></article>
+      <article class="jr-step"><div class="jr-card"><span class="jr-n">04</span><h3>Body and cabin</h3><p>Paint, panels, doors, seats and the electrics inside. What you see on the floor is what you drive away.</p></div></article>
+      <article class="jr-step jr-end"><div class="jr-card"><span class="jr-n">05</span><h3>Then it is ready for you.</h3><p>Pick one, book a test drive, and drive it home. Cash, a bank loan, leasing through Rogers Capital, or trade in your car.</p>
+        <div class="acts"><a href="#/inventory" class="btn btn-red btn-lg">Browse the catalogue <svg><use href="#i-arrow"/></svg></a><a href="#/contact?topic=test-drive" class="btn btn-line-w btn-lg">Book a test drive</a></div>
+      </div></article>
+    </div>
+  </section>
+ </div>
 
   <section class="sec types-sec" aria-labelledby="hTypes" id="typesSec">
     <div class="wrap">
@@ -1943,20 +2031,20 @@ $('#heroPrev').addEventListener('click', () => heroGo(heroK - 1));
 $('#heroNext').addEventListener('click', () => heroGo(heroK + 1));
 heroCap(HERO[0]);
 
-/* the 3D showroom takes over the hero once it is loaded (see assets/showroom.js) */
+/* the 3D showroom takes over the hero once it is loaded (source: src/3d/showroom.js) */
 const STAGE = window.V8_STAGE;
 let stageLive = false;
 function stageOn(quick){
   if(stageLive || !STAGE || !STAGE.stage || STAGE.failed) return;
   stageLive = true;
   const hero = $('#hero'), hint = $('#stageHint');
-  hero.classList.add('has-3d');
+  hero.classList.add('has-3d'); document.documentElement.classList.add('has-3d');
   STAGE.stage.ignite(quick);
   STAGE.stage.pause(cur.view !== 'home');
   setTimeout(() => hint.classList.add('on'), quick ? 900 : 2200);
   STAGE.stage.onDrag = () => { hint.classList.remove('on'); hint.classList.add('done'); };
 }
-if(STAGE) STAGE.onLost = () => { stageLive = false; $('#hero').classList.remove('has-3d'); $('#stageHint').classList.remove('on'); };
+if(STAGE) STAGE.onLost = () => { stageLive = false; $('#hero').classList.remove('has-3d'); document.documentElement.classList.remove('has-3d', 'can-3d'); $('#stageHint').classList.remove('on'); };
 
 /* quick search with a live count */
 const qs = {make: $('#qsMake'), model: $('#qsModel'), body: $('#qsBody'), price: $('#qsPrice')};
@@ -2192,6 +2280,7 @@ function renderInv(append){
   if(cur.view === 'inventory') setMeta(`${title} | ${total} ${total === 1 ? 'car' : 'cars'} | V8 Motors, Coromandel`, `Browse ${total} checked used ${title === 'Catalogue' ? 'cars' : title.toLowerCase()} for sale at V8 Motors, Coromandel. Prices, mileage and photos for every car.`);
   if(F.saved && !total) { $('#invEmpty h2').textContent = 'No saved cars yet'; $('#invEmpty p').innerHTML = 'Tap the heart on any car to keep it here. Saved cars stay on this device.'; }
   else { $('#invEmpty h2').textContent = 'No cars match those filters'; $('#invEmpty p').innerHTML = 'Try a wider price range, or clear a filter. New stock arrives every week, so you can also <a href="#/contact?topic=find">ask us to find one</a>.'; }
+  if(M.cardsIn && cur.view === 'inventory') M.cardsIn();
 }
 $('#moreBtn').addEventListener('click', () => { page++; renderInv(true); });
 
@@ -2533,7 +2622,7 @@ const cur = {view: null, car: null, path: null};
    the site works the same, just without these effects. */
 const G = window.gsap, ST = window.ScrollTrigger;
 const MOTION = !!(G && ST) && !reduced;
-const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null, tabFx(){}};
+const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null, tabFx(){}, cardsIn: null};
 if(MOTION){
   G.registerPlugin(ST);
   document.documentElement.classList.add('js-motion');
@@ -2685,8 +2774,9 @@ function buildScenes(view, R){
 
   // hero: the photo sinks and the frame tucks into a rounded card as you scroll away
   if(home){
+    const photoHero = !document.documentElement.classList.contains('can-3d');
     G.timeline({scrollTrigger: {trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true}})
-      .fromTo('#hero', {clipPath: 'inset(0% 0% 0% 0% round 0px)'}, {clipPath: 'inset(0% 2.5% 6% 2.5% round 28px)', ease: 'none'}, 0)
+      .fromTo('#hero', {clipPath: 'inset(0% 0% 0% 0% round 0px)'}, {clipPath: photoHero ? 'inset(0% 2.5% 6% 2.5% round 28px)' : 'inset(0% 0% 0% 0% round 0px)', ease: 'none'}, 0)
       .fromTo('#heroSlides', {'--hy': 0}, {'--hy': 220, ease: 'none'}, 0)
       .fromTo('.hero-in', {y: 0, opacity: 1}, {y: -140, opacity: 0, ease: 'none'}, 0)
       .fromTo('.hero-foot', {y: 0}, {y: -60, ease: 'none'}, 0);
@@ -2733,6 +2823,51 @@ function buildScenes(view, R){
     G.fromTo(th, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, duration: .8, stagger: .05, ease: 'expo.out', delay: .5, clearProps: 'all'});
   }
 
+  // journey chapters tip up out of depth as each one arrives (the camera does the rest)
+  $$('.jr-step', view).forEach(stp => {
+    const kids = [...stp.children].filter(k => !k.matches('h2'));
+    G.fromTo(kids, {autoAlpha: 0, y: 70, rotationX: -38, transformPerspective: 900, transformOrigin: '50% 100%'},
+      {autoAlpha: 1, y: 0, rotationX: 0, duration: 1.2, stagger: .08, ease: 'expo.out', clearProps: 'transform',
+       scrollTrigger: {trigger: stp, start: 'top 62%', toggleActions: 'play none none reverse'}});
+  });
+
+  // catalogue: cards flip up out of depth as they arrive; the whole grid leans back with the scroll speed
+  if(R.r.v === 'inventory'){
+    const grid = $('#invGrid');
+    M.cardsIn = () => {
+      const cards = $$('.card:not(.in3d)', grid);
+      cards.forEach(c => c.classList.add('in3d'));
+      ST.batch(cards, {start: 'top 96%', once: true, onEnter: b => G.fromTo(b,
+        {autoAlpha: 0, y: 120, z: -260, rotationX: 48, transformPerspective: 1100, transformOrigin: '50% 100%'},
+        {autoAlpha: 1, y: 0, z: 0, rotationX: 0, duration: 1.3, stagger: .07, ease: 'expo.out', clearProps: 'transform,opacity,visibility'})});
+    };
+    M.cardsIn();
+    G.set(grid, {transformPerspective: 1600, transformOrigin: '50% 30%'});
+    const lean = G.quickTo(grid, 'rotationX', {duration: .6, ease: 'power3'}), sink = G.quickTo(grid, 'z', {duration: .6, ease: 'power3'});
+    let back = null;
+    ST.create({trigger: grid, start: 'top bottom', end: 'bottom top', onUpdate: s => {
+      const v = Math.max(-1, Math.min(1, s.getVelocity() / 3000));
+      lean(v * 9); sink(-Math.abs(v) * 140);
+      if(back) back.kill();
+      back = G.delayedCall(.12, () => { lean(0); sink(0); });
+    }});
+  }
+
+  // body types: tiles curve round like a carousel as the row slides past (cover flow)
+  if(home){
+    const tiles = $$('.types .type', view);
+    const flow = () => {
+      const mid = innerWidth / 2;
+      tiles.forEach(t => {
+        const r = t.getBoundingClientRect(), d = Math.max(-1.4, Math.min(1.4, (r.left + r.width / 2 - mid) / mid));
+        t.style.setProperty('--cy', (-d * 26).toFixed(2));
+        t.style.setProperty('--cz', (-Math.abs(d) * 120).toFixed(1));
+      });
+    };
+    ST.create({trigger: '#typesSec', start: 'top bottom', end: 'bottom top', onUpdate: flow, onRefresh: flow});
+    $('#typeRail').addEventListener('scroll', flow, {passive: true});
+  }
+
   // the car page: buy box steps in
   if(R.r.v === 'car'){
     const k = $$('.car-r > *', view);
@@ -2752,8 +2887,8 @@ M.mount = function(view, R){
   requestAnimationFrame(() => ST.refresh());
 };
 
-/* ───────── page change: a pass-by. Layered panels rush across right to left with speed streaks,
-   the page name slides in at speed, the new page arrives from the right ───────── */
+/* ───────── page change in 3D: the page you are on swings away into depth while the studio dims, the next
+   page's name passes in front, and the new page swings in out of the depth from the other side ───────── */
 M.wipe = async function(R, doMount){
   const w = $('#wipe'), cols = $$('#wipe > i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
   const txt = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
@@ -2761,31 +2896,38 @@ M.wipe = async function(R, doMount){
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
   let sk = $('.w-streaks', w);
   if(!sk){ sk = document.createElement('div'); sk.className = 'w-streaks'; sk.innerHTML = '<span></span>'.repeat(16); w.appendChild(sk); }
-  const lines = $$('span', sk), chs = $$('.ch', name), old = $('.view.on');
+  const lines = $$('span', sk), chs = $$('.ch', name), old = $('.view.on'), main = $('#main');
+  // the viewport is the stage: pages turn about a vertical axis in front of you
+  const stage = () => G.set(main, {perspective: 1300, perspectiveOrigin: `50% ${scrollY + innerHeight / 2}px`});
+  stage();
   w.classList.add('on');
-  G.set(cols, {xPercent: 0, x: '160%', skewX: -14});
+  G.set(cols, {display: 'none'});
+  G.set(w, {backgroundColor: 'rgba(8,17,12,0)'});
   G.set(lab, {opacity: 0}); G.set(chs, {x: 140, skewX: -20, opacity: 0}); G.set(bar, {scaleX: 0, transformOrigin: 'right center'});
   G.set(lines, {top: () => (8 + Math.random() * 84) + '%', x: () => innerWidth * (1.1 + Math.random() * .4), opacity: () => .35 + Math.random() * .65, scaleX: () => .5 + Math.random()});
   G.to(lines, {x: () => -innerWidth * (.5 + Math.random() * .4), duration: () => .5 + Math.random() * .35, ease: 'power2.in', stagger: {each: .02, from: 'random'}});
   await G.timeline()
-    .to(old, {x: -90, skewX: 3, opacity: .25, duration: .5, ease: 'expo.in'}, 0)
-    .to(cols, {x: '0%', duration: .6, stagger: .06, ease: 'expo.inOut'}, 0)
-    .to(lab, {opacity: 1, duration: .25}, '-=.3')
+    .to(w, {backgroundColor: 'rgba(8,17,12,.8)', duration: .55, ease: 'power2.in'}, 0)
+    .to(old, {rotationY: 30, z: -760, x: -240, opacity: .3, transformOrigin: '0% 50%', duration: .62, ease: 'expo.in'}, 0)
+    .to(lab, {opacity: 1, duration: .25}, .28)
     .to(chs, {x: 0, skewX: 0, opacity: 1, duration: .5, stagger: .018, ease: 'expo.out'}, '<')
     .to(bar, {scaleX: 1, duration: .45, ease: 'expo.out'}, '<')
     .then();
   G.set(old, {clearProps: 'transform,opacity'});
   doMount();
-  // the new page rolls in from the right while the panels carry on off to the left (not awaited, so clicks work at once)
-  G.fromTo($('.view.on'), {x: 120, skewX: -2}, {x: 0, skewX: 0, duration: 1, ease: 'expo.out', delay: .2, clearProps: 'transform', onComplete: () => ST.refresh()});
+  // the new page swings in from the right (not awaited, so clicks work at once)
+  stage();
+  G.fromTo($('.view.on'), {rotationY: -26, z: -700, x: 260, opacity: .2, transformOrigin: '100% 50%'},
+    {rotationY: 0, z: 0, x: 0, opacity: 1, duration: 1.2, ease: 'expo.out', delay: .1, clearProps: 'transform,opacity',
+     onComplete: () => { G.set(main, {clearProps: 'perspective,perspectiveOrigin'}); ST.refresh(); }});
   await G.timeline()
     .to(chs, {x: -120, skewX: 20, opacity: 0, duration: .32, stagger: .012, ease: 'expo.in'})
     .to(bar, {scaleX: 0, transformOrigin: 'left center', duration: .28, ease: 'expo.in'}, '<')
     .to(lab, {opacity: 0, duration: .25}, '<')
-    .to([...cols].reverse(), {x: '-160%', duration: .7, stagger: .06, ease: 'expo.inOut'}, '-=.1')
+    .to(w, {backgroundColor: 'rgba(8,17,12,0)', duration: .6, ease: 'power2.out'}, '-=.15')
     .then();
   w.classList.remove('on');
-  G.set([...cols, lab, bar, ...lines], {clearProps: 'all'});
+  G.set([...cols, lab, bar, ...lines, w], {clearProps: 'all'});
 };
 
 /* ───────── car tabs: what each tab does as it opens ───────── */
@@ -3200,12 +3342,13 @@ route(true);
   }
 })();}
 
-/* the 3D showroom (assets/showroom.js). Starts downloading straight away when you land on the home page,
-   so the loader can count it in; otherwise only once you go home. Never on reduced motion, Data Saver,
-   low-memory devices or without WebGL2: those visitors keep the photo slideshow. */
+/* the 3D showroom (assets/showroom.bundle.js, built from src/3d). Starts downloading straight away when you
+   land on the home page, so the loader can count it in; otherwise only once you go home. Plain scripts, so it
+   also works when index.html is opened straight from disk. Never on reduced motion, Data Saver, low-memory
+   devices or without WebGL2: those visitors keep the photo slideshow and the plain chapters. */
 window.V8_STAGE = (function(){
   const host = document.getElementById('heroStage'), nc = navigator.connection;
-  if(!host || location.protocol === 'file:' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  if(!host || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   if((nc && nc.saveData) || (navigator.deviceMemory && navigator.deviceMemory < 4)) return null;
   try {
     const gl = document.createElement('canvas').getContext('webgl2');
@@ -3215,10 +3358,13 @@ window.V8_STAGE = (function(){
   // phones reserve room for the car above the headline (if the 3D never arrives, the photo just shows more)
   document.documentElement.classList.add('can-3d');
   const S = {progress: 0, stage: null, failed: false, ready: null, onLost: null};
-  S.start = () => S.ready || (S.ready = import('./assets/showroom.js')
-    .then(m => {
-      S.stage = m.createShowroom(host, {
-        url: 'assets/showroom-car.glb', dragEl: document.getElementById('hero'),
+  const script = src => new Promise((res, rej) => { const el = document.createElement('script'); el.src = src; el.onload = res; el.onerror = rej; document.head.appendChild(el); });
+  S.start = () => S.ready || (S.ready = script('assets/showroom.bundle.js')
+    .then(() => {
+      S.stage = window.V8Showroom.createShowroom(host, {
+        url: 'assets/showroom-car.glb', fileUrl: 'assets/showroom-car.js',
+        dragEl: document.getElementById('hero'), heroEl: document.getElementById('hero'),
+        journeyEl: document.getElementById('journey'), pinsEl: document.getElementById('stagePins'),
         mobile: !matchMedia('(min-width: 900px)').matches,
         onProgress: p => S.progress = p,
         onLost: () => { S.failed = true; if(S.onLost) S.onLost(); }

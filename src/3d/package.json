@@ -1,0 +1,8 @@
+{
+  "name": "v8-showroom-3d",
+  "private": true,
+  "description": "Builds assets/showroom.bundle.js and assets/showroom-car.js from showroom.js. Run: npm install && npm run build",
+  "type": "module",
+  "scripts": { "build": "node build.mjs" },
+  "devDependencies": { "esbuild": "^0.24.0", "three": "0.170.0" }
+}

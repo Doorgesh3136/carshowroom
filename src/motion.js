@@ -4,7 +4,7 @@
    the site works the same, just without these effects. */
 const G = window.gsap, ST = window.ScrollTrigger;
 const MOTION = !!(G && ST) && !reduced;
-const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null, tabFx(){}};
+const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null, tabFx(){}, cardsIn: null};
 if(MOTION){
   G.registerPlugin(ST);
   document.documentElement.classList.add('js-motion');
@@ -156,8 +156,9 @@ function buildScenes(view, R){
 
   // hero: the photo sinks and the frame tucks into a rounded card as you scroll away
   if(home){
+    const photoHero = !document.documentElement.classList.contains('can-3d');
     G.timeline({scrollTrigger: {trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true}})
-      .fromTo('#hero', {clipPath: 'inset(0% 0% 0% 0% round 0px)'}, {clipPath: 'inset(0% 2.5% 6% 2.5% round 28px)', ease: 'none'}, 0)
+      .fromTo('#hero', {clipPath: 'inset(0% 0% 0% 0% round 0px)'}, {clipPath: photoHero ? 'inset(0% 2.5% 6% 2.5% round 28px)' : 'inset(0% 0% 0% 0% round 0px)', ease: 'none'}, 0)
       .fromTo('#heroSlides', {'--hy': 0}, {'--hy': 220, ease: 'none'}, 0)
       .fromTo('.hero-in', {y: 0, opacity: 1}, {y: -140, opacity: 0, ease: 'none'}, 0)
       .fromTo('.hero-foot', {y: 0}, {y: -60, ease: 'none'}, 0);
@@ -204,6 +205,51 @@ function buildScenes(view, R){
     G.fromTo(th, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, duration: .8, stagger: .05, ease: 'expo.out', delay: .5, clearProps: 'all'});
   }
 
+  // journey chapters tip up out of depth as each one arrives (the camera does the rest)
+  $$('.jr-step', view).forEach(stp => {
+    const kids = [...stp.children].filter(k => !k.matches('h2'));
+    G.fromTo(kids, {autoAlpha: 0, y: 70, rotationX: -38, transformPerspective: 900, transformOrigin: '50% 100%'},
+      {autoAlpha: 1, y: 0, rotationX: 0, duration: 1.2, stagger: .08, ease: 'expo.out', clearProps: 'transform',
+       scrollTrigger: {trigger: stp, start: 'top 62%', toggleActions: 'play none none reverse'}});
+  });
+
+  // catalogue: cards flip up out of depth as they arrive; the whole grid leans back with the scroll speed
+  if(R.r.v === 'inventory'){
+    const grid = $('#invGrid');
+    M.cardsIn = () => {
+      const cards = $$('.card:not(.in3d)', grid);
+      cards.forEach(c => c.classList.add('in3d'));
+      ST.batch(cards, {start: 'top 96%', once: true, onEnter: b => G.fromTo(b,
+        {autoAlpha: 0, y: 120, z: -260, rotationX: 48, transformPerspective: 1100, transformOrigin: '50% 100%'},
+        {autoAlpha: 1, y: 0, z: 0, rotationX: 0, duration: 1.3, stagger: .07, ease: 'expo.out', clearProps: 'transform,opacity,visibility'})});
+    };
+    M.cardsIn();
+    G.set(grid, {transformPerspective: 1600, transformOrigin: '50% 30%'});
+    const lean = G.quickTo(grid, 'rotationX', {duration: .6, ease: 'power3'}), sink = G.quickTo(grid, 'z', {duration: .6, ease: 'power3'});
+    let back = null;
+    ST.create({trigger: grid, start: 'top bottom', end: 'bottom top', onUpdate: s => {
+      const v = Math.max(-1, Math.min(1, s.getVelocity() / 3000));
+      lean(v * 9); sink(-Math.abs(v) * 140);
+      if(back) back.kill();
+      back = G.delayedCall(.12, () => { lean(0); sink(0); });
+    }});
+  }
+
+  // body types: tiles curve round like a carousel as the row slides past (cover flow)
+  if(home){
+    const tiles = $$('.types .type', view);
+    const flow = () => {
+      const mid = innerWidth / 2;
+      tiles.forEach(t => {
+        const r = t.getBoundingClientRect(), d = Math.max(-1.4, Math.min(1.4, (r.left + r.width / 2 - mid) / mid));
+        t.style.setProperty('--cy', (-d * 26).toFixed(2));
+        t.style.setProperty('--cz', (-Math.abs(d) * 120).toFixed(1));
+      });
+    };
+    ST.create({trigger: '#typesSec', start: 'top bottom', end: 'bottom top', onUpdate: flow, onRefresh: flow});
+    $('#typeRail').addEventListener('scroll', flow, {passive: true});
+  }
+
   // the car page: buy box steps in
   if(R.r.v === 'car'){
     const k = $$('.car-r > *', view);
@@ -223,8 +269,8 @@ M.mount = function(view, R){
   requestAnimationFrame(() => ST.refresh());
 };
 
-/* ───────── page change: a pass-by. Layered panels rush across right to left with speed streaks,
-   the page name slides in at speed, the new page arrives from the right ───────── */
+/* ───────── page change in 3D: the page you are on swings away into depth while the studio dims, the next
+   page's name passes in front, and the new page swings in out of the depth from the other side ───────── */
 M.wipe = async function(R, doMount){
   const w = $('#wipe'), cols = $$('#wipe > i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
   const txt = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
@@ -232,31 +278,38 @@ M.wipe = async function(R, doMount){
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
   let sk = $('.w-streaks', w);
   if(!sk){ sk = document.createElement('div'); sk.className = 'w-streaks'; sk.innerHTML = '<span></span>'.repeat(16); w.appendChild(sk); }
-  const lines = $$('span', sk), chs = $$('.ch', name), old = $('.view.on');
+  const lines = $$('span', sk), chs = $$('.ch', name), old = $('.view.on'), main = $('#main');
+  // the viewport is the stage: pages turn about a vertical axis in front of you
+  const stage = () => G.set(main, {perspective: 1300, perspectiveOrigin: `50% ${scrollY + innerHeight / 2}px`});
+  stage();
   w.classList.add('on');
-  G.set(cols, {xPercent: 0, x: '160%', skewX: -14});
+  G.set(cols, {display: 'none'});
+  G.set(w, {backgroundColor: 'rgba(8,17,12,0)'});
   G.set(lab, {opacity: 0}); G.set(chs, {x: 140, skewX: -20, opacity: 0}); G.set(bar, {scaleX: 0, transformOrigin: 'right center'});
   G.set(lines, {top: () => (8 + Math.random() * 84) + '%', x: () => innerWidth * (1.1 + Math.random() * .4), opacity: () => .35 + Math.random() * .65, scaleX: () => .5 + Math.random()});
   G.to(lines, {x: () => -innerWidth * (.5 + Math.random() * .4), duration: () => .5 + Math.random() * .35, ease: 'power2.in', stagger: {each: .02, from: 'random'}});
   await G.timeline()
-    .to(old, {x: -90, skewX: 3, opacity: .25, duration: .5, ease: 'expo.in'}, 0)
-    .to(cols, {x: '0%', duration: .6, stagger: .06, ease: 'expo.inOut'}, 0)
-    .to(lab, {opacity: 1, duration: .25}, '-=.3')
+    .to(w, {backgroundColor: 'rgba(8,17,12,.8)', duration: .55, ease: 'power2.in'}, 0)
+    .to(old, {rotationY: 30, z: -760, x: -240, opacity: .3, transformOrigin: '0% 50%', duration: .62, ease: 'expo.in'}, 0)
+    .to(lab, {opacity: 1, duration: .25}, .28)
     .to(chs, {x: 0, skewX: 0, opacity: 1, duration: .5, stagger: .018, ease: 'expo.out'}, '<')
     .to(bar, {scaleX: 1, duration: .45, ease: 'expo.out'}, '<')
     .then();
   G.set(old, {clearProps: 'transform,opacity'});
   doMount();
-  // the new page rolls in from the right while the panels carry on off to the left (not awaited, so clicks work at once)
-  G.fromTo($('.view.on'), {x: 120, skewX: -2}, {x: 0, skewX: 0, duration: 1, ease: 'expo.out', delay: .2, clearProps: 'transform', onComplete: () => ST.refresh()});
+  // the new page swings in from the right (not awaited, so clicks work at once)
+  stage();
+  G.fromTo($('.view.on'), {rotationY: -26, z: -700, x: 260, opacity: .2, transformOrigin: '100% 50%'},
+    {rotationY: 0, z: 0, x: 0, opacity: 1, duration: 1.2, ease: 'expo.out', delay: .1, clearProps: 'transform,opacity',
+     onComplete: () => { G.set(main, {clearProps: 'perspective,perspectiveOrigin'}); ST.refresh(); }});
   await G.timeline()
     .to(chs, {x: -120, skewX: 20, opacity: 0, duration: .32, stagger: .012, ease: 'expo.in'})
     .to(bar, {scaleX: 0, transformOrigin: 'left center', duration: .28, ease: 'expo.in'}, '<')
     .to(lab, {opacity: 0, duration: .25}, '<')
-    .to([...cols].reverse(), {x: '-160%', duration: .7, stagger: .06, ease: 'expo.inOut'}, '-=.1')
+    .to(w, {backgroundColor: 'rgba(8,17,12,0)', duration: .6, ease: 'power2.out'}, '-=.15')
     .then();
   w.classList.remove('on');
-  G.set([...cols, lab, bar, ...lines], {clearProps: 'all'});
+  G.set([...cols, lab, bar, ...lines, w], {clearProps: 'all'});
 };
 
 /* ───────── car tabs: what each tab does as it opens ───────── */

@@ -230,20 +230,20 @@ $('#heroPrev').addEventListener('click', () => heroGo(heroK - 1));
 $('#heroNext').addEventListener('click', () => heroGo(heroK + 1));
 heroCap(HERO[0]);
 
-/* the 3D showroom takes over the hero once it is loaded (see assets/showroom.js) */
+/* the 3D showroom takes over the hero once it is loaded (source: src/3d/showroom.js) */
 const STAGE = window.V8_STAGE;
 let stageLive = false;
 function stageOn(quick){
   if(stageLive || !STAGE || !STAGE.stage || STAGE.failed) return;
   stageLive = true;
   const hero = $('#hero'), hint = $('#stageHint');
-  hero.classList.add('has-3d');
+  hero.classList.add('has-3d'); document.documentElement.classList.add('has-3d');
   STAGE.stage.ignite(quick);
   STAGE.stage.pause(cur.view !== 'home');
   setTimeout(() => hint.classList.add('on'), quick ? 900 : 2200);
   STAGE.stage.onDrag = () => { hint.classList.remove('on'); hint.classList.add('done'); };
 }
-if(STAGE) STAGE.onLost = () => { stageLive = false; $('#hero').classList.remove('has-3d'); $('#stageHint').classList.remove('on'); };
+if(STAGE) STAGE.onLost = () => { stageLive = false; $('#hero').classList.remove('has-3d'); document.documentElement.classList.remove('has-3d', 'can-3d'); $('#stageHint').classList.remove('on'); };
 
 /* quick search with a live count */
 const qs = {make: $('#qsMake'), model: $('#qsModel'), body: $('#qsBody'), price: $('#qsPrice')};
@@ -479,6 +479,7 @@ function renderInv(append){
   if(cur.view === 'inventory') setMeta(`${title} | ${total} ${total === 1 ? 'car' : 'cars'} | V8 Motors, Coromandel`, `Browse ${total} checked used ${title === 'Catalogue' ? 'cars' : title.toLowerCase()} for sale at V8 Motors, Coromandel. Prices, mileage and photos for every car.`);
   if(F.saved && !total) { $('#invEmpty h2').textContent = 'No saved cars yet'; $('#invEmpty p').innerHTML = 'Tap the heart on any car to keep it here. Saved cars stay on this device.'; }
   else { $('#invEmpty h2').textContent = 'No cars match those filters'; $('#invEmpty p').innerHTML = 'Try a wider price range, or clear a filter. New stock arrives every week, so you can also <a href="#/contact?topic=find">ask us to find one</a>.'; }
+  if(M.cardsIn && cur.view === 'inventory') M.cardsIn();
 }
 $('#moreBtn').addEventListener('click', () => { page++; renderInv(true); });
 
@@ -1085,12 +1086,13 @@ route(true);
   }
 })();}
 
-/* the 3D showroom (assets/showroom.js). Starts downloading straight away when you land on the home page,
-   so the loader can count it in; otherwise only once you go home. Never on reduced motion, Data Saver,
-   low-memory devices or without WebGL2: those visitors keep the photo slideshow. */
+/* the 3D showroom (assets/showroom.bundle.js, built from src/3d). Starts downloading straight away when you
+   land on the home page, so the loader can count it in; otherwise only once you go home. Plain scripts, so it
+   also works when index.html is opened straight from disk. Never on reduced motion, Data Saver, low-memory
+   devices or without WebGL2: those visitors keep the photo slideshow and the plain chapters. */
 window.V8_STAGE = (function(){
   const host = document.getElementById('heroStage'), nc = navigator.connection;
-  if(!host || location.protocol === 'file:' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  if(!host || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   if((nc && nc.saveData) || (navigator.deviceMemory && navigator.deviceMemory < 4)) return null;
   try {
     const gl = document.createElement('canvas').getContext('webgl2');
@@ -1100,10 +1102,13 @@ window.V8_STAGE = (function(){
   // phones reserve room for the car above the headline (if the 3D never arrives, the photo just shows more)
   document.documentElement.classList.add('can-3d');
   const S = {progress: 0, stage: null, failed: false, ready: null, onLost: null};
-  S.start = () => S.ready || (S.ready = import('./assets/showroom.js')
-    .then(m => {
-      S.stage = m.createShowroom(host, {
-        url: 'assets/showroom-car.glb', dragEl: document.getElementById('hero'),
+  const script = src => new Promise((res, rej) => { const el = document.createElement('script'); el.src = src; el.onload = res; el.onerror = rej; document.head.appendChild(el); });
+  S.start = () => S.ready || (S.ready = script('assets/showroom.bundle.js')
+    .then(() => {
+      S.stage = window.V8Showroom.createShowroom(host, {
+        url: 'assets/showroom-car.glb', fileUrl: 'assets/showroom-car.js',
+        dragEl: document.getElementById('hero'), heroEl: document.getElementById('hero'),
+        journeyEl: document.getElementById('journey'), pinsEl: document.getElementById('stagePins'),
         mobile: !matchMedia('(min-width: 900px)').matches,
         onProgress: p => S.progress = p,
         onLost: () => { S.failed = true; if(S.onLost) S.onLost(); }

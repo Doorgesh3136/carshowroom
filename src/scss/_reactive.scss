@@ -9,7 +9,8 @@
 
 // body-type tiles lean toward the pointer
 .types .type {
-  transform: perspective(900px) rotateX(calc(var(--trx, 0) * 1deg)) rotateY(calc(var(--try, 0) * 1deg));
+  // --try/--trx: lean toward the pointer; --cy/--cz: the cover-flow curve as the row slides (motion.js)
+  transform: perspective(900px) translateZ(calc(var(--cz, 0) * 1px)) rotateX(calc(var(--trx, 0) * 1deg)) rotateY(calc((var(--try, 0) + var(--cy, 0)) * 1deg));
   transform-style: preserve-3d;
   .type-in { transform: translateZ(30px); }
 }

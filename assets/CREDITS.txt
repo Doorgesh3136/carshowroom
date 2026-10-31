@@ -9,4 +9,4 @@ Built from a public-domain (CC0) model by Unity Fan.
 Changes made for V8 Motors: Khronos and 3D Commerce logos removed (licence plate and tyre
 sidewall textures), V8 MOTORS plate added, material variants dropped, geometry simplified
 and meshopt-compressed, textures converted to WebP. Paint colours are set at runtime in
-showroom.js. The credit also appears on the site's Terms page.
+src/3d/showroom.js. The credit also appears on the site's Terms page.
