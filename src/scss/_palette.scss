@@ -1,0 +1,42 @@
+// ───────── palette layer: where the colours land ─────────
+.hero { background: radial-gradient(ellipse 90% 70% at 85% 10%, $navy-3 0%, $navy 55%, $deep 100%); }
+.topbar {
+  background: $deep;
+  b, strong { color: $amber; }
+}
+
+// Saturday deals: dark band so the week's offers stand apart
+.deals-sec {
+  background: linear-gradient(180deg, #0B2227, $navy);
+  color: #fff;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, $amber 0 36px, transparent 36px 48px);
+  }
+  h2 { color: #fff; }
+  .sec-head p { color: rgba(255,255,255,.72); }
+  .link-arrow { color: $amber; }
+  .round-btn.dark { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+}
+.card-tag.amber { background: $amber; color: $ink; }
+
+.pay-sec .pay-list > div { border-color: transparent; }
+.pay-list > div::before { background: $amber; width: 44px; height: 4px; }
+.steps li::before { color: $red; }
+
+.visit { background: radial-gradient(ellipse 70% 90% at 100% 0%, $navy-3, $navy-2 60%); }
+.ftr {
+  background: $deep;
+  h3 { color: $amber; }
+}
+.gauge {
+  background: linear-gradient(160deg, $navy-2, $navy);
+  .g-fg { stroke: $amber; }
+}
+.hero-bars i::after { background: $amber; }
+.sec-navy { background: radial-gradient(ellipse 80% 80% at 0% 100%, #1A4A55, $navy 60%); }
+::selection { background: $amber; color: $ink; }

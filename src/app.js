@@ -466,18 +466,9 @@ $('#moreBtn').addEventListener('click', () => { page++; renderInv(true); });
 
 /* ════════════════════ CAR PAGE + PHOTO VIEWER ════════════════════ */
 const V = {n: 0, pos: 0, target: 0, raf: 0, panels: []};
-/* phones get a flat swipe gallery: one composited layer per photo, no 3D maths */
-const FLAT = matchMedia('(hover:none), (pointer:coarse)').matches;
-if(FLAT) $('#viewer').classList.add('flat');
 function vLayout(){
   V.panels.forEach((p, i) => {
     const d = i - V.pos, ad = Math.abs(d);
-    if(FLAT){
-      const vis = ad < 1.05;
-      p.style.transform = vis ? `translate3d(${(d * 100).toFixed(2)}%,0,0)` : 'translate3d(200%,0,0)';
-      p.style.opacity = vis ? 1 : 0; p.style.zIndex = 10 - Math.round(ad);
-      return;
-    }
     const x = d * 64, z = -ad * 280, ry = Math.max(-60, Math.min(60, -d * 42));
     p.style.transform = `translateX(${x}%) translateZ(${z}px) rotateY(${ry}deg)`;
     p.style.opacity = ad > 2.2 ? 0 : (1 - Math.max(0, ad - 1) * .8).toFixed(3);
@@ -508,10 +499,10 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
       const dx = e.clientX - drag.x;
       if(!drag.moved && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - drag.y)){ drag.moved = true; vw.classList.add('grab'); try{ vw.setPointerCapture(drag.id); }catch(_){} }
       if(drag.moved){
-        let p = drag.p - dx / drag.w * (FLAT ? 1 : 1.6);
+        let p = drag.p - dx / drag.w * 1.6;
         if(p < 0) p = p * .3; if(p > V.n - 1) p = V.n - 1 + (p - V.n + 1) * .3;
         V.pos = V.target = p; cancelAnimationFrame(V.raf); vLayout();
-        if(!FLAT) vw.style.setProperty('--vy', (dx / drag.w * 18).toFixed(2) + 'deg');
+        vw.style.setProperty('--vy', (dx / drag.w * 18).toFixed(2) + 'deg');
       }
     } else if(e.pointerType === 'mouse' && !reduced){
       vw.classList.add('tilting');
@@ -519,7 +510,7 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
       vw.style.setProperty('--vx', ((.5 - y) * 7).toFixed(2) + 'deg');
     }
   });
-  const end = e => { if(!drag) return; if(drag.moved){ const dx = (e && e.clientX != null ? e.clientX : drag.x) - drag.x; vGo(FLAT && Math.abs(dx) > drag.w * .15 ? Math.round(drag.p) - Math.sign(dx) : Math.round(V.pos)); } drag = null; vw.classList.remove('grab'); vw.style.setProperty('--vy', '0deg'); };
+  const end = () => { if(!drag) return; if(drag.moved){ vGo(Math.round(V.pos)); } drag = null; vw.classList.remove('grab'); vw.style.setProperty('--vy', '0deg'); };
   vw.addEventListener('pointerup', end); vw.addEventListener('pointercancel', end);
   vw.addEventListener('pointerleave', () => { vw.classList.remove('tilting'); vw.style.setProperty('--vx', '0deg'); vw.style.setProperty('--vy', '0deg'); });
 })();
@@ -793,6 +784,7 @@ const ROUTES = {
   '404': {v:'404', n:'Not found', i:'00', t:'Page not found | V8 Motors', d:'This page does not exist.'}
 };
 const cur = {view: null, car: null, path: null};
+/*@@MOTION@@*/
 let invScroll = 0, vtImg = null, routing = false, pending = false;
 
 function parse(){
@@ -841,10 +833,12 @@ function mount(R){
   observe(view);
   sheet(false); menu(false);
   onScroll();
+  M.mount(view, R);
 }
 
 function anim(el, kf, o){ return el.animate(kf, Object.assign({fill: 'forwards', easing: 'cubic-bezier(.77,0,.18,1)'}, o)).finished; }
 async function wipe(R, doMount){
+  if(MOTION) return M.wipe(R, doMount);
   const w = $('#wipe'), bars = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar');
   $('#wipeName').textContent = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
@@ -909,7 +903,7 @@ addEventListener('keydown', e => { if(e.key === 'Escape'){ menu(false); sheet(fa
 /* ───────── scroll: progress bar, header shadow, back to top ───────── */
 function onScroll(){
   const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
-  if(cur.view === 'home' && !reduced && fine && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
+  if(cur.view === 'home' && !reduced && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
   $('#sprog').style.setProperty('--p', H > 0 ? (y / H).toFixed(4) : 0);
   $('#hdr').classList.toggle('up', y > 10);
   $('#toTop').classList.toggle('on', y > innerHeight * 1.2);
@@ -951,7 +945,7 @@ route(true);
   const words = [[0, 'Starting the engine'], [.35, 'Warming up the showroom'], [.7, 'Polishing ' + CARS.length + ' cars'], [.97, 'Ready']];
   (function tick(t){
     const el = t - t0;
-    let target = Math.min(1, el / (fine ? 2400 : 1700));
+    let target = Math.min(1, el / 2400);
     if(!(fontsOk && imgOk) && el < 5000) target = Math.min(target, .9);
     shown += (target - shown) * .07;
     if(target >= 1 && shown > .992) shown = 1;
@@ -974,18 +968,18 @@ route(true);
     const R = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 40;
     setTimeout(() => {
       if(cur.view === 'home'){ void hv.offsetWidth; hv.classList.add('intro'); }
-      $$('.slide.on img').forEach(i => i.animate(fine ? [{transform: 'scale(1.35)', filter: 'brightness(1.6)'}, {transform: 'scale(1.16) translateX(2%)', filter: 'brightness(1)'}] : [{transform: 'scale(1.25)'}, {transform: 'scale(1.1)'}], {duration: 1600, easing: 'cubic-bezier(.22,1,.36,1)'}));
+      $$('.slide.on img').forEach(i => i.animate([{transform: 'scale(1.35)', filter: 'brightness(1.6)'}, {transform: 'scale(1.16) translateX(2%)', filter: 'brightness(1)'}], {duration: 1600, easing: 'cubic-bezier(.22,1,.36,1)'}));
       L.style.setProperty('--cx', cx + 'px'); L.style.setProperty('--cy', cy + 'px');
       L.style.setProperty('--r', '0px'); L.classList.add('opening');
-      if(fine) ring.style.display = 'block';
-      const T = fine ? 1150 : 900, s0 = performance.now();
+      ring.style.display = 'block';
+      const T = 1150, s0 = performance.now();
       const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
       (function open(t){
         const p = Math.min(1, (t - s0) / T), rad = ease(p) * R;
         L.style.setProperty('--r', rad + 'px');
-        if(fine){ ring.style.transform = `translate(${cx - 1}px,${cy - 1}px) scale(${rad})`;
+        ring.style.transform = `translate(${cx - 1}px,${cy - 1}px) scale(${rad})`;
         ring.style.boxShadow = `0 0 0 ${3 / Math.max(rad, 1)}px #D3202F, 0 0 ${40 / Math.max(rad, 1)}px ${6 / Math.max(rad, 1)}px rgba(255,59,85,.5)`;
-        ring.style.opacity = p < .1 ? p * 10 : 1 - Math.max(0, p - .7) / .3; }
+        ring.style.opacity = p < .1 ? p * 10 : 1 - Math.max(0, p - .7) / .3;
         if(p < 1) requestAnimationFrame(open); else { ring.remove(); done(); L.remove(); }
       })(s0);
     }, 620);
@@ -994,7 +988,9 @@ route(true);
 
 /* load the live stock list (edited in admin.html); fall back to the copy built into this page */
 (function(){
-  const go = d => V8_BOOT(Array.isArray(d) && d.length ? d : window.V8_CARS);
+  // wait for the deferred animation libraries (they run before DOMContentLoaded)
+  const ready = f => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', f, {once: true}) : f();
+  const go = d => ready(() => V8_BOOT(Array.isArray(d) && d.length ? d : window.V8_CARS));
   if(location.protocol === 'file:'){ go(null); return; }
   fetch('data/cars.json?v=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(go);
 })();

@@ -28,19 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "AutoDealer", "name": "V8 Motors", "url": "https://v8motors.mu/", "slogan": "Drive smarter", "image": "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80", "telephone": "+230 5259 0327", "email": "veightmotorsv8@gmail.com", "address": {"@type": "PostalAddress", "streetAddress": "59B Royal Road", "addressLocality": "Coromandel", "addressCountry": "MU"}, "contactPoint": [{"@type": "ContactPoint", "telephone": "+230 5259 0327", "contactType": "sales", "areaServed": "MU"}, {"@type": "ContactPoint", "telephone": "+230 5750 7912", "contactType": "sales", "areaServed": "MU"}, {"@type": "ContactPoint", "telephone": "+230 5500 9527", "contactType": "sales", "areaServed": "MU"}, {"@type": "ContactPoint", "telephone": "+230 5532 9727", "contactType": "sales", "areaServed": "MU"}], "makesOffer": [{"@type": "Offer", "name": "Car leasing through Rogers Capital"}, {"@type": "Offer", "name": "Vehicle exchange and trade-in"}]}</script>
-<style>:root{
---navy:#0F2C33;--navy-2:#16404A;--navy-3:#1F5866;--ink:#0B1B1F;
---red:#D3202F;--red-2:#AD1723;
---paper:#E6EFED;--white:#fff;--line:#CEDDD9;--line-2:#DCE8E5;
---text:#0B1B1F;--muted:#4A5C60;--muted-2:#5A6B6F;
---wa:#167C45;
---amber:#F2A516;--amber-2:#C98400;--mist:#E6EFED;
---r:12px;--r-lg:18px;
---ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.77,0,.18,1);
---wrap:min(1280px,calc(100% - 48px));
---hd:"Archivo",system-ui,sans-serif;--bd:"Hanken Grotesk",system-ui,sans-serif;
---hdr:72px;
-}
+<style>:root{--navy:#0F2C33;--navy-2:#16404A;--navy-3:#1F5866;--ink:#0B1B1F;--deep:#081A1E;--red:#D3202F;--red-2:#AD1723;--amber:#F2A516;--amber-2:#C98400;--mist:#E6EFED;--paper:#E6EFED;--white:#fff;--line:#CEDDD9;--line-2:#DCE8E5;--text:#0B1B1F;--muted:#4A5C60;--muted-2:#5A6B6F;--wa:#167C45;--r:12px;--r-lg:18px;--ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.77,0,.18,1);--expo:cubic-bezier(.16,1,.3,1);--back:cubic-bezier(.34,1.56,.64,1);--wrap:min(1280px, calc(100% - 48px));--hd:"Archivo", system-ui, sans-serif;--bd:"Hanken Grotesk", system-ui, sans-serif;--hdr:72px;--sk:clamp(18px, 3vw, 48px)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:90px;}
 body{font-family:var(--bd);font-size:16px;line-height:1.55;color:var(--text);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
@@ -867,74 +855,113 @@ body{padding:0 !important;}
 .tb-r a.tb-mail{width:auto;height:auto;padding:6px 8px;white-space:nowrap;}
 .tb-l{min-width:0;}
 @media(max-width:1100px){.tb-l span{display:none;}}
-.hero{background:radial-gradient(ellipse 90% 70% at 85% 10%,#1F5866 0%,var(--navy) 55%,#081A1E 100%);}
-.topbar{background:#081A1E;}
-.topbar b,.topbar strong{color:var(--amber);}
-.deals-sec{background:linear-gradient(180deg,#0B2227,var(--navy));color:#fff;position:relative;}
-.deals-sec::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:repeating-linear-gradient(90deg,var(--amber) 0 36px,transparent 36px 48px);}
-.deals-sec h2{color:#fff;}
-.deals-sec .sec-head p{color:rgba(255,255,255,.72);}
-.deals-sec .link-arrow{color:var(--amber);}
-.deals-sec .round-btn.dark{background:transparent;color:#fff;border-color:rgba(255,255,255,.35);}
-.card-tag.amber{background:var(--amber);color:var(--ink);}
-.pay-sec .pay-list>div{border-color:transparent;}
-.pay-list>div::before{background:var(--amber);width:44px;height:4px;}
-.steps li::before{color:var(--red);}
-.visit{background:radial-gradient(ellipse 70% 90% at 100% 0%,#1F5866,var(--navy-2) 60%);}
-.ftr{background:#081A1E;}
-.ftr h3{color:var(--amber);}
-.gauge{background:linear-gradient(160deg,var(--navy-2),var(--navy));}
-.gauge .g-fg{stroke:var(--amber);}
-.hero-bars i::after{background:var(--amber);}
-.sec-navy{background:radial-gradient(ellipse 80% 80% at 0% 100%,#1A4A55,var(--navy) 60%);}
-::selection{background:var(--amber);color:var(--ink);}
-@media (hover:none),(pointer:coarse){
-.card{transform-style:flat;will-change:auto;transform:none !important;transition:transform .25s var(--ease),box-shadow .3s;}
-.card:active{transform:scale(.982) !important;transition-duration:.1s;}
-.card-tag,.card-body,.card-link,.fav{transform:none;}
-.fav.pop{animation:popFlat .45s var(--ease);}
-.card-media img{inset:0;width:100%;height:100%;transform:none;transition:opacity .4s;}
-.grid .card.enter{animation:cardInFlat .5s var(--ease) both;animation-delay:min(var(--d,0ms),220ms);}
-.ph{animation:none;background:#DAE6E3;}
-.slide{clip-path:none;opacity:0;transition:opacity .9s ease;}
-.slide.on{opacity:1;}
-.slide.in{animation:slideFade .9s ease both;}
-.slide.on img,.slide.in img{animation:kbSoft 9s linear forwards;}
-.hero-in,#heroSlides{will-change:auto;}
-.clip-in{clip-path:none;opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
-.clip-in.shown{opacity:1;transform:none;}
-.v-panel{-webkit-box-reflect:none;box-shadow:none;will-change:auto;}
-.viewer.flat{perspective:none;}
-.viewer.flat .v-ring{transform:none !important;transform-style:flat;}
-.viewer.flat .v-panel{left:0;right:0;top:0;bottom:0;border-radius:0;backface-visibility:visible;}
-.viewer.flat .v-panel::after{display:none;}
-.pay-list>div:hover{transform:none;box-shadow:none;}
-.sec,.visit,.brands,.ftr{content-visibility:auto;contain-intrinsic-size:auto 640px;}
+.hero{background:radial-gradient(ellipse 90% 70% at 85% 10%, #1F5866 0%, #0F2C33 55%, #081A1E 100%)}
+.topbar{background:#081A1E}
+.topbar b,.topbar strong{color:#F2A516}
+.deals-sec{background:linear-gradient(180deg, #0B2227, #0F2C33);color:#fff;position:relative}
+.deals-sec::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:repeating-linear-gradient(90deg, #F2A516 0 36px, transparent 36px 48px)}
+.deals-sec h2{color:#fff}
+.deals-sec .sec-head p{color:rgba(255,255,255,.72)}
+.deals-sec .link-arrow{color:#F2A516}
+.deals-sec .round-btn.dark{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.card-tag.amber{background:#F2A516;color:#0B1B1F}
+.pay-sec .pay-list > div{border-color:transparent}
+.pay-list > div::before{background:#F2A516;width:44px;height:4px}
+.steps li::before{color:#D3202F}
+.visit{background:radial-gradient(ellipse 70% 90% at 100% 0%, #1F5866, #16404A 60%)}
+.ftr{background:#081A1E}
+.ftr h3{color:#F2A516}
+.gauge{background:linear-gradient(160deg, #16404A, #0F2C33)}
+.gauge .g-fg{stroke:#F2A516}
+.hero-bars i::after{background:#F2A516}
+.sec-navy{background:radial-gradient(ellipse 80% 80% at 0% 100%, #1A4A55, #0F2C33 60%)}
+::selection{background:#F2A516;color:#0B1B1F}
+.sec-navy{position:relative;z-index:1;clip-path:polygon(0 var(--sk), 100% 0, 100% calc(100% - var(--sk)), 0 100%);margin-block:calc(var(--sk) * -1);padding-block:calc(var(--sk) + clamp(64px, 8vw, 110px))}
+.visit{position:relative;z-index:1;clip-path:polygon(0 var(--sk), 100% 0, 100% calc(100% - var(--sk)), 0 100%);margin-block:calc(var(--sk) * -1);padding-block:calc(var(--sk) + 0px)}
+.mani{background:#fff;padding-block:clamp(96px, 12vw, 180px)}
+.mani-in{display:grid;grid-template-columns:minmax(0, .3fr) minmax(0, 1fr);gap:24px 56px;align-items:start}
+.mani-k{display:flex;align-items:center;gap:12px;font-weight:700;color:#D3202F;padding-top:.9em}
+.mani-k::before{content:"";width:34px;height:2px;background:#D3202F}
+.mani-t{font-family:"Archivo", system-ui, sans-serif;font-stretch:112%;font-weight:800;font-size:clamp(28px, 3.7vw, 56px);line-height:1.1;letter-spacing:-.025em;color:#0F2C33}
+.mani-facts{grid-column:2;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:28px;margin-top:clamp(36px, 5vw, 64px);border-top:1px solid #CEDDD9;padding-top:28px}
+.mani-facts b{display:block;font-family:"Archivo", system-ui, sans-serif;font-stretch:120%;font-weight:900;font-size:clamp(34px, 4vw, 58px);line-height:1;color:#0F2C33;font-variant-numeric:tabular-nums}
+.mani-facts span{display:block;margin-top:8px;color:#4A5C60;font-weight:600}
+.mani-facts div{position:relative;padding-top:18px}
+.mani-facts div::before{content:"";position:absolute;left:0;top:0;width:28px;height:4px;background:#F2A516}
+@media (max-width: 820px){
+.mani-in{grid-template-columns:minmax(0, 1fr)}
+.mani-k{padding-top:0}
+.mani-facts{grid-column:1;grid-template-columns:minmax(0, 1fr)}
 }
-@keyframes popFlat{40%{transform:scale(1.25);}}
-@keyframes cardInFlat{from{transform:translateY(22px);opacity:0;}}
-@keyframes slideFade{from{opacity:0;}to{opacity:1;}}
-@keyframes kbSoft{from{transform:scale(1.1);}to{transform:scale(1.02);}}
-.c-item,.c-item *{min-width:0;overflow-wrap:anywhere;}
-@media(max-width:420px){
-.stats div{padding:22px 14px;}
-.stats div:nth-child(odd){padding-left:0;}
-.stats b{font-size:clamp(26px,8.4vw,34px);}
-.stats span{font-size:14px;}
+.bigline{overflow:hidden;background:#0F2C33;padding-block:clamp(22px, 3vw, 40px)}
+.bigline-track{display:flex;width:max-content;align-items:center;will-change:transform}
+.bigline span{display:flex;align-items:center;gap:.42em;padding-right:.42em;font-family:"Archivo", system-ui, sans-serif;font-stretch:125%;font-weight:900;font-size:clamp(56px, 9vw, 150px);line-height:1.02;letter-spacing:-.035em;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.55)}
+.bigline span::after{content:"";flex:none;width:.16em;height:.16em;background:#F2A516;transform:rotate(45deg)}
+.bigline span:nth-child(odd){color:#fff;-webkit-text-stroke:0}
+.types-sec{overflow:hidden}
+.types-prog{width:var(--wrap);margin:4px auto 0;height:3px;border-radius:3px;background:#DCE8E5;overflow:hidden;display:none}
+.types-prog i{display:block;height:100%;background:#D3202F;transform-origin:left;transform:scaleX(0)}
+html.js-pin .types-sec{padding-bottom:56px}
+html.js-pin .types{overflow:visible;scroll-snap-type:none}
+html.js-pin .types .type{width:clamp(280px, 25vw, 360px)}
+html.js-pin .types-prog{display:block}
+.steps li{position:relative}
+.steps li::after{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;background:#D3202F;transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.steps li.in::after{transform:scaleX(1)}
+html.js-motion .pay-list > div::before{width:0;transition:width .9s cubic-bezier(.16,1,.3,1) .35s}
+html.js-motion .pay-list > div.in::before{width:44px}
+.ftr-mark{overflow:hidden;margin-top:40px;user-select:none}
+.ftr-mark span{display:block;text-align:center;white-space:nowrap;font-family:"Archivo", system-ui, sans-serif;font-stretch:125%;font-weight:900;font-size:15.5vw;line-height:.78;letter-spacing:-.05em;padding-bottom:.04em;background:linear-gradient(180deg, rgba(242,165,22,.9) 0%, rgba(242,165,22,.15) 70%, rgba(242,165,22,0) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+html.has-smooth{scroll-behavior:auto !important}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.w > .i{display:inline-block;will-change:transform}
+.sw{display:inline}
+.m-rise{translate:0 calc(var(--rise, 0) * 1px);scale:var(--rs, 1)}
+.hdr{transition:box-shadow .3s, transform .7s cubic-bezier(.16,1,.3,1)}
+.hdr.hide{transform:translateY(-101%)}
+.mag{translate:calc(var(--mx, 0) * 1px) calc(var(--my, 0) * 1px)}
+.cur{position:fixed;left:0;top:0;z-index:4000;width:0;height:0;pointer-events:none}
+.cur b{position:absolute;left:-48px;top:-48px;width:96px;height:96px;border-radius:50%;background:#D3202F;color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px;letter-spacing:.01em;opacity:0;scale:.2;transition:scale .55s cubic-bezier(.16,1,.3,1), opacity .3s, background .3s, color .3s}
+.cur.on b{opacity:1;scale:1}
+.cur.drag b{background:#F2A516;color:#0B1B1F}
+body.cur-on,body.cur-on a,body.cur-on .card,body.cur-on .rail{cursor:none}
+.w-label .ch{display:inline-block;white-space:pre}
+html.js-motion .tab-pane.on > *{translate:0 calc(var(--rise, 0) * 1px);scale:var(--rs, 1)}
+html.js-motion .menu.open nav > a{animation:menuIn .7s cubic-bezier(.16,1,.3,1) both}
+html.js-motion .menu.open nav > a:nth-child(1){animation-delay:45ms}
+html.js-motion .menu.open nav > a:nth-child(2){animation-delay:90ms}
+html.js-motion .menu.open nav > a:nth-child(3){animation-delay:135ms}
+html.js-motion .menu.open nav > a:nth-child(4){animation-delay:180ms}
+html.js-motion .menu.open nav > a:nth-child(5){animation-delay:225ms}
+html.js-motion .menu.open nav > a:nth-child(6){animation-delay:270ms}
+html.js-motion .menu.open nav > a:nth-child(7){animation-delay:315ms}
+html.js-motion .menu.open nav > a:nth-child(8){animation-delay:360ms}
+@keyframes menuIn{from{opacity:0;transform:translateY(26px)}}
+@media (prefers-reduced-motion: reduce){
+.cur{display:none}
+.hdr.hide{transform:none}
 }
-@media(max-width:374px){
-.hdr-in{gap:10px;}
-.hdr-r{gap:6px;}
-.logo-txt{font-size:13.5px;}
-.logo-txt small{font-size:11px;}
-.logo-mark{width:38px;height:38px;}
-.wrap{width:calc(100% - 32px);}
-h1{overflow-wrap:break-word;hyphens:auto;}
+.c-item,.c-item *{min-width:0;overflow-wrap:anywhere}
+.card-foot{flex-wrap:wrap;gap:6px 12px}
+.card-mo{white-space:nowrap}
+@media (max-width: 420px){
+.stats div{padding:22px 14px}
+.stats div:nth-child(odd){padding-left:0}
+.stats b{font-size:clamp(26px, 8.4vw, 34px)}
+.stats span{font-size:14px}
+.card-price{font-size:19px}
 }
-.card-foot{flex-wrap:wrap;gap:6px 12px;}
-.card-mo{white-space:nowrap;}
-@media(max-width:420px){.card-price{font-size:19px;}}
-</style>
+@media (max-width: 374px){
+.hdr-in{gap:10px}
+.hdr-r{gap:6px}
+.logo-txt{font-size:13.5px}
+.logo-txt small{font-size:11px}
+.logo-mark{width:38px;height:38px}
+.wrap{width:calc(100% - 32px)}
+h1{overflow-wrap:break-word;hyphens:auto}
+}</style>
+<script defer src="vendor/gsap/gsap.min.js"></script>
+<script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
 </head>
 <body class="is-loading"><script>window.V8_START="inventory";</script>
 <a class="skip" href="#main">Skip to content</a>
@@ -1086,11 +1113,12 @@ h1{overflow-wrap:break-word;hyphens:auto;}
     </form>
   </div>
 
-  <section class="sec" aria-labelledby="hTypes">
+  <section class="sec types-sec" aria-labelledby="hTypes" id="typesSec">
     <div class="wrap">
       <div class="sec-head"><h2 id="hTypes">Shop by body type</h2><a href="#/inventory" class="link-arrow">Full inventory <svg><use href="#i-arrow"/></svg></a></div>
     </div>
     <div class="rail-wrap"><div class="rail types" id="typeRail"></div></div>
+    <div class="types-prog" aria-hidden="true"><i id="typesBar"></i></div>
   </section>
 
   <section class="sec sec-paper" aria-labelledby="hNew">
@@ -1112,6 +1140,22 @@ h1{overflow-wrap:break-word;hyphens:auto;}
   </section>
 
   <div class="brands" aria-label="Makes in stock"><div class="brands-track" id="brandTrack"></div></div>
+
+  <section class="mani" aria-labelledby="hMani">
+    <div class="wrap mani-in">
+      <p class="mani-k" id="hMani">Why buy here</p>
+      <div>
+        <p class="mani-t" data-scrub>Every car on our floor is checked before it goes on sale. New stock arrives every week, the deals land every Saturday, and you can pay cash, take a bank loan, lease through Rogers Capital or trade in the car you drive today.</p>
+      </div>
+      <div class="mani-facts">
+        <div><b data-count="67">67</b><span>cars on sale right now</span></div>
+        <div><b>4</b><span>ways to pay, leasing included</span></div>
+        <div><b>Sat</b><span>is deals day, every week</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="bigline" aria-hidden="true"><div class="bigline-track" id="bigTrack"><span>Buy</span><span>Sell</span><span>Exchange</span><span>Lease</span><span>Drive smarter</span><span>Buy</span><span>Sell</span><span>Exchange</span><span>Lease</span><span>Drive smarter</span></div></div>
 
   <section class="sec" aria-labelledby="hHow">
     <div class="wrap how">
@@ -1236,7 +1280,7 @@ h1{overflow-wrap:break-word;hyphens:auto;}
         <div class="v-ring" id="vRing"></div>
         <div class="v-glare" aria-hidden="true"></div>
         <div class="v-ui">
-          <span class="v-hint" id="vHint"><svg><use href="#i-left"/></svg>Swipe for more</span>
+          <span class="v-hint" id="vHint"><svg><use href="#i-left"/></svg>Drag for more photos</span>
           <span class="v-count" id="vCount">1 / 3</span>
           <button class="round-btn" id="vPrev" aria-label="Previous photo"><svg><use href="#i-left"/></svg></button>
           <button class="round-btn" id="vNext" aria-label="Next photo"><svg><use href="#i-right"/></svg></button>
@@ -1490,6 +1534,7 @@ h1{overflow-wrap:break-word;hyphens:auto;}
     <div><h3>Visit</h3><p>59B Royal Road<br>Coromandel, Mauritius</p><p><a href="tel:+23052590327">5259 0327</a><br><a href="tel:+23057507912">5750 7912</a><br><a href="mailto:veightmotorsv8@gmail.com">veightmotorsv8@gmail.com</a></p></div>
   </div>
   <div class="wrap ftr-base"><span>© <span id="yr">2026</span> V8 Motors. All rights reserved.</span><span class="ftr-legal"><a href="#/privacy">Privacy</a><a href="#/terms">Terms</a><button type="button" data-cookie-settings>Cookies</button><a href="https://buildyourdreamwebsite.com" target="_blank" rel="noopener">Site by Build Your Dream Website</a></span></div>
+  <div class="ftr-mark" aria-hidden="true"><span>V8 Motors</span></div>
 </footer>
 
 <!-- MOBILE THUMB BAR -->
@@ -1521,6 +1566,7 @@ h1{overflow-wrap:break-word;hyphens:auto;}
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="cur" id="cur" aria-hidden="true"><b id="curT">View</b></div>
 
 <script>window.V8_CARS=[{"id":1,"make":"Porsche","model":"Panamera 4","variant":"E-Hybrid","year":2021,"price":5498000,"km":54916,"fuel":"Hybrid","trans":"Automatic","body":"Sedan","color":null,"doors":5,"seats":4,"engine":"2.9L twin-turbo V6 + electric","power":"462 hp","drive":"All-wheel drive","desc":"2021 Porsche Panamera 4 (E-Hybrid) that has covered 54,916 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.9L twin-turbo V6 + electric with 462 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Four-zone climate control","Air suspension","High-end surround sound","Nappa leather","Ventilated and massage seats","360-degree camera","Soft-close doors","Adaptive dampers","Panoramic glass roof","Head-up display"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1611157816410-6a6b31ee255e","1611157817876-3b8ceb8c8bd7","1503376780353-7e6692767b70"],"addedOn":"2026-10-30","status":"available","featured":true,"demo":true,"deal":false,"spin":[]},{"id":2,"make":"Porsche","model":"Taycan 4S","variant":"Electric","year":2021,"price":4998000,"km":10000,"fuel":"Electric","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":4,"engine":"Dual electric motors, 320 kW","power":"530 hp with overboost","drive":"All-wheel drive","desc":"2021 Porsche Taycan 4S (Electric) that has covered 10,000 km. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Dual electric motors, 320 kW with 530 hp with overboost. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["DC fast charging","Premium sound system","One-pedal driving","Large central touchscreen","Home charging cable","Heated front seats","Adaptive cruise control","Phone-as-key","Lane centring","Over-the-air updates"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1618213221550-c32da08997db","1763567061050-e9b7cb51eda6","1740098159737-73673d741ebb"],"addedOn":"2026-10-29","status":"available","featured":true,"demo":true,"deal":false,"spin":[]},{"id":3,"make":"Mercedes-Benz","model":"CLS 53","variant":"AMG 4MATIC+","year":2019,"price":3998000,"km":null,"fuel":"Hybrid","trans":"Automatic","body":"Coupé","color":null,"doors":4,"seats":4,"engine":"3.0L turbo I6 + EQ Boost","power":"435 hp","drive":"All-wheel drive","desc":"2019 Mercedes-Benz CLS 53 (AMG 4MATIC+) that comes with its mileage on request. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 3.0L turbo I6 + EQ Boost with 435 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Adaptive dampers","High-end surround sound","Nappa leather","Ventilated and massage seats","Head-up display","Four-zone climate control","Panoramic glass roof","Soft-close doors","360-degree camera","Air suspension"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1587141165905-c4e3c0c5e5d4","1748569748174-33f4ba3ddcdf","1485291571150-772bcfc10da5"],"addedOn":"2026-09-21","status":"available","featured":true,"demo":true,"deal":false,"spin":[]},{"id":4,"make":"Mercedes-Benz","model":"E 200","variant":"2.0 petrol, EQ Boost","year":2023,"price":2698000,"km":13775,"fuel":"Hybrid","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":5,"engine":"2.0L turbo I4 mild hybrid","power":"204 hp","drive":"Rear-wheel drive","desc":"2023 Mercedes-Benz E 200 (2.0 petrol, EQ Boost) that has covered 13,775 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 mild hybrid with 204 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["360-degree camera","High-end surround sound","Nappa leather","Head-up display","Night-time ambient lighting","Soft-close doors","Ventilated and massage seats","Air suspension","Adaptive dampers","Matrix LED headlights"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1624085568108-36410cfe4d24","1611319433178-4b15ae32cecb","1653924308766-73632d766dde"],"was":2798000,"addedOn":"2026-10-30","status":"available","featured":true,"demo":true,"deal":true,"spin":[]},{"id":5,"make":"BMW","model":"iX1","variant":"xDrive30 electric","year":2023,"price":2698000,"km":null,"fuel":"Electric","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"Dual electric motors, 230 kW","power":"313 hp","drive":"All-wheel drive","desc":"2023 BMW iX1 (xDrive30 electric) that comes with its mileage on request. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Dual electric motors, 230 kW with 313 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Premium sound system","Home charging cable","Heated front seats","Over-the-air updates","Heat pump","DC fast charging","Large central touchscreen","Glass roof","Phone-as-key","One-pedal driving"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1680298255666-6071fc905870"],"was":2798000,"addedOn":"2026-10-29","status":"available","featured":false,"demo":true,"deal":true,"spin":[]},{"id":6,"make":"Mercedes-Benz","model":"GLC 300e","variant":"Plug-in hybrid","year":2022,"price":2398000,"km":74064,"fuel":"Hybrid","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"2.0L turbo I4 + electric","power":"320 hp","drive":"All-wheel drive","desc":"2022 Mercedes-Benz GLC 300e (Plug-in hybrid) that has covered 74,064 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 2.0L turbo I4 + electric with 320 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Digital instrument cluster","Heated front seats","Electric memory seats","Leather seats","360-degree camera","Power tailgate","Wireless phone charging","Adaptive cruise control","Premium sound system","Blind spot monitoring"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1619466548431-54ffb2fe2674","1732347700505-e1231e0f7c94","1684239725236-5f3b6e9f02c3"],"addedOn":"2026-10-06","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":7,"make":"BMW","model":"X2","variant":"25e plug-in hybrid","year":2024,"price":2098000,"km":55997,"fuel":"Hybrid","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.5L turbo I3 + electric","power":"220 hp","drive":"All-wheel drive","desc":"2024 BMW X2 (25e plug-in hybrid) that has covered 55,997 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I3 + electric with 220 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Power tailgate","Blind spot monitoring","Electric memory seats","Wireless phone charging","Adaptive cruise control","Digital instrument cluster","Premium sound system","Heated front seats","Leather seats","Panoramic sunroof"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1533903179229-783a50d25dd7","1676409430179-4b33940b00c5"],"addedOn":"2026-09-27","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":8,"make":"Kia","model":"Sportage","variant":"GT Line 1.6 T-GDi","year":2025,"price":1825000,"km":18406,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.6L turbo I4","power":"180 hp","drive":"Front-wheel drive","desc":"2025 Kia Sportage (GT Line 1.6 T-GDi) that has covered 18,406 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.6L turbo I4 with 180 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Lane keep assist","Auto headlights","Alloy wheels","Reversing camera","Rain-sensing wipers","LED headlights","Six airbags","Keyless entry and start","Front and rear parking sensors","Apple CarPlay and Android Auto"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1649921777129-a28a26031a03","1665736721212-711a6e52933b","1647501581530-053b42684b8d","1731474633990-790a0fb02006"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":9,"make":"BMW","model":"X1","variant":"1.5 petrol","year":2022,"price":1698000,"km":80979,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.5L turbo I3","power":"136 hp","drive":"Front-wheel drive","desc":"2022 BMW X1 (1.5 petrol) that has covered 80,979 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I3 with 136 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Premium sound system","Panoramic sunroof","Wireless phone charging","Ambient lighting","Power tailgate","360-degree camera","Leather seats","Blind spot monitoring","Heated front seats","Digital instrument cluster"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1677517859847-0e750bfd13a9"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":10,"make":"BMW","model":"730i","variant":"2.0 petrol","year":2016,"price":1598000,"km":104196,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":5,"engine":"2.0L turbo I4","power":"258 hp","drive":"Rear-wheel drive","desc":"2016 BMW 730i (2.0 petrol) that has covered 104,196 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 with 258 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Night-time ambient lighting","Four-zone climate control","360-degree camera","Matrix LED headlights","Adaptive dampers","Nappa leather","High-end surround sound","Air suspension","Head-up display","Soft-close doors"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1601362840469-51e4d8d58785"],"addedOn":"2026-10-27","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":11,"make":"Audi","model":"A5","variant":"1.4 TFSI","year":2019,"price":1398000,"km":86336,"fuel":"Petrol","trans":"Automatic","body":"Coupé","color":null,"doors":5,"seats":5,"engine":"1.4L turbo I4","power":"150 hp","drive":"Front-wheel drive","desc":"2019 Audi A5 (1.4 TFSI) that has covered 86,336 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 1.4L turbo I4 with 150 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Ambient lighting","Digital instrument cluster","Leather seats","Adaptive cruise control","Power tailgate","Panoramic sunroof","Wireless phone charging","360-degree camera","Premium sound system","Blind spot monitoring"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1655284764117-9711c428199b","1542282088-72c9c27ed0cd","1673098299153-2572a427e017"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":12,"make":"Nissan","model":"Qashqai","variant":"1.3 DIG-T","year":2023,"price":1325000,"km":50539,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.3L turbo I4 mild hybrid","power":"158 hp","drive":"Front-wheel drive","desc":"2023 Nissan Qashqai (1.3 DIG-T) that has covered 50,539 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.3L turbo I4 mild hybrid with 158 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Alloy wheels","Reversing camera","LED headlights","Adaptive cruise control","Six airbags","Keyless entry and start","Auto headlights","Rain-sensing wipers","Front and rear parking sensors","Lane keep assist"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1684839371407-17bddcf946d0","1684838976566-780c088d5350"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":13,"make":"BMW","model":"530e","variant":"Plug-in hybrid","year":2018,"price":1198000,"km":93000,"fuel":"Hybrid","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":5,"engine":"2.0L turbo I4 + electric","power":"252 hp","drive":"Rear-wheel drive","desc":"2018 BMW 530e (Plug-in hybrid) that has covered 93,000 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 + electric with 252 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["360-degree camera","Premium sound system","Ambient lighting","Power tailgate","Digital instrument cluster","Heated front seats","Electric memory seats","Wireless phone charging","Panoramic sunroof","Leather seats"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1729966085578-c7b281cf11da","1653046858247-0b861eec1b40"],"addedOn":"2026-10-26","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":14,"make":"BMW","model":"740i","variant":"3.0 petrol","year":2014,"price":1100000,"km":132912,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":5,"engine":"3.0L turbo I6","power":"320 hp","drive":"Rear-wheel drive","desc":"2014 BMW 740i (3.0 petrol) that has covered 132,912 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 3.0L turbo I6 with 320 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["High-end surround sound","Adaptive dampers","Soft-close doors","Night-time ambient lighting","Four-zone climate control","Matrix LED headlights","Head-up display","Ventilated and massage seats","360-degree camera","Nappa leather"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1523983388277-336a66bf9bcd"],"was":1575000,"addedOn":"2026-10-27","status":"available","featured":false,"demo":true,"deal":true,"spin":[]},{"id":15,"make":"BMW","model":"218i","variant":"1.5 petrol","year":2016,"price":1100000,"km":88459,"fuel":"Petrol","trans":"Automatic","body":"Coupé","color":null,"doors":5,"seats":5,"engine":"1.5L turbo I3","power":"136 hp","drive":"Front-wheel drive","desc":"2016 BMW 218i (1.5 petrol) that has covered 88,459 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 1.5L turbo I3 with 136 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["LED headlights","Six airbags","Climate control","Rain-sensing wipers","Keyless entry and start","Auto headlights","Lane keep assist","Adaptive cruise control","Front and rear parking sensors","Reversing camera"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1600268330186-76564be81357"],"addedOn":"2026-09-27","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":16,"make":"MINI","model":"Cooper SE","variant":"Electric","year":2021,"price":1098000,"km":78963,"fuel":"Electric","trans":"Automatic","body":"Hatchback","color":null,"doors":3,"seats":4,"engine":"Electric motor, 135 kW","power":"184 hp","drive":"Front-wheel drive","desc":"2021 MINI Cooper SE (Electric) that has covered 78,963 km. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Electric motor, 135 kW with 184 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["DC fast charging","Heat pump","Adaptive cruise control","Premium sound system","Glass roof","Over-the-air updates","Heated front seats","Phone-as-key","Home charging cable","Lane centring"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1743970844803-c3455db7b19d","1758620316764-dca1a0a1d9ca","1602449732857-3608d7718c59"],"addedOn":"2026-10-28","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":17,"make":"Chery","model":"Tiggo 4 Pro","variant":"1.5 turbo","year":2024,"price":1098000,"km":36213,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.5L turbo I4","power":"145 hp","drive":"Front-wheel drive","desc":"2024 Chery Tiggo 4 Pro (1.5 turbo) that has covered 36,213 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I4 with 145 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Auto headlights","Rain-sensing wipers","Keyless entry and start","Alloy wheels","Apple CarPlay and Android Auto","Climate control","Six airbags","Reversing camera","Front and rear parking sensors","Adaptive cruise control"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1551817280-6d59c77ce1b8","1715253875481-57874ea24c73"],"addedOn":"2026-10-29","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":18,"make":"Nissan","model":"Magnite","variant":"1.0 turbo","year":2025,"price":998000,"km":14104,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.0L turbo I3","power":"99 hp","drive":"Front-wheel drive","desc":"2025 Nissan Magnite (1.0 turbo) that has covered 14,104 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.0L turbo I3 with 99 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Central locking","Dual front airbags","Air conditioning","Reversing camera","Bluetooth audio","Electric windows","Steering wheel controls","Electric mirrors","USB charging","Rear parking sensors"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1550277773-c66239646bd9","1693314515348-ce21281e8520"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":19,"make":"Mercedes-Benz","model":"C 180","variant":"1.6 petrol","year":2019,"price":975000,"km":126186,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":5,"engine":"1.6L turbo I4","power":"156 hp","drive":"Rear-wheel drive","desc":"2019 Mercedes-Benz C 180 (1.6 petrol) that has covered 126,186 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 1.6L turbo I4 with 156 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Rain-sensing wipers","Keyless entry and start","Adaptive cruise control","Front and rear parking sensors","LED headlights","Lane keep assist","Auto headlights","Alloy wheels","Reversing camera","Climate control"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1765446607390-aa61ae857a50","1652549423957-d9c4445ee9bf","1652549424460-7543e41ac077"],"was":1050000,"addedOn":"2026-10-26","status":"available","featured":false,"demo":true,"deal":true,"spin":[]},{"id":20,"make":"Kia","model":"Cerato","variant":"1.5 petrol","year":2022,"price":875000,"km":65174,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":null,"doors":4,"seats":5,"engine":"1.5L I4","power":"113 hp","drive":"Front-wheel drive","desc":"2022 Kia Cerato (1.5 petrol) that has covered 65,174 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 1.5L I4 with 113 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Reversing camera","USB charging","Dual front airbags","Apple CarPlay and Android Auto","Rear parking sensors","Steering wheel controls","Electric windows","Central locking","Electric mirrors","Air conditioning"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1662891425054-c53cfa0f92e1"],"addedOn":"2026-10-29","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":21,"make":"Suzuki","model":"Swift","variant":"GLX 1.2","year":2024,"price":815000,"km":26581,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":null,"doors":5,"seats":5,"engine":"1.2L I4","power":"82 hp","drive":"Front-wheel drive","desc":"2024 Suzuki Swift (GLX 1.2) that has covered 26,581 km. Easy to park in Port Louis and light on fuel for the daily commute. Power comes from the 1.2L I4 with 82 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Bluetooth audio","Electric windows","Central locking","USB charging","Steering wheel controls","Apple CarPlay and Android Auto","Air conditioning","Electric mirrors","ABS with brake assist","Dual front airbags"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1699862335489-36f7dec55c0e","1641430141849-cdc9073fd3d7"],"addedOn":"2026-10-29","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":22,"make":"Nissan","model":"Magnite","variant":"1.0 turbo","year":2023,"price":725000,"km":50091,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":null,"doors":5,"seats":5,"engine":"1.0L turbo I3","power":"99 hp","drive":"Front-wheel drive","desc":"2023 Nissan Magnite (1.0 turbo) that has covered 50,091 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.0L turbo I3 with 99 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["ABS with brake assist","Rear parking sensors","Electric windows","Apple CarPlay and Android Auto","Air conditioning","Bluetooth audio","Central locking","Steering wheel controls","Dual front airbags","Electric mirrors"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1550277773-c66239646bd9","1693314515348-ce21281e8520"],"addedOn":"2026-10-16","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":23,"make":"Mercedes-Benz","model":"A 180","variant":"1.6 petrol","year":2013,"price":525000,"km":174412,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":null,"doors":5,"seats":5,"engine":"1.6L turbo I4","power":"122 hp","drive":"Front-wheel drive","desc":"2013 Mercedes-Benz A 180 (1.6 petrol) that has covered 174,412 km. Easy to park in Port Louis and light on fuel for the daily commute. Power comes from the 1.6L turbo I4 with 122 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.","features":["Auto headlights","Keyless entry and start","Six airbags","Lane keep assist","Adaptive cruise control","Reversing camera","LED headlights","Rain-sensing wipers","Apple CarPlay and Android Auto","Front and rear parking sensors"],"highlights":["Inspected before sale","Registered and ready to drive","Trade-ins welcome"],"photos":["1665857013224-9540a447216b","1665856999901-180960454ceb","1691520971817-835780eb5e5c"],"addedOn":"2026-10-26","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":24,"make":"Toyota","model":"Vios","variant":"1.5 G CVT","year":2022,"price":805000,"km":21400,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":"White","doors":4,"seats":5,"engine":"1.5L I4","power":"106 hp","drive":"Front-wheel drive","desc":"This 2022 Toyota Vios 1.5 G CVT has covered 21,400 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.5L I4 with 106 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["ABS with brake assist","Reversing camera","Steering wheel controls","USB charging","Electric mirrors","Electric windows","Bluetooth audio","Rear parking sensors","Dual front airbags","Air conditioning"],"highlights":["Balance of manufacturer warranty","Passed our 150-point inspection","Two keys supplied","Non-smoker vehicle"],"photos":["1749058983232-59b967855b18","1749058983469-11eaef8d7bc5","1749058982892-b6239fec4ad6"],"addedOn":"2026-10-19","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":25,"make":"Toyota","model":"Corolla","variant":"1.8 Hybrid GLi","year":2021,"price":1298000,"km":38200,"fuel":"Hybrid","trans":"Automatic","body":"Sedan","color":"White","doors":4,"seats":5,"engine":"1.8L I4 + electric","power":"121 hp","drive":"Front-wheel drive","desc":"This 2021 Toyota Corolla 1.8 Hybrid GLi has covered 38,200 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.8L I4 + electric with 121 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Alloy wheels","Reversing camera","Keyless entry and start","Rain-sensing wipers","Lane keep assist","Climate control","LED headlights","Adaptive cruise control","Front and rear parking sensors","Six airbags"],"highlights":["One owner from new","New tyres fitted","Full service history","Two keys supplied"],"photos":["1621968175389-f1a0c0692cdc","1623869675781-80aa31012a5a"],"addedOn":"2026-10-01","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":26,"make":"Toyota","model":"RAV4","variant":"2.5 Hybrid VX","year":2022,"price":2098000,"km":26700,"fuel":"Hybrid","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"2.5L I4 + electric","power":"219 hp","drive":"All-wheel drive","desc":"This 2022 Toyota RAV4 2.5 Hybrid VX has covered 26,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 + electric with 219 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Digital instrument cluster","360-degree camera","Power tailgate","Ambient lighting","Wireless phone charging","Electric memory seats","Heated front seats","Adaptive cruise control","Leather seats","Premium sound system"],"highlights":["One owner from new","Two keys supplied","Balance of manufacturer warranty","New tyres fitted"],"photos":["1706509234538-9831b1b33d66","1617469767053-d3b523a0b982","1597799980291-19f88b1cf1c1"],"addedOn":"2026-10-27","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":27,"make":"Toyota","model":"Hilux","variant":"2.8 GD-6 Legend Double Cab","year":2021,"price":1898000,"km":61200,"fuel":"Diesel","trans":"Automatic","body":"Pickup","color":"White","doors":4,"seats":5,"engine":"2.8L turbo diesel I4","power":"201 hp","drive":"4x4","desc":"This 2021 Toyota Hilux 2.8 GD-6 Legend Double Cab has covered 61,200 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.8L turbo diesel I4 with 201 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Rear differential lock","Roof rails","Tow bar","Reversing camera","Hill descent control","Cruise control","Side steps","Apple CarPlay and Android Auto","Four-wheel drive with low range","Load bed liner"],"highlights":["Balance of manufacturer warranty","Fresh service before handover","Passed our 150-point inspection","One owner from new"],"photos":["1759213281196-6c5e463b3021","1714213624189-9a9fc8a0736a","1762236096060-964c4acb6700"],"addedOn":"2026-10-27","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":28,"make":"Toyota","model":"Land Cruiser","variant":"4.5 V8 VX","year":2019,"price":3698000,"km":74500,"fuel":"Diesel","trans":"Automatic","body":"SUV","color":"White","doors":5,"seats":7,"engine":"4.5L twin-turbo diesel V8","power":"268 hp","drive":"4x4","desc":"This 2019 Toyota Land Cruiser 4.5 V8 VX has covered 74,500 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 4.5L twin-turbo diesel V8 with 268 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Ventilated and massage seats","Air suspension","Panoramic glass roof","360-degree camera","Nappa leather","Night-time ambient lighting","Soft-close doors","Head-up display","High-end surround sound","Adaptive dampers"],"highlights":["Fresh service before handover","One owner from new","Two keys supplied","Non-smoker vehicle"],"photos":["1491422433900-4e19887b7b21","1610064094665-57e727e29f8b","1603094543704-64cdce2d2532"],"addedOn":"2026-10-28","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":29,"make":"Honda","model":"Civic","variant":"1.5 VTEC Turbo RS","year":2022,"price":1398000,"km":19800,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":"Black","doors":4,"seats":5,"engine":"1.5L turbo I4","power":"180 hp","drive":"Front-wheel drive","desc":"This 2022 Honda Civic 1.5 VTEC Turbo RS has covered 19,800 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.5L turbo I4 with 180 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Auto headlights","LED headlights","Keyless entry and start","Rain-sensing wipers","Adaptive cruise control","Lane keep assist","Reversing camera","Alloy wheels","Climate control","Six airbags"],"highlights":["Passed our 150-point inspection","Full service history","Registered and ready to drive","Two keys supplied"],"photos":["1594070319944-7c0cbebb6f58","1761315087712-4b1bd53ce39b","1605816988069-b11383b50717"],"addedOn":"2026-10-16","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":30,"make":"Honda","model":"CR-V","variant":"1.5T EX AWD","year":2021,"price":1798000,"km":40300,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Silver","doors":5,"seats":5,"engine":"1.5L turbo I4","power":"190 hp","drive":"All-wheel drive","desc":"This 2021 Honda CR-V 1.5T EX AWD has covered 40,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L turbo I4 with 190 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Lane keep assist","Auto headlights","Climate control","Reversing camera","Six airbags","Alloy wheels","Rain-sensing wipers","Adaptive cruise control","Keyless entry and start","LED headlights"],"highlights":["One owner from new","Fresh service before handover","New tyres fitted","Non-smoker vehicle"],"photos":["1658328565705-b97ad2f11295","1623597780975-38ccd5030c83"],"addedOn":"2026-10-23","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":31,"make":"Honda","model":"Fit","variant":"1.3 Home","year":2020,"price":750000,"km":46800,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":"White","doors":5,"seats":5,"engine":"1.3L I4","power":"98 hp","drive":"Front-wheel drive","desc":"This 2020 Honda Fit 1.3 Home has covered 46,800 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.3L I4 with 98 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Steering wheel controls","Dual front airbags","Electric mirrors","Apple CarPlay and Android Auto","USB charging","Rear parking sensors","Central locking","Air conditioning","Reversing camera","ABS with brake assist"],"highlights":["Full service history","Registered and ready to drive","Two keys supplied","Balance of manufacturer warranty"],"photos":["1609676671207-d021525a635d","1742021923146-039f25019c0a"],"addedOn":"2026-10-06","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":32,"make":"Hyundai","model":"Tucson","variant":"1.6 T-GDi N Line","year":2023,"price":1598000,"km":12900,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"1.6L turbo I4","power":"180 hp","drive":"Front-wheel drive","desc":"This 2023 Hyundai Tucson 1.6 T-GDi N Line has covered 12,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L turbo I4 with 180 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Alloy wheels","Rain-sensing wipers","Adaptive cruise control","Auto headlights","Keyless entry and start","LED headlights","Reversing camera","Lane keep assist","Climate control","Six airbags"],"highlights":["New tyres fitted","Full service history","Two keys supplied","Balance of manufacturer warranty"],"photos":["1575090536203-2a6193126514","1704940225548-1420f7fed72f","1706752986827-f784d768d4c3"],"addedOn":"2026-10-19","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":33,"make":"Hyundai","model":"Creta","variant":"1.5 Premium","year":2023,"price":1098000,"km":9700,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Red","doors":5,"seats":5,"engine":"1.5L I4","power":"113 hp","drive":"Front-wheel drive","desc":"This 2023 Hyundai Creta 1.5 Premium has covered 9,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 113 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Lane keep assist","Keyless entry and start","Adaptive cruise control","Auto headlights","Alloy wheels","Six airbags","Front and rear parking sensors","Reversing camera","Climate control","Rain-sensing wipers"],"highlights":["New tyres fitted","Passed our 150-point inspection","One owner from new","Registered and ready to drive"],"photos":["1748214547184-d994bfe53322","1748214547306-360d11024747"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":34,"make":"Hyundai","model":"Grand i10","variant":"1.2 Fluid","year":2022,"price":570000,"km":22100,"fuel":"Petrol","trans":"Manual","body":"Hatchback","color":"Red","doors":5,"seats":5,"engine":"1.2L I4","power":"83 hp","drive":"Front-wheel drive","desc":"This 2022 Hyundai Grand i10 1.2 Fluid has covered 22,100 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.2L I4 with 83 hp, paired with a manual gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Electric windows","Steering wheel controls","Central locking","Electric mirrors","Reversing camera","ABS with brake assist","Rear parking sensors","Apple CarPlay and Android Auto","Bluetooth audio","USB charging"],"highlights":["Registered and ready to drive","Balance of manufacturer warranty","Full service history","Passed our 150-point inspection"],"photos":["1584126996504-1ab0026f42d1","1748342603065-80fcb3ffecfc"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":35,"make":"Kia","model":"Seltos","variant":"1.6 EX+","year":2022,"price":1098000,"km":24800,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Silver","doors":5,"seats":5,"engine":"1.6L I4","power":"121 hp","drive":"Front-wheel drive","desc":"This 2022 Kia Seltos 1.6 EX+ has covered 24,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L I4 with 121 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Alloy wheels","Reversing camera","Adaptive cruise control","Climate control","Apple CarPlay and Android Auto","Keyless entry and start","Rain-sensing wipers","LED headlights","Six airbags","Auto headlights"],"highlights":["One owner from new","Registered and ready to drive","Fresh service before handover","Two keys supplied"],"photos":["1659406189166-7c17fe5df12a","1658827049990-c03c2519cc4c","1657179724285-d347db4c73a7"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":36,"make":"Nissan","model":"X-Trail","variant":"2.5 Tekna 4WD","year":2021,"price":1598000,"km":47300,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Grey","doors":5,"seats":7,"engine":"2.5L I4","power":"171 hp","drive":"All-wheel drive","desc":"This 2021 Nissan X-Trail 2.5 Tekna 4WD has covered 47,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 with 171 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Alloy wheels","Climate control","Adaptive cruise control","Apple CarPlay and Android Auto","Six airbags","Rain-sensing wipers","Reversing camera","Auto headlights","Lane keep assist","LED headlights"],"highlights":["Balance of manufacturer warranty","New tyres fitted","Registered and ready to drive","Passed our 150-point inspection"],"photos":["1593912123154-f4c8072e9a02"],"addedOn":"2026-10-16","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":37,"make":"Nissan","model":"Navara","variant":"2.3 dCi PRO-4X","year":2022,"price":1498000,"km":33600,"fuel":"Diesel","trans":"Automatic","body":"Pickup","color":"Silver","doors":4,"seats":5,"engine":"2.3L twin-turbo diesel","power":"188 hp","drive":"4x4","desc":"This 2022 Nissan Navara 2.3 dCi PRO-4X has covered 33,600 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.3L twin-turbo diesel with 188 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Tow bar","Side steps","LED headlights","Rear differential lock","Cruise control","Four-wheel drive with low range","Hill descent control","Load bed liner","Off-road drive modes","Apple CarPlay and Android Auto"],"highlights":["Full service history","Balance of manufacturer warranty","Registered and ready to drive","Non-smoker vehicle"],"photos":["1727512208038-fbdca2098796","1632229423421-96d0db9cff9c"],"addedOn":"2026-09-27","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":38,"make":"Mazda","model":"CX-5","variant":"2.5 Akera AWD","year":2021,"price":1598000,"km":36900,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"White","doors":5,"seats":5,"engine":"2.5L I4","power":"194 hp","drive":"All-wheel drive","desc":"This 2021 Mazda CX-5 2.5 Akera AWD has covered 36,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 with 194 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Blind spot monitoring","Adaptive cruise control","Heated front seats","Digital instrument cluster","Electric memory seats","Premium sound system","Power tailgate","Leather seats","Ambient lighting","Wireless phone charging"],"highlights":["Non-smoker vehicle","Full service history","Balance of manufacturer warranty","Two keys supplied"],"photos":["1643142311296-304953706775","1643142314755-672bd62b0fe6"],"addedOn":"2026-10-19","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":39,"make":"Mazda","model":"3","variant":"2.0 Astina Hatch","year":2020,"price":998000,"km":52100,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":"White","doors":5,"seats":5,"engine":"2.0L I4","power":"165 hp","drive":"Front-wheel drive","desc":"This 2020 Mazda 3 2.0 Astina Hatch has covered 52,100 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 2.0L I4 with 165 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Lane keep assist","LED headlights","Apple CarPlay and Android Auto","Six airbags","Rain-sensing wipers","Adaptive cruise control","Auto headlights","Reversing camera","Climate control","Front and rear parking sensors"],"highlights":["One owner from new","Two keys supplied","Registered and ready to drive","Full service history"],"photos":["1756664825178-8309acda57eb","1756664825749-d481c5a94a57"],"addedOn":"2026-10-13","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":40,"make":"Volkswagen","model":"Polo","variant":"1.0 TSI Life","year":2022,"price":855000,"km":18300,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":"Grey","doors":5,"seats":5,"engine":"1.0L turbo I3","power":"95 hp","drive":"Front-wheel drive","desc":"This 2022 Volkswagen Polo 1.0 TSI Life has covered 18,300 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.0L turbo I3 with 95 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Electric mirrors","Apple CarPlay and Android Auto","Dual front airbags","Bluetooth audio","Rear parking sensors","Air conditioning","ABS with brake assist","USB charging","Central locking","Electric windows"],"highlights":["Passed our 150-point inspection","Two keys supplied","Registered and ready to drive","Full service history"],"photos":["1671917501165-c99426010640","1671918206273-90126206dad1"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":41,"make":"Volkswagen","model":"Golf GTI","variant":"2.0 TSI Mk8","year":2022,"price":1798000,"km":17600,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":"White","doors":5,"seats":5,"engine":"2.0L turbo I4","power":"245 hp","drive":"Front-wheel drive","desc":"This 2022 Volkswagen Golf GTI 2.0 TSI Mk8 has covered 17,600 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 2.0L turbo I4 with 245 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Power tailgate","Leather seats","Wireless phone charging","Heated front seats","Premium sound system","Panoramic sunroof","Adaptive cruise control","Digital instrument cluster","Ambient lighting","Electric memory seats"],"highlights":["Passed our 150-point inspection","Two keys supplied","Fresh service before handover","Registered and ready to drive"],"photos":["1655285867371-4ff90c90318c","1572811298797-9eecadf6cb24","1564988190342-4976fa6445c9"],"addedOn":"2026-09-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":42,"make":"Volkswagen","model":"Tiguan","variant":"2.0 TSI R-Line 4Motion","year":2021,"price":1698000,"km":39400,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"White","doors":5,"seats":5,"engine":"2.0L turbo I4","power":"220 hp","drive":"All-wheel drive","desc":"This 2021 Volkswagen Tiguan 2.0 TSI R-Line 4Motion has covered 39,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 220 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Leather seats","Panoramic sunroof","360-degree camera","Adaptive cruise control","Heated front seats","Power tailgate","Digital instrument cluster","Ambient lighting","Blind spot monitoring","Premium sound system"],"highlights":["Registered and ready to drive","Non-smoker vehicle","New tyres fitted","Full service history"],"photos":["1655286182008-2a6578c7f487","1655286536348-c6391c7ec45f","1655286203099-916c6f36da48"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":43,"make":"Suzuki","model":"Jimny","variant":"1.5 GLX AllGrip","year":2023,"price":1398000,"km":6400,"fuel":"Petrol","trans":"Manual","body":"SUV","color":"Yellow","doors":3,"seats":4,"engine":"1.5L I4","power":"101 hp","drive":"4x4","desc":"This 2023 Suzuki Jimny 1.5 GLX AllGrip has covered 6,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 101 hp, paired with a manual gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Load bed liner","Four-wheel drive with low range","LED headlights","Cruise control","Tow bar","Off-road drive modes","Reversing camera","Rear differential lock","Side steps","Apple CarPlay and Android Auto"],"highlights":["Balance of manufacturer warranty","Fresh service before handover","Non-smoker vehicle","Passed our 150-point inspection"],"photos":["1730830812565-c769781bf9eb","1730830812275-05d20a099679","1765519697974-5429f4804c48"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":44,"make":"Peugeot","model":"3008","variant":"1.6 THP GT","year":2021,"price":1398000,"km":34800,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"1.6L turbo I4","power":"165 hp","drive":"Front-wheel drive","desc":"This 2021 Peugeot 3008 1.6 THP GT has covered 34,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L turbo I4 with 165 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Heated front seats","Adaptive cruise control","360-degree camera","Blind spot monitoring","Wireless phone charging","Digital instrument cluster","Power tailgate","Premium sound system","Electric memory seats","Ambient lighting"],"highlights":["Full service history","Registered and ready to drive","New tyres fitted","Balance of manufacturer warranty"],"photos":["1787063860678-3890a75caf18","1771783203301-e475b0be1abf"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":45,"make":"Ford","model":"Ranger","variant":"2.0 BiTurbo Wildtrak","year":2023,"price":1898000,"km":15800,"fuel":"Diesel","trans":"Automatic","body":"Pickup","color":"Dark Grey","doors":4,"seats":5,"engine":"2.0L twin-turbo diesel","power":"210 hp","drive":"4x4","desc":"This 2023 Ford Ranger 2.0 BiTurbo Wildtrak has covered 15,800 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.0L twin-turbo diesel with 210 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["LED headlights","Load bed liner","Roof rails","Hill descent control","Four-wheel drive with low range","Reversing camera","Side steps","Tow bar","Apple CarPlay and Android Auto","Off-road drive modes"],"highlights":["Passed our 150-point inspection","Non-smoker vehicle","Full service history","New tyres fitted"],"photos":["1767566927815-04cf0631bfed","1678037055154-492f436ea5a4","1615834180822-7cf1bd0a8b3c"],"addedOn":"2026-10-01","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":46,"make":"Mitsubishi","model":"L200","variant":"2.4 DI-D Double Cab","year":2020,"price":1298000,"km":68900,"fuel":"Diesel","trans":"Manual","body":"Pickup","color":"White","doors":4,"seats":5,"engine":"2.4L turbo diesel I4","power":"181 hp","drive":"4x4","desc":"This 2020 Mitsubishi L200 2.4 DI-D Double Cab has covered 68,900 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.4L turbo diesel I4 with 181 hp, paired with a manual gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Hill descent control","Off-road drive modes","Load bed liner","Reversing camera","Four-wheel drive with low range","LED headlights","Roof rails","Side steps","Cruise control","Apple CarPlay and Android Auto"],"highlights":["Full service history","Non-smoker vehicle","Two keys supplied","Registered and ready to drive"],"photos":["1767566342233-93f6ca49eb90","1639419374595-4fa14b9b3a75","1639419376686-0dc31185ff5a"],"addedOn":"2026-10-16","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":47,"make":"Mercedes-AMG","model":"G 63","variant":"Night Package","year":2021,"price":11898000,"km":18000,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"White","doors":5,"seats":5,"engine":"4.0L twin-turbo V8","power":"585 hp","drive":"4x4","desc":"This 2021 Mercedes-AMG G 63 Night Package has covered 18,000 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 4.0L twin-turbo V8 with 585 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Air suspension","Nappa leather","Four-zone climate control","High-end surround sound","Ventilated and massage seats","Head-up display","Night-time ambient lighting","Soft-close doors","Matrix LED headlights","Panoramic glass roof"],"highlights":["New tyres fitted","Full service history","Fresh service before handover","Registered and ready to drive"],"photos":["1669428800842-5f1d3645cef2","1775436802973-0e6495c70ac2"],"addedOn":"2026-10-29","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":48,"make":"BMW","model":"320i","variant":"M Sport","year":2022,"price":2198000,"km":23400,"fuel":"Petrol","trans":"Automatic","body":"Sedan","color":"White","doors":4,"seats":5,"engine":"2.0L turbo I4","power":"184 hp","drive":"Rear-wheel drive","desc":"This 2022 BMW 320i M Sport has covered 23,400 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 2.0L turbo I4 with 184 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Digital instrument cluster","Panoramic sunroof","Premium sound system","Leather seats","Blind spot monitoring","Heated front seats","Ambient lighting","Wireless phone charging","Electric memory seats","Power tailgate"],"highlights":["New tyres fitted","Registered and ready to drive","One owner from new","Balance of manufacturer warranty"],"photos":["1589055860210-e3782f587da7","1605494541483-6d3d152c552f"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":49,"make":"BMW","model":"X5","variant":"xDrive40i M Sport","year":2021,"price":4198000,"km":42800,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"3.0L turbo I6","power":"340 hp","drive":"All-wheel drive","desc":"This 2021 BMW X5 xDrive40i M Sport has covered 42,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo I6 with 340 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["360-degree camera","High-end surround sound","Four-zone climate control","Matrix LED headlights","Air suspension","Adaptive dampers","Night-time ambient lighting","Soft-close doors","Ventilated and massage seats","Nappa leather"],"highlights":["New tyres fitted","Balance of manufacturer warranty","One owner from new","Fresh service before handover"],"photos":["1615908397724-6dc711db34a7","1771453774519-ee47f028a117","1771396095734-5c79bd6672d5"],"addedOn":"2026-10-23","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":50,"make":"BMW","model":"M4","variant":"Competition","year":2022,"price":4898000,"km":9800,"fuel":"Petrol","trans":"Automatic","body":"Coupé","color":"White","doors":2,"seats":4,"engine":"3.0L twin-turbo I6","power":"510 hp","drive":"Rear-wheel drive","desc":"This 2022 BMW M4 Competition has covered 9,800 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 3.0L twin-turbo I6 with 510 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Adaptive dampers","Air suspension","Night-time ambient lighting","360-degree camera","Nappa leather","High-end surround sound","Four-zone climate control","Soft-close doors","Ventilated and massage seats","Matrix LED headlights"],"highlights":["Full service history","New tyres fitted","Two keys supplied","One owner from new"],"photos":["1762803942915-033c7f0ea82b","1774726862392-d74b972ad88e"],"addedOn":"2026-09-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":51,"make":"Audi","model":"Q5","variant":"45 TFSI quattro S line","year":2021,"price":2698000,"km":33100,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"2.0L turbo I4","power":"265 hp","drive":"All-wheel drive","desc":"This 2021 Audi Q5 45 TFSI quattro S line has covered 33,100 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 265 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Wireless phone charging","Digital instrument cluster","Premium sound system","Power tailgate","Leather seats","Electric memory seats","Heated front seats","Adaptive cruise control","Ambient lighting","360-degree camera"],"highlights":["Non-smoker vehicle","Full service history","Passed our 150-point inspection","Fresh service before handover"],"photos":["1622701579527-dcd1bb5fbb9b","1615063029891-497bebd4f03c"],"addedOn":"2026-10-01","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":52,"make":"Audi","model":"A3","variant":"Sportback 35 TFSI","year":2022,"price":1498000,"km":20500,"fuel":"Petrol","trans":"Automatic","body":"Hatchback","color":"Silver","doors":5,"seats":5,"engine":"1.5L turbo I4","power":"150 hp","drive":"Front-wheel drive","desc":"This 2022 Audi A3 Sportback 35 TFSI has covered 20,500 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.5L turbo I4 with 150 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Electric memory seats","Heated front seats","Ambient lighting","Digital instrument cluster","Blind spot monitoring","Wireless phone charging","Premium sound system","360-degree camera","Panoramic sunroof","Leather seats"],"highlights":["Non-smoker vehicle","Passed our 150-point inspection","One owner from new","Two keys supplied"],"photos":["1776932136984-66624bad40f0","1659031981099-00ecc60adf30","1717711081688-985a7a3e6a9f"],"addedOn":"2026-10-28","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":53,"make":"Audi","model":"Q8","variant":"55 TFSI quattro","year":2020,"price":5198000,"km":51600,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"3.0L turbo V6","power":"340 hp","drive":"All-wheel drive","desc":"This 2020 Audi Q8 55 TFSI quattro has covered 51,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo V6 with 340 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Head-up display","Panoramic glass roof","Matrix LED headlights","360-degree camera","High-end surround sound","Nappa leather","Night-time ambient lighting","Air suspension","Adaptive dampers","Soft-close doors"],"highlights":["Passed our 150-point inspection","Two keys supplied","Non-smoker vehicle","Fresh service before handover"],"photos":["1612639110425-3c5b869a72e6","1655284615415-b52cb3c2f8aa"],"addedOn":"2026-10-19","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":54,"make":"Land Rover","model":"Range Rover Evoque","variant":"P200 R-Dynamic SE","year":2021,"price":2698000,"km":30400,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Red","doors":5,"seats":5,"engine":"2.0L turbo I4","power":"200 hp","drive":"All-wheel drive","desc":"This 2021 Land Rover Range Rover Evoque P200 R-Dynamic SE has covered 30,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 200 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Wireless phone charging","Adaptive cruise control","Ambient lighting","Panoramic sunroof","Leather seats","360-degree camera","Power tailgate","Premium sound system","Heated front seats","Blind spot monitoring"],"highlights":["Two keys supplied","Passed our 150-point inspection","One owner from new","Fresh service before handover"],"photos":["1658547737133-18ff87807de7","1638475408149-022148cf76fd"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":55,"make":"Land Rover","model":"Range Rover Sport","variant":"P400 HSE Dynamic","year":2022,"price":6798000,"km":21900,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"3.0L turbo I6 MHEV","power":"400 hp","drive":"All-wheel drive","desc":"This 2022 Land Rover Range Rover Sport P400 HSE Dynamic has covered 21,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo I6 MHEV with 400 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Soft-close doors","Adaptive dampers","Night-time ambient lighting","Matrix LED headlights","Panoramic glass roof","Head-up display","Nappa leather","360-degree camera","Ventilated and massage seats","High-end surround sound"],"highlights":["Two keys supplied","Fresh service before handover","Full service history","Registered and ready to drive"],"photos":["1660278782070-d51c7599b8dd","1563458563737-e60b1f1b345f"],"addedOn":"2026-10-01","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":56,"make":"Land Rover","model":"Defender 110","variant":"D250 SE","year":2022,"price":5698000,"km":27300,"fuel":"Diesel","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"3.0L turbo diesel I6","power":"249 hp","drive":"4x4","desc":"This 2022 Land Rover Defender 110 D250 SE has covered 27,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo diesel I6 with 249 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Matrix LED headlights","Ventilated and massage seats","Adaptive dampers","Night-time ambient lighting","Soft-close doors","Head-up display","Panoramic glass roof","Four-zone climate control","Nappa leather","Air suspension"],"highlights":["Two keys supplied","Registered and ready to drive","One owner from new","Non-smoker vehicle"],"photos":["1741905358565-5ae6835ac172","1778943242940-d5e4ed1dfe65","1730830812273-12c0a8a98092"],"addedOn":"2026-10-10","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":57,"make":"Porsche","model":"Macan","variant":"S","year":2021,"price":4198000,"km":29600,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"White","doors":5,"seats":5,"engine":"2.9L twin-turbo V6","power":"380 hp","drive":"All-wheel drive","desc":"This 2021 Porsche Macan S has covered 29,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.9L twin-turbo V6 with 380 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Soft-close doors","Four-zone climate control","Air suspension","Adaptive dampers","Night-time ambient lighting","Nappa leather","Panoramic glass roof","360-degree camera","Ventilated and massage seats","Head-up display"],"highlights":["Fresh service before handover","Balance of manufacturer warranty","Full service history","Two keys supplied"],"photos":["1660209514955-032388bc33f7","1764859133810-cf4e9b5b652b","1661914132349-095cd34f37aa"],"addedOn":"2026-10-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":58,"make":"Porsche","model":"Cayenne","variant":"E-Hybrid","year":2020,"price":6198000,"km":44100,"fuel":"Hybrid","trans":"Automatic","body":"SUV","color":"Grey","doors":5,"seats":5,"engine":"3.0L turbo V6 + electric","power":"462 hp","drive":"All-wheel drive","desc":"This 2020 Porsche Cayenne E-Hybrid has covered 44,100 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo V6 + electric with 462 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Nappa leather","Matrix LED headlights","Panoramic glass roof","High-end surround sound","Soft-close doors","Four-zone climate control","Ventilated and massage seats","Head-up display","Air suspension","Adaptive dampers"],"highlights":["One owner from new","Two keys supplied","Balance of manufacturer warranty","Registered and ready to drive"],"photos":["1699325974549-fd06639650aa","1699325929994-b94ae0c8f552","1759051980916-7ef4987c18ce"],"addedOn":"2026-09-21","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":59,"make":"Porsche","model":"911","variant":"Carrera S (992)","year":2021,"price":7598000,"km":14200,"fuel":"Petrol","trans":"Automatic","body":"Coupé","color":"Silver","doors":2,"seats":4,"engine":"3.0L twin-turbo flat-6","power":"450 hp","drive":"Rear-wheel drive","desc":"This 2021 Porsche 911 Carrera S (992) has covered 14,200 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 3.0L twin-turbo flat-6 with 450 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Nappa leather","Four-zone climate control","Panoramic glass roof","High-end surround sound","Ventilated and massage seats","Matrix LED headlights","360-degree camera","Night-time ambient lighting","Air suspension","Adaptive dampers"],"highlights":["One owner from new","Two keys supplied","Passed our 150-point inspection","Balance of manufacturer warranty"],"photos":["1614162692292-7ac56d7f7f1e","1634673970798-a15ae56f6c65","1778432999466-1f0a0705d481"],"addedOn":"2026-10-29","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":60,"make":"Tesla","model":"Model 3","variant":"Long Range AWD","year":2022,"price":2098000,"km":24600,"fuel":"Electric","trans":"Automatic","body":"Sedan","color":"White","doors":4,"seats":5,"engine":"Dual electric motors","power":"498 hp","drive":"All-wheel drive","desc":"This 2022 Tesla Model 3 Long Range AWD has covered 24,600 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Dual electric motors with 498 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Heated front seats","Home charging cable","Glass roof","Adaptive cruise control","Over-the-air updates","Premium sound system","DC fast charging","Heat pump","Large central touchscreen","One-pedal driving"],"highlights":["Non-smoker vehicle","Registered and ready to drive","Two keys supplied","Fresh service before handover"],"photos":["1610470832703-95d40c3fad55","1560958089-b8a1929cea89","1785911872128-2bcd7d370121"],"addedOn":"2026-10-13","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":61,"make":"Tesla","model":"Model Y","variant":"Long Range AWD","year":2023,"price":2398000,"km":13100,"fuel":"Electric","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"Dual electric motors","power":"514 hp","drive":"All-wheel drive","desc":"This 2023 Tesla Model Y Long Range AWD has covered 13,100 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Dual electric motors with 514 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Adaptive cruise control","Premium sound system","Glass roof","One-pedal driving","Heated front seats","Large central touchscreen","Phone-as-key","DC fast charging","Lane centring","Heat pump"],"highlights":["New tyres fitted","Passed our 150-point inspection","One owner from new","Full service history"],"photos":["1676754568744-7852efc67c40","1669625397388-32934837bd3a","1669625383124-751e3649255b"],"addedOn":"2026-10-01","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":62,"make":"BYD","model":"Atto 3","variant":"Extended Range","year":2024,"price":1498000,"km":4300,"fuel":"Electric","trans":"Automatic","body":"SUV","color":"Grey","doors":5,"seats":5,"engine":"Single electric motor","power":"201 hp","drive":"Front-wheel drive","desc":"This 2024 BYD Atto 3 Extended Range has covered 4,300 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Single electric motor with 201 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["DC fast charging","Adaptive cruise control","Lane centring","Heat pump","Over-the-air updates","One-pedal driving","Large central touchscreen","Heated front seats","Home charging cable","Glass roof"],"highlights":["Fresh service before handover","Balance of manufacturer warranty","Registered and ready to drive","New tyres fitted"],"photos":["1760435107985-40b6872c8c97","1694027651012-cb09072e252e"],"addedOn":"2026-10-10","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":63,"make":"MG","model":"ZS","variant":"1.5 Comfort","year":2023,"price":785000,"km":11200,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"1.5L I4","power":"112 hp","drive":"Front-wheel drive","desc":"This 2023 MG ZS 1.5 Comfort has covered 11,200 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 112 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Rear parking sensors","Electric mirrors","Central locking","Dual front airbags","Reversing camera","Apple CarPlay and Android Auto","Electric windows","USB charging","ABS with brake assist","Air conditioning"],"highlights":["Registered and ready to drive","New tyres fitted","Full service history","Two keys supplied"],"photos":["1777175013217-36fa50584299","1777175013693-6fb03a40e05e"],"addedOn":"2026-10-06","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":64,"make":"Ford","model":"Mustang","variant":"5.0 V8 GT Fastback","year":2020,"price":3098000,"km":26800,"fuel":"Petrol","trans":"Automatic","body":"Coupé","color":"Black","doors":2,"seats":4,"engine":"5.0L V8","power":"450 hp","drive":"Rear-wheel drive","desc":"This 2020 Ford Mustang 5.0 V8 GT Fastback has covered 26,800 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 5.0L V8 with 450 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Heated front seats","Power tailgate","Electric memory seats","360-degree camera","Ambient lighting","Panoramic sunroof","Blind spot monitoring","Wireless phone charging","Digital instrument cluster","Premium sound system"],"highlights":["Passed our 150-point inspection","New tyres fitted","Full service history","Two keys supplied"],"photos":["1547744152-14d985cb937f","1603553329474-99f95f35394f"],"addedOn":"2026-10-23","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":65,"make":"Jeep","model":"Wrangler","variant":"2.0 Rubicon Unlimited","year":2021,"price":3298000,"km":31700,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Black","doors":5,"seats":5,"engine":"2.0L turbo I4","power":"272 hp","drive":"4x4","desc":"This 2021 Jeep Wrangler 2.0 Rubicon Unlimited has covered 31,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 272 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Side steps","Apple CarPlay and Android Auto","Rear differential lock","Off-road drive modes","Tow bar","Hill descent control","Roof rails","Load bed liner","Cruise control","Four-wheel drive with low range"],"highlights":["Balance of manufacturer warranty","New tyres fitted","Passed our 150-point inspection","One owner from new"],"photos":["1506015391300-4802dc74de2e","1602038187784-41e649a79d38","1515049497350-e9dfc9527f5d"],"addedOn":"2026-10-30","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":66,"make":"Lexus","model":"RX 450h","variant":"F Sport","year":2020,"price":3798000,"km":48600,"fuel":"Hybrid","trans":"Automatic","body":"SUV","color":"White","doors":5,"seats":5,"engine":"3.5L V6 + electric","power":"308 hp","drive":"All-wheel drive","desc":"This 2020 Lexus RX 450h F Sport has covered 48,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.5L V6 + electric with 308 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Adaptive dampers","Head-up display","High-end surround sound","Soft-close doors","Four-zone climate control","360-degree camera","Nappa leather","Panoramic glass roof","Air suspension","Night-time ambient lighting"],"highlights":["One owner from new","Registered and ready to drive","New tyres fitted","Non-smoker vehicle"],"photos":["1742941129482-843e7492aa0b","1742941158083-be03727c216b","1664427356346-c31b46248e71"],"addedOn":"2026-10-16","status":"available","featured":false,"demo":true,"deal":false,"spin":[]},{"id":67,"make":"Volvo","model":"XC60","variant":"B5 Inscription AWD","year":2021,"price":2798000,"km":37200,"fuel":"Petrol","trans":"Automatic","body":"SUV","color":"Blue","doors":5,"seats":5,"engine":"2.0L turbo I4 MHEV","power":"250 hp","drive":"All-wheel drive","desc":"This 2021 Volvo XC60 B5 Inscription AWD has covered 37,200 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 MHEV with 250 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.","features":["Heated front seats","Ambient lighting","360-degree camera","Digital instrument cluster","Adaptive cruise control","Electric memory seats","Blind spot monitoring","Wireless phone charging","Power tailgate","Premium sound system"],"highlights":["Non-smoker vehicle","Full service history","Two keys supplied","Fresh service before handover"],"photos":["1629897048514-3dd7414fe72a","1629897046038-371765238f26"],"addedOn":"2026-10-28","status":"available","featured":false,"demo":true,"deal":false,"spin":[]}];</script>
 <script>function V8_BOOT(DATA){
@@ -1991,18 +2037,9 @@ $('#moreBtn').addEventListener('click', () => { page++; renderInv(true); });
 
 /* ════════════════════ CAR PAGE + PHOTO VIEWER ════════════════════ */
 const V = {n: 0, pos: 0, target: 0, raf: 0, panels: []};
-/* phones get a flat swipe gallery: one composited layer per photo, no 3D maths */
-const FLAT = matchMedia('(hover:none), (pointer:coarse)').matches;
-if(FLAT) $('#viewer').classList.add('flat');
 function vLayout(){
   V.panels.forEach((p, i) => {
     const d = i - V.pos, ad = Math.abs(d);
-    if(FLAT){
-      const vis = ad < 1.05;
-      p.style.transform = vis ? `translate3d(${(d * 100).toFixed(2)}%,0,0)` : 'translate3d(200%,0,0)';
-      p.style.opacity = vis ? 1 : 0; p.style.zIndex = 10 - Math.round(ad);
-      return;
-    }
     const x = d * 64, z = -ad * 280, ry = Math.max(-60, Math.min(60, -d * 42));
     p.style.transform = `translateX(${x}%) translateZ(${z}px) rotateY(${ry}deg)`;
     p.style.opacity = ad > 2.2 ? 0 : (1 - Math.max(0, ad - 1) * .8).toFixed(3);
@@ -2033,10 +2070,10 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
       const dx = e.clientX - drag.x;
       if(!drag.moved && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - drag.y)){ drag.moved = true; vw.classList.add('grab'); try{ vw.setPointerCapture(drag.id); }catch(_){} }
       if(drag.moved){
-        let p = drag.p - dx / drag.w * (FLAT ? 1 : 1.6);
+        let p = drag.p - dx / drag.w * 1.6;
         if(p < 0) p = p * .3; if(p > V.n - 1) p = V.n - 1 + (p - V.n + 1) * .3;
         V.pos = V.target = p; cancelAnimationFrame(V.raf); vLayout();
-        if(!FLAT) vw.style.setProperty('--vy', (dx / drag.w * 18).toFixed(2) + 'deg');
+        vw.style.setProperty('--vy', (dx / drag.w * 18).toFixed(2) + 'deg');
       }
     } else if(e.pointerType === 'mouse' && !reduced){
       vw.classList.add('tilting');
@@ -2044,7 +2081,7 @@ $('#viewer').addEventListener('keydown', e => { if(e.key === 'ArrowLeft'){ e.pre
       vw.style.setProperty('--vx', ((.5 - y) * 7).toFixed(2) + 'deg');
     }
   });
-  const end = e => { if(!drag) return; if(drag.moved){ const dx = (e && e.clientX != null ? e.clientX : drag.x) - drag.x; vGo(FLAT && Math.abs(dx) > drag.w * .15 ? Math.round(drag.p) - Math.sign(dx) : Math.round(V.pos)); } drag = null; vw.classList.remove('grab'); vw.style.setProperty('--vy', '0deg'); };
+  const end = () => { if(!drag) return; if(drag.moved){ vGo(Math.round(V.pos)); } drag = null; vw.classList.remove('grab'); vw.style.setProperty('--vy', '0deg'); };
   vw.addEventListener('pointerup', end); vw.addEventListener('pointercancel', end);
   vw.addEventListener('pointerleave', () => { vw.classList.remove('tilting'); vw.style.setProperty('--vx', '0deg'); vw.style.setProperty('--vy', '0deg'); });
 })();
@@ -2318,6 +2355,263 @@ const ROUTES = {
   '404': {v:'404', n:'Not found', i:'00', t:'Page not found | V8 Motors', d:'This page does not exist.'}
 };
 const cur = {view: null, car: null, path: null};
+/* ════════════════════ MOTION: GSAP + ScrollTrigger + smooth scroll ════════════════════
+   build.py drops this file into app.js right after `const cur`.
+   All of it is optional: if GSAP does not load, or the visitor asks for reduced motion,
+   the site works the same, just without these effects. */
+const G = window.gsap, ST = window.ScrollTrigger;
+const MOTION = !!(G && ST) && !reduced;
+const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null};
+if(MOTION){
+  G.registerPlugin(ST);
+  document.documentElement.classList.add('js-motion');
+  ST.config({ignoreMobileResize: true});
+}
+
+/* ───────── split text ───────── */
+function splitText(el, cls, inner){
+  if(el.dataset.split) return; el.dataset.split = '1';
+  const walk = n => [...n.childNodes].forEach(c => {
+    if(c.nodeType === 3){
+      const f = document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(t => {
+        if(!t) return;
+        if(/^\s+$/.test(t)){ f.appendChild(document.createTextNode(' ')); return; }
+        const w = document.createElement('span'); w.className = cls;
+        if(inner){ const i = document.createElement('span'); i.className = 'i'; i.textContent = t; w.appendChild(i); } else w.textContent = t;
+        f.appendChild(w);
+      });
+      c.replaceWith(f);
+    } else if(c.nodeType === 1 && !c.classList.contains(cls)) walk(c);
+  });
+  walk(el);
+}
+if(MOTION){
+  // h2s on content pages become masked words; the catalogue's headings change text, so they stay whole
+  $$('.view:not([data-view="inventory"]) h2').forEach(h => splitText(h, 'w', true));
+  $$('[data-scrub]').forEach(p => splitText(p, 'sw', false));
+}
+
+/* ───────── smooth wheel scrolling (lerped, like Lenis) ───────── */
+M.smooth = (function(){
+  if(!MOTION || !fine) return null;
+  const html = document.documentElement; html.classList.add('has-smooth');
+  let target = scrollY, pos = scrollY, last = scrollY, raf = 0;
+  const max = () => html.scrollHeight - innerHeight;
+  const locked = () => document.body.classList.contains('lock') || document.querySelector('dialog[open]') || !$('#menu').hidden;
+  // let inner scroll boxes (filters, compare table) scroll themselves
+  const inner = (el, dy) => {
+    for(let n = el; n && n.nodeType === 1 && n !== document.body; n = n.parentElement){
+      const oy = getComputedStyle(n).overflowY;
+      if((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight + 1){
+        if(dy > 0 ? n.scrollTop + n.clientHeight < n.scrollHeight - 1 : n.scrollTop > 0) return true;
+      }
+    }
+    return false;
+  };
+  function tick(){
+    pos += (target - pos) * .095;
+    if(Math.abs(target - pos) < .35) pos = target;
+    last = pos; scrollTo(0, pos);
+    raf = pos === target ? 0 : requestAnimationFrame(tick);
+  }
+  addEventListener('wheel', e => {
+    if(e.ctrlKey || e.defaultPrevented || locked()) return;
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    if(inner(e.target, e.deltaY)) return;
+    e.preventDefault();
+    const d = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
+    if(!raf){ pos = target = scrollY; }
+    target = Math.max(0, Math.min(max(), target + d));
+    if(!raf) raf = requestAnimationFrame(tick);
+  }, {passive: false});
+  // keys, the scrollbar, links and the site's own scrollTo() calls: follow the real position
+  addEventListener('scroll', () => {
+    if(!raf){ pos = target = scrollY; return; }
+    if(Math.abs(scrollY - last) > 3){ cancelAnimationFrame(raf); raf = 0; pos = target = scrollY; }
+  }, {passive: true});
+  return {stop(){ cancelAnimationFrame(raf); raf = 0; pos = target = scrollY; }};
+})();
+
+/* ───────── per page: build the scroll scenes, tear them down on leave ───────── */
+function buildScenes(view, R){
+  const home = R.r.v === 'home';
+
+  // home: body types become a pinned, sideways scene on wide screens
+  if(home){
+    M.mm = G.matchMedia();
+    M.mm.add('(min-width: 900px)', () => {
+      const sec = $('#typesSec'), rail = $('#typeRail');
+      document.documentElement.classList.add('js-pin');
+      rail.scrollLeft = 0;
+      const dist = () => Math.max(0, rail.scrollWidth - rail.clientWidth + 48);
+      const tl = G.timeline({scrollTrigger: {trigger: sec, start: 'top top', end: () => '+=' + Math.round(dist() * 1.15), pin: true, scrub: .9, invalidateOnRefresh: true, anticipatePin: 1}});
+      tl.to(rail, {x: () => -dist(), ease: 'none'}, 0).fromTo('#typesBar', {scaleX: 0}, {scaleX: 1, ease: 'none'}, 0);
+      $$('.type-in > div', rail).forEach((t, i) => tl.fromTo(t, {x: 50 + i * 12}, {x: 0, ease: 'none'}, 0));
+      return () => document.documentElement.classList.remove('js-pin');
+    });
+  }
+  // (pins first: ScrollTrigger needs scenes created top to bottom so later ones include the pin's length)
+
+  // headlines: words slide up out of their masks
+  $$('h2', view).forEach(h => {
+    const w = $$('.w > .i', h); if(!w.length) return;
+    G.set(w, {yPercent: 115});
+    ST.create({trigger: h, start: 'top 88%', once: true, onEnter: () => G.to(w, {yPercent: 0, duration: 1.3, stagger: .055, ease: 'expo.out'})});
+  });
+
+  // statement paragraph lights up word by word with the scroll
+  $$('[data-scrub]', view).forEach(p => {
+    G.fromTo($$('.sw', p), {opacity: .14}, {opacity: 1, stagger: .1, ease: 'none', scrollTrigger: {trigger: p, start: 'top 80%', end: 'bottom 45%', scrub: true}});
+  });
+
+  // cards, steps, facts and stats rise in, in batches as they arrive
+  const rise = $$('.cars-rail .card, .steps li, .mani-facts > div, .stats > div, .team li, .rv, .c-item, .sales a, .about-cols > *', view);
+  rise.forEach(el => { el.classList.add('m-rise'); el.classList.remove('in'); });
+  if(rise.length){
+    G.set(rise, {'--rise': 70, opacity: 0});
+    ST.batch(rise, {start: 'top 92%', once: true, onEnter: b => {
+      b.forEach(x => x.classList.add('in'));
+      G.to(b, {'--rise': 0, opacity: 1, duration: 1.2, stagger: .08, ease: 'expo.out', overwrite: true});
+    }});
+  }
+  // payment cards pop in with a little overshoot
+  const pay = $$('.pay-list > div', view);
+  pay.forEach(el => { el.classList.add('m-rise'); el.classList.remove('in'); });
+  if(pay.length){
+    G.set(pay, {'--rise': 50, '--rs': .86, opacity: 0});
+    ST.batch(pay, {start: 'top 90%', once: true, onEnter: b => {
+      b.forEach(x => x.classList.add('in'));
+      G.to(b, {'--rise': 0, '--rs': 1, opacity: 1, duration: 1.1, stagger: .1, ease: 'back.out(1.7)', overwrite: true});
+    }});
+  }
+
+  // photos drift inside their frames
+  $$('.how-media img, .sell-pic img, .about-pic img', view).forEach(img => {
+    G.fromTo(img, {yPercent: -7, scale: 1.16}, {yPercent: 7, scale: 1.16, ease: 'none', scrollTrigger: {trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true}});
+  });
+
+  // marquees: drift on their own, race with your scroll, flip direction when you scroll back up
+  $$('.brands-track, .bigline-track', view).forEach(tr => {
+    tr.style.animation = 'none';
+    const big = tr.classList.contains('bigline-track'), base = big ? 1 : -1;
+    const tw = G.fromTo(tr, {xPercent: 0}, {xPercent: -50, duration: big ? 30 : 42, ease: 'none', repeat: -1});
+    tw.totalTime(tw.duration() * 50);
+    let dir = base, back = null;
+    tw.timeScale(base);
+    ST.create({trigger: tr, start: 'top bottom', end: 'bottom top',
+      onToggle: s => s.isActive ? tw.resume() : tw.pause(),
+      onUpdate: s => {
+        const v = s.getVelocity(); if(!v) return;
+        dir = (v > 0 ? 1 : -1) * base;
+        G.to(tw, {timeScale: dir * (1 + Math.min(Math.abs(v) / 240, 8)), duration: .25, overwrite: true});
+        if(back) back.kill();
+        back = G.delayedCall(.2, () => G.to(tw, {timeScale: dir, duration: 1.2, ease: 'power2.out', overwrite: true}));
+      }});
+  });
+
+  // the car page: buy box steps in
+  if(R.r.v === 'car'){
+    const k = $$('.car-r > *', view);
+    k.forEach(el => el.classList.add('m-rise'));
+    G.fromTo(k, {'--rise': 36, opacity: 0}, {'--rise': 0, opacity: 1, duration: 1, stagger: .06, ease: 'expo.out', delay: .15});
+  }
+
+}
+
+M.mount = function(view, R){
+  if(!MOTION) return;
+  if(M.mm){ M.mm.revert(); M.mm = null; }
+  if(M.ctx){ M.ctx.revert(); M.ctx = null; }
+  if(M.smooth) M.smooth.stop();
+  $('#hdr').classList.remove('hide');
+  M.ctx = G.context(() => buildScenes(view, R));
+  requestAnimationFrame(() => ST.refresh());
+};
+
+/* ───────── page change: skewed bars sweep across, the page name rises letter by letter ───────── */
+M.wipe = async function(R, doMount){
+  const w = $('#wipe'), bars = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar'), name = $('#wipeName');
+  const txt = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
+  name.innerHTML = [...txt].map(ch => `<span class="ch">${ch === ' ' ? ' ' : esc(ch)}</span>`).join('');
+  $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
+  const chs = $$('.ch', name);
+  w.classList.add('on');
+  G.set(bars, {x: 0, xPercent: 160, skewX: -14});
+  G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120, opacity: 0}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
+  await G.timeline()
+    .to(bars, {xPercent: 0, duration: .55, stagger: .045, ease: 'expo.inOut'})
+    .to(chs, {yPercent: 0, opacity: 1, duration: .5, stagger: .016, ease: 'expo.out'}, '-=.3')
+    .to(bar, {scaleX: 1, duration: .45, ease: 'expo.out'}, '<')
+    .then();
+  doMount();
+  await G.timeline()
+    .to(chs, {yPercent: -120, opacity: 0, duration: .35, stagger: .01, ease: 'expo.in'})
+    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .3, ease: 'expo.in'}, '<')
+    .to(bars.slice().reverse(), {xPercent: -160, duration: .6, stagger: .045, ease: 'expo.inOut'}, '-=.12')
+    .then();
+  w.classList.remove('on');
+  G.set([...bars, lab, bar], {clearProps: 'all'});
+};
+
+/* ───────── always-on pieces (not tied to one page) ───────── */
+if(MOTION){
+  // header hides while you read downwards, returns when you scroll up
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY; if(Math.abs(y - lastY) < 6) return;
+    $('#hdr').classList.toggle('hide', y > lastY && y > 420 && $('#menu').hidden && !document.body.classList.contains('lock'));
+    lastY = y;
+  }, {passive: true});
+
+  // footer wordmark rises as you reach the end
+  G.fromTo('.ftr-mark span', {yPercent: 75}, {yPercent: 0, ease: 'none', scrollTrigger: {trigger: '.ftr', start: 'top bottom', end: 'bottom bottom', scrub: true}});
+
+  // car tabs: the content of the new tab steps in
+  $('#carTabs').addEventListener('click', e => {
+    if(!e.target.closest('button')) return;
+    G.fromTo($$('.tab-pane.on > *'), {'--rise': 26, opacity: 0}, {'--rise': 0, opacity: 1, duration: .8, stagger: .06, ease: 'expo.out', overwrite: true});
+  });
+
+  // page height changes (show more, filters, images): keep every scene lined up
+  let rt = 0;
+  new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => ST.refresh(), 200); }).observe(document.body);
+}
+
+if(MOTION && fine){
+  // magnetic buttons
+  const MAG = '.btn-lg, .hdr-cta, .qs-go, .round-btn, .type-go, .fab, .totop';
+  let magEl = null;
+  document.addEventListener('pointermove', e => {
+    const b = e.target.closest ? e.target.closest(MAG) : null;
+    if(b !== magEl){
+      if(magEl) G.to(magEl, {'--mx': 0, '--my': 0, duration: 1, ease: 'elastic.out(1,.4)', overwrite: true});
+      magEl = b; if(b) b.classList.add('mag');
+    }
+    if(!b) return;
+    const r = b.getBoundingClientRect();
+    G.to(b, {'--mx': (e.clientX - r.left - r.width / 2) * .3, '--my': (e.clientY - r.top - r.height / 2) * .4, duration: .5, ease: 'power3.out', overwrite: true});
+  }, {passive: true});
+
+  // a disc follows the pointer over cars ("View"), body types ("Open") and rails or the gallery ("Drag")
+  const disc = $('#cur'), label = $('#curT');
+  const mx = G.quickTo(disc, 'x', {duration: .5, ease: 'power3'}), my = G.quickTo(disc, 'y', {duration: .5, ease: 'power3'});
+  let mode = '';
+  const setMode = m => {
+    if(m === mode) return; mode = m;
+    disc.classList.toggle('on', !!m); disc.classList.toggle('drag', m === 'Drag');
+    document.body.classList.toggle('cur-on', !!m);
+    if(m) label.textContent = m;
+  };
+  document.addEventListener('pointermove', e => {
+    mx(e.clientX); my(e.clientY);
+    const t = e.target;
+    if(!t.closest || t.closest('.fav, button, input, select, .cmp-tray, dialog, .hdr, .rail.drag')) return setMode(t.closest && t.closest('.rail.drag') ? 'Drag' : '');
+    setMode(t.closest('.card') ? 'View' : t.closest('.types .type') ? 'Open' : t.closest('.cars-rail, #viewer') ? 'Drag' : '');
+  }, {passive: true});
+  document.documentElement.addEventListener('pointerleave', () => setMode(''));
+}
+
 let invScroll = 0, vtImg = null, routing = false, pending = false;
 
 function parse(){
@@ -2366,10 +2660,12 @@ function mount(R){
   observe(view);
   sheet(false); menu(false);
   onScroll();
+  M.mount(view, R);
 }
 
 function anim(el, kf, o){ return el.animate(kf, Object.assign({fill: 'forwards', easing: 'cubic-bezier(.77,0,.18,1)'}, o)).finished; }
 async function wipe(R, doMount){
+  if(MOTION) return M.wipe(R, doMount);
   const w = $('#wipe'), bars = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar');
   $('#wipeName').textContent = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
@@ -2434,7 +2730,7 @@ addEventListener('keydown', e => { if(e.key === 'Escape'){ menu(false); sheet(fa
 /* ───────── scroll: progress bar, header shadow, back to top ───────── */
 function onScroll(){
   const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
-  if(cur.view === 'home' && !reduced && fine && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
+  if(cur.view === 'home' && !reduced && y < innerHeight * 1.2){ const hi = $('.hero-in'); hi.style.transform = `translateY(${(y * .28).toFixed(1)}px)`; hi.style.opacity = Math.max(0, 1 - y / (innerHeight * .75)).toFixed(3); $('#heroSlides').style.transform = `translateY(${(y * .35).toFixed(1)}px) scale(${1 + y / 6000})`; }
   $('#sprog').style.setProperty('--p', H > 0 ? (y / H).toFixed(4) : 0);
   $('#hdr').classList.toggle('up', y > 10);
   $('#toTop').classList.toggle('on', y > innerHeight * 1.2);
@@ -2476,7 +2772,7 @@ route(true);
   const words = [[0, 'Starting the engine'], [.35, 'Warming up the showroom'], [.7, 'Polishing ' + CARS.length + ' cars'], [.97, 'Ready']];
   (function tick(t){
     const el = t - t0;
-    let target = Math.min(1, el / (fine ? 2400 : 1700));
+    let target = Math.min(1, el / 2400);
     if(!(fontsOk && imgOk) && el < 5000) target = Math.min(target, .9);
     shown += (target - shown) * .07;
     if(target >= 1 && shown > .992) shown = 1;
@@ -2499,18 +2795,18 @@ route(true);
     const R = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 40;
     setTimeout(() => {
       if(cur.view === 'home'){ void hv.offsetWidth; hv.classList.add('intro'); }
-      $$('.slide.on img').forEach(i => i.animate(fine ? [{transform: 'scale(1.35)', filter: 'brightness(1.6)'}, {transform: 'scale(1.16) translateX(2%)', filter: 'brightness(1)'}] : [{transform: 'scale(1.25)'}, {transform: 'scale(1.1)'}], {duration: 1600, easing: 'cubic-bezier(.22,1,.36,1)'}));
+      $$('.slide.on img').forEach(i => i.animate([{transform: 'scale(1.35)', filter: 'brightness(1.6)'}, {transform: 'scale(1.16) translateX(2%)', filter: 'brightness(1)'}], {duration: 1600, easing: 'cubic-bezier(.22,1,.36,1)'}));
       L.style.setProperty('--cx', cx + 'px'); L.style.setProperty('--cy', cy + 'px');
       L.style.setProperty('--r', '0px'); L.classList.add('opening');
-      if(fine) ring.style.display = 'block';
-      const T = fine ? 1150 : 900, s0 = performance.now();
+      ring.style.display = 'block';
+      const T = 1150, s0 = performance.now();
       const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
       (function open(t){
         const p = Math.min(1, (t - s0) / T), rad = ease(p) * R;
         L.style.setProperty('--r', rad + 'px');
-        if(fine){ ring.style.transform = `translate(${cx - 1}px,${cy - 1}px) scale(${rad})`;
+        ring.style.transform = `translate(${cx - 1}px,${cy - 1}px) scale(${rad})`;
         ring.style.boxShadow = `0 0 0 ${3 / Math.max(rad, 1)}px #D3202F, 0 0 ${40 / Math.max(rad, 1)}px ${6 / Math.max(rad, 1)}px rgba(255,59,85,.5)`;
-        ring.style.opacity = p < .1 ? p * 10 : 1 - Math.max(0, p - .7) / .3; }
+        ring.style.opacity = p < .1 ? p * 10 : 1 - Math.max(0, p - .7) / .3;
         if(p < 1) requestAnimationFrame(open); else { ring.remove(); done(); L.remove(); }
       })(s0);
     }, 620);
@@ -2519,7 +2815,9 @@ route(true);
 
 /* load the live stock list (edited in admin.html); fall back to the copy built into this page */
 (function(){
-  const go = d => V8_BOOT(Array.isArray(d) && d.length ? d : window.V8_CARS);
+  // wait for the deferred animation libraries (they run before DOMContentLoaded)
+  const ready = f => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', f, {once: true}) : f();
+  const go = d => ready(() => V8_BOOT(Array.isArray(d) && d.length ? d : window.V8_CARS));
   if(location.protocol === 'file:'){ go(null); return; }
   fetch('data/cars.json?v=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(go);
 })();

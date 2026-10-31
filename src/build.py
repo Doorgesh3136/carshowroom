@@ -22,8 +22,21 @@ ld = {"@context":"https://schema.org","@type":"AutoDealer","name":"V8 Motors","u
  "address":{"@type":"PostalAddress","streetAddress":"59B Royal Road","addressLocality":"Coromandel","addressCountry":"MU"},
  "contactPoint":[{"@type":"ContactPoint","telephone":"+230 5259 0327","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5750 7912","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5500 9527","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5532 9727","contactType":"sales","areaServed":"MU"}],
  "makesOffer":[{"@type":"Offer","name":"Car leasing through Rogers Capital"},{"@type":"Offer","name":"Vehicle exchange and trade-in"}]}
-css = open(os.path.join(D,'style.css'),encoding='utf-8').read()
-js = open(os.path.join(D,'app.js'),encoding='utf-8').read()
+def scss():
+    """Compile scss/main.scss. Uses a real Sass binary when one is installed, else the bundled compiler."""
+    import shutil, subprocess
+    src = os.path.join(D, 'scss', 'main.scss')
+    for exe, args in (('sass', ['--no-source-map', '--style=expanded', '--silence-deprecation=import']), ('sassc', ['-t', 'expanded'])):
+        if shutil.which(exe):
+            r = subprocess.run([exe, *args, src], capture_output=True, text=True)
+            if r.returncode == 0:
+                print('css compiled with', exe); return r.stdout
+            print(exe, 'failed, using the bundled compiler:', r.stderr[:300])
+    from scss_build import compile_file
+    print('css compiled with scss_build.py')
+    return compile_file(src)
+css = scss()
+js = open(os.path.join(D,'app.js'),encoding='utf-8').read().replace('/*@@MOTION@@*/', open(os.path.join(D,'motion.js'),encoding='utf-8').read())
 # light minify of css
 css = re.sub(r'/\*.*?\*/','',css,flags=re.S); css = re.sub(r'\n\s*','\n',css)
 out = (tpl.replace('{{CSS}}',css).replace('{{JS}}',js).replace('{{JSONLD}}',json.dumps(ld,ensure_ascii=False))

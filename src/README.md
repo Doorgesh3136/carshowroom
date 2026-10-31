@@ -1,14 +1,22 @@
-# Your Dream Motors website
+# V8 Motors website
 
-- `index.html`: the website (built from the files in this folder)
+- `index.html`, `catalogue.html`: the website (built from the files in this folder)
 - `admin.html`: the stock admin. Sign in with a GitHub fine-grained token that has **Contents: Read and write** on this repository.
 - `data/cars.json`: the stock list. The admin edits this file; the website loads it on every visit (with a built-in copy as a fallback).
 - `images/cars/`: photos uploaded from the admin.
+- `vendor/gsap/`: GSAP 3.15 and ScrollTrigger, self-hosted.
 
 ## Source
-- `index.tpl.html`, `style.css`, `app.js`: the website
+- `index.tpl.html`: page template
+- `scss/`: the styles
+  - `main.scss` imports everything in order
+  - `_tokens.scss` colours, easings, `:root` variables and mixins (`bp`, `above`, `fine`, `slant`, `riser`, `diamond`, `outline-text`)
+  - `_legacy.scss` the original plain CSS (copied through as-is)
+  - `_palette.scss`, `_sections.scss`, `_motion.scss`, `_responsive.scss`
+- `app.js`: all site code. `motion.js` (smooth scroll, ScrollTrigger scenes, page transition, cursor, magnetic buttons) is inserted into it at `/*@@MOTION@@*/`.
 - `admin.tpl.html`: the admin panel
-- `build.py`: builds `../index.html` and `../admin.html`. It embeds `../data/cars.json` as the fallback copy.
+- `build.py`: builds `../index.html`, `../catalogue.html` and `../admin.html`, embedding `../data/cars.json` as the fallback copy.
+- `scss_build.py`: a small SCSS compiler used when no `sass` or `sassc` is installed. If either is on your PATH, build.py uses it instead.
 - `cars.py`, `photos_*.json`: only used to create the very first stock list.
 
 Rebuild: `cd src && python3 build.py`
