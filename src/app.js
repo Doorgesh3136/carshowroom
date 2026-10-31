@@ -24,6 +24,8 @@ const store = {
 const U = (id, w, h) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? '&h=' + h : ''}&q=${w > 1200 ? 72 : 70}`;
 const ref = c => 'YDM-' + String(c.id).padStart(3, '0');
 const carName = c => `${c.year} ${c.make} ${c.model}`;
+const kmTxt = c => c.km == null ? 'Mileage on request' : fmt(c.km) + ' km';
+const colTxt = c => c.color || 'Ask us';
 const waLink = t => `https://wa.me/${CFG.wa}?text=${encodeURIComponent(t)}`;
 function monthly(price, depPct=20, months=60){
   const P = price * (1 - depPct/100), r = CFG.rate / 12;
@@ -92,19 +94,19 @@ function tagFor(c){
   if(c.was) return '<span class="card-tag red">Price drop</span>';
   if(c.added <= 3) return '<span class="card-tag red">Just arrived</span>';
   if(c.fuel === 'Electric') return '<span class="card-tag green">Electric</span>';
-  if(c.km < 12000) return '<span class="card-tag">Low mileage</span>';
+  if(c.km != null && c.km < 12000) return '<span class="card-tag">Low mileage</span>';
   return '';
 }
 function cardHTML(c, i, lazy){
   const p = c.photos[0];
   return `<article class="card${i != null ? ' enter' : ''}" data-id="${c.id}" style="--d:${Math.min((i||0) * 55, 440)}ms">
-  <div class="card-media ph"><img src="${U(p, 640, 440)}" srcset="${U(p, 480, 330)} 480w, ${U(p, 640, 440)} 640w, ${U(p, 960, 660)} 960w" sizes="(max-width:640px) 92vw, 340px" alt="${esc(carName(c))} in ${esc(c.color.toLowerCase())}" width="640" height="440" ${lazy === false ? '' : 'loading="lazy"'} decoding="async"></div>
+  <div class="card-media ph"><img src="${U(p, 640, 440)}" srcset="${U(p, 480, 330)} 480w, ${U(p, 640, 440)} 640w, ${U(p, 960, 660)} 960w" sizes="(max-width:640px) 92vw, 340px" alt="${esc(carName(c))}${c.color ? ' in ' + esc(c.color.toLowerCase()) : ''}" width="640" height="440" ${lazy === false ? '' : 'loading="lazy"'} decoding="async"></div>
   ${tagFor(c)}
   <button class="fav${favs.has(c.id) ? ' on' : ''}" data-fav="${c.id}" aria-pressed="${favs.has(c.id)}" aria-label="Save ${esc(carName(c))}"><svg><use href="#i-heart"/></svg></button>
   <div class="card-body">
     <div class="card-top"><h3 class="card-t">${esc(c.make)} ${esc(c.model)}</h3><span class="card-y">${c.year}</span></div>
     <p class="card-v">${esc(c.variant)}</p>
-    <p class="card-meta"><span>${fmt(c.km)} km</span><span>${c.fuel}</span><span>${c.trans === 'Automatic' ? 'Auto' : 'Manual'}</span></p>
+    <p class="card-meta"><span>${kmTxt(c)}</span><span>${c.fuel}</span><span>${c.trans === 'Automatic' ? 'Auto' : 'Manual'}</span></p>
     <div class="card-foot"><div class="card-price">${c.was ? `<s>${rs(c.was)}</s>` : ''}${rs(c.price)}</div><div class="card-mo">from<b>${rs(monthly(c.price))}/mo</b></div></div>
   </div>
   <a class="card-link" href="#/car/${c.id}" aria-label="View ${esc(carName(c))}, ${rs(c.price)}"></a>
@@ -162,7 +164,7 @@ const muNow = () => new Date(new Date().toLocaleString('en-US', {timeZone: 'Indi
 })();
 
 /* ════════════════════ HOME ════════════════════ */
-const HERO = ['911','Taycan 4S','G 63','Range Rover Sport'].map(m => CARS.find(c => c.model === m)).filter(Boolean);
+const HERO = ['Panamera 4','Taycan 4S','CLS 53','E 200'].map(m => CARS.find(c => c.model === m)).filter(Boolean);
 let heroK = 0, heroT = 0, heroBusy = false;
 const HDUR = 7000;
 (function heroBuild(){
@@ -172,7 +174,7 @@ const HDUR = 7000;
   $('#heroTot').textContent = String(HERO.length).padStart(2, '0');
 })();
 function heroCap(c, anim){
-  const set = () => { $('#heroCapName').textContent = `${c.year} ${c.make} ${c.model}`; $('#heroCapPrice').textContent = `${rs(c.price)}, ${fmt(c.km)} km`; $('#heroCap').href = '#/car/' + c.id; $('#heroCap').classList.remove('sw'); };
+  const set = () => { $('#heroCapName').textContent = `${c.year} ${c.make} ${c.model}`; $('#heroCapPrice').textContent = `${rs(c.price)}, ${kmTxt(c)}`; $('#heroCap').href = '#/car/' + c.id; $('#heroCap').classList.remove('sw'); };
   if(anim){ $('#heroCap').classList.add('sw'); setTimeout(set, 330); } else set();
 }
 function heroBars(k){
@@ -223,7 +225,7 @@ $('#quickSearch').addEventListener('submit', e => {
 });
 
 /* body type rail */
-const TYPE_PIC = {SUV:'Range Rover Sport', Sedan:'C 200', Hatchback:'Golf GTI', Pickup:'Ranger', 'Coupé':'M4'};
+const TYPE_PIC = {SUV:'Sportage', Sedan:'Panamera 4', Hatchback:'Golf GTI', Pickup:'Ranger', 'Coupé':'M4'};
 $('#typeRail').innerHTML = BODIES.map(b => {
   const n = CARS.filter(c => c.body === b).length;
   const c = CARS.find(x => x.model === TYPE_PIC[b] && x.body === b) || CARS.find(x => x.body === b);
@@ -238,6 +240,20 @@ $('#newRail').innerHTML = [...CARS].sort((a, b) => a.added - b.added || b.id - a
   const items = MAKES.map(m => `<a href="#/inventory?make=${encodeURIComponent(m)}">${esc(m)}<sup>${CARS.filter(c => c.make === m).length}</sup></a>`).join('');
   $('#brandTrack').innerHTML = items + items.replace(/<a /g, '<a tabindex="-1" aria-hidden="true" ');
 })();
+
+/* the team, from the current yourdreammotors.mu about page */
+const TEAM = [
+  ['Roshan Ghunowa','Founder, CEO and Director',''],
+  ['Karishma','Manager and Marketing',''],
+  ['Akshay','Head of Sales','5761 8275'],
+  ['Yogesh','Sales advisor','5255 3918'],
+  ['Sudesh','Sales advisor','5259 3011'],
+  ['Amrit','Sales advisor','5505 8612'],
+  ['Kamlesh','Sales advisor','5532 8612'],
+  ['Shabir','Administration','5940 5611'],
+  ['Nisha','Accounts',''],
+  ['Nitisha','Administration','']
+];
 
 /* reviews */
 const REVIEWS = [
@@ -257,6 +273,8 @@ const REVIEWS = [
   $('#qNext').addEventListener('click', () => go(k + 1));
   $('#qIdx').textContent = `1 / ${REVIEWS.length}`;
   if(!reduced) tm = setTimeout(() => go(1), 8000);
+  $('#teamList').innerHTML = TEAM.map(([n, role, ph]) => `<li><i>${n[0]}</i><div><b>${esc(n)}</b><span>${esc(role)}</span></div>${ph ? `<a href="tel:+230${ph.replace(/\s/g, '')}" aria-label="Call ${esc(n)}">${ph}</a>` : ''}</li>`).join('');
+  $('#salesLines').innerHTML = TEAM.filter(t => t[2]).map(([n, role, ph]) => `<a href="https://wa.me/230${ph.replace(/\s/g, '')}" target="_blank" rel="noopener" data-track="whatsapp"><b>${esc(n)}</b><span>${esc(role)}, ${ph}</span></a>`).join('');
   $('#reviewsAll').innerHTML = REVIEWS.map(([n, t, q]) => `<figure class="rv"><div class="stars" aria-label="5 out of 5">★★★★★</div><p>${esc(q)}</p><figcaption class="q-who"><i>${n[0]}</i><div><b>${esc(n)}</b><span>${esc(t)}</span></div></figcaption></figure>`).join('');
 })();
 
@@ -299,7 +317,7 @@ function toParams(){
 function syncURL(){ const q = toParams(); history.replaceState(null, '', '#/inventory' + (q ? '?' + q : '')); }
 
 function match(c, skip){
-  if(F.q){ const hay = `${c.year} ${c.make} ${c.model} ${c.variant} ${c.color} ${c.body} ${c.fuel} ${ref(c)}`.toLowerCase(); if(!F.q.toLowerCase().split(/\s+/).every(w => hay.includes(w))) return false; }
+  if(F.q){ const hay = `${c.year} ${c.make} ${c.model} ${c.variant} ${c.color || ''} ${c.body} ${c.fuel} ${ref(c)}`.toLowerCase(); if(!F.q.toLowerCase().split(/\s+/).every(w => hay.includes(w))) return false; }
   if(skip !== 'make' && F.make && c.make !== F.make) return false;
   if(skip !== 'model' && F.model && c.model !== F.model) return false;
   if(skip !== 'body' && F.body.length && !F.body.includes(c.body)) return false;
@@ -307,7 +325,7 @@ function match(c, skip){
   if(skip !== 'trans' && F.trans.length && !F.trans.includes(c.trans)) return false;
   if(c.price < F.pmin || (F.pmax < PRICE_STEPS[PRICE_STEPS.length - 1] && c.price > F.pmax)) return false;
   if(c.year < F.ymin || c.year > F.ymax) return false;
-  if(c.km > F.km) return false;
+  if(F.km !== Infinity && (c.km == null || c.km > F.km)) return false;
   if(F.saved && !favs.has(c.id)) return false;
   return true;
 }
@@ -315,7 +333,7 @@ function sorted(list){
   const s = {
     'new': (a, b) => a.added - b.added || b.id - a.id,
     'price-asc': (a, b) => a.price - b.price, 'price-desc': (a, b) => b.price - a.price,
-    'year-desc': (a, b) => b.year - a.year || a.km - b.km, 'km-asc': (a, b) => a.km - b.km
+    'year-desc': (a, b) => b.year - a.year || (a.km ?? 1e9) - (b.km ?? 1e9), 'km-asc': (a, b) => (a.km ?? 1e9) - (b.km ?? 1e9)
   }[F.sort] || ((a, b) => 0);
   return list.sort(s);
 }
@@ -519,20 +537,20 @@ function renderCar(c){
   cur.car = c;
   const name = `${c.make} ${c.model}`;
   $('#carCrumb').textContent = name;
-  $('#carEyebrow').textContent = `${c.year} · ${c.body} · Ref ${ref(c)}`;
+  $('#carEyebrow').textContent = `${c.year} ${c.body}, ref ${ref(c)}`;
   $('#carTitle').textContent = name;
   $('#carVar').textContent = c.variant;
   $('#carPrice').textContent = rs(c.price);
   $('#carWas').textContent = c.was ? rs(c.was) : '';
   $('#carMo').innerHTML = `About <b>${rs(monthly(c.price))}</b> a month with 20% down. <button type="button" id="toFin">Work it out</button>`;
   $('#toFin').onclick = () => { tab('fi'); $('#carTabs').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'}); };
-  $('#carFacts').innerHTML = [['Mileage', fmt(c.km) + ' km'], ['Year', c.year], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Power', c.power], ['Colour', c.color]].map(([k, v]) => `<li><small>${k}</small><b>${esc(v)}</b></li>`).join('');
+  $('#carFacts').innerHTML = [['Mileage', kmTxt(c)], ['Year', c.year], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Power', c.power], ['Colour', colTxt(c)]].map(([k, v]) => `<li><small>${k}</small><b>${esc(v)}</b></li>`).join('');
   $('#carBook').href = `#/contact?topic=test-drive&car=${c.id}`;
   $('#carWa').href = waLink(`Hi Your Dream Motors, is the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) still available?`);
   $('#carDesc').textContent = c.desc;
   $('#carHigh').innerHTML = c.highlights.map(h => `<li>${esc(h)}</li>`).join('');
-  $('#carSpec').innerHTML = [['Make', c.make], ['Model', c.model], ['Variant', c.variant], ['Year', c.year], ['Body', c.body], ['Mileage', fmt(c.km) + ' km'], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Engine', c.engine], ['Power', c.power], ['Drive', c.drive], ['Colour', c.color], ['Doors', c.doors], ['Seats', c.seats], ['Owners', c.owners], ['Stock ref', ref(c)]].map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
-  $('#carFeat').innerHTML = c.features.map(f => `<li>${esc(f)}</li>`).join('');
+  $('#carSpec').innerHTML = [['Make', c.make], ['Model', c.model], ['Variant', c.variant], ['Year', c.year], ['Body', c.body], ['Mileage', kmTxt(c)], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Engine', c.engine], ['Power', c.power], ['Drive', c.drive], ['Colour', colTxt(c)], ['Doors', c.doors], ['Seats', c.seats], ['Stock ref', ref(c)]].map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+  $('#carFeat').innerHTML = c.features.map(f => `<li>${esc(f)}</li>`).join('') + '<li class="feat-note">Typical equipment for this model. Ask us to confirm what this exact car has.</li>';
   $('#cDep').value = 20; $('#cTerm').value = 60; calc();
   // viewer
   V.n = c.photos.length; V.pos = V.target = 0;
@@ -550,8 +568,8 @@ function renderCar(c){
   $('#simAll').href = '#/inventory?body=' + encodeURIComponent(c.body);
   // structured data for this car
   let ld = $('#carLd'); if(!ld){ ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'carLd'; document.head.appendChild(ld); }
-  ld.textContent = JSON.stringify({'@context':'https://schema.org','@type':'Car',name:`${carName(c)} ${c.variant}`,brand:{'@type':'Brand',name:c.make},model:c.model,vehicleModelDate:String(c.year),color:c.color,bodyType:c.body,fuelType:c.fuel,vehicleTransmission:c.trans,mileageFromOdometer:{'@type':'QuantitativeValue',value:c.km,unitCode:'KMT'},image:c.photos.map(p => U(p, 1200)),offers:{'@type':'Offer',price:c.price,priceCurrency:'MUR',availability:'https://schema.org/InStock',seller:{'@type':'AutoDealer',name:'Your Dream Motors'}}});
-  setMeta(`${carName(c)} ${c.variant} for sale, ${rs(c.price)} | Your Dream Motors`, `${carName(c)} ${c.variant} in ${c.color.toLowerCase()}, ${fmt(c.km)} km, ${c.fuel.toLowerCase()}, ${c.trans.toLowerCase()}. ${rs(c.price)} at Your Dream Motors, Moka. Inspected and registered.`);
+  ld.textContent = JSON.stringify({'@context':'https://schema.org','@type':'Car',name:`${carName(c)} ${c.variant}`,brand:{'@type':'Brand',name:c.make},model:c.model,vehicleModelDate:String(c.year),...(c.color ? {color: c.color} : {}),bodyType:c.body,fuelType:c.fuel,vehicleTransmission:c.trans,...(c.km != null ? {mileageFromOdometer:{'@type':'QuantitativeValue',value:c.km,unitCode:'KMT'}} : {}),image:c.photos.map(p => U(p, 1200)),offers:{'@type':'Offer',price:c.price,priceCurrency:'MUR',availability:'https://schema.org/InStock',seller:{'@type':'AutoDealer',name:'Your Dream Motors'}}});
+  setMeta(`${carName(c)} ${c.variant} for sale, ${rs(c.price)} | Your Dream Motors`, `${carName(c)} ${c.variant}, ${kmTxt(c)}, ${c.fuel.toLowerCase()}, ${c.trans.toLowerCase()}. ${rs(c.price)} at Your Dream Motors, Moka. Inspected and registered.`);
   requestAnimationFrame(tabInd);
 }
 $('#carSave').addEventListener('click', () => cur.car && toggleFav(cur.car.id));
@@ -667,7 +685,7 @@ function anim(el, kf, o){ return el.animate(kf, Object.assign({fill: 'forwards',
 async function wipe(R, doMount){
   const w = $('#wipe'), bars = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar');
   $('#wipeName').textContent = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
-  $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year} · ${rs(R.car.price)}` : 'Your Dream Motors';
+  $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'Your Dream Motors';
   w.classList.add('on');
   const view = $('.view.on');
   if(view) view.animate([{transform: 'none', opacity: 1}, {transform: 'scale(.97) translateY(-14px)', opacity: .6}], {duration: 520, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards'});
@@ -756,42 +774,60 @@ document.getElementById('yr').textContent = muNow().getFullYear();
 syncFavs();
 route(true);
 (function loader(){
-  const L = $('#loader');
-  const done = () => { document.body.classList.remove('is-loading'); if(!consent) setTimeout(showCookie, 1400); };
+  const L = $('#loader'), ring = $('#ldRing');
+  const done = () => { document.body.classList.remove('is-loading'); if(!consent) setTimeout(showCookie, 1600); };
   if(reduced){ done(); return; }
-  $('#ldWord').innerHTML = [...'Your Dream Motors'].map((ch, i) => `<span style="animation-delay:${.35 + i * .035}s">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('');
+  $('#ldWord').innerHTML = [...'Your Dream Motors'].map((ch, i) => `<span style="animation-delay:${.25 + i * .03}s">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('');
   const hv = $('.view[data-view="home"]'); if(cur.view === 'home') hv.classList.remove('intro');
-  let target = .15, shown = 0, fontsOk = false, imgOk = false;
-  document.fonts && document.fonts.ready.then(() => fontsOk = true);
+  // a little parallax: the car leans toward the pointer
+  const scene = $('#ldScene');
+  const par = e => { scene.style.setProperty('--mx', ((e.clientX / innerWidth - .5) * 18) + 'px'); scene.style.setProperty('--my', ((e.clientY / innerHeight - .5) * 10) + 'px'); };
+  addEventListener('pointermove', par);
+  // progress: fonts, the first photo, and a minimum time so the drawing can finish
+  let shown = 0, fontsOk = !document.fonts, imgOk = false;
+  if(document.fonts) document.fonts.ready.then(() => fontsOk = true);
   const first = $('.view.on img'); if(!first || first.complete) imgOk = true; else { first.addEventListener('load', () => imgOk = true, {once: true}); first.addEventListener('error', () => imgOk = true, {once: true}); }
-  const t0 = performance.now(), num = $('#ldNum'), fill = $('#ldFill');
+  const t0 = performance.now(), trail = $('#ldTrail'), pct = $('#ldPct');
+  const words = [[0, 'Starting the engine'], [.35, 'Warming up the showroom'], [.7, 'Polishing ' + CARS.length + ' cars'], [.97, 'Ready']];
   (function tick(t){
     const el = t - t0;
-    target = Math.min(1, .2 + el / 2200 * .55 + (fontsOk ? .1 : 0) + (imgOk ? .15 : 0));
-    if(el < 1900) target = Math.min(target, .92);
-    if(el > 4500) target = 1;
-    shown += (target - shown) * .08;
-    if(target === 1 && shown > .985) shown = 1;
-    fill.style.setProperty('--p', shown.toFixed(3)); num.textContent = String(Math.round(shown * 100)).padStart(2, '0');
+    let target = Math.min(1, el / 2400);
+    if(!(fontsOk && imgOk) && el < 5000) target = Math.min(target, .9);
+    shown += (target - shown) * .07;
+    if(target >= 1 && shown > .992) shown = 1;
+    trail.style.setProperty('--p', shown.toFixed(4));
+    let w = words[0][1]; for(const [k, s] of words) if(shown >= k) w = s;
+    pct.textContent = `${w}  ${Math.round(shown * 100)}%`;
     if(shown < 1){ requestAnimationFrame(tick); return; }
     exit();
   })(t0);
-  async function exit(){
-    const car = $('.ld-car'), stage = $('.ld-stage');
-    // the car pulls away, then the screen opens like doors
-    await Promise.all([
-      car.animate([{transform: 'none'}, {transform: 'translateX(-12px)', offset: .25}, {transform: 'translateX(75vw) skewX(-10deg)'}], {duration: 750, easing: 'cubic-bezier(.6,0,.85,.4)', fill: 'forwards'}).finished,
-      $('.ld-road').animate([{opacity: 1}, {opacity: 0}], {duration: 500, delay: 250, fill: 'forwards'}).finished,
-      $('.ld-brand').animate([{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateY(-14px)'}], {duration: 450, delay: 200, fill: 'forwards'}).finished
-    ]);
-    stage.style.visibility = 'hidden';
-    if(cur.view === 'home'){ void hv.offsetWidth; hv.classList.add('intro'); }
-    $$('.slide.on img').forEach(i => i.animate([{transform: 'scale(1.3)'}, {transform: 'scale(1.16) translateX(2%)'}], {duration: 1400, easing: 'cubic-bezier(.22,1,.36,1)'}));
-    await Promise.all([
-      $('.ld-top').animate([{transform: 'none'}, {transform: 'translateY(-101%)'}], {duration: 1000, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards'}).finished,
-      $('.ld-bot').animate([{transform: 'none'}, {transform: 'translateY(101%)'}], {duration: 1000, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards'}).finished
-    ]);
-    done(); L.remove();
+  function exit(){
+    removeEventListener('pointermove', par);
+    const car = $('.ld-car'), r = car.getBoundingClientRect();
+    // the car pulls away, the trail stretches behind it
+    car.animate([{transform: 'none'}, {transform: 'translateX(-14px)', offset: .22}, {transform: `translateX(${innerWidth}px) skewX(-12deg)`}], {duration: 900, easing: 'cubic-bezier(.55,0,.8,.3)', fill: 'forwards'});
+    trail.animate([{transform: 'scaleX(1)', opacity: 1}, {transform: 'scaleX(1.25) translateX(' + innerWidth * .9 + 'px)', opacity: .9}], {duration: 900, easing: 'cubic-bezier(.55,0,.8,.3)', fill: 'forwards'});
+    $('.ld-brand').animate([{opacity: 1, transform: 'none'}, {opacity: 0, transform: 'translateY(16px)'}], {duration: 450, delay: 150, easing: 'ease-in', fill: 'forwards'});
+    $('.ld-road').animate([{opacity: 1}, {opacity: 0}], {duration: 500, delay: 300, fill: 'forwards'});
+    // then the site opens through a circle of headlight, from where the car left
+    const cx = Math.min(innerWidth - 40, r.right + 30), cy = r.top + r.height * .58;
+    const R = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) + 40;
+    setTimeout(() => {
+      if(cur.view === 'home'){ void hv.offsetWidth; hv.classList.add('intro'); }
+      $$('.slide.on img').forEach(i => i.animate([{transform: 'scale(1.35)', filter: 'brightness(1.6)'}, {transform: 'scale(1.16) translateX(2%)', filter: 'brightness(1)'}], {duration: 1600, easing: 'cubic-bezier(.22,1,.36,1)'}));
+      L.style.setProperty('--cx', cx + 'px'); L.style.setProperty('--cy', cy + 'px');
+      L.style.setProperty('--r', '0px'); L.classList.add('opening');
+      ring.style.display = 'block';
+      const T = 1150, s0 = performance.now();
+      const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      (function open(t){
+        const p = Math.min(1, (t - s0) / T), rad = ease(p) * R;
+        L.style.setProperty('--r', rad + 'px');
+        ring.style.transform = `translate(${cx - 1}px,${cy - 1}px) scale(${rad})`;
+        ring.style.boxShadow = `0 0 0 ${3 / Math.max(rad, 1)}px #C8102E, 0 0 ${40 / Math.max(rad, 1)}px ${6 / Math.max(rad, 1)}px rgba(255,59,85,.5)`;
+        ring.style.opacity = p < .1 ? p * 10 : 1 - Math.max(0, p - .7) / .3;
+        if(p < 1) requestAnimationFrame(open); else { ring.remove(); done(); L.remove(); }
+      })(s0);
+    }, 620);
   }
-})();
-})();
+})();})();

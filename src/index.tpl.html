@@ -56,27 +56,42 @@
   <symbol id="i-tt" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.3v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.5a6 6 0 1 0 5.1 5.9V9.1a7.6 7.6 0 0 0 4.5 1.4V7.2a4.3 4.3 0 0 1-3.4-1.4z"/></symbol>
 </svg>
 
-<!-- LOADER -->
+<!-- LOADER: a car driving at night; the site opens through its headlight -->
 <div class="loader" id="loader" aria-hidden="true">
-  <div class="ld-half ld-top"></div><div class="ld-half ld-bot"></div>
-  <div class="ld-stage">
+  <div class="ld-sky">
+    <div class="ld-lamps ld-far"></div><div class="ld-lamps ld-near"></div>
+    <div class="ld-skyline"></div>
+  </div>
+  <div class="ld-scene" id="ldScene">
+    <div class="ld-trail" id="ldTrail"><i></i></div>
     <svg class="ld-car" viewBox="0 0 320 110" aria-hidden="true">
       <defs>
-        <linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="ldBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A5A86"/><stop offset=".55" stop-color="#13324F"/><stop offset="1" stop-color="#0A1F33"/></linearGradient>
+        <linearGradient id="ldBeam" x1="0" x2="1"><stop offset="0" stop-color="#FFF6DA" stop-opacity=".75"/><stop offset="1" stop-color="#FFF6DA" stop-opacity="0"/></linearGradient>
+        <radialGradient id="ldTail"><stop offset="0" stop-color="#FF3B55"/><stop offset="1" stop-color="#FF3B55" stop-opacity="0"/></radialGradient>
       </defs>
-      <path class="ld-beam" d="M300 64 L400 40 L400 92 Z" fill="url(#beam)"/>
-      <path class="ld-body" d="M18 74 C18 62 24 58 40 55 L92 48 C110 34 132 24 168 23 C206 22 226 30 250 46 L286 52 C298 54 304 60 304 70 L304 78 C304 81 302 83 299 83 L268 83 M210 83 L110 83 M52 83 L24 83 C20 83 18 80 18 76 Z"/>
-      <path class="ld-glass" d="M104 47 C120 36 138 30 166 29 C192 29 210 34 230 46 Z M168 29 L170 47"/>
-      <path class="ld-line" d="M30 66 L292 62"/>
-      <g class="ld-wheel" style="transform-origin:81px 83px"><circle cx="81" cy="83" r="21"/><circle cx="81" cy="83" r="9"/><path d="M81 62v12M81 92v12M60 83h12M90 83h12"/></g>
-      <g class="ld-wheel" style="transform-origin:239px 83px"><circle cx="239" cy="83" r="21"/><circle cx="239" cy="83" r="9"/><path d="M239 62v12M239 92v12M218 83h12M248 83h12"/></g>
-      <rect class="ld-lamp" x="292" y="60" width="10" height="5" rx="2"/>
-      <rect class="ld-tail" x="18" y="62" width="7" height="6" rx="2"/>
+      <path class="ld-beam" d="M300 63 L470 34 L470 98 Z"/>
+      <circle class="ld-tglow" cx="20" cy="65" r="22"/>
+      <g class="ld-bodyg">
+        <path class="ld-fill" d="M18 74 C18 62 24 58 40 55 L92 48 C110 34 132 24 168 23 C206 22 226 30 250 46 L286 52 C298 54 304 60 304 70 L304 78 C304 81 302 83 299 83 L24 83 C20 83 18 80 18 76 Z"/>
+        <path class="ld-body" d="M18 74 C18 62 24 58 40 55 L92 48 C110 34 132 24 168 23 C206 22 226 30 250 46 L286 52 C298 54 304 60 304 70 L304 78 C304 81 302 83 299 83 L268 83 M210 83 L110 83 M52 83 L24 83 C20 83 18 80 18 76 Z"/>
+        <path class="ld-glass" d="M104 47 C120 36 138 30 166 29 C192 29 210 34 230 46 Z M168 29 L170 47"/>
+        <path class="ld-line" d="M30 66 L292 62"/>
+        <rect class="ld-lamp" x="292" y="60" width="11" height="5" rx="2"/>
+        <rect class="ld-tail" x="17" y="62" width="7" height="6" rx="2"/>
+      </g>
+      <g class="ld-wheel" style="transform-origin:81px 83px"><circle cx="81" cy="83" r="20"/><circle cx="81" cy="83" r="8"/><path d="M81 63v12M81 91v12M61 83h12M89 83h12M67 69l8 8M87 89l8 8M95 69l-8 8M75 89l-8 8"/></g>
+      <g class="ld-wheel" style="transform-origin:239px 83px"><circle cx="239" cy="83" r="20"/><circle cx="239" cy="83" r="8"/><path d="M239 63v12M239 91v12M219 83h12M247 83h12M225 69l8 8M245 89l8 8M253 69l-8 8M233 89l-8 8"/></g>
     </svg>
-    <div class="ld-road"><span class="ld-dash"></span><i class="ld-fill" id="ldFill"></i></div>
-    <div class="ld-brand"><span class="ld-word" id="ldWord">Your Dream Motors</span><span class="ld-num" id="ldNum">00</span></div>
+    <div class="ld-road"><span class="ld-dash"></span><span class="ld-glare"></span></div>
+  </div>
+  <div class="ld-brand">
+    <span class="ld-word" id="ldWord">Your Dream Motors</span>
+    <span class="ld-tag">Turning driving dreams into reality.</span>
+    <span class="ld-pct" id="ldPct">Starting the engine</span>
   </div>
 </div>
+<div class="ld-ring" id="ldRing" aria-hidden="true"></div>
 
 <!-- PAGE TRANSITION -->
 <div class="wipe" id="wipe" aria-hidden="true">
@@ -141,7 +156,7 @@
     <div class="hero-slides" id="heroSlides"></div>
     <div class="hero-shade"></div>
     <div class="wrap hero-in">
-      <h1 class="hero-h"><span class="ln"><span>Pre-owned cars,</span></span><span class="ln"><span>inspected and</span></span><span class="ln"><span class="red">ready to drive.</span></span></h1>
+      <h1 class="hero-h"><span class="ln"><span>Pre-owned cars,</span></span><span class="ln"><span>inspected and</span></span><span class="ln"><span>ready to drive.</span></span></h1>
       <p class="hero-p">{{COUNT}} cars on the floor in Moka today. We handle the registration and deliver anywhere on the island, free.</p>
       <div class="hero-acts">
         <a href="#/inventory" class="btn btn-red btn-lg">See all {{COUNT}} cars <svg><use href="#i-arrow"/></svg></a>
@@ -413,14 +428,14 @@
     <img class="phead-bg" src="https://images.unsplash.com/photo-1715253875481-57874ea24c73?auto=format&fit=crop&w=1800&q=72" alt="" decoding="async">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="#/">Home</a><span>/</span><span aria-current="page">About us</span></nav>
-      <h1 id="hAbout"><span class="ln"><span>A Moka dealership</span></span><span class="ln"><span>since 2012.</span></span></h1>
-      <p class="phead-p">We sell quality pre-owned cars from our showroom on Royal Road, and we look after the people who buy them.</p>
+      <h1 id="hAbout"><span class="ln"><span>Turning driving dreams</span></span><span class="ln"><span>into reality.</span></span></h1>
+      <p class="phead-p">In the car trade since 2005, and Your Dream Motors since 2012. Quality pre-owned cars from smart deals to premium rides, bought, sold and exchanged from our showroom on Royal Road, Moka.</p>
     </div>
   </div>
   <div class="wrap about">
     <div class="stats">
       <div><b data-count="3000">0</b><span>cars delivered</span></div>
-      <div><b data-count="14">0</b><span>years on the island</span></div>
+      <div><b data-count="21">0</b><span>years in the car trade</span></div>
       <div><b data-count="1000">0</b><span>owner reviews</span></div>
       <div><b data-count="{{COUNT}}">0</b><span>cars in stock now</span></div>
     </div>
@@ -436,6 +451,8 @@
       </div>
       <div class="about-pic clip-in"><img src="https://images.unsplash.com/photo-1643142314913-0cf633d9bbb5?auto=format&fit=crop&w=1000&q=72" alt="A red car in a bright showroom" loading="lazy" decoding="async" width="1000" height="1200"></div>
     </div>
+    <h2 class="rev-h">The team</h2>
+    <ul class="team" id="teamList"></ul>
     <h2 class="rev-h">Reviews</h2>
     <div class="reviews" id="reviewsAll"></div>
   </div>
@@ -457,6 +474,7 @@
       <a class="c-item" href="https://wa.me/23054742683" target="_blank" rel="noopener" data-track="whatsapp"><small>WhatsApp</small><b>5474 2683</b></a>
       <a class="c-item" href="mailto:info@yourdreammotors.mu"><small>Email</small><b>info@yourdreammotors.mu</b></a>
       <a class="c-item" href="https://maps.google.com/?q=Your+Dream+Motors+Royal+Road+Moka+Mauritius" target="_blank" rel="noopener"><small>Showroom address</small><b>Royal Road, Moka, Mauritius</b><span class="link-arrow">Open in Google Maps <svg><use href="#i-arrow"/></svg></span></a>
+      <div class="sales"><h3>Talk to a sales advisor directly</h3><div id="salesLines"></div></div>
       <dl class="hours light" data-hours>
         <div data-d="wk"><dt>Monday to Friday</dt><dd>09:00 to 17:00</dd></div>
         <div data-d="sat"><dt>Saturday</dt><dd>09:00 to 12:00</dd></div>
@@ -536,7 +554,7 @@
   <div class="wrap ftr-in">
     <div class="ftr-brand">
       <a href="#/" class="logo logo-w"><span class="logo-mark"><svg viewBox="0 0 24 24"><use href="#i-car"/></svg></span><span class="logo-txt">Your Dream Motors<small>Moka, Mauritius</small></span></a>
-      <p>Quality pre-owned cars in Mauritius since 2012. Inspected, registered and delivered island-wide.</p>
+      <p>Turning driving dreams into reality. Quality pre-owned cars in Moka since 2012, in the trade since 2005.</p>
       <div class="soc">
         <a href="https://facebook.com/Yourdreammotors" target="_blank" rel="noopener" aria-label="Facebook"><svg><use href="#i-fb"/></svg></a>
         <a href="https://www.instagram.com/yourdreammotors.ltd/" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>

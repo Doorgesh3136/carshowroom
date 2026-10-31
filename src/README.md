@@ -7,4 +7,4 @@
 - `app.js`: router, transitions, loader, inventory filters, 3D viewer, forms
 - `cars.py`: the stock list (add or edit cars here); `photos_*.json` hold the Unsplash photo IDs
 
-Rebuild: `cd src && python3 build.py && cp your-dream-motors.html ../index.html`
+Real stock lives in `REAL` in cars.py (from yourdreammotors.mu/showcase). Rebuild: `cd src && python3 build.py && cp your-dream-motors.html ../index.html`

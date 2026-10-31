@@ -2,10 +2,10 @@ import json, os, re
 from cars import build
 D = os.path.dirname(os.path.abspath(__file__))
 photos = {}
-for f in ('photos_A.json','photos_B.json'):
+for f in ('photos_A.json','photos_B.json','photos_C.json'):
     for p in json.load(open(os.path.join(D,f))): photos[p['model']] = p
 # de-duplicate photos across models (a photo should only belong to one car)
-seen = set(['1551817280-6d59c77ce1b8'])
+seen = set()
 for k,p in photos.items():
     p['photos'] = [x for x in p['photos'] if not (x in seen or seen.add(x))]
 cars = build(photos)

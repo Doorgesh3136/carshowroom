@@ -27,12 +27,8 @@ SPEC = [
  ('Peugeot 3008','Peugeot','3008','1.6 THP GT',2021,1980000,34800,'Petrol','Automatic','SUV','1.6L turbo I4','165 hp','Front-wheel drive',5,5,'prem'),
  ('Ford Ranger','Ford','Ranger','2.0 BiTurbo Wildtrak',2023,2690000,15800,'Diesel','Automatic','Pickup','2.0L twin-turbo diesel','210 hp','4x4',5,4,'pick'),
  ('Mitsubishi L200','Mitsubishi','L200','2.4 DI-D Double Cab',2020,1790000,68900,'Diesel','Manual','Pickup','2.4L turbo diesel I4','181 hp','4x4',5,4,'pick'),
- ('Mercedes-Benz C-Class','Mercedes-Benz','C 200','AMG Line',2022,3190000,21700,'Petrol','Automatic','Sedan','1.5L turbo I4 + EQ Boost','204 hp','Rear-wheel drive',5,4,'prem'),
- ('Mercedes-Benz A-Class','Mercedes-Benz','A 200','Progressive',2021,2150000,29900,'Petrol','Automatic','Hatchback','1.3L turbo I4','163 hp','Front-wheel drive',5,5,'prem'),
- ('Mercedes-Benz E-Class','Mercedes-Benz','E 300','Exclusive',2020,4250000,47500,'Petrol','Automatic','Sedan','2.0L turbo I4','258 hp','Rear-wheel drive',5,4,'lux'),
  ('Mercedes-Benz G-Class','Mercedes-AMG','G 63','Night Package',2021,16500000,18000,'Petrol','Automatic','SUV','4.0L twin-turbo V8','585 hp','4x4',5,5,'lux'),
  ('BMW 3 Series','BMW','320i','M Sport',2022,2990000,23400,'Petrol','Automatic','Sedan','2.0L turbo I4','184 hp','Rear-wheel drive',5,4,'prem'),
- ('BMW 5 Series','BMW','530e','M Sport',2021,4090000,35200,'Hybrid','Automatic','Sedan','2.0L turbo I4 + electric','292 hp','Rear-wheel drive',5,4,'lux'),
  ('BMW X5','BMW','X5','xDrive40i M Sport',2021,5890000,42800,'Petrol','Automatic','SUV','3.0L turbo I6','340 hp','All-wheel drive',5,5,'lux'),
  ('BMW M4','BMW','M4','Competition',2022,6790000,9800,'Petrol','Automatic','Coupé','3.0L twin-turbo I6','510 hp','Rear-wheel drive',4,2,'lux'),
  ('Audi Q5','Audi','Q5','45 TFSI quattro S line',2021,3690000,33100,'Petrol','Automatic','SUV','2.0L turbo I4','265 hp','All-wheel drive',5,5,'prem'),
@@ -98,43 +94,81 @@ BODY_LINE = {
 }
 EV_LINE = 'Charges at home overnight and costs a fraction of petrol to run day to day.'
 
+
+# ───────── real stock, taken from yourdreammotors.mu/showcase (31 Oct 2026) ─────────
+# make, model, variant, year, price, was, km (None = not listed), fuel, body, engine, power, drive, seats, doors, tier, photos
+REAL = [
+ ('Porsche','Panamera 4','E-Hybrid',2021,5498000,None,54916,'Hybrid','Sedan','2.9L twin-turbo V6 + electric','462 hp','All-wheel drive',4,5,'lux','@Porsche Panamera'),
+ ('Porsche','Taycan 4S','Electric',2021,4998000,None,10000,'Electric','Sedan','Dual electric motors, 320 kW','530 hp with overboost','All-wheel drive',4,4,'ev',3),
+ ('Mercedes-Benz','CLS 53','AMG 4MATIC+',2019,3998000,None,None,'Hybrid','Coupé','3.0L turbo I6 + EQ Boost','435 hp','All-wheel drive',4,4,'lux',10),
+ ('Mercedes-Benz','E 200','2.0 petrol, EQ Boost',2023,2698000,2798000,13775,'Hybrid','Sedan','2.0L turbo I4 mild hybrid','204 hp','Rear-wheel drive',5,4,'lux','@Mercedes-Benz E-Class'),
+ ('BMW','iX1','xDrive30 electric',2023,2698000,2798000,None,'Electric','SUV','Dual electric motors, 230 kW','313 hp','All-wheel drive',5,5,'ev',['1680298255666-6071fc905870']),
+ ('Mercedes-Benz','GLC 300e','Plug-in hybrid',2022,2398000,None,74064,'Hybrid','SUV','2.0L turbo I4 + electric','320 hp','All-wheel drive',5,5,'prem',2),
+ ('BMW','X2','25e plug-in hybrid',2024,2098000,None,55997,'Hybrid','SUV','1.5L turbo I3 + electric','220 hp','All-wheel drive',5,5,'prem',12),
+ ('Kia','Sportage','GT Line 1.6 T-GDi',2025,1825000,None,18406,'Petrol','SUV','1.6L turbo I4','180 hp','Front-wheel drive',5,5,'mid',5),
+ ('BMW','X1','1.5 petrol',2022,1698000,None,80979,'Petrol','SUV','1.5L turbo I3','136 hp','Front-wheel drive',5,5,'prem',['1677517859847-0e750bfd13a9']),
+ ('BMW','730i','2.0 petrol',2016,1598000,None,104196,'Petrol','Sedan','2.0L turbo I4','258 hp','Rear-wheel drive',5,4,'lux',['1601362840469-51e4d8d58785']),
+ ('Audi','A5','1.4 TFSI',2019,1398000,None,86336,'Petrol','Coupé','1.4L turbo I4','150 hp','Front-wheel drive',5,5,'prem',4),
+ ('Nissan','Qashqai','1.3 DIG-T',2023,1325000,None,50539,'Petrol','SUV','1.3L turbo I4 mild hybrid','158 hp','Front-wheel drive',5,5,'mid','@Nissan Qashqai'),
+ ('BMW','530e','Plug-in hybrid',2018,1198000,None,93000,'Hybrid','Sedan','2.0L turbo I4 + electric','252 hp','Rear-wheel drive',5,4,'prem','@BMW 5 Series'),
+ ('BMW','740i','3.0 petrol',2014,1100000,1575000,132912,'Petrol','Sedan','3.0L turbo I6','320 hp','Rear-wheel drive',5,4,'lux',['1523983388277-336a66bf9bcd']),
+ ('BMW','218i','1.5 petrol',2016,1100000,None,88459,'Petrol','@218','1.5L turbo I3','136 hp','Front-wheel drive',5,5,'mid','@BMW 2 Series'),
+ ('MINI','Cooper SE','Electric',2021,1098000,None,78963,'Electric','Hatchback','Electric motor, 135 kW','184 hp','Front-wheel drive',4,3,'ev',6),
+ ('Chery','Tiggo 4 Pro','1.5 turbo',2024,1098000,None,36213,'Petrol','SUV','1.5L turbo I4','145 hp','Front-wheel drive',5,5,'mid',11),
+ ('Nissan','Magnite','1.0 turbo',2025,998000,None,14104,'Petrol','SUV','1.0L turbo I3','99 hp','Front-wheel drive',5,5,'eco',8),
+ ('Mercedes-Benz','C 180','1.6 petrol',2019,975000,1050000,126186,'Petrol','Sedan','1.6L turbo I4','156 hp','Rear-wheel drive',5,4,'mid','@Mercedes-Benz C-Class'),
+ ('Kia','Cerato','1.5 petrol',2022,875000,None,65174,'Petrol','Sedan','1.5L I4','113 hp','Front-wheel drive',5,4,'eco','@Kia Cerato'),
+ ('Suzuki','Swift','GLX 1.2',2024,815000,None,26581,'Petrol','Hatchback','1.2L I4','82 hp','Front-wheel drive',5,5,'eco',9),
+ ('Nissan','Magnite','1.0 turbo',2023,725000,None,50091,'Petrol','SUV','1.0L turbo I3','99 hp','Front-wheel drive',5,5,'eco',8),
+ ('Mercedes-Benz','A 180','1.6 petrol',2013,525000,None,174412,'Petrol','Hatchback','1.6L turbo I4','122 hp','Front-wheel drive',5,5,'mid','@Mercedes-Benz A-Class'),
+]
+REAL_HIGH = ['Inspected before sale','Registered and ready to drive','Delivered anywhere in Mauritius','Trade-ins welcome']
+
+def tidy(p):
+    """Mauritian dealers price like 1,398,000: round demo prices to that style."""
+    p *= .72
+    return int(round(p/100000)*100000 - 2000) if p >= 1e6 else int(round(p/5000)*5000)
+
 def build(photos):
     rnd = random.Random(7)
-    orig = json.load(open(os.path.join(D,'orig_cars.json')))
     cars = []
-    for c in orig:
-        d = c['description']
-        for a,b in ORIG_FIX.get(c['id'],[]):
-            assert a in d, a; d = d.replace(a,b)
-        c['highlights'] = [HFIX.get(h,h) for h in c['highlights']]
-        body = c['bodyType']; fuel = c['fuel']
-        if body == 'Electric': body = 'Sedan'
-        cars.append(dict(id=c['id'], make=c['make'], model=c['model'], variant=c['variant'], year=c['year'], price=c['price'], km=c['mileage'],
-            fuel=fuel, trans=c['transmission'], body=body, color=ORIG_COLOR[c['id']], doors=c['doors'], seats=c['seats'], engine=c['engine'],
-            power=c['power'], drive=c['drivetrain'].replace('-Wheel Drive','-wheel drive').replace('Wheel','wheel'), desc=d, features=c['features'], highlights=c['highlights'], photos=ORIG_PHOTOS[c['id']]))
-    nid = 13
+    nid = 1
+    for (make,model,variant,year,price,was,km,fuel,body,engine,power,drive,seats,doors,tier,ph) in REAL:
+        if isinstance(ph,int): pics = ORIG_PHOTOS[ph]
+        elif isinstance(ph,list): pics = ph
+        else:
+            p = photos.get(ph[1:]); pics = p['photos'] if p else []
+            if body == '@218': body = {'Coupé':'Coupé','Sedan':'Sedan'}.get((p or {}).get('body'),'Hatchback')
+        if body == '@218': body = 'Hatchback'
+        if not pics: continue
+        line = EV_LINE if fuel == 'Electric' else BODY_LINE[body]
+        kmtxt = f"has covered {km:,} km" if km else "comes with its mileage on request"
+        desc = (f"{year} {make} {model} ({variant}) that {kmtxt}. {line} "
+                f"Power comes from the {engine} with {power}. Like every car here it is inspected before sale, "
+                f"registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.")
+        cars.append(dict(id=nid, make=make, model=model, variant=variant, year=year, price=price, km=km, fuel=fuel, trans='Automatic', body=body,
+            color=None, doors=doors, seats=seats, engine=engine, power=power, drive=drive, desc=desc, features=rnd.sample(FEAT[tier],10),
+            highlights=REAL_HIGH, photos=pics[:4], real=True, **({'was':was} if was else {})))
+        nid += 1
+    used = {x for c in cars for x in c['photos']}
     for (key,make,model,variant,year,price,km,fuel,trans,body,engine,power,drive,seats,doors,tier) in SPEC:
         p = photos.get(key)
-        if not p or not p['photos']: continue
-        color = p.get('color','').strip().title() or 'Metallic Grey'
-        feats = rnd.sample(FEAT[tier], 10)
-        if fuel == 'Electric' and tier != 'ev': feats = rnd.sample(FEAT['ev'], 10)
-        hl = rnd.sample(HIGH, 4)
+        if not p: continue
+        pics = [x for x in p['photos'] if x not in used][:4]
+        if not pics: continue
+        used.update(pics)
+        color = p.get('color','').strip().title() or None
+        feats = rnd.sample(FEAT['ev' if fuel == 'Electric' else tier], 10)
         line = EV_LINE if fuel == 'Electric' else BODY_LINE[body]
-        desc = (f"This {year} {make} {model} {variant} is finished in {color.lower()} and has covered {km:,} km. "
+        price = tidy(price)
+        desc = (f"This {year} {make} {model} {variant} has covered {km:,} km. "
                 f"{line} Under the bonnet is the {engine} with {power}, paired with a {trans.lower()} gearbox. "
                 f"It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.")
         cars.append(dict(id=nid, make=make, model=model, variant=variant, year=year, price=price, km=km, fuel=fuel, trans=trans, body=body,
-            color=color, doors=doors, seats=seats, engine=engine, power=power, drive=drive, desc=desc, features=feats, highlights=hl, photos=p['photos'][:4]))
+            color=color, doors=doors, seats=seats, engine=engine, power=power, drive=drive, desc=desc, features=feats, highlights=rnd.sample(HIGH,4), photos=pics))
         nid += 1
-    # how long each car has been on the floor (for "just arrived")
-    for i,c in enumerate(cars):
+    for c in cars:
         c['added'] = rnd.choice([1,2,3,4,5,6,8,10,12,15,18,21,25,30,34,40])
-        c['owners'] = 1 if c['km'] < 30000 else rnd.choice([1,2,2])
-    for cid in (3,8,24,31,40,44,50):
-        for c in cars:
-            if c['id']==cid: c['added']=rnd.choice([1,2,3])
-    for cid in (7,14,29,37):
-        for c in cars:
-            if c['id']==cid: c['was']=round(c['price']*1.06/10000)*10000
+    for c in cars[:23]:
+        if c['make'] in ('Porsche','Kia') or c['model'] in ('E 200','iX1','Qashqai'): c['added'] = rnd.choice([1,2,3])
     return cars
