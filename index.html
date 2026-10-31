@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your Dream Motors — Quality Pre-Owned Vehicles in Mauritius</title>
+<title>Your Dream Motors | Quality Pre-Owned Vehicles in Mauritius</title>
+<meta name="theme-color" content="#0A1F33">
 <meta name="description" content="Mauritius' trusted dealership for quality pre-owned vehicles. Fully inspected, registered and delivered island-wide.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -580,9 +581,255 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
 }
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1;}
 .toast svg{width:18px;height:18px;color:var(--green);}
+
+/* ═══════════════════ UPGRADE: loading, transitions, motion ═══════════════════ */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+/* loading screen (first visit of a session) */
+.loader{position:fixed;inset:0;z-index:5000;background:var(--navy);color:#fff;display:grid;place-items:center;clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.77,0,.18,1);}
+.loader.done{clip-path:inset(0 0 100% 0);}
+.ld-seen .loader{display:none;}
+.loader-in{display:grid;justify-items:center;gap:20px;transition:opacity .35s,transform .6s var(--ease);}
+.loader.done .loader-in{opacity:0;transform:translateY(-24px);}
+.ld-mark{width:84px;height:84px;border-radius:20px;background:var(--accent);display:grid;place-items:center;animation:ldPop .7s var(--ease) both;box-shadow:0 20px 50px -14px rgba(200,16,46,.6);}
+.ld-mark svg{width:46px;height:46px;stroke-dasharray:90;stroke-dashoffset:90;animation:ldDraw 1.3s .25s var(--ease) forwards;}
+.ld-name{display:flex;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(18px,3vw,24px);letter-spacing:.08em;}
+.ld-name span{display:inline-block;transform:translateY(110%);animation:ldUp .6s var(--ease) forwards;}
+.ld-road{position:relative;width:240px;height:3px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden;}
+.ld-road i{position:absolute;inset:0;background:var(--accent);transform-origin:left;transform:scaleX(var(--p,0));transition:transform .25s linear;}
+.ld-pct{font-size:12px;font-weight:600;letter-spacing:.24em;color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums;}
+@keyframes ldPop{from{transform:scale(.6) rotate(-8deg);opacity:0;}}
+@keyframes ldDraw{to{stroke-dashoffset:0;}}
+@keyframes ldUp{to{transform:none;}}
+
+/* scroll progress */
+.sprog{position:fixed;top:0;left:0;right:0;height:3px;z-index:300;background:var(--accent);transform-origin:left;transform:scaleX(var(--p,0));pointer-events:none;}
+
+/* hero slideshow */
+.hero{min-height:min(88vh,760px);}
+.hero-bg .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease;}
+.hero-bg .slide.on{opacity:1;}
+.hero-bg .slide img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) brightness(.85);animation:none;transform:scale(1.14);transition:transform 9s cubic-bezier(.2,.6,.3,1);}
+.hero-bg .slide.on img{transform:scale(1.02);}
+.hero-bg::after{z-index:1;}
+.hero-content>*{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform 1s var(--ease);}
+.hero.go .hero-content>*{opacity:1;transform:none;}
+.hero.go .hero-content>*:nth-child(2){transition-delay:.12s;}
+.hero.go .hero-content>*:nth-child(3){transition-delay:.24s;}
+.hero.go .hero-content>*:nth-child(4){transition-delay:.36s;}
+.hero.go .hero-content>*:nth-child(5){transition-delay:.5s;}
+.hero h1 em::after{transform:scaleX(0);transform-origin:left;transition:transform .9s .7s var(--ease);}
+.hero.go h1 em::after{transform:scaleX(1);}
+.hero-now{display:flex;align-items:center;gap:18px;margin-top:38px;flex-wrap:wrap;}
+.hero-dots{display:flex;gap:6px;}
+.hero-dots button{width:44px;height:24px;position:relative;}
+.hero-dots button::before,.hero-dots button i{content:'';position:absolute;left:0;right:0;top:11px;height:2px;border-radius:2px;background:rgba(255,255,255,.28);}
+.hero-dots button i{background:#fff;transform:scaleX(0);transform-origin:left;}
+.hero-dots button.on i{animation:dotFill var(--dur,6s) linear forwards;}
+.hero-dots button.done i{transform:scaleX(1);}
+@keyframes dotFill{to{transform:scaleX(1);}}
+.hero-cap{font-size:13.5px;color:rgba(255,255,255,.75);display:inline-flex;align-items:center;gap:8px;transition:opacity .35s,transform .35s var(--ease);}
+.hero-cap b{color:#fff;font-weight:600;}
+.hero-cap{text-align:left;flex-wrap:wrap;}
+@media (max-width:600px){.hero-now{gap:12px;}.hero-cap{display:block;width:100%;line-height:1.5;}}
+.hero-cap.sw{opacity:0;transform:translateY(6px);}
+.hero-cap:hover b{text-decoration:underline;text-underline-offset:3px;}
+
+/* image loading shimmer + fade-in */
+.vehicle-media,.cat,.sell-media,.gallery-main{background-image:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.45) 50%,rgba(255,255,255,0) 70%);background-size:300% 100%;animation:shim 1.4s linear infinite;}
+.vehicle-media.ok,.cat.ok,.sell-media.ok,.gallery-main.ok{animation:none;background-image:none;}
+@keyframes shim{to{background-position:-300% 0;}}
+img.lz{opacity:0;transition:opacity .6s ease,transform .6s var(--ease),filter .4s;}
+img.lz.ok{opacity:1;}
+
+/* sliding indicators for every tab set */
+.search-tabs,.tabs,.nav{position:relative;}
+.search-tabs button.active::after,.tabs button.on::after{display:none;}
+.tab-ind{position:absolute;bottom:-1px;left:0;height:2px;border-radius:2px;background:var(--accent);transition:transform .5s var(--ease),width .5s var(--ease);pointer-events:none;}
+.nav .tab-ind{bottom:2px;}
+.nav a.active{color:var(--navy);}
+.filters{position:relative;}
+.filters button{position:relative;z-index:1;background:transparent;}
+.filters button.active{background:transparent;color:#fff;border-color:transparent;}
+.f-ind{position:absolute;z-index:0;left:0;top:0;border-radius:8px;background:var(--navy);transition:transform .5s var(--ease),width .5s var(--ease),height .5s var(--ease);pointer-events:none;}
+
+/* search panel: Buy / Sell panes */
+.search-pane{display:none;}
+.search-pane.on{display:grid;animation:paneIn .55s var(--ease);}
+@keyframes paneIn{from{opacity:0;transform:translateY(10px);}}
+.sell-quick{grid-template-columns:1fr 1fr 1.3fr auto;padding:8px;}
+.sell-quick .search-field input{width:100%;border:0;outline:none;background:none;font-size:15px;font-weight:500;color:var(--navy);}
+.sell-quick .search-field input::placeholder{color:var(--text-3);font-weight:400;}
+.sell-quick .search-btn{background:#157a42;}
+.sell-quick .search-btn:hover{background:#0f5d32;}
+.search-field.error label{color:var(--accent);}
+@media (max-width:1024px){.sell-quick{grid-template-columns:1fr 1fr;}.sell-quick .search-btn{grid-column:span 2;}}
+@media (max-width:600px){.sell-quick{grid-template-columns:1fr;}.sell-quick .search-btn{grid-column:span 1;}}
+
+/* cards: light sweep + saved pop */
+.vehicle-media::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);transform:translateX(-110%);transition:transform 1s var(--ease);pointer-events:none;}
+.vehicle:hover .vehicle-media::after{transform:translateX(110%);}
+.vehicle-fav.pop{animation:favPop .45s var(--ease);}
+@keyframes favPop{40%{transform:scale(1.35);}}
+.vehicle-view{position:absolute;left:50%;top:50%;z-index:2;transform:translate(-50%,-40%);opacity:0;padding:10px 18px;border-radius:100px;background:rgba(255,255,255,.95);color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;transition:opacity .3s,transform .45s var(--ease);pointer-events:none;box-shadow:var(--shadow-md);}
+.vehicle:hover .vehicle-view{opacity:1;transform:translate(-50%,-50%);}
+.cat img{transition:transform .9s var(--ease),filter .5s;}
+.cat:hover img{filter:brightness(.85);}
+
+/* header saved button */
+.hdr-fav{position:relative;width:42px;height:42px;border-radius:9px;border:1px solid var(--border);display:grid;place-items:center;color:var(--navy);transition:border-color .2s,color .2s;}
+.hdr-fav:hover{border-color:var(--navy);color:var(--accent);}
+.hdr-fav svg{width:18px;height:18px;}
+.hdr-fav b{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--accent);color:#fff;font-size:10.5px;display:grid;place-items:center;transform:scale(0);transition:transform .35s var(--ease);}
+.hdr-fav b.on{transform:scale(1);}
+
+/* modal motion + gallery */
+.modal-backdrop.open .modal{animation:modalIn .55s var(--ease);}
+@keyframes modalIn{from{transform:translateY(40px) scale(.97);opacity:.4;}}
+.gallery-main{touch-action:pan-y;cursor:grab;}
+.gallery-main img.slide-in{animation:gIn .55s var(--ease);}
+@keyframes gIn{from{opacity:0;transform:translateX(var(--dx,40px)) scale(1.03);}}
+.gallery-thumbs button{transition:border-color .2s,opacity .2s,transform .25s var(--ease);}
+.gallery-thumbs button:hover{transform:translateY(-2px);}
+.modal-cta .btn-wa{background:#157a42;color:#fff;border:0;}
+.modal-cta .btn-wa:hover{background:#0f5d32;}
+
+/* sections: soft image reveal */
+.sell-media img{transition:transform 1.4s var(--ease);transform:scale(1.12);}
+.reveal.in .sell-media img{transform:scale(1);}
+
+/* floating buttons */
+.fabs{position:fixed;right:20px;bottom:24px;z-index:900;display:grid;gap:10px;justify-items:end;}
+.fab{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(10,31,51,.5);transition:transform .3s var(--ease),opacity .3s;}
+.fab:hover{transform:scale(1.08);}
+.fab svg{width:26px;height:26px;}
+.fab-wa{background:#157a42;color:#fff;}
+.fab-wa::before{content:'';position:absolute;width:56px;height:56px;border-radius:50%;border:2px solid #157a42;animation:ring 2.4s ease-out infinite;}
+@keyframes ring{from{transform:scale(1);opacity:.7;}to{transform:scale(1.6);opacity:0;}}
+.fab-top{width:46px;height:46px;background:#fff;color:var(--navy);border:1px solid var(--border);opacity:0;transform:translateY(12px);pointer-events:none;}
+.fab-top.on{opacity:1;transform:none;pointer-events:auto;}
+.fab-top svg{width:18px;height:18px;}
+.toast{bottom:96px;}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  .hero-content>*{opacity:1;transform:none;}
+  .reveal{opacity:1;transform:none;}
+}
+
+/* ═══════════════════ PAGES + PAGE TRANSITIONS ═══════════════════ */
+.view{display:none;}
+.view.on{display:block;}
+.view.enter{animation:viewIn .7s var(--ease) both;}
+@keyframes viewIn{from{opacity:0;transform:translateY(18px);}}
+
+/* page banner */
+.page-hero{position:relative;overflow:hidden;background:var(--navy);color:#fff;padding:clamp(64px,9vw,112px) 0 clamp(54px,7vw,84px);isolation:isolate;}
+.page-hero-bg{position:absolute;inset:0;z-index:-1;}
+.page-hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);filter:saturate(.85);}
+.page-hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,31,51,.94) 0%,rgba(10,31,51,.78) 45%,rgba(10,31,51,.35) 100%);}
+.view.enter .page-hero-bg img{animation:phZoom 1.8s var(--ease) both;}
+@keyframes phZoom{from{transform:scale(1.22);}to{transform:scale(1.08);}}
+.crumbs{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:18px;}
+.crumbs a{color:rgba(255,255,255,.8);transition:color .2s;}
+.crumbs a:hover{color:#fff;}
+.crumbs i{width:5px;height:5px;border-radius:50%;background:var(--accent);}
+.page-hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(32px,5vw,56px);line-height:1.05;letter-spacing:-.03em;max-width:760px;}
+.page-hero h1 em{font-style:normal;color:#fff;background:linear-gradient(transparent 70%,var(--accent) 70%,var(--accent) 86%,transparent 86%);}
+.page-hero p{font-size:clamp(15px,1.4vw,17px);color:rgba(255,255,255,.76);max-width:560px;margin-top:16px;line-height:1.6;}
+.page-hero .ph-in>*{opacity:0;transform:translateY(22px);}
+.view.on .page-hero .ph-in>*{animation:phUp .8s var(--ease) forwards;}
+.view.on .page-hero .ph-in>*:nth-child(2){animation-delay:.08s;}
+.view.on .page-hero .ph-in>*:nth-child(3){animation-delay:.16s;}
+.view.on .page-hero .ph-in>*:nth-child(4){animation-delay:.24s;}
+@keyframes phUp{to{opacity:1;transform:none;}}
+.ph-meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:28px;}
+.ph-meta div{display:grid;gap:2px;}
+.ph-meta b{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;}
+.ph-meta span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.page-hero::after{content:'';position:absolute;left:0;bottom:0;height:4px;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(0);}
+.view.on .page-hero::after{animation:barIn 1.1s .25s var(--ease) forwards;}
+@keyframes barIn{to{transform:scaleX(1);}}
+/* the banner already carries the title, so hide the repeated section heading */
+.view:not([data-view=home]) .section > .container > .section-head:first-child{display:none;}
+.view:not([data-view=home]) .page-hero + .section{padding-top:64px;}
+
+/* curtain between pages */
+.curtain{position:fixed;inset:0;z-index:2000;pointer-events:none;visibility:hidden;}
+.curtain.on{visibility:visible;pointer-events:all;}
+.curtain i{position:absolute;inset:0;transform:translateY(101%);}
+.curtain .c1{background:var(--accent);}
+.curtain .c2{background:var(--navy);}
+.c-label{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:14px;color:#fff;opacity:0;}
+.c-label .c-mark{width:54px;height:54px;border-radius:14px;background:var(--accent);display:grid;place-items:center;}
+.c-label .c-mark svg{width:30px;height:30px;}
+.c-label b{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:clamp(22px,3.4vw,34px);letter-spacing:-.02em;}
+.c-label small{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+
+/* nav: no current page on home */
+.nav .tab-ind.off{width:0 !important;opacity:0;}
+.mobile-nav a.active{color:var(--accent);}
+.footer a.active{color:#fff;}
+
+/* ═══════ HOME PAGE SECTIONS ═══════ */
+.home-feat .vehicle-grid{margin-top:0;}
+.see-all{display:flex;justify-content:center;margin-top:40px;}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.tile{position:relative;display:block;border-radius:var(--radius-xl);overflow:hidden;min-height:340px;color:#fff;isolation:isolate;background:var(--navy-2);}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease),opacity .6s;}
+.tile::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,31,51,.05) 20%,rgba(10,31,51,.92) 100%);}
+.tile:hover img{transform:scale(1.07);}
+.tile-in{position:absolute;left:0;right:0;bottom:0;padding:26px;}
+.tile-in small{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.65);}
+.tile-in h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:23px;font-weight:800;letter-spacing:-.02em;margin:6px 0 8px;}
+.tile-in p{font-size:14px;line-height:1.55;color:rgba(255,255,255,.75);}
+.tile-go{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:14px;font-weight:600;}
+.tile-go svg{width:16px;height:16px;transition:transform .35s var(--ease);}
+.tile:hover .tile-go svg{transform:translateX(5px);}
+.tile::after{content:'';position:absolute;left:26px;right:26px;bottom:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);}
+.tile:hover::after{transform:scaleX(1);}
+@media (max-width:900px){.tiles{grid-template-columns:1fr;}.tile{min-height:250px;}}
+
+.quote-band{padding:0 0 88px;}
+.quote-card{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:30px 34px;border-radius:var(--radius-xl);background:#fff;border:1px solid var(--border-2);}
+.quote-card .test-stars{margin:0;}
+.quote-card p{font-size:17px;line-height:1.55;color:var(--navy);font-weight:500;}
+.quote-card p span{display:block;font-size:13.5px;color:var(--text-3);font-weight:500;margin-top:6px;}
+@media (max-width:800px){.quote-card{grid-template-columns:1fr;gap:16px;padding:24px;}}
+
+.visit-band{background:var(--navy);color:#fff;position:relative;overflow:hidden;}
+.visit-band::before{content:'';position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;border:70px solid rgba(200,16,46,.16);}
+.visit-in{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;padding:72px 0;}
+.visit-in h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(26px,3.2vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;}
+.visit-in p{color:rgba(255,255,255,.72);margin-top:12px;line-height:1.6;max-width:520px;}
+.visit-acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+.visit-acts .btn-ghost{border-color:rgba(255,255,255,.3);color:#fff;}
+.visit-hours{display:grid;gap:0;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);overflow:hidden;}
+.visit-hours div{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;font-size:14.5px;border-bottom:1px solid rgba(255,255,255,.08);}
+.visit-hours div:last-child{border-bottom:0;}
+.visit-hours span{color:rgba(255,255,255,.6);}
+.visit-hours .today{background:rgba(255,255,255,.06);}
+.visit-hours .today span{color:#fff;}
+.visit-hours .today b::after{content:' · Today';color:var(--accent);font-weight:600;font-size:12.5px;}
+@media (max-width:860px){.visit-in{grid-template-columns:1fr;padding:56px 0;}}
+
+/* images that could not load: a quiet placeholder instead of a broken icon */
+.noimg{background:var(--navy-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-opacity='.28' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm18 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0z'/%3E%3Cpath d='M3 17V9l2-5h11l3 5h2v8'/%3E%3C/svg%3E") center/72px no-repeat !important;animation:none !important;}
+img.bad{opacity:0 !important;}
+@media (prefers-reduced-motion:reduce){.view.enter,.view.on .page-hero .ph-in>*{animation:none;opacity:1;transform:none;}.page-hero .ph-in>*{opacity:1;transform:none;}}
+.visit-band{background:var(--navy-2);}
+.page-hero-bg.noimg,.slide.noimg,.tile.noimg{background-image:none !important;}
 </style>
 </head>
 <body>
+<div class="loader" id="loader" aria-hidden="true"><div class="loader-in">
+  <div class="ld-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm18 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/><path d="M3 17V9l2-5h11l3 5h2v8"/></svg></div>
+  <div class="ld-name" id="ldName">YOUR DREAM MOTORS</div>
+  <div class="ld-road"><i id="ldBar"></i></div>
+  <div class="ld-pct" id="ldPct">000</div>
+</div></div>
+<div class="sprog" id="sprog" aria-hidden="true"></div>
+<div class="curtain" id="curtain" aria-hidden="true"><i class="c1"></i><i class="c2"></i><div class="c-label"><span class="c-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14M5 17a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm18 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/><path d="M3 17V9l2-5h11l3 5h2v8"/></svg></span><b id="curtainLabel"></b><small>Your Dream Motors</small></div></div>
 
 <!-- TOP BAR -->
 <div class="topbar">
@@ -645,6 +892,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
         Book a Visit
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+      <button class="hdr-fav" id="hdrFav" aria-label="Show saved cars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg><b id="favCount">0</b></button>
       <button class="burger" id="burger" aria-label="Menu"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -653,6 +901,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
 <!-- MOBILE NAV -->
 <div class="overlay" id="overlay"></div>
 <nav class="mobile-nav" id="mobileNav">
+  <a href="#top">Home</a>
   <a href="#inventory">Inventory</a>
   <a href="#categories">Browse by Type</a>
   <a href="#why">Why Choose Us</a>
@@ -672,12 +921,11 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
 </nav>
 
 <main id="top">
+<div class="view on" data-view="home">
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=2000&q=80" alt="Premium car">
-  </div>
+  <div class="hero-bg" id="heroSlides"></div>
   <div class="hero-content">
     <div class="hero-badge">
       <b>Trusted since 2012</b>
@@ -692,6 +940,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       </a>
       <a href="#contact" class="btn btn-ghost">Book a Test Drive</a>
     </div>
+    <div class="hero-now"><div class="hero-dots" id="heroDots"></div><button class="hero-cap" id="heroCap"></button></div>
   </div>
 </section>
 
@@ -700,10 +949,10 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   <div class="container">
     <div class="search-panel">
       <div class="search-tabs">
-        <button class="active">Buy a Car</button>
-        <button onclick="document.getElementById('sell').scrollIntoView({behavior:'smooth'})">Sell Your Car</button>
+        <button class="active" data-pane="searchForm" role="tab" aria-selected="true">Buy a Car</button>
+        <button data-pane="sellQuick" role="tab" aria-selected="false">Sell Your Car</button>
       </div>
-      <form class="search-form" id="searchForm">
+      <form class="search-form search-pane on" id="searchForm">
         <div class="search-field">
           <label>Make</label>
           <select id="searchMake">
@@ -729,10 +978,10 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
           <label>Max Price</label>
           <select id="searchPrice">
             <option value="">Any price</option>
-            <option value="1500000">Under MUR 1,500,000</option>
             <option value="3000000">Under MUR 3,000,000</option>
             <option value="5000000">Under MUR 5,000,000</option>
             <option value="8000000">Under MUR 8,000,000</option>
+            <option value="12000000">Under MUR 12,000,000</option>
           </select>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
@@ -740,6 +989,12 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
           Search
         </button>
+      </form>
+      <form class="search-form search-pane sell-quick" id="sellQuick" novalidate>
+        <div class="search-field"><label for="sqName">Your name</label><input id="sqName" autocomplete="name" placeholder="Full name"></div>
+        <div class="search-field"><label for="sqPhone">Phone</label><input id="sqPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="5761 8275"></div>
+        <div class="search-field"><label for="sqCar">Your car</label><input id="sqCar" placeholder="e.g. 2019 Mercedes C200, 54,000 km"></div>
+        <button type="submit" class="search-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>Get valuation</button>
       </form>
     </div>
   </div>
@@ -775,7 +1030,83 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </section>
 
+
+<!-- HOME: FEATURED -->
+<section class="section home-feat">
+  <div class="container">
+    <div class="section-head split">
+      <div class="reveal">
+        <span class="label">Featured</span>
+        <h2>Hand-picked from our floor</h2>
+        <p>A few of the cars in the showroom this week. Every one inspected, registered and ready to drive away.</p>
+      </div>
+      <a href="#inventory" class="btn btn-outline reveal">View full inventory <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="vehicle-grid" id="featGrid"></div>
+  </div>
+</section>
+
+<!-- HOME: EXPLORE -->
+<section class="section" style="padding-top:0">
+  <div class="container tiles">
+    <a href="#categories" class="tile reveal" style="--d:0ms">
+      <img src="https://images.unsplash.com/photo-1616874946938-69c1374f3e60?auto=format&fit=crop&w=1000&q=78" alt="Mercedes coupé on a forest road" decoding="async">
+      <div class="tile-in"><small>Browse</small><h3>Find your type</h3><p>SUVs, sedans, coupés, hatchbacks and electric, sorted by body style.</p><span class="tile-go">Browse by type <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    </a>
+    <a href="#sell" class="tile reveal" style="--d:90ms">
+      <img src="https://images.unsplash.com/photo-1777175013302-eaf4b3ef785a?auto=format&fit=crop&w=1000&q=78" alt="Cars in a showroom" decoding="async">
+      <div class="tile-in"><small>Sell or trade</small><h3>Sell your car</h3><p>Free valuation and a same-day offer. We buy outright or take your car in trade.</p><span class="tile-go">Get a valuation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    </a>
+    <a href="#why" class="tile reveal" style="--d:180ms">
+      <img src="https://images.unsplash.com/photo-1783740486439-b4487fad649f?auto=format&fit=crop&w=1000&q=78" alt="BMW inside a showroom" decoding="async">
+      <div class="tile-in"><small>Why us</small><h3>Buying, done properly</h3><p>Inspection, paperwork, delivery and after-sales, all handled by us.</p><span class="tile-go">Why choose us <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    </a>
+  </div>
+</section>
+
+<!-- HOME: ONE REVIEW -->
+<section class="quote-band">
+  <div class="container">
+    <a href="#reviews" class="quote-card reveal">
+      <div class="test-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.9H22l-5.8 4.3 2.2 7-6.4-4.6L5.6 20.2l2.2-7L2 8.9h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.9H22l-5.8 4.3 2.2 7-6.4-4.6L5.6 20.2l2.2-7L2 8.9h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.9H22l-5.8 4.3 2.2 7-6.4-4.6L5.6 20.2l2.2-7L2 8.9h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.9H22l-5.8 4.3 2.2 7-6.4-4.6L5.6 20.2l2.2-7L2 8.9h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.9H22l-5.8 4.3 2.2 7-6.4-4.6L5.6 20.2l2.2-7L2 8.9h7.6z"/></svg></div>
+      <p>"Bought a BMW X1 from them. They handled the registration and delivered to my home in Quatre Bornes. The whole thing took four days."<span>Rakesh D., Quatre Bornes</span></p>
+      <span class="tile-go" style="color:var(--accent)">Read reviews <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- HOME: VISIT -->
+<section class="visit-band">
+  <div class="container visit-in">
+    <div class="reveal">
+      <span class="label" style="color:rgba(255,255,255,.7)">Visit us</span>
+      <h2>Come and see them in person on Royal Road, Moka.</h2>
+      <p>Walk-ins are welcome during sales hours. Call ahead and we'll have the car you like ready for a test drive.</p>
+      <div class="visit-acts">
+        <a href="#contact" class="btn btn-primary">Book a visit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="tel:+2304338026" class="btn btn-ghost">+230 433 8026</a>
+      </div>
+    </div>
+    <div class="visit-hours reveal" style="--d:120ms">
+      <div data-d="wk"><span>Monday to Friday</span><b>09:00 to 17:00</b></div>
+      <div data-d="sat"><span>Saturday</span><b>09:00 to 12:00</b></div>
+      <div data-d="sun"><span>Sunday</span><b>Closed</b></div>
+    </div>
+  </div>
+</section>
+</div>
+
 <!-- INVENTORY -->
+<div class="view" data-view="inventory">
+<header class="page-hero">
+  <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1643142314913-0cf633d9bbb5?auto=format&fit=crop&w=1800&q=78" alt="" decoding="async"></div>
+  <div class="container ph-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#top">Home</a><i></i><span>Inventory</span></nav>
+    <h1>Our <em>inventory</em></h1>
+    <p>Every car on our floor, with full specifications, photos and features. Filter by type, sort by price, and save the ones you like.</p>
+    <div class="ph-meta"><div><b id="phCount">12</b><span>Cars in stock</span></div><div><b>100%</b><span>Inspected</span></div><div><b>Free</b><span>Island-wide delivery</span></div></div>
+  </div>
+</header>
 <section class="section" id="inventory">
   <div class="container">
     <div class="section-head split">
@@ -794,9 +1125,10 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
         <button data-filter="Coupé">Coupé</button>
         <button data-filter="Electric">Electric</button>
         <button data-filter="Hatchback">Hatchback</button>
+        <button data-filter="saved">♥ Saved</button>
       </div>
       <div class="sort-wrap">
-        <span class="result-count" id="resultCount"><b>12</b> vehicles</span>
+        <span class="result-count" id="resultCount" aria-live="polite"><b>13</b> vehicles</span>
         <div class="sort-select">
           <select id="sortSelect">
             <option value="default">Sort: Featured</option>
@@ -821,7 +1153,19 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </section>
 
+</div>
+
 <!-- CATEGORIES -->
+<div class="view" data-view="categories">
+<header class="page-hero">
+  <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1731474633990-790a0fb02006?auto=format&fit=crop&w=1800&q=78" alt="" decoding="async"></div>
+  <div class="container ph-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#top">Home</a><i></i><span>Browse by type</span></nav>
+    <h1>Find your <em>type</em></h1>
+    <p>From practical family SUVs to weekend coupés. Pick a body style to see every matching car.</p>
+    
+  </div>
+</header>
 <section class="section categories" id="categories">
   <div class="container">
     <div class="section-head reveal">
@@ -832,27 +1176,27 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
 
     <div class="cat-grid">
       <a href="#inventory" class="cat reveal" style="--d:0ms" data-cat-link="SUV">
-        <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=76" alt="SUV">
+        <img src="https://images.unsplash.com/photo-1619466548431-54ffb2fe2674?auto=format&fit=crop&w=1200&q=78" decoding="async" alt="SUV">
         <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
         <div class="cat-body"><h3>SUV &amp; Crossover</h3><span id="catCountSUV">0 vehicles</span></div>
       </a>
       <a href="#inventory" class="cat reveal" style="--d:80ms" data-cat-link="Sedan">
-        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=76" alt="Sedan">
+        <img src="https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1200&q=78" decoding="async" alt="Sedan">
         <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
         <div class="cat-body"><h3>Sedan</h3><span id="catCountSedan">0 vehicles</span></div>
       </a>
       <a href="#inventory" class="cat reveal" style="--d:160ms" data-cat-link="Coupé">
-        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=76" alt="Coupé">
+        <img src="https://images.unsplash.com/photo-1616874946938-69c1374f3e60?auto=format&fit=crop&w=1200&q=78" decoding="async" alt="Coupé">
         <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
         <div class="cat-body"><h3>Coupé</h3><span id="catCountCoupe">0 vehicles</span></div>
       </a>
       <a href="#inventory" class="cat reveal" style="--d:120ms" data-cat-link="Electric">
-        <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=800&q=76" alt="Electric">
+        <img src="https://images.unsplash.com/photo-1763567061050-e9b7cb51eda6?auto=format&fit=crop&w=1200&q=78" decoding="async" alt="Electric">
         <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
         <div class="cat-body"><h3>Electric &amp; Hybrid</h3><span id="catCountEV">0 vehicles</span></div>
       </a>
       <a href="#inventory" class="cat reveal" style="--d:200ms" data-cat-link="Hatchback">
-        <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=76" alt="Hatchback">
+        <img src="https://images.unsplash.com/photo-1743970844803-c3455db7b19d?auto=format&fit=crop&w=1200&q=78" decoding="async" alt="Hatchback">
         <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg></div>
         <div class="cat-body"><h3>Hatchback</h3><span id="catCountHatch">0 vehicles</span></div>
       </a>
@@ -860,7 +1204,19 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </section>
 
+</div>
+
 <!-- WHY US -->
+<div class="view" data-view="why">
+<header class="page-hero">
+  <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1783740486439-b4487fad649f?auto=format&fit=crop&w=1800&q=78" alt="" decoding="async"></div>
+  <div class="container ph-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#top">Home</a><i></i><span>Why choose us</span></nav>
+    <h1>Buying a car, <em>done properly</em></h1>
+    <p>We handle the parts most dealerships leave to you, so you can focus on the driving.</p>
+    <div class="ph-meta"><div><b>3,000+</b><span>Cars delivered</span></div><div><b>Since 2012</b><span>On the island</span></div><div><b>1,000+</b><span>Owner reviews</span></div></div>
+  </div>
+</header>
 <section class="section" id="why">
   <div class="container">
     <div class="section-head center reveal">
@@ -894,7 +1250,20 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </section>
 
+<section class="section" style="padding-top:0"><div class="container"><div class="quote-card reveal" style="grid-template-columns:1fr auto"><p>Ready to find yours? Every car in stock is on the inventory page.</p><a href="#inventory" class="btn btn-primary">See the inventory <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></section>
+</div>
+
 <!-- SELL -->
+<div class="view" data-view="sell">
+<header class="page-hero">
+  <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1680298255666-6071fc905870?auto=format&fit=crop&w=1800&q=78" alt="" decoding="async"></div>
+  <div class="container ph-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#top">Home</a><i></i><span>Sell your car</span></nav>
+    <h1>Sell or trade <em>your car</em></h1>
+    <p>Free valuation, a fair same-day offer, and no commission. Bring it in or send us the details on WhatsApp.</p>
+    
+  </div>
+</header>
 <section class="section sell" id="sell">
   <div class="container sell-grid">
     <div class="reveal">
@@ -913,7 +1282,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
     </div>
     <div class="reveal" style="--d:120ms">
       <div class="sell-media">
-        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=76" alt="Car trade-in">
+        <img src="https://images.unsplash.com/photo-1777175013302-eaf4b3ef785a?auto=format&fit=crop&w=1200&q=78" decoding="async" alt="Car trade-in">
         <div class="sell-float">
           <div><b>Free valuation</b><span>Same-day offer · no obligation</span></div>
           <span class="tag">Today</span>
@@ -923,7 +1292,19 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </section>
 
+</div>
+
 <!-- REVIEWS -->
+<div class="view" data-view="reviews">
+<header class="page-hero">
+  <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1715253875481-57874ea24c73?auto=format&fit=crop&w=1800&q=78" alt="" decoding="async"></div>
+  <div class="container ph-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#top">Home</a><i></i><span>Reviews</span></nav>
+    <h1>What our <em>customers</em> say</h1>
+    <p>Over 1,000 reviews from drivers across Mauritius.</p>
+    
+  </div>
+</header>
 <section class="section testimonials" id="reviews">
   <div class="container">
     <div class="section-head center reveal">
@@ -970,7 +1351,20 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </section>
 
+<section class="section" style="padding-top:0"><div class="container"><div class="quote-card reveal" style="grid-template-columns:1fr auto"><p>Bought from us before? We would love to hear how it went.</p><a href="#contact" class="btn btn-primary">Leave a review <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></section>
+</div>
+
 <!-- CONTACT -->
+<div class="view" data-view="contact">
+<header class="page-hero">
+  <div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=78" alt="" decoding="async"></div>
+  <div class="container ph-in">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="#top">Home</a><i></i><span>Contact</span></nav>
+    <h1>Visit our <em>showroom</em></h1>
+    <p>Royal Road, Moka. Walk-ins welcome during sales hours, or send a message and we will get back to you quickly.</p>
+    
+  </div>
+</header>
 <section class="section" id="contact">
   <div class="container">
     <div class="section-head reveal">
@@ -1004,12 +1398,12 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       <div class="reveal" style="--d:100ms">
         <form class="contact-form" id="contactForm" novalidate>
           <h3>Send us a message</h3>
-          <p>We typically reply within a few hours during sales hours.</p>
+          <p>Your message opens in WhatsApp so it reaches us straight away. We reply during sales hours.</p>
           <div class="form-row">
             <div class="form-field"><label for="fName">Full Name</label><input type="text" id="fName" placeholder="Your name" required></div>
             <div class="form-field"><label for="fPhone">Phone</label><input type="tel" id="fPhone" placeholder="+230 ..." required></div>
           </div>
-          <div class="form-field"><label for="fEmail">Email Address</label><input type="email" id="fEmail" placeholder="you@example.com" required></div>
+          <div class="form-field"><label for="fEmail">Email Address <span style="color:var(--text-3);font-weight:500">(optional)</span></label><input type="email" id="fEmail" placeholder="you@example.com"></div>
           <div class="form-field">
             <label for="fTopic">I'm writing about</label>
             <select id="fTopic" required>
@@ -1022,14 +1416,15 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
             </select>
           </div>
           <div class="form-field"><label for="fMsg">Message</label><textarea id="fMsg" placeholder="Tell us a bit about what you're looking for..."></textarea></div>
-          <button type="submit" class="form-submit">Send Enquiry</button>
-          <div class="form-success" id="formSuccess">✓ Thank you — your enquiry has been received. We'll be in touch shortly.</div>
+          <button type="submit" class="form-submit">Send via WhatsApp</button>
+          <div class="form-success" id="formSuccess">✓ WhatsApp has opened with your message. Press send there and we'll reply during sales hours.</div>
         </form>
       </div>
     </div>
   </div>
 </section>
 
+</div>
 </main>
 
 <!-- FOOTER -->
@@ -1155,7 +1550,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
           Call us
         </a>
-        <a href="https://wa.me/23054742683" target="_blank" rel="noopener" class="btn btn-outline">
+        <a href="https://wa.me/23054742683" target="_blank" rel="noopener" class="btn btn-wa" id="modalWaBtn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
           WhatsApp
         </a>
@@ -1164,6 +1559,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   </div>
 </div>
 
+<div class="fabs"><button class="fab fab-top" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button><a class="fab fab-wa" href="https://wa.me/23054742683?text=Hi%20Your%20Dream%20Motors%2C%20I%27d%20like%20some%20information." target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></a></div>
 <!-- TOAST -->
 <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span id="toastMsg">Saved</span></div>
 
@@ -1187,78 +1583,74 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       features:['M Sport package','Panoramic sunroof','Heated front seats','Apple CarPlay & Android Auto','Reversing camera','Parking sensors','LED headlights','Adaptive cruise control','Lane keep assist','Wireless charging','19-inch alloy wheels','Dual-zone climate control'],
       highlights:['One owner from new','Full BMW service history','Under manufacturer warranty until 2027','Non-smoker, pet-free vehicle','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1677517859847-0e750bfd13a9?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1680298255666-6071fc905870?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1676409430179-4b33940b00c5?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 2, make:'Mercedes-Benz', model:'GLC 300e', variant:'AMG Line',
       year:2023, price:4100000, mileage:14700,
       fuel:'Hybrid', transmission:'Automatic', bodyType:'SUV',
-      color:'Obsidian Black', doors:5, seats:5,
+      color:'Iridium Silver', doors:5, seats:5,
       engine:'2.0L Turbo + Electric', power:'320 hp', drivetrain:'All-Wheel Drive',
       badge:'Hybrid', badgeClass:'green',
       description:'A fully-loaded GLC 300e plug-in hybrid in AMG Line specification. Combining a 2.0L turbo petrol engine with an electric motor for a total of 320 hp, this GLC offers the best of both worlds — silent electric motoring for the daily commute and effortless performance on longer journeys.',
       features:['AMG Line exterior','Plug-in hybrid (100km EV range)','Panoramic sunroof','MBUX with voice control','Burmester sound system','360° camera','Heated & ventilated seats','Ambient lighting (64 colours)','Wireless charging','Keyless entry & start','20-inch AMG wheels','Air Body Control suspension'],
       highlights:['Balance of manufacturer warranty','Full Mercedes service history','Home charging cable included','One owner from new','Type 2 charging cable included'],
       images:[
-        'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1619466548431-54ffb2fe2674?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1732347700505-e1231e0f7c94?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1684239725236-5f3b6e9f02c3?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 3, make:'Porsche', model:'Taycan 4S', variant:'Performance Battery Plus',
       year:2023, price:7450000, mileage:18400,
       fuel:'Electric', transmission:'Automatic', bodyType:'Electric',
-      color:'Frozen Blue Metallic', doors:4, seats:4,
+      color:'GT Silver Metallic', doors:4, seats:4,
       engine:'Dual Electric Motors', power:'571 hp', drivetrain:'All-Wheel Drive',
       badge:'Electric', badgeClass:'green',
-      description:'A stunning Taycan 4S with the larger Performance Battery Plus, giving up to 463 km of range. Finished in the highly desirable Frozen Blue Metallic. This example comes with the Performance Plus package, adaptive air suspension, and Porsche\'s latest PCM 6.0 infotainment.',
+      description:'A stunning Taycan 4S with the larger Performance Battery Plus, giving up to 463 km of range. Finished in GT Silver Metallic. This example comes with the Performance Plus package, adaptive air suspension, and Porsche\'s latest PCM 6.0 infotainment.',
       features:['Performance Battery Plus','Adaptive air suspension','Porsche Active Suspension Management','Matrix LED headlights','BOSE surround sound','Sport Chrono package','Panoramic glass roof','Heated seats & steering wheel','360° parking cameras','Head-up display','21-inch mission E wheels','Porsche Connect Plus'],
       highlights:['Porsche Approved Warranty until 2026','Full Porsche service history','Battery state of health 96%','Home charging cable included','Immobiliser & tracker fitted'],
       images:[
-        'https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1618213221550-c32da08997db?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1763567061050-e9b7cb51eda6?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1740098159737-73673d741ebb?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 4, make:'Audi', model:'A5', variant:'Sportback 40 TFSI S line',
       year:2021, price:2650000, mileage:31500,
       fuel:'Petrol', transmission:'Automatic', bodyType:'Coupé',
-      color:'Daytona Grey', doors:5, seats:5,
+      color:'Glacier White', doors:5, seats:5,
       engine:'2.0L Turbo I4', power:'204 hp', drivetrain:'Front-Wheel Drive',
       badge:null, badgeClass:'',
-      description:'A beautifully specified A5 Sportback in S line trim with the desirable Daytona Grey paintwork. The five-door Sportback body combines coupé styling with practical rear access. Well maintained with full Audi service history.',
+      description:'A beautifully specified A5 Sportback in S line trim in crisp Glacier White. The five-door Sportback body combines coupé styling with practical rear access. Well maintained with full Audi service history.',
       features:['S line exterior & interior','Virtual Cockpit Plus','Matrix LED headlights','Bang & Olufsen sound','Heated leather sport seats','Reversing camera','Front & rear parking sensors','Keyless entry & start','19-inch alloy wheels','Three-zone climate','Ambient lighting','Apple CarPlay & Android Auto'],
       highlights:['Full Audi service history','Two previous owners','Timing belt replaced at 30,000 km','Four matching Michelin tyres','MOT valid until 2027'],
       images:[
-        'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1655284764117-9711c428199b?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1673098299153-2572a427e017?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 5, make:'Kia', model:'Sportage', variant:'GT Line 1.6 T-GDi',
       year:2023, price:2290000, mileage:11300,
       fuel:'Petrol', transmission:'Automatic', bodyType:'SUV',
-      color:'Snow White Pearl', doors:5, seats:5,
+      color:'Black Pearl', doors:5, seats:5,
       engine:'1.6L Turbo I4', power:'180 hp', drivetrain:'Front-Wheel Drive',
       badge:'New Arrival', badgeClass:'',
       description:'A near-new Sportage GT Line with the punchy 1.6 turbo petrol engine. The current-generation Sportage offers class-leading interior space and a striking design. Low mileage and still under the balance of Kia\'s 7-year warranty.',
       features:['GT Line styling package','Curved dual 12.3" displays','Harman Kardon sound','Panoramic sunroof','Heated & ventilated seats','360° camera','Blind spot monitoring','Adaptive cruise control','Wireless charging','19-inch alloy wheels','Ambient lighting','Keyless entry & start'],
       highlights:['Balance of 7-year Kia warranty','One owner from new','Full Kia service history','Non-smoker vehicle','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1649921777129-a28a26031a03?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1665736721212-711a6e52933b?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1647501581530-053b42684b8d?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1731474633990-790a0fb02006?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
@@ -1272,27 +1664,24 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       features:['Chili pack','Panoramic glass roof','Leather cross punch seats','Harman Kardon sound','Head-up display','Reversing camera','Parking sensors','LED headlights','17-inch alloy wheels','Dual-zone climate','Comfort access','MINI Connected'],
       highlights:['Full MINI service history','Two previous owners','New brake discs & pads at 28,000 km','Recently serviced','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1743970844803-c3455db7b19d?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1758620316764-dca1a0a1d9ca?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1602449732857-3608d7718c59?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 7, make:'BMW', model:'730i', variant:'Luxury Line',
       year:2019, price:3200000, mileage:52000,
       fuel:'Petrol', transmission:'Automatic', bodyType:'Sedan',
-      color:'Mineral White', doors:4, seats:5,
+      color:'Bernina Grey', doors:4, seats:5,
       engine:'2.0L Turbo I4', power:'258 hp', drivetrain:'Rear-Wheel Drive',
       badge:'Luxury', badgeClass:'grey',
       description:'A beautifully kept 7 Series in Luxury Line trim. Despite the 2.0L engine, the 730i delivers 258 hp and effortless cruising. The cabin is a genuinely luxurious place to spend time, with Nappa leather and the full BMW Live Cockpit Professional.',
       features:['Luxury Line package','Nappa leather interior','Panoramic sky lounge roof','Bowers & Wilkins sound','Massage front seats','Heated & ventilated seats','Four-zone climate','Rear entertainment','Soft-close doors','Power boot lid','20-inch alloy wheels','BMW Display Key'],
       highlights:['Full BMW service history','Two previous owners','Recently serviced at BMW','Four matching tyres','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
@@ -1306,44 +1695,39 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       features:['8-inch touchscreen','Apple CarPlay & Android Auto','Reversing camera','Cruise control','Auto headlights','LED daytime running lights','16-inch alloy wheels','Keyless entry','Climate control','Hill start assist','Traction control','Rear parking sensors'],
       highlights:['Full manufacturer warranty','One owner from new','Just 5,400 km from new','Non-smoker','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1550277773-c66239646bd9?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1693314515348-ce21281e8520?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 9, make:'Suzuki', model:'Swift', variant:'GLX CVT',
       year:2023, price:985000, mileage:9800,
       fuel:'Petrol', transmission:'Automatic', bodyType:'Hatchback',
-      color:'Pearl White', doors:5, seats:5,
+      color:'Speedy Blue', doors:5, seats:5,
       engine:'1.2L I4', power:'82 hp', drivetrain:'Front-Wheel Drive',
       badge:null, badgeClass:'',
       description:'A well-kept Swift GLX with the smooth CVT automatic. Light, economical and easy to park, the Swift is the perfect first car or city runabout. Still under Suzuki warranty.',
       features:['7-inch touchscreen','Apple CarPlay & Android Auto','Reversing camera','Auto climate control','Keyless entry & start','LED headlights','Cruise control','Front & rear parking sensors','15-inch alloy wheels','Paddle shifters','Lane departure warning','Rear privacy glass'],
       highlights:['Balance of Suzuki warranty','One owner from new','Full Suzuki service history','Very economical — 5.1L/100km average','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1699862335489-36f7dec55c0e?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1641430141849-cdc9073fd3d7?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 10, make:'Mercedes-Benz', model:'CLS 53', variant:'AMG 4MATIC+',
       year:2022, price:4950000, mileage:24100,
       fuel:'Petrol', transmission:'Automatic', bodyType:'Sedan',
-      color:'Selenite Grey', doors:4, seats:5,
+      color:'Iridium Silver', doors:4, seats:5,
       engine:'3.0L Turbo I6 + EQ Boost', power:'435 hp', drivetrain:'All-Wheel Drive',
       badge:'AMG', badgeClass:'grey',
-      description:'The CLS 53 AMG is one of the most distinctive four-door coupés on the road. Powered by a 3.0L straight-six with EQ Boost, it delivers 435 hp with genuine AMG character. This example is well-specified and beautifully presented in Selenite Grey.',
+      description:'The CLS 53 AMG is one of the most distinctive four-door coupés on the road. Powered by a 3.0L straight-six with EQ Boost, it delivers 435 hp with genuine AMG character. This example is well-specified and beautifully presented in Iridium Silver.',
       features:['AMG exterior & interior','AMG Performance exhaust','Burmester surround sound','MBUX widescreen cockpit','Nappa leather AMG seats','Heated & ventilated front seats','360° camera','Air Body Control','Head-up display','Ambient lighting (64 colours)','20-inch AMG wheels','Digital Light headlamps'],
       highlights:['Full Mercedes service history','Two previous owners','Recent full service','Four matching Michelin tyres','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1587141165905-c4e3c0c5e5d4?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1748569748174-33f4ba3ddcdf?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1485291571150-772bcfc10da5?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
@@ -1357,27 +1741,23 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       features:['10.25-inch touchscreen','Apple CarPlay & Android Auto','Panoramic sunroof','Leather seats','Heated front seats','Reversing camera','360° parking sensors','Keyless entry & start','Auto climate control','LED headlights','17-inch alloy wheels','Six airbags'],
       highlights:['Balance of manufacturer warranty','One owner from new','Full Chery service history','Just 7,900 km from new','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1551817280-6d59c77ce1b8?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1715253875481-57874ea24c73?auto=format&fit=crop&w=1600&q=80'
       ]
     },
     {
       id: 12, make:'BMW', model:'X2', variant:'sDrive20i M Sport',
       year:2022, price:2350000, mileage:19800,
       fuel:'Petrol', transmission:'Automatic', bodyType:'SUV',
-      color:'Storm Bay Metallic', doors:5, seats:5,
+      color:'Misano Red', doors:5, seats:5,
       engine:'2.0L Turbo I4', power:'178 hp', drivetrain:'Front-Wheel Drive',
       badge:null, badgeClass:'',
       description:'A stylish X2 in M Sport trim with the distinctive Storm Bay metallic paintwork. Slightly lower and more coupé-like than the X1, the X2 offers a sportier drive while keeping SUV practicality. Well maintained with full BMW service history.',
       features:['M Sport package','Panoramic sunroof','Dakota leather sport seats','BMW Live Cockpit','Navigation system','Reversing camera','Front & rear parking sensors','LED headlights','19-inch M alloy wheels','Heated front seats','Dual-zone climate','Sport automatic transmission'],
       highlights:['Full BMW service history','Two previous owners','Recently serviced','Four matching tyres','Two keys supplied'],
       images:[
-        'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80',
-        'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1400&q=80'
+        'https://images.unsplash.com/photo-1533903179229-783a50d25dd7?auto=format&fit=crop&w=1600&q=80',
+        'https://images.unsplash.com/photo-1676409430179-4b33940b00c5?auto=format&fit=crop&w=1600&q=80'
       ]
     }
   ];
@@ -1410,8 +1790,9 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
     return n.toLocaleString('en-US');
   }
   function monthly(n){
-    // rough 5-year, ~6% APR estimate
-    return Math.round((n * 1.16) / 60 / 100) * 100;
+    // estimate: 20% deposit, 60 months, 8.5% a year
+    const P = n * 0.8, r = 0.085 / 12, k = 60;
+    return Math.round(P * r / (1 - Math.pow(1 + r, -k)) / 100) * 100;
   }
   function toast(msg){
     const t = $('#toast');
@@ -1444,7 +1825,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
 
   function renderVehicles(){
     let list = CARS.filter(c => {
-      if(state.filter !== 'all' && c.bodyType !== state.filter) return false;
+      if(state.filter === 'saved'){ if(!state.favorites.has(c.id)) return false; }
+      else if(state.filter !== 'all' && c.bodyType !== state.filter) return false;
       if(state.make && c.make !== state.make) return false;
       if(state.model && c.model !== state.model) return false;
       if(state.year && c.year !== parseInt(state.year)) return false;
@@ -1461,6 +1843,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
     // update count
     $('#resultCount').innerHTML = `<b>${list.length}</b> vehicle${list.length !== 1 ? 's' : ''}`;
 
+    const before = new Map($$('.vehicle', grid).map(el=>[el.dataset.id, el.getBoundingClientRect()]));
     // empty state
     if(list.length === 0){
       grid.innerHTML = '';
@@ -1475,7 +1858,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       return `
         <article class="vehicle reveal" data-id="${c.id}" style="--d:${Math.min(i*50, 300)}ms">
           <div class="vehicle-media">
-            <img src="${c.images[0]}" alt="${c.make} ${c.model}" loading="lazy">
+            <img class="lz" src="${c.images[0].replace('w=1600','w=800')}" alt="${c.year} ${c.make} ${c.model}" decoding="async">
+            <span class="vehicle-view">View details</span>
             ${badgeHTML}
             <button class="vehicle-fav ${isFav?'on':''}" data-fav="${c.id}" aria-label="Save to favourites">
               <svg viewBox="0 0 24 24" fill="${isFav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
@@ -1506,20 +1890,28 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
         </article>`;
     }).join('');
 
-    // observe for reveal
-    $$('.vehicle.reveal').forEach(el=> io.observe(el));
+    // animate cards into their new places, or reveal on first load
+    if(before.size && !reduced){
+      $$('.vehicle', grid).forEach(el=>{
+        el.classList.add('in');
+        const b = before.get(el.dataset.id), r = el.getBoundingClientRect();
+        if(b) el.animate([{transform:`translate(${b.left-r.left}px,${b.top-r.top}px)`},{transform:'none'}],{duration:600,easing:'cubic-bezier(.22,1,.36,1)'});
+        else el.animate([{opacity:0,transform:'scale(.94)'},{opacity:1,transform:'none'}],{duration:500,easing:'cubic-bezier(.22,1,.36,1)'});
+      });
+    } else $$('.vehicle.reveal').forEach(el=> io.observe(el));
+    $$('.vehicle-media img', grid).forEach(im=>{ if(im.complete) im.classList.add('ok'), im.parentElement.classList.add('ok'); });
     // re-bind clicks
     bindVehicleEvents();
   }
 
   function bindVehicleEvents(){
-    $$('.vehicle').forEach(card=>{
+    $$('.vehicle', grid).forEach(card=>{
       card.addEventListener('click', e=>{
         if(e.target.closest('.vehicle-fav')) return;
         openModal(parseInt(card.dataset.id));
       });
     });
-    $$('.vehicle-fav').forEach(btn=>{
+    $$('.vehicle-fav', grid).forEach(btn=>{
       btn.addEventListener('click', e=>{
         e.stopPropagation();
         const id = parseInt(btn.dataset.fav);
@@ -1623,8 +2015,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       setTimeout(()=>{
         $('#fTopic').value = 'Buying a car';
         $('#fMsg').value = `I'm interested in the ${car.year} ${car.make} ${car.model} ${car.variant} (Rs ${fmtPrice(car.price)}). Please contact me with more details.`;
-        $('#contact').scrollIntoView({behavior: reduced ? 'auto' : 'smooth'});
-      }, 300);
+        go('contact');
+      }, 60);
     };
 
     // Gallery
@@ -1645,17 +2037,20 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
     document.body.classList.remove('no-scroll');
   }
 
+  let galDir = 1;
   function renderGallery(){
     const car = currentCar;
-    $('#galleryMain').src = car.images[currentImgIndex];
+    const gm = $('#galleryMain'); gm.src = car.images[currentImgIndex];
+    if(!reduced){ gm.classList.remove('slide-in'); void gm.offsetWidth; gm.style.setProperty('--dx', (galDir*40)+'px'); gm.classList.add('slide-in'); }
     $('#galleryMain').alt = `${car.make} ${car.model} - photo ${currentImgIndex+1}`;
     $('#galleryCounter').textContent = `${currentImgIndex+1} / ${car.images.length}`;
     $('#galleryThumbs').innerHTML = car.images.map((img, i) =>
-      `<button class="${i===currentImgIndex?'on':''}" data-idx="${i}"><img src="${img}" alt=""></button>`
+      `<button class="${i===currentImgIndex?'on':''}" data-idx="${i}" aria-label="Photo ${i+1}"><img src="${img.replace('w=1600','w=240')}" alt=""></button>`
     ).join('');
     $$('#galleryThumbs button').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        currentImgIndex = parseInt(btn.dataset.idx);
+        const n = parseInt(btn.dataset.idx); galDir = n >= currentImgIndex ? 1 : -1;
+        currentImgIndex = n;
         renderGallery();
       });
     });
@@ -1663,6 +2058,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
 
   function galleryNav(dir){
     if(!currentCar) return;
+    galDir = dir;
     currentImgIndex = (currentImgIndex + dir + currentCar.images.length) % currentCar.images.length;
     renderGallery();
   }
@@ -1707,7 +2103,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       });
       state.filter = cat;
       renderVehicles();
-      $('#inventory').scrollIntoView({behavior: reduced ? 'auto' : 'smooth'});
+      go('inventory'); setTimeout(syncFilterInd, 900);
     });
   });
 
@@ -1728,7 +2124,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
     state.filter = 'all';
     $$('#filters button').forEach(b=> b.classList.toggle('active', b.dataset.filter === 'all'));
     renderVehicles();
-    $('#inventory').scrollIntoView({behavior: reduced ? 'auto' : 'smooth'});
+    go('inventory'); setTimeout(syncFilterInd, 900);
     const count = $('#resultCount').querySelector('b').textContent;
     if(parseInt(count) > 0){
       toast(`Found ${count} matching vehicle${count!=='1'?'s':''}`);
@@ -1797,28 +2193,14 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   overlay.addEventListener('click', closeNav);
   $$('#mobileNav a').forEach(a=> a.addEventListener('click', closeNav));
 
-  /* ═══════════════ SMOOTH SCROLL ═══════════════ */
-  $$('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      const id = a.getAttribute('href');
-      if(id === '#' || id.length < 2) return;
-      const el = document.querySelector(id);
-      if(!el) return;
-      e.preventDefault();
-      closeNav();
-      const y = el.getBoundingClientRect().top + scrollY - 80;
-      scrollTo({ top:y, behavior: reduced ? 'auto' : 'smooth' });
-    });
-  });
-
   /* ═══════════════ CONTACT FORM ═══════════════ */
   const form = $('#contactForm'), success = $('#formSuccess');
   form.addEventListener('submit', e=>{
     e.preventDefault();
     const checks = [
       { el: $('#fName'),  test: v => v.trim().length > 1 },
-      { el: $('#fPhone'), test: v => v.trim().length > 5 },
-      { el: $('#fEmail'), test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { el: $('#fPhone'), test: v => /^(5\d{7}|[2-9]\d{6})$/.test(v.replace(/[\s\-().]/g,'').replace(/^\+?230(?=\d{7,8}$)/,'')) },
+      { el: $('#fEmail'), test: v => !v.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
       { el: $('#fTopic'), test: v => v.trim().length > 0 }
     ];
     let valid = true;
@@ -1828,17 +2210,11 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
       if(bad) valid = false;
     });
     if(!valid) return;
-    const btn = form.querySelector('.form-submit');
-    const original = btn.textContent;
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    setTimeout(()=>{
-      btn.textContent = original;
-      btn.disabled = false;
-      success.classList.add('on');
-      form.reset();
-      setTimeout(()=> success.classList.remove('on'), 6000);
-    }, 700);
+    const msg = `Hi Your Dream Motors,\nTopic: ${$('#fTopic').value}\nName: ${$('#fName').value}\nPhone: ${$('#fPhone').value}${$('#fEmail').value?`\nEmail: ${$('#fEmail').value}`:''}\n\n${$('#fMsg').value}`;
+    window.open(`https://wa.me/23054742683?text=${encodeURIComponent(msg)}`, '_blank');
+    success.classList.add('on');
+    form.reset();
+    setTimeout(()=> success.classList.remove('on'), 8000);
   });
   form.addEventListener('input', e=>{
     const f = e.target.closest('.form-field');
@@ -1849,8 +2225,268 @@ h1,h2,h3,h4,h5,h6{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;lin
   initSearchDropdowns();
   renderVehicles();
   updateCategoryCounts();
+  if($('#phCount')) $('#phCount').textContent = CARS.length;
   $$('.reveal').forEach(el=> io.observe(el));
   $$('[data-count]').forEach(el=> cio.observe(el));
+
+
+  /* ═══════════════ UPGRADE: shared helpers ═══════════════ */
+  const WA = '23054742683';
+  const waLink = t => `https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+
+  /* image shimmer → fade in */
+  const IMG_BOX = '.vehicle-media,.cat,.sell-media,.gallery-main,.gallery-thumbs button,.tile,.page-hero-bg,.slide';
+  function markLoaded(img){ img.classList.add('ok'); img.classList.remove('bad'); const p = img.closest(IMG_BOX); if(p){ p.classList.add('ok'); p.classList.remove('noimg'); } }
+  /* if a photo can't load (offline, blocked), show a clean placeholder instead of a broken icon */
+  function markBroken(img){ img.classList.add('ok','bad'); const p = img.closest(IMG_BOX); if(p) p.classList.add('ok','noimg'); }
+  document.addEventListener('load', e=>{ if(e.target.tagName==='IMG') markLoaded(e.target); }, true);
+  document.addEventListener('error', e=>{ if(e.target.tagName==='IMG') markBroken(e.target); }, true);
+  $$('.cat img,.sell-media img,.tile img,.page-hero-bg img').forEach(im=>{ im.classList.add('lz'); if(im.complete) (im.naturalWidth ? markLoaded(im) : markBroken(im)); });
+
+  /* sliding indicator helper (underline or pill) */
+  function moveInd(container, active, cls){
+    if(!container || !active) return;
+    let ind = container.querySelector(':scope > .'+cls);
+    if(!ind){ ind = document.createElement('span'); ind.className = cls; ind.setAttribute('aria-hidden','true'); container.appendChild(ind); }
+    if(cls === 'f-ind'){
+      ind.style.width = active.offsetWidth+'px'; ind.style.height = active.offsetHeight+'px';
+      ind.style.transform = `translate(${active.offsetLeft}px,${active.offsetTop}px)`;
+    } else {
+      const pad = cls==='tab-ind' && container.classList.contains('nav') ? 14 : 22;
+      ind.style.width = Math.max(0, active.offsetWidth - pad*2)+'px';
+      ind.style.transform = `translateX(${active.offsetLeft + pad}px)`;
+    }
+  }
+  const syncFilterInd = ()=> moveInd($('#filters'), $('#filters button.active'), 'f-ind');
+  const syncModalTabs = ()=> moveInd($('.tabs'), $('.tabs button.on'), 'tab-ind');
+  $$('#filters button').forEach(b=> b.addEventListener('click', ()=> requestAnimationFrame(syncFilterInd)));
+  $$('.tabs button').forEach(b=> b.addEventListener('click', ()=> requestAnimationFrame(syncModalTabs)));
+  addEventListener('resize', ()=>{ syncFilterInd(); syncModalTabs(); syncSearchInd(); syncNav(); });
+
+  /* ═══════════════ HERO SLIDESHOW ═══════════════ */
+  const HERO = [3,10,12,7].map(id=> CARS.find(c=>c.id===id)).filter(Boolean);
+  const heroEl = $('.hero'), slidesEl = $('#heroSlides'), dotsEl = $('#heroDots'), capEl = $('#heroCap');
+  const HDUR = 6000; let hk = 0, htm;
+  slidesEl.innerHTML = HERO.map((c,i)=>`<div class="slide${i?'':' on'}"><img src="${c.images[0].replace('w=1600','w=2000')}" alt="${c.year} ${c.make} ${c.model}" ${i?'':'fetchpriority="high"'}></div>`).join('');
+  dotsEl.style.setProperty('--dur', HDUR+'ms');
+  dotsEl.innerHTML = HERO.map(c=>`<button aria-label="Show ${c.make} ${c.model}"><i></i></button>`).join('');
+  function heroGo(k, first){
+    const S = $$('.slide', slidesEl), D = $$('button', dotsEl);
+    k = (k + HERO.length) % HERO.length;
+    S[hk].classList.remove('on'); S[k].classList.add('on'); hk = k;
+    D.forEach((d,j)=>{ d.classList.remove('on','done'); if(j<k) d.classList.add('done'); });
+    void D[k].offsetWidth; D[k].classList.add('on');
+    const c = HERO[k], set = ()=>{ capEl.innerHTML = `Now showing <b>${c.year} ${c.make} ${c.model}</b> · Rs ${fmtPrice(c.price)} →`; capEl.dataset.id = c.id; capEl.classList.remove('sw'); };
+    if(first) set(); else { capEl.classList.add('sw'); setTimeout(set, 320); }
+    clearTimeout(htm); if(!reduced) htm = setTimeout(()=> heroGo(hk+1), HDUR);
+  }
+  $$('button', dotsEl).forEach((b,j)=> b.addEventListener('click', ()=> heroGo(j)));
+  capEl.addEventListener('click', ()=> openModal(parseInt(capEl.dataset.id)));
+
+  /* ═══════════════ SEARCH PANEL: BUY / SELL TABS ═══════════════ */
+  const sTabs = $('.search-tabs');
+  const syncSearchInd = ()=> moveInd(sTabs, $('button.active', sTabs), 'tab-ind');
+  $$('button', sTabs).forEach(b=> b.addEventListener('click', ()=>{
+    $$('button', sTabs).forEach(x=>{ x.classList.toggle('active', x===b); x.setAttribute('aria-selected', x===b); });
+    $$('.search-pane').forEach(p=> p.classList.toggle('on', p.id === b.dataset.pane));
+    syncSearchInd();
+  }));
+  const MU_PHONE = v => /^(5\d{7}|[2-9]\d{6})$/.test(v.replace(/[\s\-().]/g,'').replace(/^\+?230(?=\d{7,8}$)/,''));
+  $('#sellQuick').addEventListener('submit', e=>{
+    e.preventDefault();
+    const f = [['#sqName', v=>v.trim().length>1], ['#sqPhone', MU_PHONE], ['#sqCar', v=>v.trim().length>2]];
+    let ok = true; f.forEach(([s,t])=>{ const bad = !t($(s).value); $(s).closest('.search-field').classList.toggle('error', bad); if(bad) ok = false; });
+    if(!ok){ toast('Please check the highlighted fields'); return; }
+    window.open(waLink(`Hi Your Dream Motors, I'd like a valuation for my car.\nName: ${$('#sqName').value}\nPhone: ${$('#sqPhone').value}\nCar: ${$('#sqCar').value}`), '_blank');
+    toast('Opening WhatsApp with your details');
+  });
+
+  /* ═══════════════ FAVOURITES: remember on this device ═══════════════ */
+  try{ JSON.parse(localStorage.getItem('ydm-favs')||'[]').forEach(id=> CARS.some(c=>c.id===id) && state.favorites.add(id)); }catch(e){}
+  function syncFavs(){
+    try{ localStorage.setItem('ydm-favs', JSON.stringify([...state.favorites])); }catch(e){}
+    const b = $('#favCount'); b.textContent = state.favorites.size; b.classList.toggle('on', state.favorites.size>0);
+  }
+  grid.addEventListener('click', e=>{ const f = e.target.closest('.vehicle-fav'); if(f){ f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop'); setTimeout(()=>{ syncFavs(); if(state.filter==='saved') renderVehicles(); }, 0); } }, true);
+  $('#hdrFav').addEventListener('click', ()=>{
+    $$('#filters button').forEach(b=> b.classList.toggle('active', b.dataset.filter==='saved'));
+    state.filter = 'saved'; renderVehicles();
+    go('inventory'); setTimeout(syncFilterInd, 900);
+    if(!state.favorites.size) toast('No saved cars yet. Tap the ♥ on any car to save it');
+  });
+
+  /* ═══════════════ MODAL: WhatsApp prefill, swipe, focus, indicator ═══════════════ */
+  const modalObs = new MutationObserver(()=>{
+    if(!backdrop.classList.contains('open') || !currentCar) return;
+    const c = currentCar;
+    $('#modalWaBtn').href = waLink(`Hi Your Dream Motors, is the ${c.year} ${c.make} ${c.model} ${c.variant} (Rs ${fmtPrice(c.price)}) still available?`);
+    requestAnimationFrame(syncModalTabs);
+    setTimeout(()=> $('#modalClose').focus(), 60);
+  });
+  modalObs.observe(backdrop, {attributes:true, attributeFilter:['class']});
+  let sx = 0;
+  $('.gallery-main').addEventListener('pointerdown', e=> sx = e.clientX);
+  $('.gallery-main').addEventListener('pointerup', e=>{ const d = e.clientX - sx; if(Math.abs(d) > 50) galleryNav(d < 0 ? 1 : -1); });
+
+  /* ═══════════════ NAV: active section + sliding underline ═══════════════ */
+  function syncNav(){ moveInd($('.nav'), $('.nav a.active'), 'tab-ind'); }
+
+  /* ═══════════════ SCROLL PROGRESS + BACK TO TOP ═══════════════ */
+  const sprog = $('#sprog'), toTop = $('#toTop');
+  function onScroll2(){
+    const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
+    sprog.style.setProperty('--p', H > 0 ? (y/H).toFixed(4) : 0);
+    toTop.classList.toggle('on', y > innerHeight);
+  }
+  addEventListener('scroll', onScroll2, {passive:true}); onScroll2();
+  toTop.addEventListener('click', ()=> scrollTo({top:0, behavior: reduced ? 'auto' : 'smooth'}));
+
+  /* ═══════════════ LOADING SCREEN ═══════════════ */
+  function startPage(){ heroEl.classList.add('go'); heroGo(0, true); syncSearchInd(); syncFilterInd(); }
+  (function(){
+    const L = $('#loader');
+    if(!L || reduced){ if(L) L.remove(); startPage(); return; }
+    $('#ldName').innerHTML = [...'YOUR DREAM MOTORS'].map((ch,i)=>`<span style="animation-delay:${.3+i*.035}s">${ch===' '?'&nbsp;':ch}</span>`).join('');
+    const first = $('.slide img', slidesEl); let ready = first.complete;
+    first.addEventListener('load', ()=> ready = true); first.addEventListener('error', ()=> ready = true);
+    const t0 = performance.now(), bar = $('#ldBar'), pct = $('#ldPct');
+    (function tick(t){
+      const el = t - t0, p = Math.min(ready && el > 1200 ? 1 : .92, el / 1500);
+      bar.style.setProperty('--p', p); pct.textContent = String(Math.round(p*100)).padStart(3,'0');
+      if(p >= 1 || el > 2600){ bar.style.setProperty('--p', 1); pct.textContent = '100';
+        setTimeout(()=>{ L.classList.add('done'); startPage(); setTimeout(()=> L.remove(), 1100); }, 200); return; }
+      requestAnimationFrame(tick);
+    })(t0);
+  })();
+  syncFavs();
+
+  /* ═══════════════ HOME: featured cars ═══════════════ */
+  const FEATURED = [3,10,1,2,7,12];
+  const featGrid = $('#featGrid');
+  function cardHTML(c, i){
+    const isFav = state.favorites.has(c.id);
+    return `<article class="vehicle reveal" data-id="${c.id}" style="--d:${Math.min(i*60, 300)}ms" tabindex="0">
+      <div class="vehicle-media">
+        <img class="lz" src="${c.images[0].replace('w=1600','w=800')}" alt="${c.year} ${c.make} ${c.model}" decoding="async">
+        <span class="vehicle-view">View details</span>
+        ${c.badge ? `<span class="vehicle-badge ${c.badgeClass||''}">${c.badge}</span>` : ''}
+        <button class="vehicle-fav ${isFav?'on':''}" data-fav="${c.id}" aria-label="Save to favourites"><svg viewBox="0 0 24 24" fill="${isFav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+      </div>
+      <div class="vehicle-body">
+        <div class="vehicle-title-row"><h3 class="vehicle-title">${c.make} ${c.model}</h3><span class="vehicle-year">${c.year}</span></div>
+        <p class="vehicle-trim">${c.variant}</p>
+        <ul class="vehicle-specs"><li>${ICONS.km}${c.mileage.toLocaleString()} km</li><li>${ICONS.fuel}${c.fuel}</li><li>${ICONS.gear}${c.transmission}</li></ul>
+        <div class="vehicle-foot">
+          <div class="vehicle-price"><span>Price (MUR)</span><strong>${fmtPrice(c.price)}</strong></div>
+          <span class="vehicle-link">View Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </div>
+    </article>`;
+  }
+  if(featGrid){
+    featGrid.innerHTML = FEATURED.map(id=> CARS.find(c=>c.id===id)).filter(Boolean).map(cardHTML).join('');
+    $$('.reveal', featGrid).forEach(el=> io.observe(el));
+    featGrid.addEventListener('click', e=>{
+      const f = e.target.closest('.vehicle-fav'), card = e.target.closest('.vehicle');
+      if(f){
+        e.stopPropagation();
+        const id = parseInt(f.dataset.fav), on = !state.favorites.has(id);
+        on ? state.favorites.add(id) : state.favorites.delete(id);
+        paintFav(id); syncFavs();
+        f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop');
+        toast(on ? 'Saved to favourites' : 'Removed from favourites');
+        return;
+      }
+      if(card) openModal(parseInt(card.dataset.id));
+    });
+    featGrid.addEventListener('keydown', e=>{ const card = e.target.closest('.vehicle'); if(card && (e.key==='Enter'||e.key===' ') && e.target===card){ e.preventDefault(); openModal(parseInt(card.dataset.id)); } });
+  }
+  function paintFav(id){
+    $$(`[data-fav="${id}"]`).forEach(b=>{ const on = state.favorites.has(id); b.classList.toggle('on', on); b.querySelector('svg').setAttribute('fill', on ? 'currentColor' : 'none'); });
+  }
+  grid.addEventListener('click', e=>{ const f = e.target.closest('.vehicle-fav'); if(f) setTimeout(()=> paintFav(parseInt(f.dataset.fav)), 0); });
+
+  /* opening hours: highlight today (Mauritius time) */
+  (function(){
+    const d = new Date(new Date().toLocaleString('en-US',{timeZone:'Indian/Mauritius'})).getDay();
+    const row = d===0 ? 'sun' : d===6 ? 'sat' : 'wk';
+    const el = $(`.visit-hours [data-d="${row}"]`); if(el) el.classList.add('today');
+  })();
+
+  /* ═══════════════ PAGES: hash router with curtain transition ═══════════════ */
+  const VIEWS = {home:'Home', inventory:'Inventory', categories:'Browse by Type', why:'Why Choose Us', sell:'Sell Your Car', reviews:'Reviews', contact:'Contact'};
+  const ALIAS = {'':'home', top:'home', home:'home', browse:'categories', saved:'inventory'};
+  const curtain = $('#curtain'), cLabel = $('#curtainLabel');
+  let cur = null, busy = false, queued = null;
+  if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  function routeOf(hash){
+    const k = (hash||'').replace(/^#\/?/, '');
+    if(k in VIEWS) return k;
+    return ALIAS[k] || null;
+  }
+  function setNav(r){
+    $$('.nav a, #mobileNav a, .footer a[href^="#"]').forEach(a=>{
+      a.classList.toggle('active', routeOf(a.getAttribute('href')) === r && r !== 'home');
+    });
+    const nav = $('.nav'), act = $('.nav a.active');
+    if(act){ syncNav(); const ind = nav.querySelector(':scope > .tab-ind'); if(ind) ind.classList.remove('off'); }
+    else { const ind = nav.querySelector(':scope > .tab-ind'); if(ind) ind.classList.add('off'); }
+  }
+  function show(r){
+    $$('.view').forEach(v=>{ const on = v.dataset.view === r; v.classList.toggle('on', on); v.classList.remove('enter'); });
+    const v = $(`.view[data-view="${r}"]`);
+    if(!reduced){ void v.offsetWidth; v.classList.add('enter'); }
+    cur = r; setNav(r);
+    document.title = r === 'home' ? 'Your Dream Motors | Quality Pre-Owned Vehicles in Mauritius' : `${VIEWS[r]} | Your Dream Motors, Moka`;
+    scrollTo(0, 0);
+    if(r === 'inventory') requestAnimationFrame(syncFilterInd);
+    if(r === 'home') requestAnimationFrame(syncSearchInd);
+    onScroll2();
+  }
+  function anim(el, kf, o){ return el.animate(kf, Object.assign({fill:'forwards', easing:'cubic-bezier(.77,0,.18,1)'}, o)).finished; }
+  async function go(r, push){
+    r = routeOf('#'+r) || 'home';
+    if(push !== false){ const h = '#'+(r==='home'?'top':r); if(location.hash !== h) history.pushState(null, '', h); }
+    if(backdrop.classList.contains('open')) closeModal();
+    closeNav();
+    if(r === cur){ scrollTo({top:0, behavior: reduced ? 'auto' : 'smooth'}); return; }
+    if(reduced || !curtain.animate){ show(r); return; }
+    if(busy){ queued = r; return; }
+    busy = true;
+    const [c1, c2] = curtain.querySelectorAll('i'), lab = curtain.querySelector('.c-label');
+    cLabel.textContent = VIEWS[r];
+    curtain.classList.add('on');
+    await Promise.all([
+      anim(c1, [{transform:'translateY(101%)'},{transform:'translateY(0)'}], {duration:520}),
+      anim(c2, [{transform:'translateY(101%)'},{transform:'translateY(0)'}], {duration:560, delay:90}),
+      anim(lab, [{opacity:0, transform:'translateY(18px)'},{opacity:1, transform:'none'}], {duration:380, delay:330, easing:'ease-out'})
+    ]);
+    show(queued || r); queued = null;
+    await new Promise(res=> setTimeout(res, 160));
+    await Promise.all([
+      anim(lab, [{opacity:1},{opacity:0, transform:'translateY(-14px)'}], {duration:240, easing:'ease-in'}),
+      anim(c2, [{transform:'translateY(0)'},{transform:'translateY(-101%)'}], {duration:620, delay:80}),
+      anim(c1, [{transform:'translateY(0)'},{transform:'translateY(-101%)'}], {duration:620, delay:170})
+    ]);
+    curtain.classList.remove('on');
+    [c1, c2, lab].forEach(el=> el.getAnimations().forEach(a=> a.cancel()));
+    busy = false;
+  }
+  window.ydmGo = go;
+
+  /* every in-page link (#inventory, #contact, …) opens its page */
+  document.addEventListener('click', e=>{
+    const a = e.target.closest('a[href^="#"]');
+    if(!a || e.defaultPrevented) return;
+    const r = routeOf(a.getAttribute('href'));
+    if(!r) return;
+    e.preventDefault();
+    go(r);
+  });
+  addEventListener('popstate', ()=> go(routeOf(location.hash) || 'home', false));
+  if(location.hash === '#saved'){ state.filter = 'saved'; $$('#filters button').forEach(b=> b.classList.toggle('active', b.dataset.filter==='saved')); renderVehicles(); }
+  show(routeOf(location.hash) || 'home');
 
   /* ═══════════════ RESIZE ═══════════════ */
   addEventListener('resize', ()=>{ if(innerWidth > 1024) closeNav(); });
