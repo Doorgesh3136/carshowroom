@@ -751,3 +751,8 @@ a,button,select,summary,label{-webkit-tap-highlight-color:transparent;}
 .c-item b a{display:inline-flex;align-items:center;min-height:44px;}
 .seg button{width:44px;flex:none;}
 .r-tools .seg{flex:none;}
+/* whole card is clickable: the link sits in front of everything except the heart */
+.card-link{transform:translateZ(60px);z-index:4;}
+.fav{transform:translateZ(80px);z-index:5;}
+.fav.pop{animation:popHi .5s var(--ease);}
+@keyframes popHi{40%{transform:translateZ(80px) scale(1.3);}}

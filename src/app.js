@@ -91,6 +91,14 @@ function toggleFav(id, btn){
   if(cur.view === 'inventory' && F.saved) renderInv();
 }
 document.addEventListener('click', e => { const b = e.target.closest('.fav'); if(b){ e.preventDefault(); e.stopPropagation(); toggleFav(+b.dataset.fav, b); } });
+/* safety net: a click anywhere on a card (except the heart) opens that car */
+document.addEventListener('click', e => {
+  if(e.defaultPrevented || e.target.closest('.fav,.card-link')) return;
+  const card = e.target.closest('.card'); if(!card) return;
+  if(card.closest('.rail.drag')) return;
+  const im = card.querySelector('.card-media img'); if(im && im.complete && im.naturalWidth) vtImg = im;
+  location.hash = '#/car/' + card.dataset.id;
+});
 
 /* ───────── car card ───────── */
 function tagFor(c){
