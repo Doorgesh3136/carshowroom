@@ -1049,6 +1049,45 @@ html.js-motion .wipe .w-bar{background:#C9A55C}
 .hero-gleam{display:none}
 }
 #heroSlides{filter:blur(calc(var(--hb, 0) * 1px))}
+@property --hint-a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.hero-stage{position:absolute;inset:0;z-index:-2;opacity:0;transition:opacity 1.4s cubic-bezier(.22,1,.36,1)}
+.hero-stage canvas{display:block;width:100%;height:100%}
+.hero-stage.live{opacity:1}
+.hero-cap-img{display:none}
+.stage-mark{position:absolute;visibility:hidden;pointer-events:none;right:max(24px, calc((100% - 1280px) / 2));width:min(44%, 700px);top:30%;height:40%}
+.hero.has-3d{touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
+.hero.has-3d.turning{cursor:grabbing}
+.hero.has-3d a,.hero.has-3d button{cursor:pointer}
+.hero.has-3d .hero-slides{opacity:0;visibility:hidden;transition:opacity 1.2s cubic-bezier(.22,1,.36,1), visibility 0s 1.2s}
+.hero.has-3d .hero-gleam{display:none}
+.hero.has-3d .hero-shade{background:linear-gradient(90deg, rgba(8,17,12, .74) 0%, rgba(8,17,12, .3) 36%, transparent 56%),
+linear-gradient(0deg, rgba(8,17,12, .92) 0%, rgba(8,17,12, .4) 20%, transparent 38%)}
+.hero.has-3d .hero-cap{grid-template-columns:auto 1fr;column-gap:14px;align-items:center}
+.hero.has-3d .hero-cap small,.hero.has-3d .hero-cap b,.hero.has-3d .hero-cap span{grid-column:2}
+.hero.has-3d .hero-cap-img{display:block;grid-row:1 / span 3;width:84px;height:63px;object-fit:cover;border-radius:10px;border:1px solid rgba(212,180,106, .35)}
+.stage-hint{position:absolute;z-index:2;top:26px;right:max(24px, calc((100% - 1280px) / 2));display:flex;align-items:center;gap:10px;margin:0;padding:6px 16px 6px 6px;border-radius:99px;font-size:13px;font-weight:600;letter-spacing:.03em;color:rgba(243,241,234,.86);background:rgba(8,17,12, .42);border:1px solid rgba(212,180,106, .22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none;opacity:0;translate:0 -10px;transition:opacity .6s, translate .8s cubic-bezier(.16,1,.3,1)}
+.stage-hint.on{opacity:1;translate:0 0}
+.stage-hint.done{opacity:0;translate:0 -10px;transition-duration:.3s}
+.stage-hint i{position:relative;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(212,180,106, .12)}
+.stage-hint i::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from var(--hint-a), transparent 0 55%, #D4B46A 82%, transparent 100%);-webkit-mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));mask:radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px));animation:hint-ring 2.2s linear infinite}
+.stage-hint svg{width:18px;height:18px;color:#D4B46A;animation:hint-nudge 2.2s cubic-bezier(.77,0,.18,1) infinite}
+@keyframes hint-ring{to{--hint-a:360deg}}
+@keyframes hint-nudge{0%,100%{translate:-2px 0}50%{translate:2px 0}}
+@supports (animation-timeline: scroll()){
+.stage-hint.on{animation:hint-out linear both;animation-timeline:scroll(root);animation-range:0 35vh}
+}
+@keyframes hint-out{to{opacity:0;translate:0 -14px}}
+@media (max-width: 899px){
+html.can-3d .hero-in{padding-top:calc(min(58vw, 300px) + 56px)}
+.stage-mark{right:4%;width:92%;top:14px;height:min(58vw, 300px)}
+.stage-hint{top:calc(min(58vw, 300px) + 14px);right:50%;translate:50% -10px}
+.stage-hint.on{translate:50% 0}
+.hero.has-3d .hero-shade{background:linear-gradient(0deg, rgba(8,17,12, .94) 0%, rgba(8,17,12, .6) 42%, transparent 64%)}
+.hero.has-3d .hero-cap-img{width:64px;height:48px}
+}
+@media (prefers-reduced-motion: reduce){
+.stage-hint i::before,.stage-hint svg{animation:none}
+}
 .c-item,.c-item *{min-width:0;overflow-wrap:anywhere}
 .card-foot{flex-wrap:wrap;gap:6px 12px}
 .card-mo{white-space:nowrap}
@@ -1068,6 +1107,7 @@ html.js-motion .wipe .w-bar{background:#C9A55C}
 .wrap{width:calc(100% - 32px)}
 h1{overflow-wrap:break-word;hyphens:auto}
 }</style>
+<script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.min.js","three/addons/":"./vendor/three/addons/"}}</script>
 <script defer src="vendor/gsap/gsap.min.js"></script>
 <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
 </head>
@@ -1174,8 +1214,10 @@ h1{overflow-wrap:break-word;hyphens:auto}
 <section class="view" data-view="home" aria-label="Home">
   <div class="hero" id="hero">
     <div class="hero-slides" id="heroSlides"></div>
+    <div class="hero-stage" id="heroStage"><i class="stage-mark"></i></div>
     <div class="hero-shade"></div>
     <div class="hero-gleam" id="heroGleam" aria-hidden="true"></div>
+    <p class="stage-hint" id="stageHint" aria-hidden="true"><i><svg><use href="#i-rotate"/></svg></i>Drag to turn it</p>
     <div class="wrap hero-in">
       <h1 class="hero-h"><span class="ln"><span>Drive smarter.</span></span><span class="ln"><span>Find your</span></span><span class="ln"><span>modern car.</span></span></h1>
       <p class="hero-p">67 checked cars at 59B Royal Road, Coromandel. New stock every week, deals every Saturday, and leasing through Rogers Capital.</p>
@@ -1185,7 +1227,7 @@ h1{overflow-wrap:break-word;hyphens:auto}
       </div>
     </div>
     <div class="wrap hero-foot">
-      <a class="hero-cap" id="heroCap" href="#/inventory"><small>On the floor now</small><b id="heroCapName"></b><span id="heroCapPrice"></span></a>
+      <a class="hero-cap" id="heroCap" href="#/inventory"><img class="hero-cap-img" id="heroCapImg" alt="" width="96" height="72" decoding="async"><small>On the floor now</small><b id="heroCapName"></b><span id="heroCapPrice"></span></a>
       <div class="hero-ctrl">
         <span class="hero-count"><b id="heroIdx">01</b> / <span id="heroTot">04</span></span>
         <div class="hero-bars" id="heroBars"></div>
@@ -1605,7 +1647,7 @@ h1{overflow-wrap:break-word;hyphens:auto}
     <h2>Valuations</h2>
     <p>A guide price given over WhatsApp is not binding. A firm offer is made after we inspect the car.</p>
     <h2>Using this site</h2>
-    <p>Content on this site belongs to V8 Motors or is used with permission. Car photos are from Unsplash under the Unsplash licence. These terms are governed by the laws of the Republic of Mauritius.</p>
+    <p>Content on this site belongs to V8 Motors or is used with permission. Car photos are from Unsplash under the Unsplash licence. The 3D car on the home page is a stand-in, not a car in our stock: it is based on <a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept" target="_blank" rel="noopener">Car Concept</a> by Eric Chadwick, Darmstadt Graphics Group, licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (itself built from a public-domain model by Unity Fan). We removed its logos, changed the paint and compressed it. These terms are governed by the laws of the Republic of Mauritius.</p>
     <h2>Contact</h2>
     <p>V8 Motors, 59B Royal Road, Coromandel, Mauritius. <a href="tel:+23052590327">5259 0327</a>, <a href="mailto:veightmotorsv8@gmail.com">veightmotorsv8@gmail.com</a>.</p>
   </div>
@@ -1873,7 +1915,8 @@ const HDUR = 7000;
   $('#heroTot').textContent = String(HERO.length).padStart(2, '0');
 })();
 function heroCap(c, anim){
-  const set = () => { $('#heroCapName').textContent = `${c.year} ${c.make} ${c.model}`; $('#heroCapPrice').textContent = `${rs(c.price)}, ${kmTxt(c)}`; $('#heroCap').href = '#/car/' + c.id; $('#heroCap').classList.remove('sw'); };
+  const set = () => { const im = $('#heroCapImg'); if(im && c.photos[0]) im.src = U(c.photos[0], 192, 144);
+    $('#heroCapName').textContent = `${c.year} ${c.make} ${c.model}`; $('#heroCapPrice').textContent = `${rs(c.price)}, ${kmTxt(c)}`; $('#heroCap').href = '#/car/' + c.id; $('#heroCap').classList.remove('sw'); };
   if(anim){ $('#heroCap').classList.add('sw'); setTimeout(set, 330); } else set();
 }
 function heroBars(k){
@@ -1881,7 +1924,7 @@ function heroBars(k){
   const b = $$('#heroBars i')[k]; void b.offsetWidth; b.classList.add('on');
   $('#heroIdx').textContent = String(k + 1).padStart(2, '0');
 }
-function heroGleam(){ const g = $('#heroGleam'); if(!g) return; g.classList.remove('go'); void g.offsetWidth; g.classList.add('go'); }
+function heroGleam(){ const g = $('#heroGleam'); if(!g || $('#hero').classList.contains('has-3d')) return; g.classList.remove('go'); void g.offsetWidth; g.classList.add('go'); }
 function heroGo(k){
   if(heroBusy) return; k = (k + HERO.length) % HERO.length;
   clearTimeout(heroT);
@@ -1899,6 +1942,21 @@ function heroGo(k){
 $('#heroPrev').addEventListener('click', () => heroGo(heroK - 1));
 $('#heroNext').addEventListener('click', () => heroGo(heroK + 1));
 heroCap(HERO[0]);
+
+/* the 3D showroom takes over the hero once it is loaded (see assets/showroom.js) */
+const STAGE = window.V8_STAGE;
+let stageLive = false;
+function stageOn(quick){
+  if(stageLive || !STAGE || !STAGE.stage || STAGE.failed) return;
+  stageLive = true;
+  const hero = $('#hero'), hint = $('#stageHint');
+  hero.classList.add('has-3d');
+  STAGE.stage.ignite(quick);
+  STAGE.stage.pause(cur.view !== 'home');
+  setTimeout(() => hint.classList.add('on'), quick ? 900 : 2200);
+  STAGE.stage.onDrag = () => { hint.classList.remove('on'); hint.classList.add('done'); };
+}
+if(STAGE) STAGE.onLost = () => { stageLive = false; $('#hero').classList.remove('has-3d'); $('#stageHint').classList.remove('on'); };
 
 /* quick search with a live count */
 const qs = {make: $('#qsMake'), model: $('#qsModel'), body: $('#qsBody'), price: $('#qsPrice')};
@@ -2916,6 +2974,10 @@ function mount(R){
   scrollTo(0, R.r.v === 'inventory' && prev === 'car' ? invScroll : 0);
   if(!reduced){ void view.offsetWidth; view.classList.add('intro'); }
   if(R.r.v === 'home'){ heroGo(heroK); } else { clearTimeout(heroT); heroT = 0; }
+  if(STAGE){
+    if(STAGE.stage) STAGE.stage.pause(R.r.v !== 'home');
+    if(R.r.v === 'home' && !document.body.classList.contains('is-loading')) STAGE.start().then(ok => ok && cur.view === 'home' && stageOn(true));
+  }
   settle(view);
   observe(view);
   sheet(false); menu(false);
@@ -3028,7 +3090,7 @@ route(true);
   let finished = false;
   const done = () => { if(finished) return; finished = true; document.body.classList.remove('is-loading'); L.remove(); if(!consent) setTimeout(showCookie, 1600); if(MOTION) ST.refresh(); };
   if(cur.view === 'home') hv.classList.remove('intro');
-  if(!MOTION){ intro(); done(); return; }
+  if(!MOTION){ intro(); done(); if(STAGE && STAGE.ready) STAGE.ready.then(ok => ok && cur.view === 'home' && stageOn(true)); return; }
 
   /* ── build the rev counter: 0 to 8 (x1000 r/min) over 270 degrees, redline from 6.5 ── */
   const NS = 'http://www.w3.org/2000/svg', C = 200, MAXV = 8, RED = 6.5;
@@ -3084,12 +3146,19 @@ route(true);
   if(!quick) tl.to(rev, {v: MAXV, duration: .6, ease: 'power2.inOut', onUpdate: paint}, .3)
                .to(rev, {v: 0, duration: .65, ease: 'power2.inOut', onUpdate: paint});
   tl.to(rev, {v: .9, duration: .35, ease: 'power2.out', onUpdate: paint});
-  G.to(prog, {v: 86, duration: quick ? .8 : 1.6, ease: 'power2.out', onUpdate: paintPct});
 
+  // the percentage is real: fonts and the first photo, and on the home page the 3D car download
+  const want3d = !!(STAGE && STAGE.ready);
+  let stageOk = !want3d;
+  if(want3d) STAGE.ready.then(() => stageOk = true);
   const t0 = performance.now();
   (function wait(){
     const el = performance.now() - t0;
-    if((fontsOk && imgOk && introDone) || el > 5000) finish(); else setTimeout(wait, 60);
+    const base = (fontsOk ? 1 : 0) + (imgOk ? 1 : 0);
+    const real = want3d ? base * 4 + STAGE.progress * 78 + (stageOk ? 6 : 0) : base * 46;
+    const target = Math.min(94, Math.max(real, Math.min(24, el / 60)));
+    if(target > prog.v + .5) G.to(prog, {v: target, duration: .45, ease: 'power2.out', overwrite: true, onUpdate: paintPct});
+    if((fontsOk && imgOk && introDone && stageOk) || el > (want3d ? 9000 : 5000)) finish(); else setTimeout(wait, 60);
   })();
 
   function finish(){
@@ -3120,10 +3189,47 @@ route(true);
       .to(L, {autoAlpha: 0, duration: .4, ease: 'power2.in'}, 'go+=.5')
       .add(intro, 'go+=.55')
       .fromTo('#heroSlides', {'--hz': 1.3, '--hb': 10}, {'--hz': 1, '--hb': 0, duration: 1.6, ease: 'expo.out'}, 'go+=.5')
+      .add(() => {
+        // the car starts as the gauge flies past; if it is still downloading, the photos show until it is ready
+        if(!STAGE || !STAGE.ready) return;
+        if(stageOk) stageOn(quick);
+        else STAGE.ready.then(ok => ok && cur.view === 'home' && stageOn(true));
+      }, 'go+=.42')
       .add(done, 'go+=.92')
       .add(heroGleam, 'go+=1.05');
   }
 })();}
+
+/* the 3D showroom (assets/showroom.js). Starts downloading straight away when you land on the home page,
+   so the loader can count it in; otherwise only once you go home. Never on reduced motion, Data Saver,
+   low-memory devices or without WebGL2: those visitors keep the photo slideshow. */
+window.V8_STAGE = (function(){
+  const host = document.getElementById('heroStage'), nc = navigator.connection;
+  if(!host || location.protocol === 'file:' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  if((nc && nc.saveData) || (navigator.deviceMemory && navigator.deviceMemory < 4)) return null;
+  try {
+    const gl = document.createElement('canvas').getContext('webgl2');
+    if(!gl) return null;
+    const lose = gl.getExtension('WEBGL_lose_context'); if(lose) lose.loseContext();
+  } catch(e){ return null; }
+  // phones reserve room for the car above the headline (if the 3D never arrives, the photo just shows more)
+  document.documentElement.classList.add('can-3d');
+  const S = {progress: 0, stage: null, failed: false, ready: null, onLost: null};
+  S.start = () => S.ready || (S.ready = import('./assets/showroom.js')
+    .then(m => {
+      S.stage = m.createShowroom(host, {
+        url: 'assets/showroom-car.glb', dragEl: document.getElementById('hero'),
+        mobile: !matchMedia('(min-width: 900px)').matches,
+        onProgress: p => S.progress = p,
+        onLost: () => { S.failed = true; if(S.onLost) S.onLost(); }
+      });
+      return S.stage.ready;
+    })
+    .catch(e => { S.failed = true; console.warn('3D showroom off:', e); return null; }));
+  const h = location.hash.replace(/^#\/?/, '').split(/[/?]/)[0];
+  if(!window.V8_START && (h === '' || h === 'home' || h === 'top')) S.start();
+  return S;
+})();
 
 /* load the live stock list (edited in admin.html); fall back to the copy built into this page */
 (function(){

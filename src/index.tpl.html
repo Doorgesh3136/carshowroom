@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">{{JSONLD}}</script>
 <style>{{CSS}}</style>
+<script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.min.js","three/addons/":"./vendor/three/addons/"}}</script>
 <script defer src="vendor/gsap/gsap.min.js"></script>
 <script defer src="vendor/gsap/ScrollTrigger.min.js"></script>
 </head>
@@ -135,8 +136,10 @@
 <section class="view" data-view="home" aria-label="Home">
   <div class="hero" id="hero">
     <div class="hero-slides" id="heroSlides"></div>
+    <div class="hero-stage" id="heroStage"><i class="stage-mark"></i></div>
     <div class="hero-shade"></div>
     <div class="hero-gleam" id="heroGleam" aria-hidden="true"></div>
+    <p class="stage-hint" id="stageHint" aria-hidden="true"><i><svg><use href="#i-rotate"/></svg></i>Drag to turn it</p>
     <div class="wrap hero-in">
       <h1 class="hero-h"><span class="ln"><span>Drive smarter.</span></span><span class="ln"><span>Find your</span></span><span class="ln"><span>modern car.</span></span></h1>
       <p class="hero-p">{{COUNT}} checked cars at 59B Royal Road, Coromandel. New stock every week, deals every Saturday, and leasing through Rogers Capital.</p>
@@ -146,7 +149,7 @@
       </div>
     </div>
     <div class="wrap hero-foot">
-      <a class="hero-cap" id="heroCap" href="#/inventory"><small>On the floor now</small><b id="heroCapName"></b><span id="heroCapPrice"></span></a>
+      <a class="hero-cap" id="heroCap" href="#/inventory"><img class="hero-cap-img" id="heroCapImg" alt="" width="96" height="72" decoding="async"><small>On the floor now</small><b id="heroCapName"></b><span id="heroCapPrice"></span></a>
       <div class="hero-ctrl">
         <span class="hero-count"><b id="heroIdx">01</b> / <span id="heroTot">04</span></span>
         <div class="hero-bars" id="heroBars"></div>
@@ -566,7 +569,7 @@
     <h2>Valuations</h2>
     <p>A guide price given over WhatsApp is not binding. A firm offer is made after we inspect the car.</p>
     <h2>Using this site</h2>
-    <p>Content on this site belongs to V8 Motors or is used with permission. Car photos are from Unsplash under the Unsplash licence. These terms are governed by the laws of the Republic of Mauritius.</p>
+    <p>Content on this site belongs to V8 Motors or is used with permission. Car photos are from Unsplash under the Unsplash licence. The 3D car on the home page is a stand-in, not a car in our stock: it is based on <a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept" target="_blank" rel="noopener">Car Concept</a> by Eric Chadwick, Darmstadt Graphics Group, licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (itself built from a public-domain model by Unity Fan). We removed its logos, changed the paint and compressed it. These terms are governed by the laws of the Republic of Mauritius.</p>
     <h2>Contact</h2>
     <p>V8 Motors, 59B Royal Road, Coromandel, Mauritius. <a href="tel:+23052590327">5259 0327</a>, <a href="mailto:veightmotorsv8@gmail.com">veightmotorsv8@gmail.com</a>.</p>
   </div>

@@ -202,7 +202,8 @@ const HDUR = 7000;
   $('#heroTot').textContent = String(HERO.length).padStart(2, '0');
 })();
 function heroCap(c, anim){
-  const set = () => { $('#heroCapName').textContent = `${c.year} ${c.make} ${c.model}`; $('#heroCapPrice').textContent = `${rs(c.price)}, ${kmTxt(c)}`; $('#heroCap').href = '#/car/' + c.id; $('#heroCap').classList.remove('sw'); };
+  const set = () => { const im = $('#heroCapImg'); if(im && c.photos[0]) im.src = U(c.photos[0], 192, 144);
+    $('#heroCapName').textContent = `${c.year} ${c.make} ${c.model}`; $('#heroCapPrice').textContent = `${rs(c.price)}, ${kmTxt(c)}`; $('#heroCap').href = '#/car/' + c.id; $('#heroCap').classList.remove('sw'); };
   if(anim){ $('#heroCap').classList.add('sw'); setTimeout(set, 330); } else set();
 }
 function heroBars(k){
@@ -210,7 +211,7 @@ function heroBars(k){
   const b = $$('#heroBars i')[k]; void b.offsetWidth; b.classList.add('on');
   $('#heroIdx').textContent = String(k + 1).padStart(2, '0');
 }
-function heroGleam(){ const g = $('#heroGleam'); if(!g) return; g.classList.remove('go'); void g.offsetWidth; g.classList.add('go'); }
+function heroGleam(){ const g = $('#heroGleam'); if(!g || $('#hero').classList.contains('has-3d')) return; g.classList.remove('go'); void g.offsetWidth; g.classList.add('go'); }
 function heroGo(k){
   if(heroBusy) return; k = (k + HERO.length) % HERO.length;
   clearTimeout(heroT);
@@ -228,6 +229,21 @@ function heroGo(k){
 $('#heroPrev').addEventListener('click', () => heroGo(heroK - 1));
 $('#heroNext').addEventListener('click', () => heroGo(heroK + 1));
 heroCap(HERO[0]);
+
+/* the 3D showroom takes over the hero once it is loaded (see assets/showroom.js) */
+const STAGE = window.V8_STAGE;
+let stageLive = false;
+function stageOn(quick){
+  if(stageLive || !STAGE || !STAGE.stage || STAGE.failed) return;
+  stageLive = true;
+  const hero = $('#hero'), hint = $('#stageHint');
+  hero.classList.add('has-3d');
+  STAGE.stage.ignite(quick);
+  STAGE.stage.pause(cur.view !== 'home');
+  setTimeout(() => hint.classList.add('on'), quick ? 900 : 2200);
+  STAGE.stage.onDrag = () => { hint.classList.remove('on'); hint.classList.add('done'); };
+}
+if(STAGE) STAGE.onLost = () => { stageLive = false; $('#hero').classList.remove('has-3d'); $('#stageHint').classList.remove('on'); };
 
 /* quick search with a live count */
 const qs = {make: $('#qsMake'), model: $('#qsModel'), body: $('#qsBody'), price: $('#qsPrice')};
@@ -843,6 +859,10 @@ function mount(R){
   scrollTo(0, R.r.v === 'inventory' && prev === 'car' ? invScroll : 0);
   if(!reduced){ void view.offsetWidth; view.classList.add('intro'); }
   if(R.r.v === 'home'){ heroGo(heroK); } else { clearTimeout(heroT); heroT = 0; }
+  if(STAGE){
+    if(STAGE.stage) STAGE.stage.pause(R.r.v !== 'home');
+    if(R.r.v === 'home' && !document.body.classList.contains('is-loading')) STAGE.start().then(ok => ok && cur.view === 'home' && stageOn(true));
+  }
   settle(view);
   observe(view);
   sheet(false); menu(false);
@@ -955,7 +975,7 @@ route(true);
   let finished = false;
   const done = () => { if(finished) return; finished = true; document.body.classList.remove('is-loading'); L.remove(); if(!consent) setTimeout(showCookie, 1600); if(MOTION) ST.refresh(); };
   if(cur.view === 'home') hv.classList.remove('intro');
-  if(!MOTION){ intro(); done(); return; }
+  if(!MOTION){ intro(); done(); if(STAGE && STAGE.ready) STAGE.ready.then(ok => ok && cur.view === 'home' && stageOn(true)); return; }
 
   /* ── build the rev counter: 0 to 8 (x1000 r/min) over 270 degrees, redline from 6.5 ── */
   const NS = 'http://www.w3.org/2000/svg', C = 200, MAXV = 8, RED = 6.5;
@@ -1011,12 +1031,19 @@ route(true);
   if(!quick) tl.to(rev, {v: MAXV, duration: .6, ease: 'power2.inOut', onUpdate: paint}, .3)
                .to(rev, {v: 0, duration: .65, ease: 'power2.inOut', onUpdate: paint});
   tl.to(rev, {v: .9, duration: .35, ease: 'power2.out', onUpdate: paint});
-  G.to(prog, {v: 86, duration: quick ? .8 : 1.6, ease: 'power2.out', onUpdate: paintPct});
 
+  // the percentage is real: fonts and the first photo, and on the home page the 3D car download
+  const want3d = !!(STAGE && STAGE.ready);
+  let stageOk = !want3d;
+  if(want3d) STAGE.ready.then(() => stageOk = true);
   const t0 = performance.now();
   (function wait(){
     const el = performance.now() - t0;
-    if((fontsOk && imgOk && introDone) || el > 5000) finish(); else setTimeout(wait, 60);
+    const base = (fontsOk ? 1 : 0) + (imgOk ? 1 : 0);
+    const real = want3d ? base * 4 + STAGE.progress * 78 + (stageOk ? 6 : 0) : base * 46;
+    const target = Math.min(94, Math.max(real, Math.min(24, el / 60)));
+    if(target > prog.v + .5) G.to(prog, {v: target, duration: .45, ease: 'power2.out', overwrite: true, onUpdate: paintPct});
+    if((fontsOk && imgOk && introDone && stageOk) || el > (want3d ? 9000 : 5000)) finish(); else setTimeout(wait, 60);
   })();
 
   function finish(){
@@ -1047,10 +1074,47 @@ route(true);
       .to(L, {autoAlpha: 0, duration: .4, ease: 'power2.in'}, 'go+=.5')
       .add(intro, 'go+=.55')
       .fromTo('#heroSlides', {'--hz': 1.3, '--hb': 10}, {'--hz': 1, '--hb': 0, duration: 1.6, ease: 'expo.out'}, 'go+=.5')
+      .add(() => {
+        // the car starts as the gauge flies past; if it is still downloading, the photos show until it is ready
+        if(!STAGE || !STAGE.ready) return;
+        if(stageOk) stageOn(quick);
+        else STAGE.ready.then(ok => ok && cur.view === 'home' && stageOn(true));
+      }, 'go+=.42')
       .add(done, 'go+=.92')
       .add(heroGleam, 'go+=1.05');
   }
 })();}
+
+/* the 3D showroom (assets/showroom.js). Starts downloading straight away when you land on the home page,
+   so the loader can count it in; otherwise only once you go home. Never on reduced motion, Data Saver,
+   low-memory devices or without WebGL2: those visitors keep the photo slideshow. */
+window.V8_STAGE = (function(){
+  const host = document.getElementById('heroStage'), nc = navigator.connection;
+  if(!host || location.protocol === 'file:' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  if((nc && nc.saveData) || (navigator.deviceMemory && navigator.deviceMemory < 4)) return null;
+  try {
+    const gl = document.createElement('canvas').getContext('webgl2');
+    if(!gl) return null;
+    const lose = gl.getExtension('WEBGL_lose_context'); if(lose) lose.loseContext();
+  } catch(e){ return null; }
+  // phones reserve room for the car above the headline (if the 3D never arrives, the photo just shows more)
+  document.documentElement.classList.add('can-3d');
+  const S = {progress: 0, stage: null, failed: false, ready: null, onLost: null};
+  S.start = () => S.ready || (S.ready = import('./assets/showroom.js')
+    .then(m => {
+      S.stage = m.createShowroom(host, {
+        url: 'assets/showroom-car.glb', dragEl: document.getElementById('hero'),
+        mobile: !matchMedia('(min-width: 900px)').matches,
+        onProgress: p => S.progress = p,
+        onLost: () => { S.failed = true; if(S.onLost) S.onLost(); }
+      });
+      return S.stage.ready;
+    })
+    .catch(e => { S.failed = true; console.warn('3D showroom off:', e); return null; }));
+  const h = location.hash.replace(/^#\/?/, '').split(/[/?]/)[0];
+  if(!window.V8_START && (h === '' || h === 'home' || h === 'top')) S.start();
+  return S;
+})();
 
 /* load the live stock list (edited in admin.html); fall back to the copy built into this page */
 (function(){
