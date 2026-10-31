@@ -1,9 +1,9 @@
-function YDM_BOOT(DATA){
+function V8_BOOT(DATA){
 'use strict';
 
 /* ───────── settings you may want to change ───────── */
 const CFG = {
-  wa: '23054742683',
+  wa: '23052590327',   // WhatsApp number (V8 Motors sales line)
   gaId: '',            // Google Analytics 4 ID, e.g. 'G-XXXXXXX'. Loads only after the visitor accepts cookies.
   rate: 0.085,         // finance estimate, yearly
   pageSize: 12
@@ -25,7 +25,7 @@ const store = {
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 };
 const U = (id, w, h) => !id ? 'data:image/gif;base64,AA==' : /^(https?:|images\/|data:|\/)/.test(id) ? id : `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? '&h=' + h : ''}&q=${w > 1200 ? 72 : 70}`;
-const ref = c => 'YDM-' + String(c.id).padStart(3, '0');
+const ref = c => 'V8-' + String(c.id).padStart(3, '0');
 const carName = c => `${c.year} ${c.make} ${c.model}`;
 const kmTxt = c => c.km == null ? 'Mileage on request' : fmt(c.km) + ' km';
 const colTxt = c => c.color || 'Ask us';
@@ -54,7 +54,7 @@ const YEAR_STEPS = Array.from({length: YMAX - YMIN + 1}, (_, i) => YMIN + i);
 const KM_STEPS = [10000,20000,30000,40000,50000,60000,80000,100000,Infinity];
 
 /* ───────── analytics + cookie consent ───────── */
-let consent = store.get('ydm-consent', null), gaOn = false;
+let consent = store.get('v8-consent', null), gaOn = false;
 function loadGA(){
   if(gaOn || !CFG.gaId || consent !== 'all') return;
   gaOn = true;
@@ -65,8 +65,8 @@ function loadGA(){
 function track(name, params){ if(gaOn && window.gtag) gtag('event', name, params || {}); }
 function showCookie(){ const c = $('#cookie'); c.hidden = false; requestAnimationFrame(() => c.classList.add('on')); }
 function hideCookie(){ const c = $('#cookie'); c.classList.remove('on'); setTimeout(() => c.hidden = true, 500); }
-$('#ckYes').addEventListener('click', () => { consent = 'all'; store.set('ydm-consent', consent); hideCookie(); loadGA(); toast('Thanks, cookie choice saved'); });
-$('#ckNo').addEventListener('click', () => { consent = 'essential'; store.set('ydm-consent', consent); hideCookie(); });
+$('#ckYes').addEventListener('click', () => { consent = 'all'; store.set('v8-consent', consent); hideCookie(); loadGA(); toast('Thanks, cookie choice saved'); });
+$('#ckNo').addEventListener('click', () => { consent = 'essential'; store.set('v8-consent', consent); hideCookie(); });
 document.addEventListener('click', e => { if(e.target.closest('[data-cookie-settings]')) showCookie(); });
 document.addEventListener('click', e => { const t = e.target.closest('[data-track]'); if(t) track(t.dataset.track + '_click', {page: location.hash || '#/'}); });
 loadGA();
@@ -78,9 +78,9 @@ document.addEventListener('error', e => { if(e.target.tagName === 'IMG'){ e.targ
 function settle(root){ $$('img', root).forEach(im => { if(im.complete){ const p = im.closest(BOX); if(!p) return; p.classList.add('ok'); if(!im.naturalWidth){ im.classList.add('bad'); p.classList.add('noimg'); } } }); }
 
 /* ───────── favourites ───────── */
-const favs = new Set(store.get('ydm-favs', []).filter(id => byId.has(id)));
+const favs = new Set(store.get('v8-favs', []).filter(id => byId.has(id)));
 function syncFavs(bump){
-  store.set('ydm-favs', [...favs]);
+  store.set('v8-favs', [...favs]);
   ['#favN', '#favN2'].forEach(s => { const b = $(s); b.textContent = favs.size; b.classList.toggle('on', favs.size > 0); if(bump){ b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); } });
   $$('.fav').forEach(b => { const on = favs.has(+b.dataset.fav); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
   const cs = $('#carSave'); if(cs && cur.car){ const on = favs.has(cur.car.id); cs.classList.toggle('on', on); cs.querySelector('span').textContent = on ? 'Saved' : 'Save'; }
@@ -94,7 +94,7 @@ function toggleFav(id, btn){
 document.addEventListener('click', e => { const b = e.target.closest('.fav'); if(b){ e.preventDefault(); e.stopPropagation(); toggleFav(+b.dataset.fav, b); } });
 /* safety net: a click anywhere on a card (except the heart) opens that car */
 document.addEventListener('click', e => {
-  if(e.defaultPrevented || e.target.closest('.fav,.card-link')) return;
+  if(e.defaultPrevented || e.target.closest('.fav,.card-link,.card-3d')) return;
   const card = e.target.closest('.card'); if(!card) return;
   if(card.closest('.rail.drag')) return;
   const im = card.querySelector('.card-media img'); if(im && im.complete && im.naturalWidth) vtImg = im;
@@ -104,6 +104,7 @@ document.addEventListener('click', e => {
 /* ───────── car card ───────── */
 function tagFor(c){
   if(c.status === 'reserved') return '<span class="card-tag navy">Reserved</span>';
+  if(c.deal) return '<span class="card-tag red">Saturday deal</span>';
   if(c.was) return '<span class="card-tag red">Price drop</span>';
   if(c.added <= 3) return '<span class="card-tag red">Just arrived</span>';
   if(c.fuel === 'Electric') return '<span class="card-tag green">Electric</span>';
@@ -122,6 +123,7 @@ function cardHTML(c, i, lazy){
     <p class="card-meta"><span>${kmTxt(c)}</span><span>${c.fuel}</span><span>${c.trans === 'Automatic' ? 'Auto' : 'Manual'}</span></p>
     <div class="card-foot"><div class="card-price">${c.was ? `<s>${rs(c.was)}</s>` : ''}${rs(c.price)}</div><div class="card-mo">from<b>${rs(monthly(c.price))}/mo</b></div></div>
   </div>
+  <button class="card-3d" type="button" data-id="${c.id}" aria-label="3D view of ${esc(carName(c))}"><svg><use href="#i-rotate"/></svg>3D</button>
   <a class="card-link" href="#/car/${c.id}" aria-label="View ${esc(carName(c))}, ${rs(c.price)}"></a>
 </article>`;
 }
@@ -188,19 +190,6 @@ document.addEventListener('click', e => { const b = e.target.closest('[data-rail
 
 /* ───────── opening hours (Mauritius time) ───────── */
 const muNow = () => new Date(new Date().toLocaleString('en-US', {timeZone: 'Indian/Mauritius'}));
-(function hours(){
-  const n = muNow(), d = n.getDay(), m = n.getHours() * 60 + n.getMinutes();
-  const row = d === 0 ? 'sun' : d === 6 ? 'sat' : 'wk';
-  $$('[data-hours] [data-d="' + row + '"]').forEach(el => el.classList.add('today'));
-  const open = (d >= 1 && d <= 5 && m >= 540 && m < 1020) || (d === 6 && m >= 540 && m < 720);
-  const until = d === 6 ? '12:00' : '17:00';
-  let next = 'Monday 09:00';
-  if(d >= 1 && d <= 5 && m < 540) next = 'today 09:00';
-  else if(d >= 1 && d <= 4) next = 'tomorrow 09:00';
-  else if(d === 5) next = 'Saturday 09:00';
-  else if(d === 6 && m < 540) next = 'today 09:00';
-  $('#tbOpen').innerHTML = `<i class="open-dot${open ? '' : ' closed'}"></i>${open ? 'Open now, until ' + until : 'Closed, opens ' + next}`;
-})();
 
 /* ════════════════════ HOME ════════════════════ */
 const FEAT = CARS.filter(c => c.featured && c.photos.length);
@@ -276,54 +265,24 @@ $('#typeRail').innerHTML = BODIES.map(b => {
 /* just arrived rail */
 $('#newRail').innerHTML = [...CARS].sort((a, b) => a.added - b.added || b.id - a.id).slice(0, 10).map(c => cardHTML(c)).join('');
 
+/* Saturday deals */
+(function(){ const d = CARS.filter(c => c.deal); if(d.length){ $('#dealsSec').hidden = false; $('#dealRail').innerHTML = d.map(c => cardHTML(c)).join(''); } })();
+
 /* makes marquee */
 (function(){
   const items = MAKES.map(m => `<a href="#/inventory?make=${encodeURIComponent(m)}">${esc(m)}<sup>${CARS.filter(c => c.make === m).length}</sup></a>`).join('');
   $('#brandTrack').innerHTML = items + items.replace(/<a /g, '<a tabindex="-1" aria-hidden="true" ');
 })();
 
-/* the team, from the current yourdreammotors.mu about page */
-const TEAM = [
-  ['Roshan Ghunowa','Founder, CEO and Director',''],
-  ['Karishma','Manager and Marketing',''],
-  ['Akshay','Head of Sales','5761 8275'],
-  ['Yogesh','Sales advisor','5255 3918'],
-  ['Sudesh','Sales advisor','5259 3011'],
-  ['Amrit','Sales advisor','5505 8612'],
-  ['Kamlesh','Sales advisor','5532 8612'],
-  ['Shabir','Administration','5940 5611'],
-  ['Nisha','Accounts',''],
-  ['Nitisha','Administration','']
-];
-
-/* reviews */
-const REVIEWS = [   // from your original template; swap in real Google or Facebook reviews before launch
-  ['Rakesh D.','Quatre Bornes','Bought a BMW X1 from them. They handled the registration and delivered to my home in Quatre Bornes. The whole thing took four days, couldn\'t be easier.'],
-  ['Priya S.','Moka','Honest team. They gave me a fair trade-in value for my old car and never once pushed me toward something I didn\'t want. Genuinely refreshing.'],
-  ['Jean-Marc L.','Curepipe','The after-sales is what sets them apart. Any question I have, they answer the same day. I feel looked after, not just another sale.']
-];
-(function quotes(){
-  const st = $('#quoteStage');
-  st.innerHTML = REVIEWS.map(([n, t, q], i) => `<figure class="q${i ? '' : ' on'}" aria-hidden="${i ? 'true' : 'false'}"><div class="stars" aria-label="5 out of 5">★★★★★</div><blockquote>${q.split(' ').map((w, j) => `<span class="w" style="transition-delay:${j * 22}ms">${esc(w)}</span>`).join(' ')}</blockquote><figcaption class="q-who"><i>${n[0]}</i><div><b>${esc(n)}</b><span>${esc(t)}</span></div></figcaption></figure>`).join('');
-  let k = 0, tm;
-  const go = n => { const Q = $$('.q', st); Q[k].classList.remove('on'); Q[k].setAttribute('aria-hidden', 'true'); k = (n + Q.length) % Q.length; Q[k].classList.add('on'); Q[k].setAttribute('aria-hidden', 'false'); $('#qIdx').textContent = `${k + 1} / ${Q.length}`; clearTimeout(tm); if(!reduced) tm = setTimeout(() => go(k + 1), 8000); };
-  $('#qPrev').addEventListener('click', () => go(k - 1));
-  $('#qNext').addEventListener('click', () => go(k + 1));
-  $('#qIdx').textContent = `1 / ${REVIEWS.length}`;
-  if(!reduced) tm = setTimeout(() => go(1), 8000);
-  $('#teamList').innerHTML = TEAM.map(([n, role, ph]) => `<li><i>${n[0]}</i><div><b>${esc(n)}</b><span>${esc(role)}</span></div>${ph ? `<a href="tel:+230${ph.replace(/\s/g, '')}" aria-label="Call ${esc(n)}">${ph}</a>` : ''}</li>`).join('');
-  $('#salesLines').innerHTML = TEAM.filter(t => t[2]).map(([n, role, ph]) => `<a href="https://wa.me/230${ph.replace(/\s/g, '')}" target="_blank" rel="noopener" data-track="whatsapp"><b>${esc(n)}</b><span>${esc(role)}, ${ph}</span></a>`).join('');
-  $('#reviewsAll').innerHTML = REVIEWS.map(([n, t, q]) => `<figure class="rv"><div class="stars" aria-label="5 out of 5">★★★★★</div><p>${esc(q)}</p><figcaption class="q-who"><i>${n[0]}</i><div><b>${esc(n)}</b><span>${esc(t)}</span></div></figcaption></figure>`).join('');
-})();
 
 /* mini sell form on home */
 bindForm($('#sellMini'), f => [
   ['car', v => v.trim().length > 3, 'Tell us the car'],
   ['phone', MU_PHONE, 'Enter a Mauritian number']
-], f => `Hi Your Dream Motors, I'd like a price for my car.\nCar: ${f.car.value}\nPhone: ${f.phone.value}`, 'sell_quick');
+], f => `Hi V8 Motors, I'd like a price for my car.\nCar: ${f.car.value}\nPhone: ${f.phone.value}`, 'sell_quick');
 
 /* ════════════════════ INVENTORY ════════════════════ */
-const DEF = () => ({q:'', make:'', model:'', body:[], fuel:[], trans:[], pmin:PRICE_STEPS[0], pmax:PRICE_STEPS[PRICE_STEPS.length - 1], ymin:YMIN, ymax:YMAX, km:Infinity, saved:false, sort:'new', view:'grid'});
+const DEF = () => ({deals:false, q:'', make:'', model:'', body:[], fuel:[], trans:[], pmin:PRICE_STEPS[0], pmax:PRICE_STEPS[PRICE_STEPS.length - 1], ymin:YMIN, ymax:YMAX, km:Infinity, saved:false, sort:'new', view:'grid'});
 let F = DEF(), page = 1;
 
 function fromParams(p, saved){
@@ -336,6 +295,7 @@ function fromParams(p, saved){
   F.ymin = num('ymin', F.ymin); F.ymax = num('ymax', F.ymax);
   F.km = p.has('km') ? +p.get('km') : Infinity;
   F.saved = saved || p.get('saved') === '1';
+  F.deals = p.get('deals') === '1';
   F.sort = p.get('sort') || 'new'; F.view = p.get('view') === 'list' ? 'list' : 'grid';
 }
 function snap(arr, v, up){ if(up){ for(const s of arr) if(s >= v) return s; return arr[arr.length - 1]; } let r = arr[0]; for(const s of arr) if(s <= v) r = s; return r; }
@@ -348,6 +308,7 @@ function toParams(){
   if(F.ymin !== d.ymin) p.set('ymin', F.ymin); if(F.ymax !== d.ymax) p.set('ymax', F.ymax);
   if(F.km !== Infinity) p.set('km', F.km);
   if(F.saved) p.set('saved', '1');
+  if(F.deals) p.set('deals', '1');
   if(F.sort !== 'new') p.set('sort', F.sort);
   if(F.view === 'list') p.set('view', 'list');
   return p.toString();
@@ -365,6 +326,7 @@ function match(c, skip){
   if(c.year < F.ymin || c.year > F.ymax) return false;
   if(F.km !== Infinity && (c.km == null || c.km > F.km)) return false;
   if(F.saved && !favs.has(c.id)) return false;
+  if(F.deals && !c.deal) return false;
   return true;
 }
 function sorted(list){
@@ -413,6 +375,7 @@ $('#filters').addEventListener('click', e => {
 fMake.addEventListener('change', () => { F.make = fMake.value; F.model = ''; changed(); });
 fModel.addEventListener('change', () => { F.model = fModel.value; changed(); });
 $('#fSaved').addEventListener('change', e => { F.saved = e.target.checked; changed(); });
+$('#fDeals').addEventListener('change', e => { F.deals = e.target.checked; changed(); });
 $('#fSort').addEventListener('change', e => { F.sort = e.target.value; changed(); });
 let qT; $('#fQ').addEventListener('input', e => { clearTimeout(qT); qT = setTimeout(() => { F.q = e.target.value.trim(); changed(); }, 180); });
 function resetAll(){ const v = F.view; F = DEF(); F.view = v; $('#fQ').value = ''; changed(); toast('Filters cleared'); }
@@ -445,7 +408,7 @@ function paintFilters(){
     ch.setAttribute('aria-pressed', on); ch.querySelector('small').textContent = n; ch.disabled = !n && !on;
   });
   rPrice.set(F.pmin, F.pmax); rYear.set(F.ymin, F.ymax); rKm.set(null, F.km);
-  $('#fSaved').checked = F.saved; $('#fSort').value = F.sort;
+  $('#fSaved').checked = F.saved; $('#fDeals').checked = F.deals; $('#fSort').value = F.sort;
   if($('#fQ').value.trim() !== F.q) $('#fQ').value = F.q;
   syncView();
 }
@@ -461,6 +424,7 @@ function activeList(){
   if(F.ymin !== d.ymin || F.ymax !== d.ymax) a.push([`${F.ymin} to ${F.ymax}`, () => { F.ymin = d.ymin; F.ymax = d.ymax; }]);
   if(F.km !== Infinity) a.push([`Under ${fmt(F.km)} km`, () => { F.km = Infinity; }]);
   if(F.saved) a.push(['Saved cars', () => { F.saved = false; }]);
+  if(F.deals) a.push(['Deals only', () => { F.deals = false; }]);
   return a;
 }
 let ACT = [];
@@ -493,9 +457,9 @@ function renderInv(append){
   const cc = $('#clearChips'); if(cc){ cc.dataset.i = ''; cc.onclick = e => { e.stopPropagation(); resetAll(); }; }
   $('#fCount').textContent = ACT.length || '';
   $('#fApply').textContent = total ? `Show ${total} car${total === 1 ? '' : 's'}` : 'No matches';
-  const title = F.saved ? 'Saved cars' : F.body.length === 1 && ACT.length === 1 ? ({Pickup:'Pickups','Coupé':'Coupés'}[F.body[0]] || F.body[0] + 's') : F.make && ACT.length === 1 ? F.make + ' cars' : 'Inventory';
+  const title = F.saved ? 'Saved cars' : F.deals && ACT.length === 1 ? 'Saturday deals' : F.body.length === 1 && ACT.length === 1 ? ({Pickup:'Pickups','Coupé':'Coupés'}[F.body[0]] || F.body[0] + 's') : F.make && ACT.length === 1 ? F.make + ' cars' : 'Catalogue';
   $('#invTitle').textContent = title; $('#invCrumb').textContent = title;
-  if(cur.view === 'inventory') setMeta(`${title} | ${total} ${total === 1 ? 'car' : 'cars'} | Your Dream Motors, Moka`, `Browse ${total} inspected pre-owned ${title === 'Inventory' ? 'cars' : title.toLowerCase()} for sale in Mauritius. Prices, mileage and photos for every car.`);
+  if(cur.view === 'inventory') setMeta(`${title} | ${total} ${total === 1 ? 'car' : 'cars'} | V8 Motors, Coromandel`, `Browse ${total} checked used ${title === 'Catalogue' ? 'cars' : title.toLowerCase()} for sale at V8 Motors, Coromandel. Prices, mileage, photos and a 3D view for every car.`);
   if(F.saved && !total) { $('#invEmpty h2').textContent = 'No saved cars yet'; $('#invEmpty p').innerHTML = 'Tap the heart on any car to keep it here. Saved cars stay on this device.'; }
   else { $('#invEmpty h2').textContent = 'No cars match those filters'; $('#invEmpty p').innerHTML = 'Try a wider price range, or clear a filter. New stock arrives every week, so you can also <a href="#/contact?topic=find">ask us to find one</a>.'; }
 }
@@ -590,7 +554,7 @@ function renderCar(c){
   $('#carFacts').innerHTML = [['Mileage', kmTxt(c)], ['Year', c.year], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Power', c.power], ['Colour', colTxt(c)]].map(([k, v]) => `<li><small>${k}</small><b>${esc(v)}</b></li>`).join('');
   $('#carBook').href = '#/car/' + c.id;
   $('#carReserved').hidden = c.status !== 'reserved';
-  $('#carWa').href = waLink(`Hi Your Dream Motors, is the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) still available?`);
+  $('#carWa').href = waLink(`Hi V8 Motors, is the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) still available?`);
   $('#carDesc').textContent = c.desc;
   $('#carHigh').innerHTML = c.highlights.map(h => `<li>${esc(h)}</li>`).join('');
   $('#carSpec').innerHTML = [['Make', c.make], ['Model', c.model], ['Variant', c.variant], ['Year', c.year], ['Body', c.body], ['Mileage', kmTxt(c)], ['Fuel', c.fuel], ['Gearbox', c.trans], ['Engine', c.engine], ['Power', c.power], ['Drive', c.drive], ['Colour', colTxt(c)], ['Doors', c.doors], ['Seats', c.seats], ['Stock ref', ref(c)]].map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
@@ -612,8 +576,8 @@ function renderCar(c){
   $('#simAll').href = '#/inventory?body=' + encodeURIComponent(c.body);
   // structured data for this car
   let ld = $('#carLd'); if(!ld){ ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'carLd'; document.head.appendChild(ld); }
-  ld.textContent = JSON.stringify({'@context':'https://schema.org','@type':'Car',name:`${carName(c)} ${c.variant}`,brand:{'@type':'Brand',name:c.make},model:c.model,vehicleModelDate:String(c.year),...(c.color ? {color: c.color} : {}),bodyType:c.body,fuelType:c.fuel,vehicleTransmission:c.trans,...(c.km != null ? {mileageFromOdometer:{'@type':'QuantitativeValue',value:c.km,unitCode:'KMT'}} : {}),image:c.photos.map(p => U(p, 1200)),offers:{'@type':'Offer',price:c.price,priceCurrency:'MUR',availability:'https://schema.org/InStock',seller:{'@type':'AutoDealer',name:'Your Dream Motors'}}});
-  setMeta(`${carName(c)} ${c.variant} for sale, ${rs(c.price)} | Your Dream Motors`, `${carName(c)} ${c.variant}, ${kmTxt(c)}, ${c.fuel.toLowerCase()}, ${c.trans.toLowerCase()}. ${rs(c.price)} at Your Dream Motors, Moka. Inspected and registered.`);
+  ld.textContent = JSON.stringify({'@context':'https://schema.org','@type':'Car',name:`${carName(c)} ${c.variant}`,brand:{'@type':'Brand',name:c.make},model:c.model,vehicleModelDate:String(c.year),...(c.color ? {color: c.color} : {}),bodyType:c.body,fuelType:c.fuel,vehicleTransmission:c.trans,...(c.km != null ? {mileageFromOdometer:{'@type':'QuantitativeValue',value:c.km,unitCode:'KMT'}} : {}),image:c.photos.map(p => U(p, 1200)),offers:{'@type':'Offer',price:c.price,priceCurrency:'MUR',availability:'https://schema.org/InStock',seller:{'@type':'AutoDealer',name:'V8 Motors'}}});
+  setMeta(`${carName(c)} ${c.variant} for sale, ${rs(c.price)} | V8 Motors`, `${carName(c)} ${c.variant}, ${kmTxt(c)}, ${c.fuel.toLowerCase()}, ${c.trans.toLowerCase()}. ${rs(c.price)} at V8 Motors, Coromandel. Checked before sale.`);
   requestAnimationFrame(tabInd);
 }
 $('#carSave').addEventListener('click', () => cur.car && toggleFav(cur.car.id));
@@ -698,14 +662,14 @@ $('#tdDays').addEventListener('click', e => { const b = e.target.closest('.td-da
 $('#tdSlots').addEventListener('click', e => { const b = e.target.closest('.chip'); if(!b) return; TD.slot = b.dataset.s; renderTD(); });
 $('#tdGo').addEventListener('click', () => {
   const c = cur.car, d = TD._d; if(!c || !TD.slot) return;
-  window.open(waLink(`Hi Your Dream Motors, I'd like to test drive the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) on ${d.d.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'})} at ${TD.slot}. Is that time free?`), '_blank', 'noopener');
+  window.open(waLink(`Hi V8 Motors, I'd like to test drive the ${carName(c)} ${c.variant} (${rs(c.price)}, ref ${ref(c)}) on ${d.d.toLocaleDateString('en-GB', {weekday: 'long', day: 'numeric', month: 'long'})} at ${TD.slot}. Is that time free?`), '_blank', 'noopener');
   track('test_drive_request', {car: ref(c)}); toast('WhatsApp opened with your booking. Press send to confirm.');
 });
 
 /* compare up to 3 cars */
-let cmp = store.get('ydm-cmp', []).filter(id => byId.has(id));
+let cmp = store.get('v8-cmp', []).filter(id => byId.has(id));
 function syncCmp(){
-  store.set('ydm-cmp', cmp);
+  store.set('v8-cmp', cmp);
   const tray = $('#cmpTray');
   tray.hidden = !cmp.length; tray.classList.toggle('on', cmp.length > 0);
   $('#cmpThumbs').innerHTML = cmp.map(id => { const c = byId.get(id); return `<span class="cmp-th"><img src="${U(c.photos[0], 160, 110)}" alt=""><button type="button" data-rm="${id}" aria-label="Remove ${esc(c.make + ' ' + c.model)} from compare"><svg><use href="#i-x"/></svg></button></span>`; }).join('') + (cmp.length < 3 ? `<span class="cmp-slot">${3 - cmp.length} more</span>` : '');
@@ -745,12 +709,12 @@ $('#cmpDlg').addEventListener('click', e => { if(e.target.closest('.cmp-car')) $
 
 /* spec sheet: copy or print */
 $('#specCopy').addEventListener('click', async () => {
-  const c = cur.car; const txt = `${carName(c)} ${c.variant}\n${rs(c.price)}\n` + $$('#carSpec div').map(d => d.children[0].textContent + ': ' + d.children[1].textContent).join('\n') + `\n\nYour Dream Motors, Royal Road, Moka. +230 433 8026\n${location.href}`;
+  const c = cur.car; const txt = `${carName(c)} ${c.variant}\n${rs(c.price)}\n` + $$('#carSpec div').map(d => d.children[0].textContent + ': ' + d.children[1].textContent).join('\n') + `\n\nV8 Motors, 59B Royal Road, Coromandel. 5259 0327\n${location.href}`;
   try{ await navigator.clipboard.writeText(txt); toast('Specs copied'); }catch(e){ toast('Copy not allowed in this browser'); }
 });
 $('#specPrint').addEventListener('click', () => {
   const c = cur.car;
-  $('#printSheet').innerHTML = `<header><b>Your Dream Motors</b><span>Royal Road, Moka, Mauritius. +230 433 8026. info@yourdreammotors.mu</span></header><h1>${esc(carName(c))}</h1><p class="ps-v">${esc(c.variant)}, ref ${ref(c)}</p><img src="${U(c.photos[0], 1200, 700)}" alt=""><p class="ps-price">${rs(c.price)} <span>or about ${rs(monthly(c.price))} a month with 20% down</span></p><div class="ps-cols"><dl>${$('#carSpec').innerHTML}</dl><div><h2>Equipment</h2><ul>${c.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div></div><footer>Printed ${new Date().toLocaleDateString('en-GB')}. Prices and details can change; please confirm with our sales team.</footer>`;
+  $('#printSheet').innerHTML = `<header><b>V8 Motors</b><span>59B Royal Road, Coromandel, Mauritius. 5259 0327. veightmotorsv8@gmail.com</span></header><h1>${esc(carName(c))}</h1><p class="ps-v">${esc(c.variant)}, ref ${ref(c)}</p><img src="${U(c.photos[0], 1200, 700)}" alt=""><p class="ps-price">${rs(c.price)} <span>or about ${rs(monthly(c.price))} a month with 20% down</span></p><div class="ps-cols"><dl>${$('#carSpec').innerHTML}</dl><div><h2>Equipment</h2><ul>${c.features.map(f => `<li>${esc(f)}</li>`).join('')}</ul></div></div><footer>Printed ${new Date().toLocaleDateString('en-GB')}. Prices and details can change; please confirm with our sales team.</footer>`;
   const im = $('#printSheet img'); const p = () => window.print();
   if(im.complete) p(); else { im.onload = im.onerror = p; setTimeout(p, 2500); }
 });
@@ -764,7 +728,7 @@ function carExtras(c){
   syncCmp();
 }
 $('#carShare').addEventListener('click', async () => {
-  const c = cur.car, url = location.href, text = `${carName(c)}, ${rs(c.price)} at Your Dream Motors`;
+  const c = cur.car, url = location.href, text = `${carName(c)}, ${rs(c.price)} at V8 Motors`;
   if(navigator.share){ try{ await navigator.share({title: text, url}); }catch(e){} return; }
   try{ await navigator.clipboard.writeText(url); toast('Link copied'); }catch(e){ toast(url); }
 });
@@ -785,9 +749,9 @@ function bindForm(form, rulesFn, msgFn, evt){
       if(bad){ wrap.insertAdjacentHTML('beforeend', `<span class="err-t">${err}</span>`); if(!first) first = el; }
     });
     if(first){ first.focus(); msg.classList.add('err'); msg.textContent = 'Please fix the highlighted fields.'; return; }
-    const last = store.get('ydm-last-send', 0);
+    const last = store.get('v8-last-send', 0);
     if(Date.now() - last < 20000){ msg.classList.add('err'); msg.textContent = 'You just sent one. Give it a few seconds before sending again.'; return; }
-    store.set('ydm-last-send', Date.now());
+    store.set('v8-last-send', Date.now());
     window.open(waLink(msgFn(form.elements)), '_blank', 'noopener');
     track('generate_lead', {form: evt});
     msg.textContent = 'WhatsApp opened with your message. Press send there and we will reply during sales hours.';
@@ -800,31 +764,32 @@ bindForm($('#sellForm'), () => [
   ['year', v => /^(19[89]\d|20[0-2]\d)$/.test(v.trim()), 'Enter a year like 2019'],
   ['km', v => /^\d[\d,\s]*$/.test(v.trim()), 'Numbers only'],
   ['name', v => v.trim().length > 1, 'Enter your name'],
-  ['phone', MU_PHONE, 'Enter a Mauritian number, e.g. 5761 8275']
-], f => `Hi Your Dream Motors, I'd like a valuation.\nCar: ${f.car.value} (${f.year.value})\nMileage: ${f.km.value} km\nCondition: ${f.cond.value}${f.trade.checked ? '\nI would like to trade it in.' : ''}\nName: ${f.name.value}\nPhone: ${f.phone.value}`, 'sell');
+  ['phone', MU_PHONE, 'Enter a Mauritian number, e.g. 5xxx xxxx']
+], f => `Hi V8 Motors, I'd like a valuation.\nCar: ${f.car.value} (${f.year.value})\nMileage: ${f.km.value} km\nCondition: ${f.cond.value}${f.trade.checked ? '\nI would like to trade it in.' : ''}\nName: ${f.name.value}\nPhone: ${f.phone.value}`, 'sell');
 bindForm($('#contactForm'), () => [
   ['name', v => v.trim().length > 1, 'Enter your name'],
-  ['phone', MU_PHONE, 'Enter a Mauritian number, e.g. 5761 8275']
-], f => `Hi Your Dream Motors,\nAbout: ${f.topic.options[f.topic.selectedIndex].text}\nName: ${f.name.value}\nPhone: ${f.phone.value}${f.msg.value.trim() ? '\n\n' + f.msg.value.trim() : ''}`, 'contact');
+  ['phone', MU_PHONE, 'Enter a Mauritian number, e.g. 5xxx xxxx']
+], f => `Hi V8 Motors,\nAbout: ${f.topic.options[f.topic.selectedIndex].text}\nName: ${f.name.value}\nPhone: ${f.phone.value}${f.msg.value.trim() ? '\n\n' + f.msg.value.trim() : ''}`, 'contact');
 
 /* ════════════════════ ROUTER + PAGE TRANSITIONS ════════════════════ */
 const ROUTES = {
-  '': {v:'home', n:'Home', i:'01', t:'Your Dream Motors | Quality Pre-Owned Cars in Moka, Mauritius', d:`${CARS.length} inspected pre-owned cars in stock at Your Dream Motors, Royal Road, Moka. Registration handled, free island-wide delivery, trade-ins welcome.`},
-  inventory: {v:'inventory', n:'Inventory', i:'02'},
+  '': {v:'home', n:'Home', i:'01', t:'V8 Motors | Quality Used Cars in Coromandel, Mauritius', d:`${CARS.length} checked used cars at V8 Motors, 59B Royal Road, Coromandel. Buy, sell or exchange, leasing through Rogers Capital, new stock every week.`},
+  inventory: {v:'inventory', n:'Catalogue', i:'02'},
   saved: {v:'inventory', n:'Saved cars', i:'02'},
   car: {v:'car', n:'', i:'02'},
-  sell: {v:'sell', n:'Sell your car', i:'03', t:'Sell or Trade Your Car in Mauritius | Your Dream Motors', d:'Free valuation, a firm offer the same day and no commission. Sell or trade in your car at Your Dream Motors, Moka.'},
-  about: {v:'about', n:'About us', i:'04', t:'About Us | Your Dream Motors, Moka since 2012', d:'A Moka car dealership since 2012. Over 3,000 cars delivered, with inspection, paperwork and island-wide delivery included.'},
-  contact: {v:'contact', n:'Contact', i:'05', t:'Contact and Opening Hours | Your Dream Motors, Moka', d:'Call +230 433 8026, WhatsApp 5474 2683 or visit us on Royal Road, Moka. Open Monday to Friday 09:00 to 17:00, Saturday 09:00 to 12:00.'},
-  privacy: {v:'privacy', n:'Privacy', i:'06', t:'Privacy Policy | Your Dream Motors', d:'How Your Dream Motors handles your personal data under the Mauritius Data Protection Act 2017.'},
-  terms: {v:'terms', n:'Terms', i:'07', t:'Terms and Conditions | Your Dream Motors', d:'Terms for listings, prices, finance estimates and valuations at Your Dream Motors.'},
-  '404': {v:'404', n:'Not found', i:'00', t:'Page not found | Your Dream Motors', d:'This page does not exist.'}
+  sell: {v:'sell', n:'Sell your car', i:'03', t:'Sell or Exchange Your Car | V8 Motors, Coromandel', d:'Sell your car to V8 Motors or exchange it against one of ours. Send the details on WhatsApp for a guide price.'},
+  about: {v:'about', n:'About us', i:'04', t:'About Us | V8 Motors, Coromandel', d:'V8 Motors buys, sells and exchanges quality used cars at 59B Royal Road, Coromandel. Checked cars, new stock every week, leasing through Rogers Capital.'},
+  contact: {v:'contact', n:'Contact', i:'05', t:'Contact | V8 Motors, 59B Royal Road, Coromandel', d:'Call 5259 0327, 5750 7912, 5500 9527 or 5532 9727, email veightmotorsv8@gmail.com, or visit 59B Royal Road, Coromandel.'},
+  privacy: {v:'privacy', n:'Privacy', i:'06', t:'Privacy Policy | V8 Motors', d:'How V8 Motors handles your personal data under the Mauritius Data Protection Act 2017.'},
+  terms: {v:'terms', n:'Terms', i:'07', t:'Terms and Conditions | V8 Motors', d:'Terms for listings, prices, finance estimates and valuations at V8 Motors.'},
+  '404': {v:'404', n:'Not found', i:'00', t:'Page not found | V8 Motors', d:'This page does not exist.'}
 };
 const cur = {view: null, car: null, path: null};
+/*@@CAR3D@@*/
 let invScroll = 0, vtImg = null, routing = false, pending = false;
 
 function parse(){
-  const h = (location.hash || '#/').replace(/^#\/?/, '');
+  const h = (location.hash || (window.V8_START ? '#/' + window.V8_START : '#/')).replace(/^#\/?/, '');
   const [path, q] = h.split('?');
   const seg = path.split('/').filter(Boolean);
   const params = new URLSearchParams(q || '');
@@ -853,6 +818,7 @@ function mount(R){
   navInd();
   if(R.r.t) setMeta(R.r.t, R.r.d);
   const ld = $('#carLd'); if(ld && R.key !== 'car') ld.remove();
+  reset3D(R.key === 'car' ? R.car : null);
   if(R.key === 'car') renderCar(R.car); else cur.car = null;
   if(R.r.v === 'inventory'){ fromParams(R.params, R.key === 'saved'); page = 1; paintFilters(); renderInv(); }
   if(R.key === 'contact'){
@@ -875,7 +841,7 @@ function anim(el, kf, o){ return el.animate(kf, Object.assign({fill: 'forwards',
 async function wipe(R, doMount){
   const w = $('#wipe'), bars = $$('#wipe i'), lab = $('.w-label'), bar = $('.w-bar');
   $('#wipeName').textContent = R.key === 'car' ? `${R.car.make} ${R.car.model}` : R.r.n;
-  $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'Your Dream Motors';
+  $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
   w.classList.add('on');
   const E = 'cubic-bezier(.65,0,.35,1)';
   anim(lab, [{opacity: 0, transform: 'translateX(30px)'}, {opacity: 1, transform: 'none'}], {duration: 200, delay: 110, easing: 'cubic-bezier(.22,1,.36,1)'});
@@ -965,7 +931,7 @@ route(true);
   const L = $('#loader'), ring = $('#ldRing');
   const done = () => { document.body.classList.remove('is-loading'); if(!consent) setTimeout(showCookie, 1600); };
   if(reduced){ done(); return; }
-  $('#ldWord').innerHTML = [...'Your Dream Motors'].map((ch, i) => `<span style="animation-delay:${.25 + i * .03}s">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('');
+  $('#ldWord').innerHTML = [...'V8 Motors'].map((ch, i) => `<span style="animation-delay:${.25 + i * .03}s">${ch === ' ' ? '&nbsp;' : ch}</span>`).join('');
   const hv = $('.view[data-view="home"]'); if(cur.view === 'home') hv.classList.remove('intro');
   // a little parallax: the car leans toward the pointer
   const scene = $('#ldScene');
@@ -1022,7 +988,7 @@ route(true);
 
 /* load the live stock list (edited in admin.html); fall back to the copy built into this page */
 (function(){
-  const go = d => YDM_BOOT(Array.isArray(d) && d.length ? d : window.YDM_CARS);
+  const go = d => V8_BOOT(Array.isArray(d) && d.length ? d : window.V8_CARS);
   if(location.protocol === 'file:'){ go(null); return; }
   fetch('data/cars.json?v=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(go);
 })();

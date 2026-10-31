@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stock admin | Your Dream Motors</title>
+<title>Stock admin | V8 Motors</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0A1F33">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1F33'/%3E%3Cpath d='M12 40h40M14 40v-9l5-9h22l7 9h2v9' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -50,6 +50,7 @@ h1,h2,h3{font-family:var(--hd);font-stretch:112%;letter-spacing:-.02em;color:var
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--hd);font-stretch:112%;font-weight:800;font-size:16px;}
 .brand i{width:40px;height:40px;border-radius:10px;background:var(--red);display:grid;place-items:center;}
 .brand i svg{width:22px;height:22px;color:#fff;}
+.brand i.v8{font-family:var(--hd);font-stretch:125%;font-weight:900;font-size:16px;color:#fff;letter-spacing:-.02em;}
 .login-main{display:grid;place-items:center;padding:40px 24px;}
 .login-box{width:min(420px,100%);display:grid;gap:16px;}
 .login-box h2{font-size:28px;}
@@ -123,6 +124,8 @@ tbody tr:hover{background:#FAFBFC;}
 .sec>p{color:var(--muted);font-size:14px;margin-top:-10px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.spin-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+#spinCount{font-weight:600;color:var(--navy);margin-right:auto;}
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
 .ph{position:relative;aspect-ratio:4/3;border-radius:10px;background:var(--navy-2) center/cover no-repeat;overflow:hidden;cursor:grab;border:2px solid transparent;}
 .ph.drag{opacity:.4;}
@@ -230,7 +233,7 @@ tbody tr:hover{background:#FAFBFC;}
 <!-- SIGN IN -->
 <section class="login" id="login" hidden>
   <div class="login-side">
-    <div class="brand"><i><svg><use href="#i-car"/></svg></i><span>Your Dream Motors</span></div>
+    <div class="brand"><i class="v8">V8</i><span>V8 Motors</span></div>
     <div><h1>Stock admin</h1><p>Add cars, change prices, upload photos and mark cars sold. Changes go live on the website about a minute after you publish.</p></div>
     <p style="font-size:13px">Only people with access to the website's GitHub repository can sign in.</p>
   </div>
@@ -246,7 +249,7 @@ tbody tr:hover{background:#FAFBFC;}
       <details class="help"><summary>How do I get a token?</summary>
         <ol>
           <li>On GitHub, open <b>Settings</b>, then <b>Developer settings</b>, then <b>Personal access tokens</b>, then <b>Fine-grained tokens</b>.</li>
-          <li>Press <b>Generate new token</b>. Give it a name like "YDM stock admin" and an expiry date.</li>
+          <li>Press <b>Generate new token</b>. Give it a name like "V8 stock admin" and an expiry date.</li>
           <li>Under <b>Repository access</b>, pick <b>Only select repositories</b> and choose the website repository.</li>
           <li>Under <b>Permissions</b>, set <b>Contents</b> to <b>Read and write</b>.</li>
           <li>Generate it, copy it, and paste it here. Treat it like a password.</li>
@@ -259,7 +262,7 @@ tbody tr:hover{background:#FAFBFC;}
 <!-- APP -->
 <div class="app" id="app" hidden>
   <nav class="side" aria-label="Admin">
-    <div class="brand"><i><svg><use href="#i-car"/></svg></i><span>YDM admin</span></div>
+    <div class="brand"><i class="v8">V8</i><span>V8 admin</span></div>
     <button type="button" class="on" data-view="stock"><svg><use href="#i-car"/></svg>Stock</button>
     <button type="button" id="sideAdd"><svg><use href="#i-plus"/></svg>Add a car</button>
     <button type="button" data-view="settings"><svg><use href="#i-gear"/></svg>Settings</button>
@@ -307,6 +310,9 @@ tbody tr:hover{background:#FAFBFC;}
         <div class="drop" id="drop"><svg style="width:28px;height:28px"><use href="#i-img"/></svg><span><b>Drop photos here</b> or <label style="color:var(--red);font-weight:600;cursor:pointer;text-decoration:underline">choose files<input type="file" id="files" accept="image/*" multiple hidden></label></span><small>Photos are resized to 1600 pixels and uploaded to the website.</small>
           <div class="url-row"><input id="urlIn" placeholder="Or paste an image link or Unsplash photo link" aria-label="Image link"><button class="btn btn-line" type="button" id="urlAdd">Add</button></div></div>
       </div>
+      <div class="sec"><h3>360° spin photos <small style="font-family:var(--bd);font-weight:500;color:var(--muted);font-size:14px">optional</small></h3><p>Walk around the car taking a photo every few steps (24 to 36 photos, same height, same distance). Buyers can then drag to spin the real car. Without them, buyers still get the 3D model view.</p>
+        <div class="spin-row"><span id="spinCount">No spin photos</span><label class="btn btn-line" style="cursor:pointer">Upload spin photos<input type="file" id="spinFiles" accept="image/*" multiple hidden></label><button class="btn btn-danger" type="button" id="spinClear" hidden>Remove spin</button></div>
+      </div>
       <div class="sec"><h3>The car</h3>
         <div class="g3"><label class="fld"><span>Make *</span><input name="make" list="makes" required></label><label class="fld"><span>Model *</span><input name="model" required></label><label class="fld"><span>Version</span><input name="variant" placeholder="e.g. 1.5 petrol, GT Line"></label></div>
         <div class="g3"><label class="fld"><span>Year *</span><input name="year" type="number" inputmode="numeric" required></label><label class="fld"><span>Body *</span><select name="body"><option>SUV</option><option>Sedan</option><option>Hatchback</option><option>Coupé</option><option>Pickup</option><option>MPV</option><option>Convertible</option><option>Van</option></select></label><label class="fld"><span>Colour</span><input name="color" placeholder="Leave empty to show 'Ask us'"></label></div>
@@ -327,6 +333,7 @@ tbody tr:hover{background:#FAFBFC;}
       <div class="sec"><h3>On the website</h3>
         <div class="g2"><label class="fld"><span>Status</span><select name="status"><option value="available">On sale</option><option value="reserved">Reserved</option><option value="sold">Sold (hidden from the website)</option></select></label><label class="fld"><span>Date added</span><input name="addedOn" type="date"><small>Cars added in the last 3 days show "Just arrived".</small></label></div>
         <label class="switch"><input type="checkbox" name="featured"><i></i><span>Show in the homepage slideshow</span></label>
+        <label class="switch"><input type="checkbox" name="deal"><i></i><span>Saturday deal (shows in the deals row and "Deals only" filter)</span></label>
         <label class="switch"><input type="checkbox" name="demo"><i></i><span>Demo listing (not a real car in stock)</span></label>
       </div>
     </form>
@@ -377,9 +384,9 @@ async function publish(){
   }
   btn.textContent = 'Publish changes';
 }
-async function uploadPhoto(file){
+async function uploadPhoto(file, max){
   const bmp = await createImageBitmap(file);
-  const s = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+  const s = Math.min(1, (max || 1600) / Math.max(bmp.width, bmp.height));
   const cv = Object.assign(document.createElement('canvas'), {width: Math.round(bmp.width * s), height: Math.round(bmp.height * s)});
   cv.getContext('2d').drawImage(bmp, 0, 0, cv.width, cv.height);
   const dataUrl = cv.toDataURL('image/jpeg', .82);
@@ -395,9 +402,9 @@ async function signIn(repo, token, remember){
   const info = await gh('');
   if(!info.permissions || !info.permissions.push) throw new Error('This token can read the repository but cannot save to it. Give it "Contents: Read and write".');
   await loadStock();
-  (remember ? LS : SS).setItem('ydm-admin', JSON.stringify({repo: REPO, token: TOKEN}));
+  (remember ? LS : SS).setItem('v8-admin', JSON.stringify({repo: REPO, token: TOKEN}));
   $('#who').textContent = REPO;
-  const draft = JSON.parse(LS.getItem('ydm-admin-draft') || 'null');
+  const draft = JSON.parse(LS.getItem('v8-admin-draft') || 'null');
   if(draft && draft.sha === SHA && draft.cars){ CARS = draft.cars; setDirty(true); toast('Restored changes you had not published yet'); }
   $('#login').hidden = true; $('#app').hidden = false; render();
 }
@@ -408,11 +415,11 @@ $('#loginForm').addEventListener('submit', async e => {
   catch(x){ err.hidden = false; err.textContent = x.status === 401 ? 'That token was not accepted. Check it was copied in full and has not expired.' : x.status === 404 ? 'Repository not found, or the token does not have access to it.' : x.message; }
   $('#loginBtn').disabled = false; $('#loginBtn').textContent = 'Sign in';
 });
-$('#signOut').addEventListener('click', () => { if(dirty && !confirm('You have changes that are not published. Sign out anyway?')) return; SS.removeItem('ydm-admin'); LS.removeItem('ydm-admin'); location.reload(); });
+$('#signOut').addEventListener('click', () => { if(dirty && !confirm('You have changes that are not published. Sign out anyway?')) return; SS.removeItem('v8-admin'); LS.removeItem('v8-admin'); location.reload(); });
 (async function auto(){
-  const s = JSON.parse(SS.getItem('ydm-admin') || LS.getItem('ydm-admin') || 'null');
+  const s = JSON.parse(SS.getItem('v8-admin') || LS.getItem('v8-admin') || 'null');
   if(!s){ $('#login').hidden = false; return; }
-  try{ await signIn(s.repo, s.token, !!LS.getItem('ydm-admin')); }catch(e){ $('#login').hidden = false; $('#loginErr').hidden = false; $('#loginErr').textContent = 'Please sign in again. ' + e.message; }
+  try{ await signIn(s.repo, s.token, !!LS.getItem('v8-admin')); }catch(e){ $('#login').hidden = false; $('#loginErr').hidden = false; $('#loginErr').textContent = 'Please sign in again. ' + e.message; }
 })();
 
 /* ───────── stock list ───────── */
@@ -420,21 +427,21 @@ function setDirty(v){
   dirty = v; const st = $('#pubState');
   st.classList.toggle('dirty', v); st.querySelector('span').textContent = v ? 'Changes not published yet' : 'All changes are live';
   $('#publish').disabled = !v;
-  if(v) LS.setItem('ydm-admin-draft', JSON.stringify({sha: SHA, cars: CARS})); else LS.removeItem('ydm-admin-draft');
+  if(v) LS.setItem('v8-admin-draft', JSON.stringify({sha: SHA, cars: CARS})); else LS.removeItem('v8-admin-draft');
 }
 addEventListener('beforeunload', e => { if(dirty){ e.preventDefault(); e.returnValue = ''; } });
-function logIt(t){ const l = JSON.parse(LS.getItem('ydm-admin-log') || '[]'); l.unshift([new Date().toISOString(), t]); LS.setItem('ydm-admin-log', JSON.stringify(l.slice(0, 30))); }
+function logIt(t){ const l = JSON.parse(LS.getItem('v8-admin-log') || '[]'); l.unshift([new Date().toISOString(), t]); LS.setItem('v8-admin-log', JSON.stringify(l.slice(0, 30))); }
 const days = c => c.addedOn ? Math.round((Date.now() - Date.parse(c.addedOn)) / 864e5) : 99;
 function render(){
   const on = CARS.filter(c => c.status !== 'sold');
   const val = on.reduce((s, c) => s + (+c.price || 0), 0);
   $('#stats').innerHTML = [['On sale', CARS.filter(c => c.status === 'available').length], ['Reserved', CARS.filter(c => c.status === 'reserved').length], ['Sold', CARS.filter(c => c.status === 'sold').length], ['Stock value', 'Rs ' + (val >= 1e6 ? (val / 1e6).toFixed(1) + 'M' : fmt(val))], ['Average price', 'Rs ' + fmt(on.length ? val / on.length : 0)]].map(([k, v]) => `<div class="stat"><span>${k}</span><b>${v}</b></div>`).join('');
   const q = $('#q').value.trim().toLowerCase();
-  let list = CARS.filter(c => (F === 'all' || (F === 'demo' ? c.demo : c.status === F)) && (!q || `${c.year} ${c.make} ${c.model} ${c.variant} ydm-${String(c.id).padStart(3, '0')}`.toLowerCase().includes(q)));
+  let list = CARS.filter(c => (F === 'all' || (F === 'demo' ? c.demo : c.status === F)) && (!q || `${c.year} ${c.make} ${c.model} ${c.variant} v8-${String(c.id).padStart(3, '0')}`.toLowerCase().includes(q)));
   const key = {name: c => c.make + c.model, year: c => c.year, price: c => +c.price, km: c => c.km ?? 1e9, added: c => -days(c)}[SORT.k];
   list.sort((a, b) => (key(a) > key(b) ? 1 : key(a) < key(b) ? -1 : 0) * SORT.d);
   $('#rows').innerHTML = list.map(c => `<tr data-id="${c.id}">
-    <td><div class="car-cell" data-edit="${c.id}"><span class="thumb" style="background-image:url('${esc(U(c.photos && c.photos[0], 200))}')"></span><div><b>${esc(c.make)} ${esc(c.model)}${c.demo ? '<span class="demo">Demo</span>' : ''}</b><span>${c.variant ? esc(c.variant) + ', ' : ''}YDM-${String(c.id).padStart(3, '0')}</span></div></div></td>
+    <td><div class="car-cell" data-edit="${c.id}"><span class="thumb" style="background-image:url('${esc(U(c.photos && c.photos[0], 200))}')"></span><div><b>${esc(c.make)} ${esc(c.model)}${c.demo ? '<span class="demo">Demo</span>' : ''}</b><span>${c.variant ? esc(c.variant) + ', ' : ''}V8-${String(c.id).padStart(3, '0')}</span></div></div></td>
     <td class="hide-m num">${c.year}</td>
     <td class="num">Rs ${fmt(c.price)}${c.was ? `<br><s style="color:var(--muted-2);font-size:12.5px">Rs ${fmt(c.was)}</s>` : ''}</td>
     <td class="hide-m num">${c.km == null ? 'Not set' : fmt(c.km) + ' km'}</td>
@@ -446,7 +453,7 @@ function render(){
   $('#demoTxt').textContent = nd ? `${nd} cars are demo listings that make the website look full. Remove them once your real stock is in.` : 'There are no demo cars left.';
   $('#demoBtn').disabled = !nd;
   $('#makes').innerHTML = [...new Set(CARS.map(c => c.make))].sort().map(m => `<option value="${esc(m)}">`).join('');
-  $('#log').innerHTML = JSON.parse(LS.getItem('ydm-admin-log') || '[]').map(([t, m]) => `<li><time>${new Date(t).toLocaleString('en-GB', {dateStyle: 'short', timeStyle: 'short'})}</time>${esc(m)}</li>`).join('') || '<li>Nothing yet.</li>';
+  $('#log').innerHTML = JSON.parse(LS.getItem('v8-admin-log') || '[]').map(([t, m]) => `<li><time>${new Date(t).toLocaleString('en-GB', {dateStyle: 'short', timeStyle: 'short'})}</time>${esc(m)}</li>`).join('') || '<li>Nothing yet.</li>';
 }
 $('#q').addEventListener('input', render);
 $$('.seg button').forEach(b => b.addEventListener('click', () => { F = b.dataset.f; $$('.seg button').forEach(x => x.classList.toggle('on', x === b)); render(); }));
@@ -476,7 +483,7 @@ async function askDelete(id){
 }
 
 /* ───────── settings ───────── */
-$('#exportBtn').addEventListener('click', () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(CARS, null, 1)], {type: 'application/json'})); a.download = `ydm-stock-${new Date().toISOString().slice(0, 10)}.json`; a.click(); });
+$('#exportBtn').addEventListener('click', () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(CARS, null, 1)], {type: 'application/json'})); a.download = `v8-stock-${new Date().toISOString().slice(0, 10)}.json`; a.click(); });
 $('#importFile').addEventListener('change', async e => {
   const f = e.target.files[0]; if(!f) return;
   try{ const d = JSON.parse(await f.text()); if(!Array.isArray(d) || !d.every(c => c.make && c.model && c.price)) throw 0;
@@ -493,14 +500,15 @@ $('#demoBtn').addEventListener('click', async () => {
 /* ───────── editor ───────── */
 let ED = null, EDID = null, SNAP = '';
 const ed = $('#editor'), form = $('#edForm');
-const BLANK = () => ({make: '', model: '', variant: '', year: new Date().getFullYear() - 3, price: '', was: '', km: '', fuel: 'Petrol', trans: 'Automatic', body: 'SUV', color: '', engine: '', power: '', drive: 'Front-wheel drive', seats: 5, doors: 5, desc: '', highlights: ['Inspected before sale', 'Registered and ready to drive'], features: [], photos: [], status: 'available', featured: false, demo: false, addedOn: new Date().toISOString().slice(0, 10)});
+const BLANK = () => ({make: '', model: '', variant: '', year: new Date().getFullYear() - 3, price: '', was: '', km: '', fuel: 'Petrol', trans: 'Automatic', body: 'SUV', color: '', engine: '', power: '', drive: 'Front-wheel drive', seats: 5, doors: 5, desc: '', highlights: ['Inspected before sale', 'Registered and ready to drive'], features: [], photos: [], spin: [], status: 'available', featured: false, deal: false, demo: false, addedOn: new Date().toISOString().slice(0, 10)});
 function openEditor(id){
   EDID = id; ED = id ? JSON.parse(JSON.stringify(CARS.find(c => c.id === id))) : BLANK();
   $('#edTitle').textContent = id ? `Edit ${ED.make} ${ED.model}` : 'Add a car';
   $('#edDelete').hidden = !id;
   for(const el of form.elements){ if(!el.name) continue; const v = ED[el.name]; if(el.type === 'checkbox') el.checked = !!v; else el.value = v ?? ''; }
   $$('.fld.bad', form).forEach(f => f.classList.remove('bad'));
-  tags(); photos(); preview(); SNAP = JSON.stringify(collect());
+  if(!ED.spin) ED.spin = [];
+  tags(); photos(); spinInfo(); preview(); SNAP = JSON.stringify(collect());
   ed.classList.add('on'); ed.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
   setTimeout(() => (id ? $('#edClose') : form.make).focus(), 300);
 }
@@ -566,6 +574,16 @@ async function addFiles(list){
   if(files.length) toast(files.length === 1 ? 'Photo uploaded' : files.length + ' photos uploaded');
 }
 $('#files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
+function spinInfo(){ const n = ED.spin.length; $('#spinCount').textContent = n ? `${n} spin photos uploaded` : 'No spin photos'; $('#spinClear').hidden = !n; }
+$('#spinFiles').addEventListener('change', async e => {
+  const files = [...e.target.files].filter(f => f.type.startsWith('image/')).sort((x, y) => x.name.localeCompare(y.name, undefined, {numeric: true}));
+  e.target.value = ''; if(!files.length) return;
+  if(files.length < 8){ toast('Upload at least 8 photos for a smooth spin', true); return; }
+  const out = [];
+  for(let i = 0; i < files.length; i++){ $('#spinCount').textContent = `Uploading ${i + 1} of ${files.length}`; try{ out.push(await uploadPhoto(files[i], 1200)); }catch(x){ toast('Upload failed: ' + x.message, true); spinInfo(); return; } }
+  ED.spin = out; spinInfo(); logIt(`Uploaded ${out.length} spin photos`); toast('Spin photos uploaded. Save and publish to put them live.');
+});
+$('#spinClear').addEventListener('click', () => { ED.spin = []; spinInfo(); });
 const drop = $('#drop');
 ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { if(dragI != null) return; e.preventDefault(); drop.classList.add('over'); }));
 ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));

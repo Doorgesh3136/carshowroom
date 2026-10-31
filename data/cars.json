@@ -16,7 +16,7 @@
   "engine": "2.9L twin-turbo V6 + electric",
   "power": "462 hp",
   "drive": "All-wheel drive",
-  "desc": "2021 Porsche Panamera 4 (E-Hybrid) that has covered 54,916 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.9L twin-turbo V6 + electric with 462 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2021 Porsche Panamera 4 (E-Hybrid) that has covered 54,916 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.9L twin-turbo V6 + electric with 462 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Four-zone climate control",
    "Air suspension",
@@ -32,7 +32,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -43,7 +42,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": true,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 2,
@@ -62,7 +63,7 @@
   "engine": "Dual electric motors, 320 kW",
   "power": "530 hp with overboost",
   "drive": "All-wheel drive",
-  "desc": "2021 Porsche Taycan 4S (Electric) that has covered 10,000 km. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Dual electric motors, 320 kW with 530 hp with overboost. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2021 Porsche Taycan 4S (Electric) that has covered 10,000 km. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Dual electric motors, 320 kW with 530 hp with overboost. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "DC fast charging",
    "Premium sound system",
@@ -78,7 +79,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -89,7 +89,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": true,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 3,
@@ -108,7 +110,7 @@
   "engine": "3.0L turbo I6 + EQ Boost",
   "power": "435 hp",
   "drive": "All-wheel drive",
-  "desc": "2019 Mercedes-Benz CLS 53 (AMG 4MATIC+) that comes with its mileage on request. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 3.0L turbo I6 + EQ Boost with 435 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2019 Mercedes-Benz CLS 53 (AMG 4MATIC+) that comes with its mileage on request. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 3.0L turbo I6 + EQ Boost with 435 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Adaptive dampers",
    "High-end surround sound",
@@ -124,7 +126,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -135,7 +136,9 @@
   "addedOn": "2026-09-21",
   "status": "available",
   "featured": true,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 4,
@@ -154,7 +157,7 @@
   "engine": "2.0L turbo I4 mild hybrid",
   "power": "204 hp",
   "drive": "Rear-wheel drive",
-  "desc": "2023 Mercedes-Benz E 200 (2.0 petrol, EQ Boost) that has covered 13,775 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 mild hybrid with 204 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2023 Mercedes-Benz E 200 (2.0 petrol, EQ Boost) that has covered 13,775 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 mild hybrid with 204 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "360-degree camera",
    "High-end surround sound",
@@ -170,7 +173,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -182,7 +184,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": true,
-  "demo": false
+  "demo": true,
+  "deal": true,
+  "spin": []
  },
  {
   "id": 5,
@@ -201,7 +205,7 @@
   "engine": "Dual electric motors, 230 kW",
   "power": "313 hp",
   "drive": "All-wheel drive",
-  "desc": "2023 BMW iX1 (xDrive30 electric) that comes with its mileage on request. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Dual electric motors, 230 kW with 313 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2023 BMW iX1 (xDrive30 electric) that comes with its mileage on request. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Dual electric motors, 230 kW with 313 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Premium sound system",
    "Home charging cable",
@@ -217,7 +221,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -227,7 +230,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": true,
+  "spin": []
  },
  {
   "id": 6,
@@ -246,7 +251,7 @@
   "engine": "2.0L turbo I4 + electric",
   "power": "320 hp",
   "drive": "All-wheel drive",
-  "desc": "2022 Mercedes-Benz GLC 300e (Plug-in hybrid) that has covered 74,064 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 2.0L turbo I4 + electric with 320 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2022 Mercedes-Benz GLC 300e (Plug-in hybrid) that has covered 74,064 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 2.0L turbo I4 + electric with 320 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Digital instrument cluster",
    "Heated front seats",
@@ -262,7 +267,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -273,7 +277,9 @@
   "addedOn": "2026-10-06",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 7,
@@ -292,7 +298,7 @@
   "engine": "1.5L turbo I3 + electric",
   "power": "220 hp",
   "drive": "All-wheel drive",
-  "desc": "2024 BMW X2 (25e plug-in hybrid) that has covered 55,997 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I3 + electric with 220 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2024 BMW X2 (25e plug-in hybrid) that has covered 55,997 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I3 + electric with 220 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Power tailgate",
    "Blind spot monitoring",
@@ -308,7 +314,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -318,7 +323,9 @@
   "addedOn": "2026-09-27",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 8,
@@ -337,7 +344,7 @@
   "engine": "1.6L turbo I4",
   "power": "180 hp",
   "drive": "Front-wheel drive",
-  "desc": "2025 Kia Sportage (GT Line 1.6 T-GDi) that has covered 18,406 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.6L turbo I4 with 180 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2025 Kia Sportage (GT Line 1.6 T-GDi) that has covered 18,406 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.6L turbo I4 with 180 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Lane keep assist",
    "Auto headlights",
@@ -353,7 +360,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -365,7 +371,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 9,
@@ -384,7 +392,7 @@
   "engine": "1.5L turbo I3",
   "power": "136 hp",
   "drive": "Front-wheel drive",
-  "desc": "2022 BMW X1 (1.5 petrol) that has covered 80,979 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I3 with 136 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2022 BMW X1 (1.5 petrol) that has covered 80,979 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I3 with 136 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Premium sound system",
    "Panoramic sunroof",
@@ -400,7 +408,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -409,7 +416,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 10,
@@ -428,7 +437,7 @@
   "engine": "2.0L turbo I4",
   "power": "258 hp",
   "drive": "Rear-wheel drive",
-  "desc": "2016 BMW 730i (2.0 petrol) that has covered 104,196 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 with 258 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2016 BMW 730i (2.0 petrol) that has covered 104,196 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 with 258 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Night-time ambient lighting",
    "Four-zone climate control",
@@ -444,7 +453,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -453,7 +461,9 @@
   "addedOn": "2026-10-27",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 11,
@@ -472,7 +482,7 @@
   "engine": "1.4L turbo I4",
   "power": "150 hp",
   "drive": "Front-wheel drive",
-  "desc": "2019 Audi A5 (1.4 TFSI) that has covered 86,336 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 1.4L turbo I4 with 150 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2019 Audi A5 (1.4 TFSI) that has covered 86,336 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 1.4L turbo I4 with 150 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Ambient lighting",
    "Digital instrument cluster",
@@ -488,7 +498,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -499,7 +508,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 12,
@@ -518,7 +529,7 @@
   "engine": "1.3L turbo I4 mild hybrid",
   "power": "158 hp",
   "drive": "Front-wheel drive",
-  "desc": "2023 Nissan Qashqai (1.3 DIG-T) that has covered 50,539 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.3L turbo I4 mild hybrid with 158 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2023 Nissan Qashqai (1.3 DIG-T) that has covered 50,539 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.3L turbo I4 mild hybrid with 158 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Alloy wheels",
    "Reversing camera",
@@ -534,7 +545,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -544,7 +554,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 13,
@@ -563,7 +575,7 @@
   "engine": "2.0L turbo I4 + electric",
   "power": "252 hp",
   "drive": "Rear-wheel drive",
-  "desc": "2018 BMW 530e (Plug-in hybrid) that has covered 93,000 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 + electric with 252 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2018 BMW 530e (Plug-in hybrid) that has covered 93,000 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 2.0L turbo I4 + electric with 252 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "360-degree camera",
    "Premium sound system",
@@ -579,7 +591,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -589,7 +600,9 @@
   "addedOn": "2026-10-26",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 14,
@@ -608,7 +621,7 @@
   "engine": "3.0L turbo I6",
   "power": "320 hp",
   "drive": "Rear-wheel drive",
-  "desc": "2014 BMW 740i (3.0 petrol) that has covered 132,912 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 3.0L turbo I6 with 320 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2014 BMW 740i (3.0 petrol) that has covered 132,912 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 3.0L turbo I6 with 320 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "High-end surround sound",
    "Adaptive dampers",
@@ -624,7 +637,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -634,7 +646,9 @@
   "addedOn": "2026-10-27",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": true,
+  "spin": []
  },
  {
   "id": 15,
@@ -653,7 +667,7 @@
   "engine": "1.5L turbo I3",
   "power": "136 hp",
   "drive": "Front-wheel drive",
-  "desc": "2016 BMW 218i (1.5 petrol) that has covered 88,459 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 1.5L turbo I3 with 136 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2016 BMW 218i (1.5 petrol) that has covered 88,459 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Power comes from the 1.5L turbo I3 with 136 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "LED headlights",
    "Six airbags",
@@ -669,7 +683,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -678,7 +691,9 @@
   "addedOn": "2026-09-27",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 16,
@@ -697,7 +712,7 @@
   "engine": "Electric motor, 135 kW",
   "power": "184 hp",
   "drive": "Front-wheel drive",
-  "desc": "2021 MINI Cooper SE (Electric) that has covered 78,963 km. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Electric motor, 135 kW with 184 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2021 MINI Cooper SE (Electric) that has covered 78,963 km. Charges at home overnight and costs a fraction of petrol to run day to day. Power comes from the Electric motor, 135 kW with 184 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "DC fast charging",
    "Heat pump",
@@ -713,7 +728,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -724,7 +738,9 @@
   "addedOn": "2026-10-28",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 17,
@@ -743,7 +759,7 @@
   "engine": "1.5L turbo I4",
   "power": "145 hp",
   "drive": "Front-wheel drive",
-  "desc": "2024 Chery Tiggo 4 Pro (1.5 turbo) that has covered 36,213 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I4 with 145 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2024 Chery Tiggo 4 Pro (1.5 turbo) that has covered 36,213 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.5L turbo I4 with 145 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Auto headlights",
    "Rain-sensing wipers",
@@ -759,7 +775,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -769,7 +784,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 18,
@@ -788,7 +805,7 @@
   "engine": "1.0L turbo I3",
   "power": "99 hp",
   "drive": "Front-wheel drive",
-  "desc": "2025 Nissan Magnite (1.0 turbo) that has covered 14,104 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.0L turbo I3 with 99 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2025 Nissan Magnite (1.0 turbo) that has covered 14,104 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.0L turbo I3 with 99 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Central locking",
    "Dual front airbags",
@@ -804,7 +821,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -814,7 +830,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 19,
@@ -833,7 +851,7 @@
   "engine": "1.6L turbo I4",
   "power": "156 hp",
   "drive": "Rear-wheel drive",
-  "desc": "2019 Mercedes-Benz C 180 (1.6 petrol) that has covered 126,186 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 1.6L turbo I4 with 156 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2019 Mercedes-Benz C 180 (1.6 petrol) that has covered 126,186 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 1.6L turbo I4 with 156 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Rain-sensing wipers",
    "Keyless entry and start",
@@ -849,7 +867,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -861,7 +878,9 @@
   "addedOn": "2026-10-26",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": true,
+  "spin": []
  },
  {
   "id": 20,
@@ -880,7 +899,7 @@
   "engine": "1.5L I4",
   "power": "113 hp",
   "drive": "Front-wheel drive",
-  "desc": "2022 Kia Cerato (1.5 petrol) that has covered 65,174 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 1.5L I4 with 113 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2022 Kia Cerato (1.5 petrol) that has covered 65,174 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Power comes from the 1.5L I4 with 113 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Reversing camera",
    "USB charging",
@@ -896,7 +915,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -905,7 +923,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 21,
@@ -924,7 +944,7 @@
   "engine": "1.2L I4",
   "power": "82 hp",
   "drive": "Front-wheel drive",
-  "desc": "2024 Suzuki Swift (GLX 1.2) that has covered 26,581 km. Easy to park in Port Louis and light on fuel for the daily commute. Power comes from the 1.2L I4 with 82 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2024 Suzuki Swift (GLX 1.2) that has covered 26,581 km. Easy to park in Port Louis and light on fuel for the daily commute. Power comes from the 1.2L I4 with 82 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Bluetooth audio",
    "Electric windows",
@@ -940,7 +960,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -950,7 +969,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 22,
@@ -969,7 +990,7 @@
   "engine": "1.0L turbo I3",
   "power": "99 hp",
   "drive": "Front-wheel drive",
-  "desc": "2023 Nissan Magnite (1.0 turbo) that has covered 50,091 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.0L turbo I3 with 99 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2023 Nissan Magnite (1.0 turbo) that has covered 50,091 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Power comes from the 1.0L turbo I3 with 99 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "ABS with brake assist",
    "Rear parking sensors",
@@ -985,7 +1006,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -995,7 +1015,9 @@
   "addedOn": "2026-10-16",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 23,
@@ -1014,7 +1036,7 @@
   "engine": "1.6L turbo I4",
   "power": "122 hp",
   "drive": "Front-wheel drive",
-  "desc": "2013 Mercedes-Benz A 180 (1.6 petrol) that has covered 174,412 km. Easy to park in Port Louis and light on fuel for the daily commute. Power comes from the 1.6L turbo I4 with 122 hp. Like every car here it is inspected before sale, registered for you and delivered anywhere on the island. Ask us for its full history and photos of this exact car.",
+  "desc": "2013 Mercedes-Benz A 180 (1.6 petrol) that has covered 174,412 km. Easy to park in Port Louis and light on fuel for the daily commute. Power comes from the 1.6L turbo I4 with 122 hp. Every car at V8 Motors is checked before sale. Ask us for its full history and photos of this exact car.",
   "features": [
    "Auto headlights",
    "Keyless entry and start",
@@ -1030,7 +1052,6 @@
   "highlights": [
    "Inspected before sale",
    "Registered and ready to drive",
-   "Delivered anywhere in Mauritius",
    "Trade-ins welcome"
   ],
   "photos": [
@@ -1041,7 +1062,9 @@
   "addedOn": "2026-10-26",
   "status": "available",
   "featured": false,
-  "demo": false
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 24,
@@ -1060,7 +1083,7 @@
   "engine": "1.5L I4",
   "power": "106 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Toyota Vios 1.5 G CVT has covered 21,400 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.5L I4 with 106 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Toyota Vios 1.5 G CVT has covered 21,400 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.5L I4 with 106 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "ABS with brake assist",
    "Reversing camera",
@@ -1087,7 +1110,9 @@
   "addedOn": "2026-10-19",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 25,
@@ -1106,7 +1131,7 @@
   "engine": "1.8L I4 + electric",
   "power": "121 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2021 Toyota Corolla 1.8 Hybrid GLi has covered 38,200 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.8L I4 + electric with 121 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Toyota Corolla 1.8 Hybrid GLi has covered 38,200 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.8L I4 + electric with 121 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Alloy wheels",
    "Reversing camera",
@@ -1132,7 +1157,9 @@
   "addedOn": "2026-10-01",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 26,
@@ -1151,7 +1178,7 @@
   "engine": "2.5L I4 + electric",
   "power": "219 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2022 Toyota RAV4 2.5 Hybrid VX has covered 26,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 + electric with 219 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Toyota RAV4 2.5 Hybrid VX has covered 26,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 + electric with 219 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Digital instrument cluster",
    "360-degree camera",
@@ -1178,7 +1205,9 @@
   "addedOn": "2026-10-27",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 27,
@@ -1197,7 +1226,7 @@
   "engine": "2.8L turbo diesel I4",
   "power": "201 hp",
   "drive": "4x4",
-  "desc": "This 2021 Toyota Hilux 2.8 GD-6 Legend Double Cab has covered 61,200 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.8L turbo diesel I4 with 201 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Toyota Hilux 2.8 GD-6 Legend Double Cab has covered 61,200 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.8L turbo diesel I4 with 201 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Rear differential lock",
    "Roof rails",
@@ -1224,7 +1253,9 @@
   "addedOn": "2026-10-27",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 28,
@@ -1243,7 +1274,7 @@
   "engine": "4.5L twin-turbo diesel V8",
   "power": "268 hp",
   "drive": "4x4",
-  "desc": "This 2019 Toyota Land Cruiser 4.5 V8 VX has covered 74,500 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 4.5L twin-turbo diesel V8 with 268 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2019 Toyota Land Cruiser 4.5 V8 VX has covered 74,500 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 4.5L twin-turbo diesel V8 with 268 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Ventilated and massage seats",
    "Air suspension",
@@ -1270,7 +1301,9 @@
   "addedOn": "2026-10-28",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 29,
@@ -1289,7 +1322,7 @@
   "engine": "1.5L turbo I4",
   "power": "180 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Honda Civic 1.5 VTEC Turbo RS has covered 19,800 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.5L turbo I4 with 180 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Honda Civic 1.5 VTEC Turbo RS has covered 19,800 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 1.5L turbo I4 with 180 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Auto headlights",
    "LED headlights",
@@ -1316,7 +1349,9 @@
   "addedOn": "2026-10-16",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 30,
@@ -1335,7 +1370,7 @@
   "engine": "1.5L turbo I4",
   "power": "190 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Honda CR-V 1.5T EX AWD has covered 40,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L turbo I4 with 190 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Honda CR-V 1.5T EX AWD has covered 40,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L turbo I4 with 190 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Lane keep assist",
    "Auto headlights",
@@ -1361,7 +1396,9 @@
   "addedOn": "2026-10-23",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 31,
@@ -1380,7 +1417,7 @@
   "engine": "1.3L I4",
   "power": "98 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2020 Honda Fit 1.3 Home has covered 46,800 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.3L I4 with 98 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Honda Fit 1.3 Home has covered 46,800 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.3L I4 with 98 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Steering wheel controls",
    "Dual front airbags",
@@ -1406,7 +1443,9 @@
   "addedOn": "2026-10-06",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 32,
@@ -1425,7 +1464,7 @@
   "engine": "1.6L turbo I4",
   "power": "180 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2023 Hyundai Tucson 1.6 T-GDi N Line has covered 12,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L turbo I4 with 180 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2023 Hyundai Tucson 1.6 T-GDi N Line has covered 12,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L turbo I4 with 180 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Alloy wheels",
    "Rain-sensing wipers",
@@ -1452,7 +1491,9 @@
   "addedOn": "2026-10-19",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 33,
@@ -1471,7 +1512,7 @@
   "engine": "1.5L I4",
   "power": "113 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2023 Hyundai Creta 1.5 Premium has covered 9,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 113 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2023 Hyundai Creta 1.5 Premium has covered 9,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 113 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Lane keep assist",
    "Keyless entry and start",
@@ -1497,7 +1538,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 34,
@@ -1516,7 +1559,7 @@
   "engine": "1.2L I4",
   "power": "83 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Hyundai Grand i10 1.2 Fluid has covered 22,100 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.2L I4 with 83 hp, paired with a manual gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Hyundai Grand i10 1.2 Fluid has covered 22,100 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.2L I4 with 83 hp, paired with a manual gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Electric windows",
    "Steering wheel controls",
@@ -1542,7 +1585,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 35,
@@ -1561,7 +1606,7 @@
   "engine": "1.6L I4",
   "power": "121 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Kia Seltos 1.6 EX+ has covered 24,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L I4 with 121 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Kia Seltos 1.6 EX+ has covered 24,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L I4 with 121 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Alloy wheels",
    "Reversing camera",
@@ -1588,7 +1633,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 36,
@@ -1607,7 +1654,7 @@
   "engine": "2.5L I4",
   "power": "171 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Nissan X-Trail 2.5 Tekna 4WD has covered 47,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 with 171 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Nissan X-Trail 2.5 Tekna 4WD has covered 47,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 with 171 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Alloy wheels",
    "Climate control",
@@ -1632,7 +1679,9 @@
   "addedOn": "2026-10-16",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 37,
@@ -1651,7 +1700,7 @@
   "engine": "2.3L twin-turbo diesel",
   "power": "188 hp",
   "drive": "4x4",
-  "desc": "This 2022 Nissan Navara 2.3 dCi PRO-4X has covered 33,600 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.3L twin-turbo diesel with 188 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Nissan Navara 2.3 dCi PRO-4X has covered 33,600 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.3L twin-turbo diesel with 188 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Tow bar",
    "Side steps",
@@ -1677,7 +1726,9 @@
   "addedOn": "2026-09-27",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 38,
@@ -1696,7 +1747,7 @@
   "engine": "2.5L I4",
   "power": "194 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Mazda CX-5 2.5 Akera AWD has covered 36,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 with 194 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Mazda CX-5 2.5 Akera AWD has covered 36,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.5L I4 with 194 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Blind spot monitoring",
    "Adaptive cruise control",
@@ -1722,7 +1773,9 @@
   "addedOn": "2026-10-19",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 39,
@@ -1741,7 +1794,7 @@
   "engine": "2.0L I4",
   "power": "165 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2020 Mazda 3 2.0 Astina Hatch has covered 52,100 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 2.0L I4 with 165 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Mazda 3 2.0 Astina Hatch has covered 52,100 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 2.0L I4 with 165 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Lane keep assist",
    "LED headlights",
@@ -1767,7 +1820,9 @@
   "addedOn": "2026-10-13",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 40,
@@ -1786,7 +1841,7 @@
   "engine": "1.0L turbo I3",
   "power": "95 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Volkswagen Polo 1.0 TSI Life has covered 18,300 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.0L turbo I3 with 95 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Volkswagen Polo 1.0 TSI Life has covered 18,300 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.0L turbo I3 with 95 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Electric mirrors",
    "Apple CarPlay and Android Auto",
@@ -1812,7 +1867,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 41,
@@ -1831,7 +1888,7 @@
   "engine": "2.0L turbo I4",
   "power": "245 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Volkswagen Golf GTI 2.0 TSI Mk8 has covered 17,600 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 2.0L turbo I4 with 245 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Volkswagen Golf GTI 2.0 TSI Mk8 has covered 17,600 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 2.0L turbo I4 with 245 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Power tailgate",
    "Leather seats",
@@ -1858,7 +1915,9 @@
   "addedOn": "2026-09-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 42,
@@ -1877,7 +1936,7 @@
   "engine": "2.0L turbo I4",
   "power": "220 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Volkswagen Tiguan 2.0 TSI R-Line 4Motion has covered 39,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 220 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Volkswagen Tiguan 2.0 TSI R-Line 4Motion has covered 39,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 220 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Leather seats",
    "Panoramic sunroof",
@@ -1904,7 +1963,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 43,
@@ -1923,7 +1984,7 @@
   "engine": "1.5L I4",
   "power": "101 hp",
   "drive": "4x4",
-  "desc": "This 2023 Suzuki Jimny 1.5 GLX AllGrip has covered 6,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 101 hp, paired with a manual gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2023 Suzuki Jimny 1.5 GLX AllGrip has covered 6,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 101 hp, paired with a manual gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Load bed liner",
    "Four-wheel drive with low range",
@@ -1950,7 +2011,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 44,
@@ -1969,7 +2032,7 @@
   "engine": "1.6L turbo I4",
   "power": "165 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2021 Peugeot 3008 1.6 THP GT has covered 34,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L turbo I4 with 165 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Peugeot 3008 1.6 THP GT has covered 34,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.6L turbo I4 with 165 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Heated front seats",
    "Adaptive cruise control",
@@ -1995,7 +2058,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 45,
@@ -2014,7 +2079,7 @@
   "engine": "2.0L twin-turbo diesel",
   "power": "210 hp",
   "drive": "4x4",
-  "desc": "This 2023 Ford Ranger 2.0 BiTurbo Wildtrak has covered 15,800 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.0L twin-turbo diesel with 210 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2023 Ford Ranger 2.0 BiTurbo Wildtrak has covered 15,800 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.0L twin-turbo diesel with 210 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "LED headlights",
    "Load bed liner",
@@ -2041,7 +2106,9 @@
   "addedOn": "2026-10-01",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 46,
@@ -2060,7 +2127,7 @@
   "engine": "2.4L turbo diesel I4",
   "power": "181 hp",
   "drive": "4x4",
-  "desc": "This 2020 Mitsubishi L200 2.4 DI-D Double Cab has covered 68,900 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.4L turbo diesel I4 with 181 hp, paired with a manual gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Mitsubishi L200 2.4 DI-D Double Cab has covered 68,900 km. Full-size load bed and rated to tow, so it works as hard on the weekend as during the week. Under the bonnet is the 2.4L turbo diesel I4 with 181 hp, paired with a manual gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Hill descent control",
    "Off-road drive modes",
@@ -2087,7 +2154,9 @@
   "addedOn": "2026-10-16",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 47,
@@ -2106,7 +2175,7 @@
   "engine": "4.0L twin-turbo V8",
   "power": "585 hp",
   "drive": "4x4",
-  "desc": "This 2021 Mercedes-AMG G 63 Night Package has covered 18,000 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 4.0L twin-turbo V8 with 585 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Mercedes-AMG G 63 Night Package has covered 18,000 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 4.0L twin-turbo V8 with 585 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Air suspension",
    "Nappa leather",
@@ -2132,7 +2201,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 48,
@@ -2151,7 +2222,7 @@
   "engine": "2.0L turbo I4",
   "power": "184 hp",
   "drive": "Rear-wheel drive",
-  "desc": "This 2022 BMW 320i M Sport has covered 23,400 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 2.0L turbo I4 with 184 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 BMW 320i M Sport has covered 23,400 km. Quiet at motorway speed, with a proper boot for family trips and airport runs. Under the bonnet is the 2.0L turbo I4 with 184 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Digital instrument cluster",
    "Panoramic sunroof",
@@ -2177,7 +2248,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 49,
@@ -2196,7 +2269,7 @@
   "engine": "3.0L turbo I6",
   "power": "340 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 BMW X5 xDrive40i M Sport has covered 42,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo I6 with 340 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 BMW X5 xDrive40i M Sport has covered 42,800 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo I6 with 340 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "360-degree camera",
    "High-end surround sound",
@@ -2223,7 +2296,9 @@
   "addedOn": "2026-10-23",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 50,
@@ -2242,7 +2317,7 @@
   "engine": "3.0L twin-turbo I6",
   "power": "510 hp",
   "drive": "Rear-wheel drive",
-  "desc": "This 2022 BMW M4 Competition has covered 9,800 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 3.0L twin-turbo I6 with 510 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 BMW M4 Competition has covered 9,800 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 3.0L twin-turbo I6 with 510 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Adaptive dampers",
    "Air suspension",
@@ -2268,7 +2343,9 @@
   "addedOn": "2026-09-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 51,
@@ -2287,7 +2364,7 @@
   "engine": "2.0L turbo I4",
   "power": "265 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Audi Q5 45 TFSI quattro S line has covered 33,100 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 265 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Audi Q5 45 TFSI quattro S line has covered 33,100 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 265 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Wireless phone charging",
    "Digital instrument cluster",
@@ -2313,7 +2390,9 @@
   "addedOn": "2026-10-01",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 52,
@@ -2332,7 +2411,7 @@
   "engine": "1.5L turbo I4",
   "power": "150 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2022 Audi A3 Sportback 35 TFSI has covered 20,500 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.5L turbo I4 with 150 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Audi A3 Sportback 35 TFSI has covered 20,500 km. Easy to park in Port Louis and light on fuel for the daily commute. Under the bonnet is the 1.5L turbo I4 with 150 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Electric memory seats",
    "Heated front seats",
@@ -2359,7 +2438,9 @@
   "addedOn": "2026-10-28",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 53,
@@ -2378,7 +2459,7 @@
   "engine": "3.0L turbo V6",
   "power": "340 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2020 Audi Q8 55 TFSI quattro has covered 51,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo V6 with 340 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Audi Q8 55 TFSI quattro has covered 51,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo V6 with 340 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Head-up display",
    "Panoramic glass roof",
@@ -2404,7 +2485,9 @@
   "addedOn": "2026-10-19",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 54,
@@ -2423,7 +2506,7 @@
   "engine": "2.0L turbo I4",
   "power": "200 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Land Rover Range Rover Evoque P200 R-Dynamic SE has covered 30,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 200 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Land Rover Range Rover Evoque P200 R-Dynamic SE has covered 30,400 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 200 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Wireless phone charging",
    "Adaptive cruise control",
@@ -2449,7 +2532,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 55,
@@ -2468,7 +2553,7 @@
   "engine": "3.0L turbo I6 MHEV",
   "power": "400 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2022 Land Rover Range Rover Sport P400 HSE Dynamic has covered 21,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo I6 MHEV with 400 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Land Rover Range Rover Sport P400 HSE Dynamic has covered 21,900 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo I6 MHEV with 400 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Soft-close doors",
    "Adaptive dampers",
@@ -2494,7 +2579,9 @@
   "addedOn": "2026-10-01",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 56,
@@ -2513,7 +2600,7 @@
   "engine": "3.0L turbo diesel I6",
   "power": "249 hp",
   "drive": "4x4",
-  "desc": "This 2022 Land Rover Defender 110 D250 SE has covered 27,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo diesel I6 with 249 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Land Rover Defender 110 D250 SE has covered 27,300 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo diesel I6 with 249 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Matrix LED headlights",
    "Ventilated and massage seats",
@@ -2540,7 +2627,9 @@
   "addedOn": "2026-10-10",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 57,
@@ -2559,7 +2648,7 @@
   "engine": "2.9L twin-turbo V6",
   "power": "380 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Porsche Macan S has covered 29,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.9L twin-turbo V6 with 380 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Porsche Macan S has covered 29,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.9L twin-turbo V6 with 380 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Soft-close doors",
    "Four-zone climate control",
@@ -2586,7 +2675,9 @@
   "addedOn": "2026-10-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 58,
@@ -2605,7 +2696,7 @@
   "engine": "3.0L turbo V6 + electric",
   "power": "462 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2020 Porsche Cayenne E-Hybrid has covered 44,100 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo V6 + electric with 462 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Porsche Cayenne E-Hybrid has covered 44,100 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.0L turbo V6 + electric with 462 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Nappa leather",
    "Matrix LED headlights",
@@ -2632,7 +2723,9 @@
   "addedOn": "2026-09-21",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 59,
@@ -2651,7 +2744,7 @@
   "engine": "3.0L twin-turbo flat-6",
   "power": "450 hp",
   "drive": "Rear-wheel drive",
-  "desc": "This 2021 Porsche 911 Carrera S (992) has covered 14,200 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 3.0L twin-turbo flat-6 with 450 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Porsche 911 Carrera S (992) has covered 14,200 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 3.0L twin-turbo flat-6 with 450 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Nappa leather",
    "Four-zone climate control",
@@ -2678,7 +2771,9 @@
   "addedOn": "2026-10-29",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 60,
@@ -2697,7 +2792,7 @@
   "engine": "Dual electric motors",
   "power": "498 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2022 Tesla Model 3 Long Range AWD has covered 24,600 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Dual electric motors with 498 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2022 Tesla Model 3 Long Range AWD has covered 24,600 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Dual electric motors with 498 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Heated front seats",
    "Home charging cable",
@@ -2724,7 +2819,9 @@
   "addedOn": "2026-10-13",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 61,
@@ -2743,7 +2840,7 @@
   "engine": "Dual electric motors",
   "power": "514 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2023 Tesla Model Y Long Range AWD has covered 13,100 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Dual electric motors with 514 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2023 Tesla Model Y Long Range AWD has covered 13,100 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Dual electric motors with 514 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Adaptive cruise control",
    "Premium sound system",
@@ -2770,7 +2867,9 @@
   "addedOn": "2026-10-01",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 62,
@@ -2789,7 +2888,7 @@
   "engine": "Single electric motor",
   "power": "201 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2024 BYD Atto 3 Extended Range has covered 4,300 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Single electric motor with 201 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2024 BYD Atto 3 Extended Range has covered 4,300 km. Charges at home overnight and costs a fraction of petrol to run day to day. Under the bonnet is the Single electric motor with 201 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "DC fast charging",
    "Adaptive cruise control",
@@ -2815,7 +2914,9 @@
   "addedOn": "2026-10-10",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 63,
@@ -2834,7 +2935,7 @@
   "engine": "1.5L I4",
   "power": "112 hp",
   "drive": "Front-wheel drive",
-  "desc": "This 2023 MG ZS 1.5 Comfort has covered 11,200 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 112 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2023 MG ZS 1.5 Comfort has covered 11,200 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 1.5L I4 with 112 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Rear parking sensors",
    "Electric mirrors",
@@ -2860,7 +2961,9 @@
   "addedOn": "2026-10-06",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 64,
@@ -2879,7 +2982,7 @@
   "engine": "5.0L V8",
   "power": "450 hp",
   "drive": "Rear-wheel drive",
-  "desc": "This 2020 Ford Mustang 5.0 V8 GT Fastback has covered 26,800 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 5.0L V8 with 450 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Ford Mustang 5.0 V8 GT Fastback has covered 26,800 km. Built to be driven, and it shows on the coast road from Grand Baie to Le Morne. Under the bonnet is the 5.0L V8 with 450 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Heated front seats",
    "Power tailgate",
@@ -2905,7 +3008,9 @@
   "addedOn": "2026-10-23",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 65,
@@ -2924,7 +3029,7 @@
   "engine": "2.0L turbo I4",
   "power": "272 hp",
   "drive": "4x4",
-  "desc": "This 2021 Jeep Wrangler 2.0 Rubicon Unlimited has covered 31,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 272 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Jeep Wrangler 2.0 Rubicon Unlimited has covered 31,700 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 with 272 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Side steps",
    "Apple CarPlay and Android Auto",
@@ -2951,7 +3056,9 @@
   "addedOn": "2026-10-30",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 66,
@@ -2970,7 +3077,7 @@
   "engine": "3.5L V6 + electric",
   "power": "308 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2020 Lexus RX 450h F Sport has covered 48,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.5L V6 + electric with 308 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2020 Lexus RX 450h F Sport has covered 48,600 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 3.5L V6 + electric with 308 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Adaptive dampers",
    "Head-up display",
@@ -2997,7 +3104,9 @@
   "addedOn": "2026-10-16",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  },
  {
   "id": 67,
@@ -3016,7 +3125,7 @@
   "engine": "2.0L turbo I4 MHEV",
   "power": "250 hp",
   "drive": "All-wheel drive",
-  "desc": "This 2021 Volvo XC60 B5 Inscription AWD has covered 37,200 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 MHEV with 250 hp, paired with a automatic gearbox. It has been through our workshop, comes with the paperwork done, and can be delivered anywhere on the island.",
+  "desc": "This 2021 Volvo XC60 B5 Inscription AWD has covered 37,200 km. High driving position, a big boot and enough ground clearance for the rougher roads up north. Under the bonnet is the 2.0L turbo I4 MHEV with 250 hp, paired with a automatic gearbox. It has been checked before sale, and you can buy it outright, exchange your current car against it, or lease it through Rogers Capital.",
   "features": [
    "Heated front seats",
    "Ambient lighting",
@@ -3042,6 +3151,8 @@
   "addedOn": "2026-10-28",
   "status": "available",
   "featured": false,
-  "demo": true
+  "demo": true,
+  "deal": false,
+  "spin": []
  }
 ]

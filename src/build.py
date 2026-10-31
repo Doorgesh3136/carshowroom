@@ -16,23 +16,26 @@ else:
 live = [c for c in cars if c.get('status') != 'sold']
 print(len(live), 'cars on sale')
 tpl = open(os.path.join(D,'index.tpl.html'),encoding='utf-8').read()
-ld = {"@context":"https://schema.org","@type":"AutoDealer","name":"Your Dream Motors","url":"https://yourdreammotors.mu/",
- "logo":"https://yourdreammotors.mu/favicon.svg","image":"https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
- "telephone":"+230 433 8026","email":"info@yourdreammotors.mu","priceRange":"Rs 790,000 to Rs 16,500,000",
- "address":{"@type":"PostalAddress","streetAddress":"Royal Road","addressLocality":"Moka","addressCountry":"MU"},
- "geo":{"@type":"GeoCoordinates","latitude":-20.2194,"longitude":57.4961},
- "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"17:00"},
-   {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}],
- "sameAs":["https://facebook.com/Yourdreammotors","https://www.instagram.com/yourdreammotors.ltd/","https://www.tiktok.com/@yourdreammotors"],
- "contactPoint":[{"@type":"ContactPoint","telephone":"+230 433 8026","contactType":"sales","areaServed":"MU","availableLanguage":["English","French"]}]}
+ld = {"@context":"https://schema.org","@type":"AutoDealer","name":"V8 Motors","url":"https://v8motors.mu/",
+ "slogan":"Drive smarter","image":"https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=1200&q=80",
+ "telephone":"+230 5259 0327","email":"veightmotorsv8@gmail.com",
+ "address":{"@type":"PostalAddress","streetAddress":"59B Royal Road","addressLocality":"Coromandel","addressCountry":"MU"},
+ "contactPoint":[{"@type":"ContactPoint","telephone":"+230 5259 0327","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5750 7912","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5500 9527","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5532 9727","contactType":"sales","areaServed":"MU"}],
+ "makesOffer":[{"@type":"Offer","name":"Car leasing through Rogers Capital"},{"@type":"Offer","name":"Vehicle exchange and trade-in"}]}
 css = open(os.path.join(D,'style.css'),encoding='utf-8').read()
-js = open(os.path.join(D,'app.js'),encoding='utf-8').read()
+js = open(os.path.join(D,'app.js'),encoding='utf-8').read().replace('/*@@CAR3D@@*/', open(os.path.join(D,'car3d.js'),encoding='utf-8').read())
 # light minify of css
 css = re.sub(r'/\*.*?\*/','',css,flags=re.S); css = re.sub(r'\n\s*','\n',css)
 out = (tpl.replace('{{CSS}}',css).replace('{{JS}}',js).replace('{{JSONLD}}',json.dumps(ld,ensure_ascii=False))
           .replace('{{DATA}}',json.dumps(cars,ensure_ascii=False,separators=(',',':'))).replace('{{COUNT}}',str(len(live))))
-assert '{{' not in out
-open(os.path.join(D,'..','index.html'),'w',encoding='utf-8').write(out)
+PAGES = [('index.html','https://v8motors.mu/',''),
+         ('catalogue.html','https://v8motors.mu/catalogue.html','<script>window.V8_START="inventory";</script>')]
+for fn, canon, extra in PAGES:
+    o = out.replace('{{CANON}}', canon).replace('<body class="is-loading">', '<body class="is-loading">' + extra)
+    if fn == 'catalogue.html':
+        o = o.replace('<title>V8 Motors | Quality Used Cars in Coromandel, Mauritius</title>', '<title>Catalogue | Used Cars for Sale at V8 Motors, Coromandel</title>')
+    assert '{{' not in o
+    open(os.path.join(D,'..',fn),'w',encoding='utf-8').write(o)
 print(len(out)//1024,'KB')
 adm = open(os.path.join(D,'admin.tpl.html'),encoding='utf-8').read().replace('{{REPO}}','Doorgesh3136/carshowroom')
 open(os.path.join(D,'..','admin.html'),'w',encoding='utf-8').write(adm)

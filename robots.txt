@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://yourdreammotors.mu/sitemap.xml
+Sitemap: https://v8motors.mu/sitemap.xml

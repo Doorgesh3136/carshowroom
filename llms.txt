@@ -1,87 +1,18 @@
-# Your Dream Motors
+# V8 Motors
 
-> Pre-owned car dealership on Royal Road, Moka, Mauritius. In the car trade since 2005, Your Dream Motors since 2012. Tagline: "Turning driving dreams into reality." Inspected cars, registration handled, free island-wide delivery, trade-ins and valuations.
+> Used car dealer at 59B Royal Road, Coromandel, Mauritius. Tagline: "Drive smarter. Find your modern car." Buy, sell or exchange. Every car is checked before sale, new stock arrives every week and there are deals every Saturday. Leasing is available through Rogers Capital.
 
 ## Contact
-- Showroom: +230 433 8026
-- Sales: 5761 8275 (Akshay, head of sales), 5799 7173
-- WhatsApp: +230 5474 2683
-- Email: info@yourdreammotors.mu
-- Address: Royal Road, Moka, Mauritius
-- Hours: Monday to Friday 09:00 to 17:00, Saturday 09:00 to 12:00, Sunday closed
+- Phone: 5259 0327, 5750 7912, 5500 9527, 5532 9727
+- Email: veightmotorsv8@gmail.com
+- Address: 59B Royal Road, Coromandel, Mauritius
 
 ## Pages
-- [Home](https://yourdreammotors.mu/)
-- [Inventory](https://yourdreammotors.mu/#/inventory)
-- [Sell your car](https://yourdreammotors.mu/#/sell)
-- [About and team](https://yourdreammotors.mu/#/about)
-- [Contact](https://yourdreammotors.mu/#/contact)
+- [Home](https://v8motors.mu/)
+- [Catalogue](https://v8motors.mu/catalogue.html): every car for sale, with filters, a 3D 360° view, finance and running-cost calculators
+- [Sell your car](https://v8motors.mu/#/sell)
+- [About us](https://v8motors.mu/#/about)
+- [Contact](https://v8motors.mu/#/contact)
 
-## Stock (67 cars, prices in Mauritian rupees)
-- 2013 Mercedes-Benz A 180 1.6 petrol, 174,412 km, Petrol: Rs 525,000 (https://yourdreammotors.mu/#/car/23)
-- 2022 Hyundai Grand i10 1.2 Fluid, 22,100 km, Petrol: Rs 570,000 (https://yourdreammotors.mu/#/car/34)
-- 2023 Nissan Magnite 1.0 turbo, 50,091 km, Petrol: Rs 725,000 (https://yourdreammotors.mu/#/car/22)
-- 2020 Honda Fit 1.3 Home, 46,800 km, Petrol: Rs 750,000 (https://yourdreammotors.mu/#/car/31)
-- 2023 MG ZS 1.5 Comfort, 11,200 km, Petrol: Rs 785,000 (https://yourdreammotors.mu/#/car/63)
-- 2022 Toyota Vios 1.5 G CVT, 21,400 km, Petrol: Rs 805,000 (https://yourdreammotors.mu/#/car/24)
-- 2024 Suzuki Swift GLX 1.2, 26,581 km, Petrol: Rs 815,000 (https://yourdreammotors.mu/#/car/21)
-- 2022 Volkswagen Polo 1.0 TSI Life, 18,300 km, Petrol: Rs 855,000 (https://yourdreammotors.mu/#/car/40)
-- 2022 Kia Cerato 1.5 petrol, 65,174 km, Petrol: Rs 875,000 (https://yourdreammotors.mu/#/car/20)
-- 2019 Mercedes-Benz C 180 1.6 petrol, 126,186 km, Petrol: Rs 975,000 (https://yourdreammotors.mu/#/car/19)
-- 2025 Nissan Magnite 1.0 turbo, 14,104 km, Petrol: Rs 998,000 (https://yourdreammotors.mu/#/car/18)
-- 2020 Mazda 3 2.0 Astina Hatch, 52,100 km, Petrol: Rs 998,000 (https://yourdreammotors.mu/#/car/39)
-- 2021 MINI Cooper SE Electric, 78,963 km, Electric: Rs 1,098,000 (https://yourdreammotors.mu/#/car/16)
-- 2024 Chery Tiggo 4 Pro 1.5 turbo, 36,213 km, Petrol: Rs 1,098,000 (https://yourdreammotors.mu/#/car/17)
-- 2023 Hyundai Creta 1.5 Premium, 9,700 km, Petrol: Rs 1,098,000 (https://yourdreammotors.mu/#/car/33)
-- 2022 Kia Seltos 1.6 EX+, 24,800 km, Petrol: Rs 1,098,000 (https://yourdreammotors.mu/#/car/35)
-- 2014 BMW 740i 3.0 petrol, 132,912 km, Petrol: Rs 1,100,000 (https://yourdreammotors.mu/#/car/14)
-- 2016 BMW 218i 1.5 petrol, 88,459 km, Petrol: Rs 1,100,000 (https://yourdreammotors.mu/#/car/15)
-- 2018 BMW 530e Plug-in hybrid, 93,000 km, Hybrid: Rs 1,198,000 (https://yourdreammotors.mu/#/car/13)
-- 2021 Toyota Corolla 1.8 Hybrid GLi, 38,200 km, Hybrid: Rs 1,298,000 (https://yourdreammotors.mu/#/car/25)
-- 2020 Mitsubishi L200 2.4 DI-D Double Cab, 68,900 km, Diesel: Rs 1,298,000 (https://yourdreammotors.mu/#/car/46)
-- 2023 Nissan Qashqai 1.3 DIG-T, 50,539 km, Petrol: Rs 1,325,000 (https://yourdreammotors.mu/#/car/12)
-- 2019 Audi A5 1.4 TFSI, 86,336 km, Petrol: Rs 1,398,000 (https://yourdreammotors.mu/#/car/11)
-- 2022 Honda Civic 1.5 VTEC Turbo RS, 19,800 km, Petrol: Rs 1,398,000 (https://yourdreammotors.mu/#/car/29)
-- 2023 Suzuki Jimny 1.5 GLX AllGrip, 6,400 km, Petrol: Rs 1,398,000 (https://yourdreammotors.mu/#/car/43)
-- 2021 Peugeot 3008 1.6 THP GT, 34,800 km, Petrol: Rs 1,398,000 (https://yourdreammotors.mu/#/car/44)
-- 2022 Nissan Navara 2.3 dCi PRO-4X, 33,600 km, Diesel: Rs 1,498,000 (https://yourdreammotors.mu/#/car/37)
-- 2022 Audi A3 Sportback 35 TFSI, 20,500 km, Petrol: Rs 1,498,000 (https://yourdreammotors.mu/#/car/52)
-- 2024 BYD Atto 3 Extended Range, 4,300 km, Electric: Rs 1,498,000 (https://yourdreammotors.mu/#/car/62)
-- 2016 BMW 730i 2.0 petrol, 104,196 km, Petrol: Rs 1,598,000 (https://yourdreammotors.mu/#/car/10)
-- 2023 Hyundai Tucson 1.6 T-GDi N Line, 12,900 km, Petrol: Rs 1,598,000 (https://yourdreammotors.mu/#/car/32)
-- 2021 Nissan X-Trail 2.5 Tekna 4WD, 47,300 km, Petrol: Rs 1,598,000 (https://yourdreammotors.mu/#/car/36)
-- 2021 Mazda CX-5 2.5 Akera AWD, 36,900 km, Petrol: Rs 1,598,000 (https://yourdreammotors.mu/#/car/38)
-- 2022 BMW X1 1.5 petrol, 80,979 km, Petrol: Rs 1,698,000 (https://yourdreammotors.mu/#/car/9)
-- 2021 Volkswagen Tiguan 2.0 TSI R-Line 4Motion, 39,400 km, Petrol: Rs 1,698,000 (https://yourdreammotors.mu/#/car/42)
-- 2021 Honda CR-V 1.5T EX AWD, 40,300 km, Petrol: Rs 1,798,000 (https://yourdreammotors.mu/#/car/30)
-- 2022 Volkswagen Golf GTI 2.0 TSI Mk8, 17,600 km, Petrol: Rs 1,798,000 (https://yourdreammotors.mu/#/car/41)
-- 2025 Kia Sportage GT Line 1.6 T-GDi, 18,406 km, Petrol: Rs 1,825,000 (https://yourdreammotors.mu/#/car/8)
-- 2021 Toyota Hilux 2.8 GD-6 Legend Double Cab, 61,200 km, Diesel: Rs 1,898,000 (https://yourdreammotors.mu/#/car/27)
-- 2023 Ford Ranger 2.0 BiTurbo Wildtrak, 15,800 km, Diesel: Rs 1,898,000 (https://yourdreammotors.mu/#/car/45)
-- 2024 BMW X2 25e plug-in hybrid, 55,997 km, Hybrid: Rs 2,098,000 (https://yourdreammotors.mu/#/car/7)
-- 2022 Toyota RAV4 2.5 Hybrid VX, 26,700 km, Hybrid: Rs 2,098,000 (https://yourdreammotors.mu/#/car/26)
-- 2022 Tesla Model 3 Long Range AWD, 24,600 km, Electric: Rs 2,098,000 (https://yourdreammotors.mu/#/car/60)
-- 2022 BMW 320i M Sport, 23,400 km, Petrol: Rs 2,198,000 (https://yourdreammotors.mu/#/car/48)
-- 2022 Mercedes-Benz GLC 300e Plug-in hybrid, 74,064 km, Hybrid: Rs 2,398,000 (https://yourdreammotors.mu/#/car/6)
-- 2023 Tesla Model Y Long Range AWD, 13,100 km, Electric: Rs 2,398,000 (https://yourdreammotors.mu/#/car/61)
-- 2023 Mercedes-Benz E 200 2.0 petrol, EQ Boost, 13,775 km, Hybrid: Rs 2,698,000 (https://yourdreammotors.mu/#/car/4)
-- 2023 BMW iX1 xDrive30 electric, mileage on request, Electric: Rs 2,698,000 (https://yourdreammotors.mu/#/car/5)
-- 2021 Audi Q5 45 TFSI quattro S line, 33,100 km, Petrol: Rs 2,698,000 (https://yourdreammotors.mu/#/car/51)
-- 2021 Land Rover Range Rover Evoque P200 R-Dynamic SE, 30,400 km, Petrol: Rs 2,698,000 (https://yourdreammotors.mu/#/car/54)
-- 2021 Volvo XC60 B5 Inscription AWD, 37,200 km, Petrol: Rs 2,798,000 (https://yourdreammotors.mu/#/car/67)
-- 2020 Ford Mustang 5.0 V8 GT Fastback, 26,800 km, Petrol: Rs 3,098,000 (https://yourdreammotors.mu/#/car/64)
-- 2021 Jeep Wrangler 2.0 Rubicon Unlimited, 31,700 km, Petrol: Rs 3,298,000 (https://yourdreammotors.mu/#/car/65)
-- 2019 Toyota Land Cruiser 4.5 V8 VX, 74,500 km, Diesel: Rs 3,698,000 (https://yourdreammotors.mu/#/car/28)
-- 2020 Lexus RX 450h F Sport, 48,600 km, Hybrid: Rs 3,798,000 (https://yourdreammotors.mu/#/car/66)
-- 2019 Mercedes-Benz CLS 53 AMG 4MATIC+, mileage on request, Hybrid: Rs 3,998,000 (https://yourdreammotors.mu/#/car/3)
-- 2021 BMW X5 xDrive40i M Sport, 42,800 km, Petrol: Rs 4,198,000 (https://yourdreammotors.mu/#/car/49)
-- 2021 Porsche Macan S, 29,600 km, Petrol: Rs 4,198,000 (https://yourdreammotors.mu/#/car/57)
-- 2022 BMW M4 Competition, 9,800 km, Petrol: Rs 4,898,000 (https://yourdreammotors.mu/#/car/50)
-- 2021 Porsche Taycan 4S Electric, 10,000 km, Electric: Rs 4,998,000 (https://yourdreammotors.mu/#/car/2)
-- 2020 Audi Q8 55 TFSI quattro, 51,600 km, Petrol: Rs 5,198,000 (https://yourdreammotors.mu/#/car/53)
-- 2021 Porsche Panamera 4 E-Hybrid, 54,916 km, Hybrid: Rs 5,498,000 (https://yourdreammotors.mu/#/car/1)
-- 2022 Land Rover Defender 110 D250 SE, 27,300 km, Diesel: Rs 5,698,000 (https://yourdreammotors.mu/#/car/56)
-- 2020 Porsche Cayenne E-Hybrid, 44,100 km, Hybrid: Rs 6,198,000 (https://yourdreammotors.mu/#/car/58)
-- 2022 Land Rover Range Rover Sport P400 HSE Dynamic, 21,900 km, Petrol: Rs 6,798,000 (https://yourdreammotors.mu/#/car/55)
-- 2021 Porsche 911 Carrera S (992), 14,200 km, Petrol: Rs 7,598,000 (https://yourdreammotors.mu/#/car/59)
-- 2021 Mercedes-AMG G 63 Night Package, 18,000 km, Petrol: Rs 11,898,000 (https://yourdreammotors.mu/#/car/47)
+## Ways to pay
+- Cash, bank loan, leasing through Rogers Capital, or exchange your current car
