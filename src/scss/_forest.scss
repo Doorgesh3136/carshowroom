@@ -8,19 +8,19 @@
   --line-hi: rgba(#{$amber-rgb}, .7);
 }
 
-html { background: #EEF1EC; }
+html { background: #E8F0EA; }
 body {
   color: var(--text);
   background:
-    radial-gradient(ellipse 60% 45% at 100% 0%, rgba(47,90,69,.13) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 45% at 100% 0%, rgba(47,90,69,.16) 0%, transparent 70%),
     radial-gradient(ellipse 55% 40% at 0% 50%, rgba(#{$amber-rgb},.10) 0%, transparent 70%),
     radial-gradient(ellipse 70% 50% at 70% 100%, rgba(36,73,58,.10) 0%, transparent 70%),
-    linear-gradient(180deg, #F5F6F2 0%, #ECF0EA 50%, #F2F4EF 100%);
+    linear-gradient(180deg, #EEF4EF 0%, #E5EDE6 50%, #ECF2ED 100%);
   background-attachment: fixed;
 }
 
 // header: frosted stone glass
-.hdr { background: rgba(247,248,244,.82); backdrop-filter: blur(14px) saturate(1.3); }
+.hdr { background: rgba(240,246,241,.84); backdrop-filter: blur(14px) saturate(1.3); }
 
 // light sections let the page wash show; "paper" sections get a deeper sage band
 :where(.sec, .brands, .mani) { background: transparent; }   // :where keeps it weaker than the dark bands
@@ -49,3 +49,6 @@ body {
 .btn-line:hover { border-color: var(--line-hi); }
 .round-btn.dark:hover { background: $navy; color: #fff; border-color: $navy; }
 .toast { background: $navy; color: $bone; }
+
+// makes strip: frosted, not white
+.brands { background: rgba(255,255,255,.4); border-color: rgba(18,36,27,.08); }

@@ -940,12 +940,12 @@ html.js-motion .wipe .w-label b{color:#F3F1EA;overflow:hidden;padding-bottom:.08
 .ld-meta{display:flex;justify-content:space-between;gap:20px;font-size:13.5px;color:rgba(255,255,255,.55)}
 .ld-pct{color:#D4B46A;font-variant-numeric:tabular-nums;font-weight:700}
 :root{--fg:#12241B;--surface:#fff;--surface-2:#E3E9E3;--line-hi:rgba(212,180,106, .7)}
-html{background:#EEF1EC}
-body{color:var(--text);background:radial-gradient(ellipse 60% 45% at 100% 0%, rgba(47,90,69,.13) 0%, transparent 70%),
+html{background:#E8F0EA}
+body{color:var(--text);background:radial-gradient(ellipse 60% 45% at 100% 0%, rgba(47,90,69,.16) 0%, transparent 70%),
 radial-gradient(ellipse 55% 40% at 0% 50%, rgba(212,180,106,.10) 0%, transparent 70%),
 radial-gradient(ellipse 70% 50% at 70% 100%, rgba(36,73,58,.10) 0%, transparent 70%),
-linear-gradient(180deg, #F5F6F2 0%, #ECF0EA 50%, #F2F4EF 100%);background-attachment:fixed}
-.hdr{background:rgba(247,248,244,.82);backdrop-filter:blur(14px) saturate(1.3)}
+linear-gradient(180deg, #EEF4EF 0%, #E5EDE6 50%, #ECF2ED 100%);background-attachment:fixed}
+.hdr{background:rgba(240,246,241,.84);backdrop-filter:blur(14px) saturate(1.3)}
 :where(.sec, .brands, .mani){background:transparent}
 .sec-paper,.pay-sec{background:radial-gradient(ellipse 70% 80% at 100% 0%, rgba(212,180,106,.10), transparent 60%),
 linear-gradient(180deg, rgba(36,73,58,.05) 0%, rgba(36,73,58,.11) 100%)}
@@ -960,6 +960,7 @@ linear-gradient(180deg, #EEF2EC, #E3EAE3)}
 .btn-line:hover{border-color:var(--line-hi)}
 .round-btn.dark:hover{background:#12241B;color:#fff;border-color:#12241B}
 .toast{background:#12241B;color:#F3F1EA}
+.brands{background:rgba(255,255,255,.4);border-color:rgba(18,36,27,.08)}
 .spec div{position:relative}
 .spec div::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#C9A55C;transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
 .spec div:nth-child(even)::after{transform-origin:right}
@@ -976,6 +977,37 @@ linear-gradient(180deg, #EEF2EC, #E3EAE3)}
 .v-thumbs button.on{border-color:#C9A55C}
 .how-media img,.sell-pic img,.about-pic img{transition:scale 1.4s cubic-bezier(.16,1,.3,1)}
 .how-media:hover img,.sell-pic:hover img,.about-pic:hover img{scale:1.05}
+.dp{translate:calc(var(--dx, 0) * 1px) calc(var(--dy, 0) * 1px)}
+#heroSlides{inset:-30px;translate:calc(var(--dx, 0) * 1px) calc((var(--hy, 0) + var(--dy, 0)) * 1px)}
+.types .type{transform:perspective(900px) rotateX(calc(var(--trx, 0) * 1deg)) rotateY(calc(var(--try, 0) * 1deg));transform-style:preserve-3d}
+.types .type .type-in{transform:translateZ(30px)}
+.mani-in{grid-template-columns:minmax(0, .42fr) minmax(0, 1fr)}
+.mani-side{position:sticky;top:110px;display:grid;gap:34px}
+.mani-k{position:static}
+.mani-pics{position:relative;height:clamp(320px, 34vw, 480px)}
+.mp{position:absolute;margin:0;overflow:hidden;border-radius:18px;box-shadow:0 30px 60px -30px rgba(18,36,27, .55)}
+.mp img{width:100%;height:100%;object-fit:cover}
+.mp1{left:0;top:0;width:72%;height:82%}
+.mp2{right:0;bottom:0;width:46%;height:44%;border:6px solid #EEF4EF}
+@media (max-width: 820px){
+.mani-in{grid-template-columns:minmax(0, 1fr)}
+.mani-side{position:static}
+.mani-pics{height:300px}
+}
+.pay-l{display:grid;gap:30px;align-content:start}
+.pay-pic{overflow:hidden;border-radius:18px;aspect-ratio:4 / 4.4;box-shadow:0 30px 60px -30px rgba(18,36,27, .55)}
+.pay-pic img{width:100%;height:100%;object-fit:cover}
+@media (max-width: 820px){
+.pay-pic{aspect-ratio:16 / 10}
+}
+.ftr-mark span{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:inherit}
+.ftr-mark .fl{display:inline-block;font-style:normal;translate:0 calc(var(--ly, 0) * 1px);background:linear-gradient(180deg, rgba(212,180,106,.95) 0%, rgba(212,180,106,.2) 70%, rgba(212,180,106,0) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn-red{overflow:hidden;isolation:isolate}
+.btn-red::before{content:"";position:absolute;inset:0;z-index:-1;background:#12241B;transform:scaleX(0);transform-origin:right;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.btn-red:hover{color:#F3F1EA;background:#C9A55C}
+.btn-red:hover::before{transform:scaleX(1);transform-origin:left}
+.hero .btn-red::before,.sec-navy .btn-red::before,.visit .btn-red::before{background:#F3F1EA}
+.hero .btn-red:hover,.sec-navy .btn-red:hover,.visit .btn-red:hover{color:#0C1712}
 .c-item,.c-item *{min-width:0;overflow-wrap:anywhere}
 .card-foot{flex-wrap:wrap;gap:6px 12px}
 .card-mo{white-space:nowrap}
@@ -1151,7 +1183,13 @@ h1{overflow-wrap:break-word;hyphens:auto}
 
   <section class="mani" aria-labelledby="hMani">
     <div class="wrap mani-in">
-      <p class="mani-k" id="hMani">Why buy here</p>
+      <div class="mani-side">
+        <p class="mani-k" id="hMani">Why buy here</p>
+        <div class="mani-pics">
+          <figure class="mp mp1 clip-in"><img src="https://images.unsplash.com/photo-1763165524637-9067debdc80b?auto=format&fit=crop&w=700&h=900&q=72" alt="A black Porsche on a showroom floor" loading="lazy" decoding="async" width="700" height="900"></figure>
+          <figure class="mp mp2 clip-in"><img src="https://images.unsplash.com/photo-1557598628-bdd7d0767917?auto=format&fit=crop&w=600&h=600&q=72" alt="A car key held up, ready to hand over" loading="lazy" decoding="async" width="600" height="600"></figure>
+        </div>
+      </div>
       <div>
         <p class="mani-t" data-scrub>Every car on our floor is checked before it goes on sale. New stock arrives every week, the deals land every Saturday, and you can pay cash, take a bank loan, lease through Rogers Capital or trade in the car you drive today.</p>
       </div>
@@ -1200,7 +1238,10 @@ h1{overflow-wrap:break-word;hyphens:auto}
 
   <section class="sec sec-paper pay-sec" aria-labelledby="hPay">
     <div class="wrap pay">
-      <h2 id="hPay">Four ways to drive one home</h2>
+      <div class="pay-l">
+        <h2 id="hPay">Four ways to drive one home</h2>
+        <div class="pay-pic clip-in"><img src="https://images.unsplash.com/photo-1792936751290-ebeb2bd4b1c0?auto=format&fit=crop&w=800&h=1000&q=72" alt="A red Porsche Panamera behind a showroom window" loading="lazy" decoding="async" width="800" height="1000"></div>
+      </div>
       <dl class="pay-list">
         <div><dt>Cash</dt><dd>Agree the price, pay, and drive away once the transfer is done.</dd></div>
         <div><dt>Bank loan</dt><dd>Use the calculator on any car to see a monthly figure, then take it to your bank.</dd></div>
@@ -2507,7 +2548,7 @@ function buildScenes(view, R){
   }
 
   // photos drift inside their frames
-  $$('.how-media img, .sell-pic img, .about-pic img', view).forEach(img => {
+  $$('.how-media img, .sell-pic img, .about-pic img, .pay-pic img, .mp img', view).forEach(img => {
     G.fromTo(img, {yPercent: -7, scale: 1.16}, {yPercent: 7, scale: 1.16, ease: 'none', scrollTrigger: {trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true}});
   });
 
@@ -2560,6 +2601,10 @@ function buildScenes(view, R){
   $$('#viewer', view).forEach(v => {
     G.fromTo(v, {y: 0}, {y: 60, ease: 'none', scrollTrigger: {trigger: v, start: 'top 20%', end: 'bottom top', scrub: true}});
   });
+
+  // the two statement photos drift at different speeds
+  $$('.mp1', view).forEach(el => G.fromTo(el, {y: 60}, {y: -80, ease: 'none', scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true}}));
+  $$('.mp2', view).forEach(el => G.fromTo(el, {y: 140}, {y: -140, ease: 'none', scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true}}));
 
   // statement band: big words drift apart as it passes
   $$('.mani-t', view).forEach(t => G.fromTo(t, {y: 60}, {y: -60, ease: 'none', scrollTrigger: {trigger: t, start: 'top bottom', end: 'bottom top', scrub: true}}));
@@ -2615,25 +2660,25 @@ M.wipe = async function(R, doMount){
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
   const chs = $$('.ch', name), old = $('.view.on');
   w.classList.add('on');
-  G.set(cols, {yPercent: 100}); G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
+  // y:0 matters: the CSS already parks the columns at translateY(100%), and GSAP would add its own 100% on top
+  G.set(cols, {y: 0, yPercent: 100}); G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
   await G.timeline()
-    .to(old, {y: -90, opacity: .25, duration: .7, ease: 'expo.in'}, 0)
-    .to(cols, {yPercent: 0, duration: .7, stagger: .06, ease: 'expo.inOut'}, 0)
-    .to(chs, {yPercent: 0, duration: .6, stagger: .018, ease: 'expo.out'}, '-=.3')
-    .to(bar, {scaleX: 1, duration: .5, ease: 'expo.out'}, '<')
+    .to(old, {y: -70, opacity: .3, duration: .55, ease: 'expo.in'}, 0)
+    .to(cols, {yPercent: 0, duration: .55, stagger: .045, ease: 'expo.inOut'}, 0)
+    .to(chs, {yPercent: 0, duration: .45, stagger: .014, ease: 'expo.out'}, '-=.25')
+    .to(bar, {scaleX: 1, duration: .4, ease: 'expo.out'}, '<')
     .then();
   G.set(old, {clearProps: 'transform,opacity'});
   doMount();
-  const view = $('.view.on');
+  // the new page settles up while the columns leave (not awaited, so clicks work straight away)
+  G.fromTo($('.view.on'), {y: 100}, {y: 0, duration: 1, ease: 'expo.out', delay: .2, clearProps: 'transform', onComplete: () => ST.refresh()});
   await G.timeline()
-    .to(chs, {yPercent: -120, duration: .4, stagger: .012, ease: 'expo.in'})
-    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .35, ease: 'expo.in'}, '<')
-    .to(cols, {yPercent: -100, duration: .85, stagger: .06, ease: 'expo.inOut'}, '-=.1')
-    .fromTo(view, {y: 120}, {y: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform'}, '-=.75')
+    .to(chs, {yPercent: -120, duration: .3, stagger: .01, ease: 'expo.in'})
+    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .28, ease: 'expo.in'}, '<')
+    .to(cols, {yPercent: -100, duration: .65, stagger: .045, ease: 'expo.inOut'}, '-=.08')
     .then();
   w.classList.remove('on');
   G.set([...cols, lab, bar], {clearProps: 'all'});
-  ST.refresh();
 };
 
 /* ───────── car tabs: what each tab does as it opens ───────── */
@@ -2687,6 +2732,54 @@ if(MOTION){
 }
 
 if(MOTION && fine){
+  // depth: layers inside these blocks drift against the pointer (numbers are pixels at the edge)
+  const DEPTH = {
+    '#hero': [['#heroSlides', -26], ['.hero-h', 14], ['.hero-p', 8], ['.hero-foot', 5]],
+    '.mani-pics': [['.mp1', -16], ['.mp2', 26]],
+    '.how-media': [['img', -18]], '.sell-pic': [['img', -18]], '.about-pic': [['img', -18]], '.pay-pic': [['img', -18]],
+    '.visit': [['h2', 12], ['.sales', -8]],
+    '.deals-sec': [['.sec-head', 10]]
+  };
+  const qd = new Map();
+  const mover = el => {
+    let m = qd.get(el);
+    if(!m){ el.classList.add('dp'); m = {x: G.quickTo(el, '--dx', {duration: 1, ease: 'power3'}), y: G.quickTo(el, '--dy', {duration: 1, ease: 'power3'})}; qd.set(el, m); }
+    return m;
+  };
+  let act = null;
+  document.addEventListener('pointermove', e => {
+    const t = e.target; if(!t.closest) return;
+    let host = null, key = null;
+    for(const k in DEPTH){ const h = t.closest(k); if(h){ host = h; key = k; break; } }
+    if(act && act.host !== host){ act.items.forEach(([el]) => { const m = mover(el); m.x(0); m.y(0); }); act = null; }
+    if(!host) return;
+    if(!act) act = {host, items: DEPTH[key].map(([sel, d]) => [host.querySelector(sel), d]).filter(x => x[0])};
+    const r = host.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+    act.items.forEach(([el, d]) => { const m = mover(el); m.x(nx * d); m.y(ny * d); });
+  }, {passive: true});
+
+  // body-type tiles lean toward the pointer
+  let tiltEl2 = null;
+  document.addEventListener('pointermove', e => {
+    const tile = e.target.closest ? e.target.closest('.types .type') : null;
+    if(tile !== tiltEl2){ if(tiltEl2) G.to(tiltEl2, {'--trx': 0, '--try': 0, duration: .9, ease: 'power3'}); tiltEl2 = tile; }
+    if(!tile) return;
+    const r = tile.getBoundingClientRect();
+    G.to(tile, {'--try': ((e.clientX - r.left) / r.width - .5) * 12, '--trx': (.5 - (e.clientY - r.top) / r.height) * 10, duration: .5, ease: 'power3', overwrite: true});
+  }, {passive: true});
+
+  // footer wordmark: letters near the pointer lift up
+  const fm = $('.ftr-mark span');
+  if(fm){
+    fm.innerHTML = [...fm.textContent].map(ch => `<i class="fl">${ch === ' ' ? '&nbsp;' : esc(ch)}</i>`).join('');
+    const fl = $$('.fl', fm).map(el => ({el, q: G.quickTo(el, '--ly', {duration: .7, ease: 'power3'})}));
+    $('.ftr').addEventListener('pointermove', e => fl.forEach(({el, q}) => {
+      const r = el.getBoundingClientRect(), d = Math.hypot(e.clientX - (r.left + r.width / 2), (e.clientY - (r.top + r.height / 2)) * .6);
+      q(-Math.max(0, 1 - d / 320) * 46);
+    }), {passive: true});
+    $('.ftr').addEventListener('pointerleave', () => fl.forEach(({q}) => q(0)));
+  }
+
   // magnetic buttons
   const MAG = '.btn-lg, .hdr-cta, .qs-go, .round-btn, .type-go, .fab, .totop';
   let magEl = null;

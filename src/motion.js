@@ -131,7 +131,7 @@ function buildScenes(view, R){
   }
 
   // photos drift inside their frames
-  $$('.how-media img, .sell-pic img, .about-pic img', view).forEach(img => {
+  $$('.how-media img, .sell-pic img, .about-pic img, .pay-pic img, .mp img', view).forEach(img => {
     G.fromTo(img, {yPercent: -7, scale: 1.16}, {yPercent: 7, scale: 1.16, ease: 'none', scrollTrigger: {trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true}});
   });
 
@@ -184,6 +184,10 @@ function buildScenes(view, R){
   $$('#viewer', view).forEach(v => {
     G.fromTo(v, {y: 0}, {y: 60, ease: 'none', scrollTrigger: {trigger: v, start: 'top 20%', end: 'bottom top', scrub: true}});
   });
+
+  // the two statement photos drift at different speeds
+  $$('.mp1', view).forEach(el => G.fromTo(el, {y: 60}, {y: -80, ease: 'none', scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true}}));
+  $$('.mp2', view).forEach(el => G.fromTo(el, {y: 140}, {y: -140, ease: 'none', scrollTrigger: {trigger: el, start: 'top bottom', end: 'bottom top', scrub: true}}));
 
   // statement band: big words drift apart as it passes
   $$('.mani-t', view).forEach(t => G.fromTo(t, {y: 60}, {y: -60, ease: 'none', scrollTrigger: {trigger: t, start: 'top bottom', end: 'bottom top', scrub: true}}));
@@ -239,25 +243,25 @@ M.wipe = async function(R, doMount){
   $('#wipeIdx').textContent = R.key === 'car' ? `${R.car.year}, ${rs(R.car.price)}` : 'V8 Motors';
   const chs = $$('.ch', name), old = $('.view.on');
   w.classList.add('on');
-  G.set(cols, {yPercent: 100}); G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
+  // y:0 matters: the CSS already parks the columns at translateY(100%), and GSAP would add its own 100% on top
+  G.set(cols, {y: 0, yPercent: 100}); G.set(lab, {opacity: 1}); G.set(chs, {yPercent: 120}); G.set(bar, {scaleX: 0, transformOrigin: 'left center'});
   await G.timeline()
-    .to(old, {y: -90, opacity: .25, duration: .7, ease: 'expo.in'}, 0)
-    .to(cols, {yPercent: 0, duration: .7, stagger: .06, ease: 'expo.inOut'}, 0)
-    .to(chs, {yPercent: 0, duration: .6, stagger: .018, ease: 'expo.out'}, '-=.3')
-    .to(bar, {scaleX: 1, duration: .5, ease: 'expo.out'}, '<')
+    .to(old, {y: -70, opacity: .3, duration: .55, ease: 'expo.in'}, 0)
+    .to(cols, {yPercent: 0, duration: .55, stagger: .045, ease: 'expo.inOut'}, 0)
+    .to(chs, {yPercent: 0, duration: .45, stagger: .014, ease: 'expo.out'}, '-=.25')
+    .to(bar, {scaleX: 1, duration: .4, ease: 'expo.out'}, '<')
     .then();
   G.set(old, {clearProps: 'transform,opacity'});
   doMount();
-  const view = $('.view.on');
+  // the new page settles up while the columns leave (not awaited, so clicks work straight away)
+  G.fromTo($('.view.on'), {y: 100}, {y: 0, duration: 1, ease: 'expo.out', delay: .2, clearProps: 'transform', onComplete: () => ST.refresh()});
   await G.timeline()
-    .to(chs, {yPercent: -120, duration: .4, stagger: .012, ease: 'expo.in'})
-    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .35, ease: 'expo.in'}, '<')
-    .to(cols, {yPercent: -100, duration: .85, stagger: .06, ease: 'expo.inOut'}, '-=.1')
-    .fromTo(view, {y: 120}, {y: 0, duration: 1.2, ease: 'expo.out', clearProps: 'transform'}, '-=.75')
+    .to(chs, {yPercent: -120, duration: .3, stagger: .01, ease: 'expo.in'})
+    .to(bar, {scaleX: 0, transformOrigin: 'right center', duration: .28, ease: 'expo.in'}, '<')
+    .to(cols, {yPercent: -100, duration: .65, stagger: .045, ease: 'expo.inOut'}, '-=.08')
     .then();
   w.classList.remove('on');
   G.set([...cols, lab, bar], {clearProps: 'all'});
-  ST.refresh();
 };
 
 /* ───────── car tabs: what each tab does as it opens ───────── */
@@ -311,6 +315,54 @@ if(MOTION){
 }
 
 if(MOTION && fine){
+  // depth: layers inside these blocks drift against the pointer (numbers are pixels at the edge)
+  const DEPTH = {
+    '#hero': [['#heroSlides', -26], ['.hero-h', 14], ['.hero-p', 8], ['.hero-foot', 5]],
+    '.mani-pics': [['.mp1', -16], ['.mp2', 26]],
+    '.how-media': [['img', -18]], '.sell-pic': [['img', -18]], '.about-pic': [['img', -18]], '.pay-pic': [['img', -18]],
+    '.visit': [['h2', 12], ['.sales', -8]],
+    '.deals-sec': [['.sec-head', 10]]
+  };
+  const qd = new Map();
+  const mover = el => {
+    let m = qd.get(el);
+    if(!m){ el.classList.add('dp'); m = {x: G.quickTo(el, '--dx', {duration: 1, ease: 'power3'}), y: G.quickTo(el, '--dy', {duration: 1, ease: 'power3'})}; qd.set(el, m); }
+    return m;
+  };
+  let act = null;
+  document.addEventListener('pointermove', e => {
+    const t = e.target; if(!t.closest) return;
+    let host = null, key = null;
+    for(const k in DEPTH){ const h = t.closest(k); if(h){ host = h; key = k; break; } }
+    if(act && act.host !== host){ act.items.forEach(([el]) => { const m = mover(el); m.x(0); m.y(0); }); act = null; }
+    if(!host) return;
+    if(!act) act = {host, items: DEPTH[key].map(([sel, d]) => [host.querySelector(sel), d]).filter(x => x[0])};
+    const r = host.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+    act.items.forEach(([el, d]) => { const m = mover(el); m.x(nx * d); m.y(ny * d); });
+  }, {passive: true});
+
+  // body-type tiles lean toward the pointer
+  let tiltEl2 = null;
+  document.addEventListener('pointermove', e => {
+    const tile = e.target.closest ? e.target.closest('.types .type') : null;
+    if(tile !== tiltEl2){ if(tiltEl2) G.to(tiltEl2, {'--trx': 0, '--try': 0, duration: .9, ease: 'power3'}); tiltEl2 = tile; }
+    if(!tile) return;
+    const r = tile.getBoundingClientRect();
+    G.to(tile, {'--try': ((e.clientX - r.left) / r.width - .5) * 12, '--trx': (.5 - (e.clientY - r.top) / r.height) * 10, duration: .5, ease: 'power3', overwrite: true});
+  }, {passive: true});
+
+  // footer wordmark: letters near the pointer lift up
+  const fm = $('.ftr-mark span');
+  if(fm){
+    fm.innerHTML = [...fm.textContent].map(ch => `<i class="fl">${ch === ' ' ? '&nbsp;' : esc(ch)}</i>`).join('');
+    const fl = $$('.fl', fm).map(el => ({el, q: G.quickTo(el, '--ly', {duration: .7, ease: 'power3'})}));
+    $('.ftr').addEventListener('pointermove', e => fl.forEach(({el, q}) => {
+      const r = el.getBoundingClientRect(), d = Math.hypot(e.clientX - (r.left + r.width / 2), (e.clientY - (r.top + r.height / 2)) * .6);
+      q(-Math.max(0, 1 - d / 320) * 46);
+    }), {passive: true});
+    $('.ftr').addEventListener('pointerleave', () => fl.forEach(({q}) => q(0)));
+  }
+
   // magnetic buttons
   const MAG = '.btn-lg, .hdr-cta, .qs-go, .round-btn, .type-go, .fab, .totop';
   let magEl = null;
