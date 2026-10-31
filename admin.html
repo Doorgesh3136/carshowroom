@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Stock admin | V8 Motors</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0A1F33">
+<meta name="theme-color" content="#0F2C33">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1F33'/%3E%3Cpath d='M12 40h40M14 40v-9l5-9h22l7 9h2v9' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <style>
-:root{--navy:#0A1F33;--navy-2:#11304D;--navy-3:#1B4266;--red:#C8102E;--red-2:#A50D26;--paper:#EEF1F5;--line:#DDE2E9;--line-2:#E8ECF1;--text:#0B1624;--muted:#535D6B;--muted-2:#626C79;--ok:#167C45;--warn:#B7791F;--ease:cubic-bezier(.22,1,.36,1);--hd:"Archivo",system-ui,sans-serif;--bd:"Hanken Grotesk",system-ui,sans-serif;}
+:root{--navy:#0F2C33;--navy-2:#16404A;--navy-3:#1F5866;--red:#D3202F;--red-2:#AD1723;--paper:#E6EFED;--line:#CEDDD9;--line-2:#DCE8E5;--text:#0B1B1F;--muted:#4A5C60;--muted-2:#5A6B6F;--ok:#167C45;--warn:#B7791F;--ease:cubic-bezier(.22,1,.36,1);--hd:"Archivo",system-ui,sans-serif;--bd:"Hanken Grotesk",system-ui,sans-serif;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:var(--bd);font-size:15px;line-height:1.5;color:var(--text);background:var(--paper);-webkit-font-smoothing:antialiased;}
 button,input,select,textarea{font:inherit;color:inherit;}
@@ -35,7 +35,7 @@ h1,h2,h3{font-family:var(--hd);font-stretch:112%;letter-spacing:-.02em;color:var
 .fld small{font-size:12.5px;color:var(--muted);}
 .fld input,.fld select,.fld textarea{width:100%;min-height:44px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;}
 .fld textarea{resize:vertical;min-height:110px;}
-.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--navy);box-shadow:0 0 0 4px rgba(10,31,51,.07);}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--navy);box-shadow:0 0 0 4px rgba(15,44,51,.07);}
 .fld.bad input,.fld.bad select{border-color:var(--red);}
 .toast{position:fixed;left:50%;bottom:24px;z-index:99;transform:translate(-50%,30px);opacity:0;background:var(--navy);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;transition:.35s var(--ease);pointer-events:none;max-width:calc(100% - 32px);text-align:center;}
 .toast.on{transform:translate(-50%,0);opacity:1;}
@@ -44,7 +44,7 @@ h1,h2,h3{font-family:var(--hd);font-stretch:112%;letter-spacing:-.02em;color:var
 /* sign in */
 .login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;}
 .login-side{background:var(--navy);color:#fff;padding:56px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
-.login-side::after{content:'';position:absolute;right:-140px;bottom:-140px;width:420px;height:420px;border-radius:50%;border:70px solid rgba(200,16,46,.2);}
+.login-side::after{content:'';position:absolute;right:-140px;bottom:-140px;width:420px;height:420px;border-radius:50%;border:70px solid rgba(211,32,47,.2);}
 .login-side h1{color:#fff;font-size:clamp(34px,4vw,52px);font-stretch:120%;max-width:12ch;}
 .login-side p{color:rgba(255,255,255,.7);max-width:420px;margin-top:14px;}
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--hd);font-stretch:112%;font-weight:800;font-size:16px;}
@@ -108,7 +108,7 @@ tbody tr:hover{background:#FAFBFC;}
 .status.s-reserved{color:var(--warn);}
 .status.s-sold{color:var(--muted);}
 .star{width:40px;height:40px;border-radius:9px;display:grid;place-items:center;color:#C5CCD6;}
-.star.on{color:#E3A23B;}
+.star.on{color:#F2A516;}
 .star svg{width:20px;height:20px;}
 .row-acts{display:flex;gap:2px;justify-content:flex-end;}
 .empty{padding:50px 20px;text-align:center;color:var(--muted);}
@@ -124,19 +124,17 @@ tbody tr:hover{background:#FAFBFC;}
 .sec>p{color:var(--muted);font-size:14px;margin-top:-10px;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.spin-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
-#spinCount{font-weight:600;color:var(--navy);margin-right:auto;}
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
 .ph{position:relative;aspect-ratio:4/3;border-radius:10px;background:var(--navy-2) center/cover no-repeat;overflow:hidden;cursor:grab;border:2px solid transparent;}
 .ph.drag{opacity:.4;}
 .ph.over{border-color:var(--red);}
 .ph:first-child::before{content:'Main photo';position:absolute;left:8px;top:8px;background:var(--red);color:#fff;font-size:11.5px;font-weight:700;padding:3px 7px;border-radius:5px;}
 .ph-acts{position:absolute;right:6px;bottom:6px;display:flex;gap:4px;}
-.ph-acts button{width:34px;height:34px;border-radius:8px;background:rgba(10,31,51,.85);color:#fff;display:grid;place-items:center;}
+.ph-acts button{width:34px;height:34px;border-radius:8px;background:rgba(15,44,51,.85);color:#fff;display:grid;place-items:center;}
 .ph-acts button::after{content:'';position:absolute;inset:-5px;}
 .ph-acts button{position:relative;}
 .ph-acts svg{width:16px;height:16px;}
-.ph.uploading::after{content:'Uploading';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:700;background:rgba(10,31,51,.6);}
+.ph.uploading::after{content:'Uploading';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:700;background:rgba(15,44,51,.6);}
 .drop{border:2px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--muted);display:grid;gap:10px;justify-items:center;transition:border-color .2s,background .2s;}
 .drop.over{border-color:var(--red);background:#FFF5F6;}
 .drop b{color:var(--navy);}
@@ -174,8 +172,8 @@ tbody tr:hover{background:#FAFBFC;}
 .checks .y i{background:var(--ok);}
 .checks .n i{background:var(--warn);}
 .ed-foot{position:fixed;left:0;right:min(420px,36vw);bottom:0;padding:14px clamp(16px,3vw,40px);background:rgba(238,241,245,.96);border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end;z-index:3;}
-.scrim{position:fixed;inset:0;background:rgba(10,31,51,.5);z-index:60;display:grid;place-items:center;padding:16px;}
-.modal{background:#fff;border-radius:16px;padding:24px;width:min(460px,100%);display:grid;gap:14px;box-shadow:0 30px 80px -20px rgba(10,31,51,.5);animation:pop .3s var(--ease);}
+.scrim{position:fixed;inset:0;background:rgba(15,44,51,.5);z-index:60;display:grid;place-items:center;padding:16px;}
+.modal{background:#fff;border-radius:16px;padding:24px;width:min(460px,100%);display:grid;gap:14px;box-shadow:0 30px 80px -20px rgba(15,44,51,.5);animation:pop .3s var(--ease);}
 @keyframes pop{from{transform:translateY(16px) scale(.97);opacity:0;}}
 .modal h3{font-size:21px;}
 .modal p{color:var(--muted);}
@@ -309,9 +307,6 @@ tbody tr:hover{background:#FAFBFC;}
         <div class="photos" id="photos"></div>
         <div class="drop" id="drop"><svg style="width:28px;height:28px"><use href="#i-img"/></svg><span><b>Drop photos here</b> or <label style="color:var(--red);font-weight:600;cursor:pointer;text-decoration:underline">choose files<input type="file" id="files" accept="image/*" multiple hidden></label></span><small>Photos are resized to 1600 pixels and uploaded to the website.</small>
           <div class="url-row"><input id="urlIn" placeholder="Or paste an image link or Unsplash photo link" aria-label="Image link"><button class="btn btn-line" type="button" id="urlAdd">Add</button></div></div>
-      </div>
-      <div class="sec"><h3>360° spin photos <small style="font-family:var(--bd);font-weight:500;color:var(--muted);font-size:14px">optional</small></h3><p>Walk around the car taking a photo every few steps (24 to 36 photos, same height, same distance). Buyers can then drag to spin the real car. Without them, buyers still get the 3D model view.</p>
-        <div class="spin-row"><span id="spinCount">No spin photos</span><label class="btn btn-line" style="cursor:pointer">Upload spin photos<input type="file" id="spinFiles" accept="image/*" multiple hidden></label><button class="btn btn-danger" type="button" id="spinClear" hidden>Remove spin</button></div>
       </div>
       <div class="sec"><h3>The car</h3>
         <div class="g3"><label class="fld"><span>Make *</span><input name="make" list="makes" required></label><label class="fld"><span>Model *</span><input name="model" required></label><label class="fld"><span>Version</span><input name="variant" placeholder="e.g. 1.5 petrol, GT Line"></label></div>
@@ -508,7 +503,7 @@ function openEditor(id){
   for(const el of form.elements){ if(!el.name) continue; const v = ED[el.name]; if(el.type === 'checkbox') el.checked = !!v; else el.value = v ?? ''; }
   $$('.fld.bad', form).forEach(f => f.classList.remove('bad'));
   if(!ED.spin) ED.spin = [];
-  tags(); photos(); spinInfo(); preview(); SNAP = JSON.stringify(collect());
+  tags(); photos(); preview(); SNAP = JSON.stringify(collect());
   ed.classList.add('on'); ed.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden';
   setTimeout(() => (id ? $('#edClose') : form.make).focus(), 300);
 }
@@ -574,16 +569,7 @@ async function addFiles(list){
   if(files.length) toast(files.length === 1 ? 'Photo uploaded' : files.length + ' photos uploaded');
 }
 $('#files').addEventListener('change', e => { addFiles(e.target.files); e.target.value = ''; });
-function spinInfo(){ const n = ED.spin.length; $('#spinCount').textContent = n ? `${n} spin photos uploaded` : 'No spin photos'; $('#spinClear').hidden = !n; }
-$('#spinFiles').addEventListener('change', async e => {
-  const files = [...e.target.files].filter(f => f.type.startsWith('image/')).sort((x, y) => x.name.localeCompare(y.name, undefined, {numeric: true}));
-  e.target.value = ''; if(!files.length) return;
-  if(files.length < 8){ toast('Upload at least 8 photos for a smooth spin', true); return; }
-  const out = [];
-  for(let i = 0; i < files.length; i++){ $('#spinCount').textContent = `Uploading ${i + 1} of ${files.length}`; try{ out.push(await uploadPhoto(files[i], 1200)); }catch(x){ toast('Upload failed: ' + x.message, true); spinInfo(); return; } }
-  ED.spin = out; spinInfo(); logIt(`Uploaded ${out.length} spin photos`); toast('Spin photos uploaded. Save and publish to put them live.');
-});
-$('#spinClear').addEventListener('click', () => { ED.spin = []; spinInfo(); });
+
 const drop = $('#drop');
 ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { if(dragI != null) return; e.preventDefault(); drop.classList.add('over'); }));
 ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));

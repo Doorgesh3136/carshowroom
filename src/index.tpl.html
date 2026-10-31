@@ -6,7 +6,7 @@
 <title>V8 Motors | Quality Used Cars in Coromandel, Mauritius</title>
 <meta name="description" content="{{COUNT}} checked used cars at V8 Motors, 59B Royal Road, Coromandel. Buy, sell or exchange, leasing through Rogers Capital, new stock every week. Call 5259 0327.">
 <link rel="canonical" href="{{CANON}}">
-<meta name="theme-color" content="#0A1F33">
+<meta name="theme-color" content="#0F2C33">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="V8 Motors">
@@ -29,8 +29,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">{{JSONLD}}</script>
 <style>{{CSS}}</style>
-<script type="importmap">{"imports":{"three":"./vendor/three/three.module.min.js","three/addons/controls/OrbitControls.js":"./vendor/three/OrbitControls.js","three/addons/environments/RoomEnvironment.js":"./vendor/three/RoomEnvironment.js"}}</script>
-<link rel="modulepreload" href="vendor/three/three.module.min.js" fetchpriority="low">
 </head>
 <body class="is-loading">
 <a class="skip" href="#main">Skip to content</a>
@@ -68,7 +66,7 @@
     <div class="ld-trail" id="ldTrail"><i></i></div>
     <svg class="ld-car" viewBox="0 0 320 110" aria-hidden="true">
       <defs>
-        <linearGradient id="ldBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A5A86"/><stop offset=".55" stop-color="#13324F"/><stop offset="1" stop-color="#0A1F33"/></linearGradient>
+        <linearGradient id="ldBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B6B79"/><stop offset=".55" stop-color="#173F48"/><stop offset="1" stop-color="#0F2C33"/></linearGradient>
         <linearGradient id="ldBeam" x1="0" x2="1"><stop offset="0" stop-color="#FFF6DA" stop-opacity=".75"/><stop offset="1" stop-color="#FFF6DA" stop-opacity="0"/></linearGradient>
         <radialGradient id="ldTail"><stop offset="0" stop-color="#FF3B55"/><stop offset="1" stop-color="#FF3B55" stop-opacity="0"/></radialGradient>
       </defs>
@@ -242,7 +240,7 @@
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="hPay">
+  <section class="sec sec-paper pay-sec" aria-labelledby="hPay">
     <div class="wrap pay">
       <h2 id="hPay">Four ways to drive one home</h2>
       <dl class="pay-list">
@@ -328,27 +326,11 @@
   </div>
   <div class="wrap car">
     <div class="car-l">
-      <div class="v-modes" id="vModes" role="group" aria-label="How to view this car">
-        <button type="button" data-mode="photos" aria-pressed="true">Photos</button>
-        <button type="button" data-mode="3d" aria-pressed="false"><svg><use href="#i-rotate"/></svg>3D 360°</button>
-        <button type="button" data-mode="spin" aria-pressed="false" id="vModeSpin" hidden>Real 360° spin</button>
-      </div>
-      <div class="v3d" id="v3d" hidden>
-        <div class="v3d-stage" id="v3dStage"></div>
-        <div class="v3d-load" aria-hidden="true"><i></i><span>Building the 3D model</span></div>
-        <span class="v3d-hint"><svg><use href="#i-rotate"/></svg>Drag to turn, pinch or scroll to zoom</span>
-        <div class="v3d-tools" id="v3dTools">
-          <button type="button" id="v3dLights" aria-pressed="false">Headlights</button>
-          <button type="button" id="v3dSpin" aria-pressed="true">Turntable</button>
-          <button type="button" id="v3dReset">Reset view</button>
-        </div>
-      </div>
-      <p class="v3d-note" id="v3dNote" hidden></p>
       <div class="viewer" id="viewer" tabindex="0" aria-roledescription="carousel" aria-label="Photos, drag or use arrow keys">
         <div class="v-ring" id="vRing"></div>
         <div class="v-glare" aria-hidden="true"></div>
         <div class="v-ui">
-          <span class="v-hint" id="vHint"><svg><use href="#i-rotate"/></svg>Drag to turn</span>
+          <span class="v-hint" id="vHint"><svg><use href="#i-left"/></svg>Swipe for more</span>
           <span class="v-count" id="vCount">1 / 3</span>
           <button class="round-btn" id="vPrev" aria-label="Previous photo"><svg><use href="#i-left"/></svg></button>
           <button class="round-btn" id="vNext" aria-label="Next photo"><svg><use href="#i-right"/></svg></button>
@@ -619,15 +601,6 @@
 <div class="cmp-tray" id="cmpTray" hidden>
   <div class="cmp-in"><div class="cmp-thumbs" id="cmpThumbs"></div><button class="btn btn-line" type="button" id="cmpClear">Clear</button><button class="btn btn-red" type="button" id="cmpGo" disabled>Compare</button></div>
 </div>
-<dialog class="qv" id="qv" aria-labelledby="qvTitle">
-  <div class="qv-stage" id="qvStage"></div>
-  <div class="v3d-load" aria-hidden="true"><i></i><span>Building the 3D model</span></div>
-  <button class="round-btn qv-x" id="qvClose" aria-label="Close 3D view"><svg><use href="#i-x"/></svg></button>
-  <div class="qv-info">
-    <div><h2 id="qvTitle"></h2><p id="qvMeta"></p><p class="qv-note" id="qvNote"></p></div>
-    <div class="qv-buy"><b id="qvPrice"></b><a class="btn btn-red" id="qvGo" href="#/">Full details</a></div>
-  </div>
-</dialog>
 <dialog class="cmp-dlg" id="cmpDlg" aria-labelledby="cmpH">
   <div class="cmp-head"><h2 id="cmpH">Side by side</h2><button class="icon-btn" type="button" id="cmpClose" aria-label="Close compare"><svg><use href="#i-x"/></svg></button></div>
   <div class="cmp-scroll"><table class="cmp-t" id="cmpTable"></table></div>

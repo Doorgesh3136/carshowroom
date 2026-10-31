@@ -9,7 +9,7 @@
 
 ## Pages
 - [Home](https://v8motors.mu/)
-- [Catalogue](https://v8motors.mu/catalogue.html): every car for sale, with filters, a 3D 360° view, finance and running-cost calculators
+- [Catalogue](https://v8motors.mu/catalogue.html): every car for sale, with filters, photo galleries, finance and running-cost calculators
 - [Sell your car](https://v8motors.mu/#/sell)
 - [About us](https://v8motors.mu/#/about)
 - [Contact](https://v8motors.mu/#/contact)

@@ -23,7 +23,7 @@ ld = {"@context":"https://schema.org","@type":"AutoDealer","name":"V8 Motors","u
  "contactPoint":[{"@type":"ContactPoint","telephone":"+230 5259 0327","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5750 7912","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5500 9527","contactType":"sales","areaServed":"MU"},{"@type":"ContactPoint","telephone":"+230 5532 9727","contactType":"sales","areaServed":"MU"}],
  "makesOffer":[{"@type":"Offer","name":"Car leasing through Rogers Capital"},{"@type":"Offer","name":"Vehicle exchange and trade-in"}]}
 css = open(os.path.join(D,'style.css'),encoding='utf-8').read()
-js = open(os.path.join(D,'app.js'),encoding='utf-8').read().replace('/*@@CAR3D@@*/', open(os.path.join(D,'car3d.js'),encoding='utf-8').read())
+js = open(os.path.join(D,'app.js'),encoding='utf-8').read()
 # light minify of css
 css = re.sub(r'/\*.*?\*/','',css,flags=re.S); css = re.sub(r'\n\s*','\n',css)
 out = (tpl.replace('{{CSS}}',css).replace('{{JS}}',js).replace('{{JSONLD}}',json.dumps(ld,ensure_ascii=False))
