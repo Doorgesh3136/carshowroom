@@ -521,13 +521,17 @@ function tab(name){
   const prev = $('.tab-pane.on'), next = $(`.tab-pane[data-pane="${name}"]`);
   $$('#carTabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
   tabInd();
-  if(prev !== next){
-    if(MOTION && prev){
-      G.killTweensOf([...prev.children, ...next.children]);
-      G.set(prev.children, {clearProps: 'opacity,transform'});
+  if(prev && prev !== next){
+    if(MOTION){
+      // hold the old height while the new tab steps in, so the page never jumps
+      const h = prev.offsetHeight;
+      G.killTweensOf([prev, next, ...prev.querySelectorAll('*'), ...next.querySelectorAll('*')]);
+      G.set([prev, ...prev.children], {clearProps: 'all'});
       prev.classList.remove('on'); next.classList.add('on');
-      G.fromTo(next.children, {opacity: 0, y: 22}, {opacity: 1, y: 0, duration: .65, stagger: .06, ease: 'expo.out', clearProps: 'opacity,transform'});
-    } else $$('.tab-pane').forEach(p => p.classList.toggle('on', p === next));
+      G.fromTo(next, {minHeight: h}, {minHeight: 0, duration: .7, ease: 'expo.out', clearProps: 'minHeight'});
+      G.fromTo(next.children, {autoAlpha: 0, y: 18}, {autoAlpha: 1, y: 0, duration: .6, stagger: .07, ease: 'expo.out', clearProps: 'opacity,visibility,transform'});
+      M.tabFx(name, next);
+    } else { prev.classList.remove('on'); next.classList.add('on'); }
   }
   if(name === 'ov') runGauges();
 }

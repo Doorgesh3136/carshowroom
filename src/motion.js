@@ -4,7 +4,7 @@
    the site works the same, just without these effects. */
 const G = window.gsap, ST = window.ScrollTrigger;
 const MOTION = !!(G && ST) && !reduced;
-const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null};
+const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null, tabFx(){}};
 if(MOTION){
   G.registerPlugin(ST);
   document.documentElement.classList.add('js-motion');
@@ -188,6 +188,30 @@ function buildScenes(view, R){
   // statement band: big words drift apart as it passes
   $$('.mani-t', view).forEach(t => G.fromTo(t, {y: 60}, {y: -60, ease: 'none', scrollTrigger: {trigger: t, start: 'top bottom', end: 'bottom top', scrub: true}}));
 
+  // photos: card pictures wipe up out of a mask and settle from a slight zoom
+  const media = $$('.cars-rail .card-media, .grid .card-media', view);
+  if(media.length){
+    G.set(media, {clipPath: 'inset(100% 0% 0% 0% round 0px)'});
+    G.set(media.map(m => $('img', m)).filter(Boolean), {'--iz': 1.35});
+    ST.batch(media, {start: 'top 95%', once: true, onEnter: b => {
+      G.to(b, {clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.2, stagger: .08, ease: 'expo.inOut', clearProps: 'clipPath'});
+      G.to(b.map(m => $('img', m)).filter(Boolean), {'--iz': 1, duration: 1.8, stagger: .08, ease: 'expo.out'});
+    }});
+  }
+  // body-type tiles rise out of a mask one after another
+  const tiles = $$('.types .type', view);
+  if(tiles.length){
+    G.fromTo(tiles, {clipPath: 'inset(100% 0% 0% 0% round 18px)'}, {clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.3, stagger: .09, ease: 'expo.inOut', clearProps: 'clipPath',
+      scrollTrigger: {trigger: '#typeRail', start: 'top 85%', once: true}});
+  }
+  // car gallery: the photo opens like a shutter, thumbnails follow
+  if(R.r.v === 'car'){
+    const pnl = $('#vRing .v-panel img'), th = $$('#vThumbs button', view);
+    G.fromTo('#viewer', {clipPath: 'inset(0% 50% 0% 50% round 18px)'}, {clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.2, ease: 'expo.inOut', delay: .1, clearProps: 'clipPath'});
+    if(pnl) G.fromTo(pnl, {scale: 1.3}, {scale: 1, duration: 1.8, ease: 'expo.out', delay: .1, clearProps: 'transform'});
+    G.fromTo(th, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, duration: .8, stagger: .05, ease: 'expo.out', delay: .5, clearProps: 'all'});
+  }
+
   // the car page: buy box steps in
   if(R.r.v === 'car'){
     const k = $$('.car-r > *', view);
@@ -236,6 +260,35 @@ M.wipe = async function(R, doMount){
   ST.refresh();
 };
 
+/* ───────── car tabs: what each tab does as it opens ───────── */
+M.tabFx = function(name, pane){
+  if(!MOTION) return;
+  // anything a previous tab left half-animated goes back to normal
+  if(M.touched) G.set(M.touched, {clearProps: 'opacity,visibility,transform,scale'});
+  M.touched = $$('#carSpec > div, #carFeat li, .calc > *, .rc > *');
+  if(name === 'sp'){
+    // spec rows slide in from alternate sides; numbers count up
+    const rows = $$('#carSpec > div', pane);
+    G.fromTo(rows, {autoAlpha: 0, x: i => i % 2 ? 26 : -26}, {autoAlpha: 1, x: 0, duration: .7, stagger: .035, ease: 'expo.out', clearProps: 'all'});
+    rows.forEach((r, i) => {
+      const dd = $('dd', r), m = dd && /^([\d,]+)(\D*)$/.exec(dd.textContent.trim());
+      if(!m) return;
+      const to = +m[1].replace(/,/g, ''), year = to > 1900 && to < 2100 && !m[1].includes(','), o = {v: year ? to - 12 : 0};
+      G.to(o, {v: to, duration: 1.1, delay: .15 + i * .035, ease: 'power3.out', onUpdate: () => dd.textContent = (year ? Math.round(o.v) : fmt(o.v)) + m[2]});
+    });
+  }
+  if(name === 'ft'){
+    // features tick in one by one
+    const ul = $('#carFeat', pane), li = $$('li:not(.feat-note)', ul);
+    li.forEach(x => x.classList.remove('in')); ul.classList.add('fx');
+    G.fromTo(li, {autoAlpha: 0, x: -18}, {autoAlpha: 1, x: 0, duration: .6, ease: 'expo.out', clearProps: 'opacity,visibility,transform',
+      stagger: {each: .045, onStart(){ this.targets()[0].classList.add('in'); }}, onComplete: () => ul.classList.remove('fx')});
+  }
+  if(name === 'fi' || name === 'rc'){
+    G.fromTo($$('.calc > *, .rc > *', pane), {autoAlpha: 0, scale: .96}, {autoAlpha: 1, scale: 1, duration: .7, stagger: .06, ease: 'back.out(1.6)', clearProps: 'all'});
+  }
+};
+
 /* ───────── always-on pieces (not tied to one page) ───────── */
 if(MOTION){
   // header hides while you read downwards, returns when you scroll up
@@ -248,6 +301,9 @@ if(MOTION){
 
   // footer wordmark rises as you reach the end
   G.fromTo('.ftr-mark span', {yPercent: 75}, {yPercent: 0, ease: 'none', scrollTrigger: {trigger: '.ftr', start: 'top bottom', end: 'bottom bottom', scrub: true}});
+
+  // monthly figure pops when the sliders move
+  ['#cDep', '#cTerm', '#cTrade'].forEach(id => $(id) && $(id).addEventListener('input', () => G.fromTo('#cOut', {y: -8, color: '#8C6A2C'}, {y: 0, color: '', duration: .45, ease: 'back.out(2)', overwrite: true, clearProps: 'transform,color'})));
 
   // page height changes (show more, filters, images): keep every scene lined up
   let rt = 0;

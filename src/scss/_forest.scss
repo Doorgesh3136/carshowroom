@@ -1,71 +1,51 @@
-// ───────── forest theme ─────────
-// The whole site sits on a deep forest gradient; panels are slightly lighter greens, text is bone.
+// ───────── theme: light stone and sage gradients, forest bands, brass accents ─────────
+// Light pages are never flat white: a soft stone-to-sage wash with faint brass and pine glows.
+// Dark forest is kept for the hero, deals, sell band, visit band, footer, loader and page transitions.
 :root {
-  color-scheme: dark;
-  --fg: #{$bone};
-  --text: #E2E1D8;
-  --muted: #A6B0A7;
-  --muted-2: #8E998F;
-  --surface: #142A20;       // cards, forms, panels
-  --surface-2: #1A3428;     // placeholders, hovers
-  --paper: rgba(255,255,255,.025);  // alternate sections: a faint lift over the gradient
-  --line: rgba(255,255,255,.11);
-  --line-2: rgba(255,255,255,.07);
-  --line-hi: rgba(212,180,106,.55);
-  --red: #D4B46A;           // accent text and lines (light brass reads well on forest)
-  --red-2: #B8964E;
+  --fg: #{$navy};           // headings and strong text
+  --surface: #fff;          // cards, forms, panels
+  --surface-2: #E3E9E3;     // placeholders, hovers
+  --line-hi: rgba(#{$amber-rgb}, .7);
 }
 
-html { background: $deep; }
+html { background: #EEF1EC; }
 body {
   color: var(--text);
   background:
-    radial-gradient(ellipse 80% 55% at 85% 0%, rgba(47,90,69,.55) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 50% at 0% 45%, rgba(36,73,58,.45) 0%, transparent 65%),
-    radial-gradient(ellipse 90% 60% at 60% 100%, rgba(31,59,43,.6) 0%, transparent 70%),
-    linear-gradient(180deg, #0D1B14 0%, $deep 45%, #0B1811 100%);
+    radial-gradient(ellipse 60% 45% at 100% 0%, rgba(47,90,69,.13) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 40% at 0% 50%, rgba(#{$amber-rgb},.10) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 50% at 70% 100%, rgba(36,73,58,.10) 0%, transparent 70%),
+    linear-gradient(180deg, #F5F6F2 0%, #ECF0EA 50%, #F2F4EF 100%);
   background-attachment: fixed;
 }
-h1, h2, h3 { color: var(--fg); }
 
-// header: smoked glass
-.hdr { background: rgba(8,17,12,.72); backdrop-filter: blur(14px) saturate(1.2); border-bottom-color: var(--line-2); }
-.burger i { background: var(--fg); }
-.menu { background: $deep; }
+// header: frosted stone glass
+.hdr { background: rgba(247,248,244,.82); backdrop-filter: blur(14px) saturate(1.3); }
 
-// panels and cards
-.card { background: linear-gradient(180deg, #173026, #12261C); border-color: var(--line-2); }
-.card:hover { box-shadow: 0 34px 60px -26px rgba(0,0,0,.7); border-color: rgba(212,180,106,.3); }
-.card-mo b, .card-price s { color: var(--muted); }
-.card-mo b { color: var(--red); }
-.card-tag.red, .fav-n { color: $ink; }
-.ph, .ph.ok { background: var(--surface-2); animation: none; }
-.qs { background: rgba(20,42,32,.92); backdrop-filter: blur(12px); border: 1px solid var(--line-2); }
+// light sections let the page wash show; "paper" sections get a deeper sage band
+:where(.sec, .brands, .mani) { background: transparent; }   // :where keeps it weaker than the dark bands
+.sec-paper, .pay-sec {
+  background:
+    radial-gradient(ellipse 70% 80% at 100% 0%, rgba(#{$amber-rgb},.10), transparent 60%),
+    linear-gradient(180deg, rgba(36,73,58,.05) 0%, rgba(36,73,58,.11) 100%);
+}
+.phead {
+  background:
+    radial-gradient(ellipse 60% 120% at 90% 0%, rgba(47,90,69,.16), transparent 65%),
+    linear-gradient(180deg, #EEF2EC, #E3EAE3);
+}
+.view[data-view="inventory"], .view[data-view="car"] {
+  background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(36,73,58,.05) 60%, transparent);
+}
 
-// chips, segments, day pickers: brass when active
-.chip[aria-pressed=true], .seg button.on, .td-day[aria-checked=true] { background: $brass; border-color: $brass; color: $ink; }
-.td-day[aria-checked=true] small, .td-day[aria-checked=true] b { color: $ink; }
+// cards stay crisp white so they lift off the wash
+.card { background: #fff; }
+.card:hover { box-shadow: 0 34px 60px -26px rgba(#{$navy-rgb},.38); border-color: rgba(#{$amber-rgb},.55); }
+.pay-list > div { background: rgba(255,255,255,.85); }
+.qs { background: rgba(255,255,255,.92); backdrop-filter: blur(12px); }
 
-// form fields
-input, select, textarea { color: var(--fg); }
-input::placeholder, textarea::placeholder { color: var(--muted-2); }
-
-// sections that were light
-.brands { background: transparent; }
-.brands a { color: var(--fg); }
-.deals-sec { background: linear-gradient(180deg, rgba(14,29,21,.9), rgba(18,36,27,.95)); }
-.pay-list > div { background: var(--surface); }
-.steps li::before { color: var(--red); }
-.toast { background: $brass; color: $ink; }
-.cookie { background: var(--surface); border-color: var(--line); }
-.btn-navy { background: $brass; color: $ink; }
-.btn-navy:hover { background: $brass-2; }
-.btn-line { background: transparent; border-color: var(--line); color: var(--fg); }
+// active states in forest, hover lines in brass
+.chip[aria-pressed=true], .seg button.on, .td-day[aria-checked=true] { background: $navy; border-color: $navy; color: #fff; }
 .btn-line:hover { border-color: var(--line-hi); }
-.icon-btn { color: var(--fg); border-color: var(--line); }
-.round-btn.dark { background: transparent; color: var(--fg); border-color: var(--line); }
-.round-btn.dark:hover { background: $brass; color: $ink; border-color: $brass; }
-.logo-txt { color: var(--fg); }
-.tabs button[aria-selected=true] { color: var(--fg); }
-.cmp-dlg, .cmp-tray, dialog { background: var(--surface); color: var(--text); }
-::selection { background: $brass; color: $ink; }
+.round-btn.dark:hover { background: $navy; color: #fff; border-color: $navy; }
+.toast { background: $navy; color: $bone; }

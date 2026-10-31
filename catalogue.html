@@ -858,9 +858,9 @@ body{padding:0 !important;}
 .mani-in{display:grid;grid-template-columns:minmax(0, .3fr) minmax(0, 1fr);gap:24px 56px;align-items:start}
 .mani-k{display:flex;align-items:center;gap:12px;font-weight:700;color:#8C6A2C;padding-top:.9em}
 .mani-k::before{content:"";width:34px;height:2px;background:#8C6A2C}
-.mani-t{font-family:"Archivo", system-ui, sans-serif;font-stretch:112%;font-weight:800;font-size:clamp(28px, 3.7vw, 56px);line-height:1.1;letter-spacing:-.025em;color:#F3F1EA}
+.mani-t{font-family:"Archivo", system-ui, sans-serif;font-stretch:112%;font-weight:800;font-size:clamp(28px, 3.7vw, 56px);line-height:1.1;letter-spacing:-.025em;color:#12241B}
 .mani-facts{grid-column:2;display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:28px;margin-top:clamp(36px, 5vw, 64px);border-top:1px solid var(--line);padding-top:28px}
-.mani-facts b{display:block;font-family:"Archivo", system-ui, sans-serif;font-stretch:120%;font-weight:900;font-size:clamp(34px, 4vw, 58px);line-height:1;color:#F3F1EA;font-variant-numeric:tabular-nums}
+.mani-facts b{display:block;font-family:"Archivo", system-ui, sans-serif;font-stretch:120%;font-weight:900;font-size:clamp(34px, 4vw, 58px);line-height:1;color:#12241B;font-variant-numeric:tabular-nums}
 .mani-facts span{display:block;margin-top:8px;color:var(--muted);font-weight:600}
 .mani-facts div{position:relative;padding-top:18px}
 .mani-facts div::before{content:"";position:absolute;left:0;top:0;width:28px;height:4px;background:#D4B46A}
@@ -939,45 +939,43 @@ html.js-motion .wipe .w-label b{color:#F3F1EA;overflow:hidden;padding-bottom:.08
 .ld-bar i{display:block;height:100%;background:#D4B46A;transform-origin:left;transform:scaleX(0)}
 .ld-meta{display:flex;justify-content:space-between;gap:20px;font-size:13.5px;color:rgba(255,255,255,.55)}
 .ld-pct{color:#D4B46A;font-variant-numeric:tabular-nums;font-weight:700}
-:root{color-scheme:dark;--fg:#F3F1EA;--text:#E2E1D8;--muted:#A6B0A7;--muted-2:#8E998F;--surface:#142A20;--surface-2:#1A3428;--paper:rgba(255,255,255,.025);--line:rgba(255,255,255,.11);--line-2:rgba(255,255,255,.07);--line-hi:rgba(212,180,106,.55);--red:#D4B46A;--red-2:#B8964E}
-html{background:#08110C}
-body{color:var(--text);background:radial-gradient(ellipse 80% 55% at 85% 0%, rgba(47,90,69,.55) 0%, transparent 60%),
-radial-gradient(ellipse 70% 50% at 0% 45%, rgba(36,73,58,.45) 0%, transparent 65%),
-radial-gradient(ellipse 90% 60% at 60% 100%, rgba(31,59,43,.6) 0%, transparent 70%),
-linear-gradient(180deg, #0D1B14 0%, #08110C 45%, #0B1811 100%);background-attachment:fixed}
-h1,h2,h3{color:var(--fg)}
-.hdr{background:rgba(8,17,12,.72);backdrop-filter:blur(14px) saturate(1.2);border-bottom-color:var(--line-2)}
-.burger i{background:var(--fg)}
-.menu{background:#08110C}
-.card{background:linear-gradient(180deg, #173026, #12261C);border-color:var(--line-2)}
-.card:hover{box-shadow:0 34px 60px -26px rgba(0,0,0,.7);border-color:rgba(212,180,106,.3)}
-.card-mo b,.card-price s{color:var(--muted)}
-.card-mo b{color:var(--red)}
-.card-tag.red,.fav-n{color:#0C1712}
-.ph,.ph.ok{background:var(--surface-2);animation:none}
-.qs{background:rgba(20,42,32,.92);backdrop-filter:blur(12px);border:1px solid var(--line-2)}
-.chip[aria-pressed=true],.seg button.on,.td-day[aria-checked=true]{background:#C9A55C;border-color:#C9A55C;color:#0C1712}
-.td-day[aria-checked=true] small,.td-day[aria-checked=true] b{color:#0C1712}
-input,select,textarea{color:var(--fg)}
-input::placeholder,textarea::placeholder{color:var(--muted-2)}
-.brands{background:transparent}
-.brands a{color:var(--fg)}
-.deals-sec{background:linear-gradient(180deg, rgba(14,29,21,.9), rgba(18,36,27,.95))}
-.pay-list > div{background:var(--surface)}
-.steps li::before{color:var(--red)}
-.toast{background:#C9A55C;color:#0C1712}
-.cookie{background:var(--surface);border-color:var(--line)}
-.btn-navy{background:#C9A55C;color:#0C1712}
-.btn-navy:hover{background:#B38D45}
-.btn-line{background:transparent;border-color:var(--line);color:var(--fg)}
+:root{--fg:#12241B;--surface:#fff;--surface-2:#E3E9E3;--line-hi:rgba(212,180,106, .7)}
+html{background:#EEF1EC}
+body{color:var(--text);background:radial-gradient(ellipse 60% 45% at 100% 0%, rgba(47,90,69,.13) 0%, transparent 70%),
+radial-gradient(ellipse 55% 40% at 0% 50%, rgba(212,180,106,.10) 0%, transparent 70%),
+radial-gradient(ellipse 70% 50% at 70% 100%, rgba(36,73,58,.10) 0%, transparent 70%),
+linear-gradient(180deg, #F5F6F2 0%, #ECF0EA 50%, #F2F4EF 100%);background-attachment:fixed}
+.hdr{background:rgba(247,248,244,.82);backdrop-filter:blur(14px) saturate(1.3)}
+:where(.sec, .brands, .mani){background:transparent}
+.sec-paper,.pay-sec{background:radial-gradient(ellipse 70% 80% at 100% 0%, rgba(212,180,106,.10), transparent 60%),
+linear-gradient(180deg, rgba(36,73,58,.05) 0%, rgba(36,73,58,.11) 100%)}
+.phead{background:radial-gradient(ellipse 60% 120% at 90% 0%, rgba(47,90,69,.16), transparent 65%),
+linear-gradient(180deg, #EEF2EC, #E3EAE3)}
+.view[data-view="inventory"],.view[data-view="car"]{background:linear-gradient(180deg, rgba(255,255,255,.35), rgba(36,73,58,.05) 60%, transparent)}
+.card{background:#fff}
+.card:hover{box-shadow:0 34px 60px -26px rgba(18,36,27,.38);border-color:rgba(212,180,106,.55)}
+.pay-list > div{background:rgba(255,255,255,.85)}
+.qs{background:rgba(255,255,255,.92);backdrop-filter:blur(12px)}
+.chip[aria-pressed=true],.seg button.on,.td-day[aria-checked=true]{background:#12241B;border-color:#12241B;color:#fff}
 .btn-line:hover{border-color:var(--line-hi)}
-.icon-btn{color:var(--fg);border-color:var(--line)}
-.round-btn.dark{background:transparent;color:var(--fg);border-color:var(--line)}
-.round-btn.dark:hover{background:#C9A55C;color:#0C1712;border-color:#C9A55C}
-.logo-txt{color:var(--fg)}
-.tabs button[aria-selected=true]{color:var(--fg)}
-.cmp-dlg,.cmp-tray,dialog{background:var(--surface);color:var(--text)}
-::selection{background:#C9A55C;color:#0C1712}
+.round-btn.dark:hover{background:#12241B;color:#fff;border-color:#12241B}
+.toast{background:#12241B;color:#F3F1EA}
+.spec div{position:relative}
+.spec div::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#C9A55C;transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+.spec div:nth-child(even)::after{transform-origin:right}
+.spec div dt{transition:translate .45s cubic-bezier(.16,1,.3,1), color .3s}
+.spec div dd{font-variant-numeric:tabular-nums}
+.spec div:hover::after{transform:scaleX(1)}
+.spec div:hover dt{translate:6px 0;color:#12241B}
+.feats li:not(.feat-note){position:relative;padding-left:30px}
+.feats li:not(.feat-note)::before{content:"";position:absolute;left:3px;top:50%;width:12px;height:6px;border-left:2.5px solid #8C6A2C;border-bottom:2.5px solid #8C6A2C;transform:translateY(-75%) rotate(-45deg);transition:scale .5s cubic-bezier(.34,1.56,.64,1)}
+.feats.fx li:not(.in)::before{scale:0}
+.card-media img{scale:var(--iz, 1)}
+.v-thumbs button{transition:border-color .25s, transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1)}
+.v-thumbs button:hover{box-shadow:0 14px 24px -14px rgba(18,36,27, .5)}
+.v-thumbs button.on{border-color:#C9A55C}
+.how-media img,.sell-pic img,.about-pic img{transition:scale 1.4s cubic-bezier(.16,1,.3,1)}
+.how-media:hover img,.sell-pic:hover img,.about-pic:hover img{scale:1.05}
 .c-item,.c-item *{min-width:0;overflow-wrap:anywhere}
 .card-foot{flex-wrap:wrap;gap:6px 12px}
 .card-mo{white-space:nowrap}
@@ -2101,13 +2099,17 @@ function tab(name){
   const prev = $('.tab-pane.on'), next = $(`.tab-pane[data-pane="${name}"]`);
   $$('#carTabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === name));
   tabInd();
-  if(prev !== next){
-    if(MOTION && prev){
-      G.killTweensOf([...prev.children, ...next.children]);
-      G.set(prev.children, {clearProps: 'opacity,transform'});
+  if(prev && prev !== next){
+    if(MOTION){
+      // hold the old height while the new tab steps in, so the page never jumps
+      const h = prev.offsetHeight;
+      G.killTweensOf([prev, next, ...prev.querySelectorAll('*'), ...next.querySelectorAll('*')]);
+      G.set([prev, ...prev.children], {clearProps: 'all'});
       prev.classList.remove('on'); next.classList.add('on');
-      G.fromTo(next.children, {opacity: 0, y: 22}, {opacity: 1, y: 0, duration: .65, stagger: .06, ease: 'expo.out', clearProps: 'opacity,transform'});
-    } else $$('.tab-pane').forEach(p => p.classList.toggle('on', p === next));
+      G.fromTo(next, {minHeight: h}, {minHeight: 0, duration: .7, ease: 'expo.out', clearProps: 'minHeight'});
+      G.fromTo(next.children, {autoAlpha: 0, y: 18}, {autoAlpha: 1, y: 0, duration: .6, stagger: .07, ease: 'expo.out', clearProps: 'opacity,visibility,transform'});
+      M.tabFx(name, next);
+    } else { prev.classList.remove('on'); next.classList.add('on'); }
   }
   if(name === 'ov') runGauges();
 }
@@ -2378,7 +2380,7 @@ const cur = {view: null, car: null, path: null};
    the site works the same, just without these effects. */
 const G = window.gsap, ST = window.ScrollTrigger;
 const MOTION = !!(G && ST) && !reduced;
-const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null};
+const M = {ctx: null, mm: null, smooth: null, mount(){}, wipe: null, tabFx(){}};
 if(MOTION){
   G.registerPlugin(ST);
   document.documentElement.classList.add('js-motion');
@@ -2562,6 +2564,30 @@ function buildScenes(view, R){
   // statement band: big words drift apart as it passes
   $$('.mani-t', view).forEach(t => G.fromTo(t, {y: 60}, {y: -60, ease: 'none', scrollTrigger: {trigger: t, start: 'top bottom', end: 'bottom top', scrub: true}}));
 
+  // photos: card pictures wipe up out of a mask and settle from a slight zoom
+  const media = $$('.cars-rail .card-media, .grid .card-media', view);
+  if(media.length){
+    G.set(media, {clipPath: 'inset(100% 0% 0% 0% round 0px)'});
+    G.set(media.map(m => $('img', m)).filter(Boolean), {'--iz': 1.35});
+    ST.batch(media, {start: 'top 95%', once: true, onEnter: b => {
+      G.to(b, {clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.2, stagger: .08, ease: 'expo.inOut', clearProps: 'clipPath'});
+      G.to(b.map(m => $('img', m)).filter(Boolean), {'--iz': 1, duration: 1.8, stagger: .08, ease: 'expo.out'});
+    }});
+  }
+  // body-type tiles rise out of a mask one after another
+  const tiles = $$('.types .type', view);
+  if(tiles.length){
+    G.fromTo(tiles, {clipPath: 'inset(100% 0% 0% 0% round 18px)'}, {clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.3, stagger: .09, ease: 'expo.inOut', clearProps: 'clipPath',
+      scrollTrigger: {trigger: '#typeRail', start: 'top 85%', once: true}});
+  }
+  // car gallery: the photo opens like a shutter, thumbnails follow
+  if(R.r.v === 'car'){
+    const pnl = $('#vRing .v-panel img'), th = $$('#vThumbs button', view);
+    G.fromTo('#viewer', {clipPath: 'inset(0% 50% 0% 50% round 18px)'}, {clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.2, ease: 'expo.inOut', delay: .1, clearProps: 'clipPath'});
+    if(pnl) G.fromTo(pnl, {scale: 1.3}, {scale: 1, duration: 1.8, ease: 'expo.out', delay: .1, clearProps: 'transform'});
+    G.fromTo(th, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, duration: .8, stagger: .05, ease: 'expo.out', delay: .5, clearProps: 'all'});
+  }
+
   // the car page: buy box steps in
   if(R.r.v === 'car'){
     const k = $$('.car-r > *', view);
@@ -2610,6 +2636,35 @@ M.wipe = async function(R, doMount){
   ST.refresh();
 };
 
+/* ───────── car tabs: what each tab does as it opens ───────── */
+M.tabFx = function(name, pane){
+  if(!MOTION) return;
+  // anything a previous tab left half-animated goes back to normal
+  if(M.touched) G.set(M.touched, {clearProps: 'opacity,visibility,transform,scale'});
+  M.touched = $$('#carSpec > div, #carFeat li, .calc > *, .rc > *');
+  if(name === 'sp'){
+    // spec rows slide in from alternate sides; numbers count up
+    const rows = $$('#carSpec > div', pane);
+    G.fromTo(rows, {autoAlpha: 0, x: i => i % 2 ? 26 : -26}, {autoAlpha: 1, x: 0, duration: .7, stagger: .035, ease: 'expo.out', clearProps: 'all'});
+    rows.forEach((r, i) => {
+      const dd = $('dd', r), m = dd && /^([\d,]+)(\D*)$/.exec(dd.textContent.trim());
+      if(!m) return;
+      const to = +m[1].replace(/,/g, ''), year = to > 1900 && to < 2100 && !m[1].includes(','), o = {v: year ? to - 12 : 0};
+      G.to(o, {v: to, duration: 1.1, delay: .15 + i * .035, ease: 'power3.out', onUpdate: () => dd.textContent = (year ? Math.round(o.v) : fmt(o.v)) + m[2]});
+    });
+  }
+  if(name === 'ft'){
+    // features tick in one by one
+    const ul = $('#carFeat', pane), li = $$('li:not(.feat-note)', ul);
+    li.forEach(x => x.classList.remove('in')); ul.classList.add('fx');
+    G.fromTo(li, {autoAlpha: 0, x: -18}, {autoAlpha: 1, x: 0, duration: .6, ease: 'expo.out', clearProps: 'opacity,visibility,transform',
+      stagger: {each: .045, onStart(){ this.targets()[0].classList.add('in'); }}, onComplete: () => ul.classList.remove('fx')});
+  }
+  if(name === 'fi' || name === 'rc'){
+    G.fromTo($$('.calc > *, .rc > *', pane), {autoAlpha: 0, scale: .96}, {autoAlpha: 1, scale: 1, duration: .7, stagger: .06, ease: 'back.out(1.6)', clearProps: 'all'});
+  }
+};
+
 /* ───────── always-on pieces (not tied to one page) ───────── */
 if(MOTION){
   // header hides while you read downwards, returns when you scroll up
@@ -2622,6 +2677,9 @@ if(MOTION){
 
   // footer wordmark rises as you reach the end
   G.fromTo('.ftr-mark span', {yPercent: 75}, {yPercent: 0, ease: 'none', scrollTrigger: {trigger: '.ftr', start: 'top bottom', end: 'bottom bottom', scrub: true}});
+
+  // monthly figure pops when the sliders move
+  ['#cDep', '#cTerm', '#cTrade'].forEach(id => $(id) && $(id).addEventListener('input', () => G.fromTo('#cOut', {y: -8, color: '#8C6A2C'}, {y: 0, color: '', duration: .45, ease: 'back.out(2)', overwrite: true, clearProps: 'transform,color'})));
 
   // page height changes (show more, filters, images): keep every scene lined up
   let rt = 0;

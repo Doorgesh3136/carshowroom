@@ -1,0 +1,61 @@
+// ───────── car page details: spec sheet, features, photos ─────────
+$brass-text: #8C6A2C;
+
+// spec rows: a brass line sweeps under the row you point at, the label nudges over
+.spec div {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: $brass;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .55s $expo;
+  }
+  &:nth-child(even)::after { transform-origin: right; }
+  dt { transition: translate .45s $expo, color .3s; }
+  dd { font-variant-numeric: tabular-nums; }
+  &:hover {
+    &::after { transform: scaleX(1); }
+    dt { translate: 6px 0; color: $navy; }
+  }
+}
+
+// features: each one gets a brass tick that pops in
+.feats li:not(.feat-note) {
+  position: relative;
+  padding-left: 30px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    width: 12px;
+    height: 6px;
+    border-left: 2.5px solid $brass-text;
+    border-bottom: 2.5px solid $brass-text;
+    transform: translateY(-75%) rotate(-45deg);
+    transition: scale .5s $back;
+  }
+}
+.feats.fx li:not(.in)::before { scale: 0; }
+
+// card photos zoom out of their mask (JS sets --iz)
+.card-media img { scale: var(--iz, 1); }
+
+// gallery thumbnails lift and the active one gets a brass frame
+.v-thumbs button {
+  transition: border-color .25s, transform .45s $expo, box-shadow .45s $expo;
+  &:hover { box-shadow: 0 14px 24px -14px rgba(#{$navy-rgb}, .5); }
+  &.on { border-color: $brass; }
+}
+
+// section photos: slow zoom on hover
+.how-media, .sell-pic, .about-pic {
+  img { transition: scale 1.4s $expo; }
+  &:hover img { scale: 1.05; }
+}
