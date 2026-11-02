@@ -1,0 +1,12 @@
+{
+  "name": "v8-motors",
+  "private": true,
+  "description": "V8 Motors showroom website",
+  "scripts": {
+    "build:css": "sass scss/main.scss css/style.css --no-source-map --style=expanded",
+    "watch:css": "sass scss/main.scss css/style.css --no-source-map --style=expanded --watch"
+  },
+  "devDependencies": {
+    "sass": "^1.80.0"
+  }
+}

@@ -1,0 +1,77 @@
+// =========================================================
+// Layout: nav, mobile sheet, sections, footer
+// =========================================================
+@use "tokens" as *;
+@use "mixins" as *;
+
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  padding: 18px $pad;
+  transition: transform 0.7s $ease, background 0.4s, box-shadow 0.4s;
+  &.scrolled { @include glass(0.72); box-shadow: 0 1px 0 $line; }
+  &.hide { transform: translateY(-110%); }
+}
+.brand { display: block; width: 128px; color: $ink; }
+.nav-links {
+  display: flex; gap: 28px;
+  a {
+    position: relative; padding: 6px 0; font-size: 15px; font-weight: 500; color: $ink-2; transition: color 0.3s;
+    &::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: $red; transform: scaleX(0); transform-origin: left; transition: transform 0.45s $ease; }
+    &:hover, &.on { color: $ink; &::after { transform: scaleX(1); } }
+  }
+}
+.nav-r { display: flex; gap: 10px; align-items: center; }
+.menu-btn {
+  display: none; width: 46px; height: 46px; border-radius: 50%; background: $ink; color: $frost; align-content: center;
+  i { display: block; width: 18px; height: 1.5px; background: currentColor; margin: 4px auto; transition: transform 0.4s $ease; }
+}
+.nav.open .menu-btn {
+  i:first-child { transform: translateY(2.75px) rotate(45deg); }
+  i:last-child { transform: translateY(-2.75px) rotate(-45deg); }
+}
+.sheet {
+  position: fixed; inset: 0; z-index: 55; background: $charcoal; color: $frost;
+  padding: 110px $pad 40px; display: flex; flex-direction: column; justify-content: space-between;
+  clip-path: inset(0 0 100% 0); transition: clip-path 0.7s $ease-io;
+  &.open { clip-path: inset(0 0 0 0); }
+  nav a { display: block; @include type(clamp(40px, 11vw, 72px), 1.1, -0.04em); }
+  .lb { color: rgba($frost, 0.7); }
+}
+
+.sec { padding: clamp(80px, 10vw, 140px) 0; position: relative; }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; margin-bottom: clamp(30px, 4vw, 52px); }
+.hero > *, .split-2 > *, .cd-grid > *, .sat > *, .sec-head > * { min-width: 0; }
+.split-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); align-items: start; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+// full-screen panels on the homepage (scroll snapping)
+body[data-snap] {
+  .panel:not(.hero) { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding-top: 96px; padding-bottom: 48px; }
+  .panel.band { min-height: calc(100svh - 40px); margin-top: 20px; margin-bottom: 20px; padding-top: 60px; }
+}
+
+.foot {
+  border-top: 1px solid $line-2; margin-top: clamp(60px, 8vw, 110px); padding: 50px 0 30px;
+  &-g {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px;
+    p, a { color: $ink-2; line-height: 1.85; font-size: 15px; }
+    a:hover { color: $red; }
+    .lb { display: block; margin-bottom: 10px; }
+    .brand { width: 120px; margin-bottom: 14px; }
+  }
+  &-b { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 40px; padding-top: 20px; border-top: 1px solid $line; }
+}
+
+@include below(lg) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .foot-g { grid-template-columns: 1fr 1fr; }
+}
+@include below(md) {
+  .nav-links, .nav-r .btn { display: none; }
+  .menu-btn { display: grid; }
+  .split-2 { grid-template-columns: 1fr; }
+}
+@include below(sm) {
+  .grid, .foot-g { grid-template-columns: 1fr; }
+}

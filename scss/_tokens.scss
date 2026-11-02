@@ -1,0 +1,47 @@
+// =========================================================
+// Design tokens — cool steel · ink · V8 red
+// =========================================================
+@use "sass:map";
+
+$steel: (
+  50: #e6eaef,
+  100: #d3d9e0,
+  200: #b9c2cc,
+  300: #a3adba,
+  400: #8e9aa8,
+  500: #7d8a99,
+  700: #3e4a5a,
+);
+
+$ink: #15181c;
+$ink-2: #2c323a;
+$muted: #4d5764;
+$frost: #eef1f4; // light text on dark panels
+$charcoal: #1b1f25; // dark panels
+$red: #c21f27;
+$red-deep: #8f141a;
+
+$line: rgba($ink, 0.14);
+$line-2: rgba($ink, 0.24);
+$surface: rgba(255, 255, 255, 0.28);
+$surface-2: rgba(255, 255, 255, 0.46);
+
+$font-sans: "Inter Tight", "Inter", system-ui, sans-serif;
+$font-serif: "Instrument Serif", Georgia, serif;
+
+$ease: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+
+$pad: clamp(20px, 4vw, 56px);
+$max: 1320px;
+$radius: 20px;
+
+$breakpoints: (
+  sm: 620px,
+  md: 900px,
+  lg: 1100px,
+);
+
+@function steel($k) {
+  @return map.get($steel, $k);
+}

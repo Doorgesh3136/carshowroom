@@ -1,0 +1,89 @@
+// =========================================================
+// Mixins
+// =========================================================
+@use "sass:map";
+@use "tokens" as *;
+
+// responsive: @include below(md) { ... }
+@mixin below($bp) {
+  @media (max-width: map.get($breakpoints, $bp)) { @content; }
+}
+@mixin above($bp) {
+  @media (min-width: map.get($breakpoints, $bp) + 1) { @content; }
+}
+@mixin desktop-pointer {
+  @media (pointer: fine) and (min-width: map.get($breakpoints, md) + 1) { @content; }
+}
+
+// frosted glass surface
+@mixin glass($alpha: 0.6, $blur: 14px) {
+  background: rgba(steel(100), $alpha);
+  backdrop-filter: blur($blur) saturate(140%);
+  -webkit-backdrop-filter: blur($blur) saturate(140%);
+}
+
+// hairline ring that doesn't affect layout
+@mixin ring($color: $line, $w: 1px) {
+  box-shadow: inset 0 0 0 $w $color;
+}
+
+@mixin flex-center {
+  display: grid;
+  place-items: center;
+}
+
+@mixin pill($h: 50px, $px: 24px) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: $h;
+  padding: 0 $px;
+  border-radius: 99px;
+}
+
+// a diagonal light streak that sweeps across on hover
+@mixin shine($color: rgba(255, 255, 255, 0.35)) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, $color 50%, transparent 65%);
+    transform: translateX(-120%);
+    transition: transform 0.9s $ease;
+  }
+  &:hover::after { transform: translateX(120%); }
+}
+
+// soft cursor-following glare (needs --gx / --gy set from JS)
+@mixin glare($strength: 0.35) {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, $strength), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  &:hover::before { opacity: 1; }
+}
+
+@mixin cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin type($size, $lh: 1.05, $track: -0.035em, $weight: 500) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lh;
+  letter-spacing: $track;
+}

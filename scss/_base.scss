@@ -1,0 +1,66 @@
+// =========================================================
+// Base
+// =========================================================
+@use "tokens" as *;
+@use "mixins" as *;
+
+:root {
+  --ink: #{$ink};
+  --red: #{$red};
+  --frost: #{$frost};
+  --ease: #{$ease};
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: steel(300);
+  &.lenis, &.lenis body { height: auto; }
+  &.lenis-stopped { overflow: hidden; }
+  // cover the page before first paint while a page transition finishes
+  &.pt-in body::before { content: ""; position: fixed; inset: 0; z-index: 500; background: $charcoal; }
+  &.seen #ld { display: none; }
+  // hidden until GSAP animates them in (class removed if GSAP fails)
+  &.js {
+    [data-hero], [data-split], [data-hi], [data-reveal] { opacity: 0; }
+  }
+}
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  font-family: $font-sans;
+  color: $ink;
+  font-size: 16px;
+  line-height: 1.6;
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+::selection { background: $ink; color: $frost; }
+
+.wrap { width: 100%; max-width: $max; margin: 0 auto; padding: 0 $pad; }
+.lb { font-size: 13px; font-weight: 500; letter-spacing: 0.01em; color: $muted; }
+.h1 { @include type(clamp(46px, 6.4vw, 104px), 0.98, -0.04em); }
+.h2 { @include type(clamp(34px, 4vw, 60px), 1.02); }
+.h3 { @include type(clamp(22px, 2vw, 28px), 1.15, -0.02em); }
+.lead { font-size: clamp(17px, 1.3vw, 19px); color: $ink-2; max-width: 48ch; line-height: 1.6; }
+.muted { color: $muted; }
+
+// words wrapped for the rise-in animation
+.sw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.04em 0.24em;
+  margin: 0 -0.04em -0.24em;
+  > span { display: inline-block; will-change: transform; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

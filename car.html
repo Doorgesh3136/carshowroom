@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en" class="js"><head>
+  <meta charset="UTF-8" />
+  <script>try{var h=document.documentElement;if(sessionStorage.getItem("v8-pt"))h.classList.add("pt-in")}catch(e){}</script>
+  <meta name="theme-color" content="#a3adba" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" href="images/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Car details — V8 Motors</title>
+</head>
+<body data-page="car">
+  <main>
+    <section class="wrap" style="padding-top:clamp(110px,12vw,150px)">
+      <div class="crumb lb" data-hi><a href="cars.html">← All cars</a><span>/</span><span id="crumb">Loading…</span></div>
+      <div class="cd-grid">
+        <div class="gal" data-hi>
+          <div class="gal-main" id="galMain">
+            <button class="gal-btn p" id="gp" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+            <button class="gal-btn n" id="gn" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            <span class="gal-n" id="galN"></span>
+          </div>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+        <div class="cd-info" data-hi>
+          <p class="mk" id="cMake"></p>
+          <h1 id="cTitle">&nbsp;</h1>
+          <div class="cd-price" id="cPrice"></div>
+          <dl class="specs" id="cSpecs"></dl>
+          <p class="cd-desc" id="cDesc"></p>
+          <div class="cd-ctas">
+            <a class="btn" href="tel:+23052590327">Call to reserve<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="btn ol" href="#enquire" id="toForm">Book a viewing<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+          <form class="form" id="enquire" data-mailto data-subject="Viewing request" style="margin-top:34px">
+            <p class="h3">Book a viewing</p>
+            <input type="hidden" name="Car" id="fCar" />
+            <div class="two">
+              <div class="f"><input name="Name" id="n1" required autocomplete="name" /><label for="n1">Your name</label></div>
+              <div class="f"><input name="Phone" id="n2" type="tel" required autocomplete="tel" /><label for="n2">Phone</label></div>
+            </div>
+            <div class="two">
+              <div class="f"><input name="Preferred day" id="n3" type="date" /><label for="n3">Preferred day</label></div>
+              <div class="f"><select name="Interested in" id="n4"><option>Viewing / test drive</option><option>Leasing (Rogers Capital)</option><option>Part-exchange my car</option></select><label for="n4">Interested in</label></div>
+            </div>
+            <button class="btn" type="submit" style="justify-self:start">Send request<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+            <p class="note">Opens your email app with everything filled in, ready to send to V8 Motors.</p>
+            <div class="form-ok"><p class="h3">Almost done</p><p class="muted" style="margin-top:8px">Hit send in your email app — we&#39;ll call you back to confirm.</p></div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="sec" style="padding-bottom:0">
+      <div class="wrap sec-head"><div><h2 class="h2" data-split>Similar cars</h2></div></div>
+      <div class="wrap"><div class="grid" id="similar"></div></div>
+    </section>
+  </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/snapshot.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/car.js"></script>
+</body></html>

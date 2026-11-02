@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <script>try{var h=document.documentElement;if(sessionStorage.getItem("v8-pt"))h.classList.add("pt-in")}catch(e){}</script>
+  <meta name="theme-color" content="#a3adba" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" href="images/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Sell, exchange or lease — V8 Motors</title>
+  <meta name="description" content="Sell your car, part-exchange it for something new, or lease through Rogers Capital at V8 Motors, Coromandel." />
+</head>
+<body data-page="sell">
+  <main>
+    <section class="wrap ph">
+      <div class="row">
+        <h1 class="h1" data-hero>Sell, exchange or lease</h1>
+        <p class="lead" data-hi>Sell it to us outright, trade it in against something from the showroom, or skip the big payment altogether and lease.</p>
+      </div>
+    </section>
+
+    <section class="wrap" style="padding-bottom:clamp(80px,10vw,140px)">
+      <div class="steps">
+        <div class="step" data-reveal><span class="lb">Step 01</span><h3>Tell us about it</h3><p>Make, model, year and mileage — send it over the form below or just call.</p></div>
+        <div class="step" data-reveal style="--dl:.08s"><span class="lb">Step 02</span><h3>Bring it to Royal Road</h3><p>We take a look and give you a fair valuation on the spot.</p></div>
+        <div class="step" data-reveal style="--dl:.16s"><span class="lb">Step 03</span><h3>Cash or exchange</h3><p>Take the money, or put it straight towards your next car and drive away the same day.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap split-2" id="exchange">
+      <div>
+        
+        <h2 class="h2" data-split style="margin:18px 0 22px">Get a valuation</h2>
+        <p class="lead" data-reveal>Send us the details and we’ll come back to you with a valuation. Exchanging? Tell us which car you have your eye on.</p>
+        <div class="photo" data-reveal style="margin-top:34px;aspect-ratio:4/3"><img src="images/home.jpeg" alt="Car handover at the V8 Motors showroom" style="object-position:center 62%" /></div>
+      </div>
+      <form class="form" data-mailto data-subject="Sell / exchange my car" data-reveal style="--dl:.1s">
+        <p class="h3">Your car</p>
+        <div class="two">
+          <div class="f"><input name="Make" id="s1" required /><label for="s1">Make</label></div>
+          <div class="f"><input name="Model" id="s2" required /><label for="s2">Model</label></div>
+        </div>
+        <div class="two">
+          <div class="f"><input name="Year" id="s3" inputmode="numeric" required /><label for="s3">Year</label></div>
+          <div class="f"><input name="Mileage (km)" id="s4" inputmode="numeric" /><label for="s4">Mileage (km)</label></div>
+        </div>
+        <div class="f"><select name="I want to" id="s5"><option>Sell my car</option><option>Exchange it for a car from V8 Motors</option><option>Not sure yet</option></select><label for="s5">I want to</label></div>
+        <div class="f"><input name="Car I have my eye on" id="s6" /><label for="s6">Car you have your eye on (optional)</label></div>
+        <p class="h3" style="margin-top:10px">Your details</p>
+        <div class="two">
+          <div class="f"><input name="Name" id="s7" required autocomplete="name" /><label for="s7">Your name</label></div>
+          <div class="f"><input name="Phone" id="s8" type="tel" required autocomplete="tel" /><label for="s8">Phone</label></div>
+        </div>
+        <button class="btn" type="submit" style="justify-self:start">Get my valuation<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        <p class="note">Opens your email app with everything filled in, ready to send to V8 Motors.</p>
+        <div class="form-ok"><p class="h3">Almost done</p><p class="muted" style="margin-top:8px">Hit send in your email app and we’ll be in touch.</p></div>
+      </form>
+    </section>
+
+    <section class="band sec" id="lease" style="margin-top:clamp(80px,10vw,140px)">
+      <div class="wrap split-2" style="align-items:end">
+        <div>
+          
+          <h2 class="h2" data-split style="margin:18px 0 24px">Leasing through Rogers Capital</h2>
+          <p class="lead" style="color:rgba(242,237,228,.75)" data-reveal>No need to save up for the full price. Pick your car at V8 Motors and spread the cost with a lease through Rogers Capital — we help you with the paperwork.</p>
+        </div>
+        <div data-reveal>
+          <p class="lead" style="margin-bottom:6px">1. Choose your car at the showroom.<br />2. Apply for leasing with our help.<br />3. Drive away and pay monthly.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+            <a class="btn" href="cars.html">Pick a car<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="btn" href="tel:+23052590327">Ask about leasing<span class="ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/snapshot.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/site.js"></script>
+  <script>if (location.hash) setTimeout(function () { var t = document.querySelector(location.hash); if (t) V8.scrollTo(t); }, 1000);</script>
+</body>
+</html>
