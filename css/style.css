@@ -752,9 +752,14 @@ body[data-snap] .panel.band {
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
-  background: linear-gradient(135deg, #e3e8ee 0%, #b9c2cc 26%, #8e9aa8 52%, #7d8a99 66%, #a3adba 82%, #dde2e8 100%);
+  background: linear-gradient(135deg, #eef1f5 0%, #c9d1da 24%, #9da8b5 48%, #7b8797 64%, #a9b3bf 82%, #e2e7ed 100%);
   background-size: 260% 260%;
-  animation: steel-shift 24s ease-in-out infinite alternate;
+  animation: steel-shift 26s ease-in-out infinite alternate;
+}
+.bgfx .layer {
+  position: absolute;
+  inset: -20%;
+  will-change: transform;
 }
 .bgfx i {
   position: absolute;
@@ -765,37 +770,64 @@ body[data-snap] .panel.band {
 .bgfx i:nth-child(1) {
   width: 72vmax;
   height: 72vmax;
-  left: -24vmax;
-  top: -32vmax;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), transparent 60%);
+  left: -10vmax;
+  top: -18vmax;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95), transparent 60%);
   mix-blend-mode: soft-light;
   animation: drift-1 20s ease-in-out infinite alternate;
 }
 .bgfx i:nth-child(2) {
   width: 64vmax;
   height: 64vmax;
-  right: -24vmax;
-  bottom: -30vmax;
-  background: radial-gradient(circle, rgba(62, 74, 90, 0.7), transparent 62%);
+  right: -8vmax;
+  bottom: -14vmax;
+  background: radial-gradient(circle, rgba(44, 58, 76, 0.75), transparent 62%);
   mix-blend-mode: multiply;
   animation: drift-2 26s ease-in-out infinite alternate;
 }
 .bgfx i:nth-child(3) {
-  width: 40vmax;
-  height: 40vmax;
-  right: 6vmax;
-  top: 8vmax;
-  background: radial-gradient(circle, rgba(194, 31, 39, 0.18), transparent 62%);
+  width: 42vmax;
+  height: 42vmax;
+  right: 18vmax;
+  top: 22vmax;
+  background: radial-gradient(circle, rgba(194, 31, 39, 0.22), transparent 62%);
   animation: drift-3 18s ease-in-out infinite alternate;
+}
+.bgfx i:nth-child(4) {
+  width: 50vmax;
+  height: 50vmax;
+  left: 10vmax;
+  bottom: -6vmax;
+  background: radial-gradient(circle, rgba(159, 182, 209, 0.55), transparent 62%);
+  mix-blend-mode: overlay;
+  animation: drift-1 30s ease-in-out infinite alternate-reverse;
+}
+.bgfx .brush {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 3px), repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 7px);
+}
+.bgfx .spot {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: soft-light;
+  background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), rgba(255, 255, 255, 0.75), transparent 60%);
+}
+.bgfx .vig {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(130% 100% at 50% 40%, transparent 55%, rgba(27, 36, 48, 0.32) 100%);
 }
 .bgfx::after {
   content: "";
   position: absolute;
   top: -50%;
   bottom: -50%;
-  width: 40vw;
+  width: 36vw;
   left: -50vw;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent);
   transform: rotate(12deg);
   animation: sweep 11s cubic-bezier(0.76, 0, 0.24, 1) infinite;
 }
@@ -813,17 +845,17 @@ body[data-snap] .panel.band {
 }
 @keyframes drift-1 {
   to {
-    transform: translate(30vmax, 22vmax) scale(1.15);
+    transform: translate(26vmax, 18vmax) scale(1.15);
   }
 }
 @keyframes drift-2 {
   to {
-    transform: translate(-26vmax, -18vmax) scale(0.9);
+    transform: translate(-22vmax, -16vmax) scale(0.9);
   }
 }
 @keyframes drift-3 {
   to {
-    transform: translate(-46vmax, 34vmax) scale(1.25);
+    transform: translate(-36vmax, 24vmax) scale(1.25);
   }
 }
 @keyframes sweep {
@@ -889,38 +921,137 @@ body[data-snap] .panel.band {
   inset: 0;
   z-index: 300;
   overflow: hidden;
-  color: #fff;
+  color: #eef1f4;
+  background: radial-gradient(90% 80% at 50% 46%, #252b34 0%, #14171c 70%);
+  -webkit-mask-image: radial-gradient(circle at 50% 46%, transparent var(--r, 0px), #000 calc(var(--r, 0px) + 1px));
+  mask-image: radial-gradient(circle at 50% 46%, transparent var(--r, 0px), #000 calc(var(--r, 0px) + 1px));
 }
-#ld .lp {
+#ld .ld-glow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 120vmin;
+  height: 120vmin;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(194, 31, 39, 0.28), transparent 60%);
+  opacity: 0;
+  filter: blur(10px);
+}
+#ld .flash {
   position: absolute;
   inset: 0;
-}
-#ld .lp-a {
-  background: #1b1f25;
-}
-#ld .lp-b {
-  background: linear-gradient(170deg, rgb(219.9493333333, 35.6506666667, 44.696) 0%, #c21f27 50%, #8f141a 100%);
+  background: radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.9), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.lw {
+.rev {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(56vmin, 440px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+}
+.rev svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.rev .track {
+  fill: none;
+  stroke: rgba(238, 241, 244, 0.12);
+  stroke-width: 2;
+}
+.rev .red-zone {
+  fill: none;
+  stroke: rgba(194, 31, 39, 0.35);
+  stroke-width: 10;
+}
+.rev .fill {
+  fill: none;
+  stroke: #c21f27;
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(194, 31, 39, 0.8));
+}
+.rev .tick {
+  stroke: rgba(238, 241, 244, 0.35);
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: stroke 0.2s;
+}
+.rev .tick.major {
+  stroke-width: 3;
+}
+.rev .tick.lit {
+  stroke: #eef1f4;
+}
+.rev .tick.hot {
+  stroke: #c21f27;
+}
+.rev .needle {
+  stroke: #c21f27;
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(194, 31, 39, 0.9));
+}
+.rev .hub {
+  fill: #eef1f4;
+}
+.rev .hub-ring {
+  fill: none;
+  stroke: rgba(238, 241, 244, 0.25);
+  stroke-width: 1;
+}
+
+.rev-num {
+  position: absolute;
+  left: 50%;
+  top: calc(46% + min(56vmin, 440px) * 0.2);
+  translate: -50% 0;
+  text-align: center;
+}
+.rev-num #cnt {
+  display: block;
+  font-weight: 500;
+  font-size: clamp(40px, 5.4vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+.rev-num small {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(238, 241, 244, 0.5);
+}
+
+.ld-word {
   position: absolute;
   left: 0;
   right: 0;
-  top: 36%;
-  height: clamp(72px, 13vw, 170px);
+  top: calc(46% + min(56vmin, 440px) * 0.5 + 24px);
+  height: 1.25em;
   overflow: hidden;
+  font-size: clamp(26px, 3.4vw, 46px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  text-align: center;
+  perspective: 600px;
 }
-.lw span {
+.ld-word .w {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  text-align: center;
-  font-weight: 500;
-  font-size: clamp(54px, 11vw, 150px);
-  line-height: 1.12;
-  letter-spacing: -0.045em;
   white-space: nowrap;
+}
+.ld-word .ch {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
 }
 
 .lbr {
@@ -932,30 +1063,18 @@ body[data-snap] .panel.band {
   justify-content: space-between;
   align-items: end;
   gap: 20px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-#cnt {
-  font-weight: 500;
-  font-size: clamp(56px, 7vw, 100px);
-  line-height: 0.8;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-  color: #fff;
+  font-size: 13px;
+  color: rgba(238, 241, 244, 0.6);
 }
 
 .lgf {
   position: absolute;
   left: 50%;
   top: 46%;
-  width: min(360px, 70vw);
+  width: min(380px, 66vw);
   opacity: 0;
-  color: #fff;
+  color: #eef1f4;
   z-index: 2;
-}
-.lgf .l8 {
-  fill: #1b1f25;
 }
 
 .dots {
@@ -1971,4 +2090,136 @@ html.has-cursor input, html.has-cursor textarea, html.has-cursor select {
   .cd {
     gap: 6px;
   }
+}
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #c21f27;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.btn:focus-visible, .chip:focus-visible {
+  border-radius: 99px;
+}
+
+h1, h2, .h1, .h2, .big-quote {
+  text-wrap: balance;
+}
+
+p, .lead {
+  text-wrap: pretty;
+}
+
+.pr, .cd-price, .hero-meta b {
+  font-variant-numeric: tabular-nums;
+}
+
+.btn, .rc, .chip, .gal-btn, .menu-btn, .dots button {
+  transition-property: background, color, box-shadow, scale;
+  transition-duration: 0.35s;
+}
+
+.btn:active, .rc:active, .chip:active, .gal-btn:active, .menu-btn:active {
+  scale: 0.96;
+  transition-duration: 0.12s;
+}
+
+html.js .card .im img, html.js .type img, html.js .thumbs img {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html.js .card .im img.is-in, html.js .type img.is-in, html.js .thumbs img.is-in {
+  opacity: 1;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(21, 24, 28, 0.35) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(21, 24, 28, 0.3);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #4d5764;
+  letter-spacing: 0.04em;
+}
+.scroll-hint .mouse {
+  width: 22px;
+  height: 34px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1.5px rgba(21, 24, 28, 0.45);
+  position: relative;
+}
+.scroll-hint .mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: #c21f27;
+  animation: wheel 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@media (max-width: 900px) {
+  .scroll-hint {
+    display: none;
+  }
+}
+
+@keyframes wheel {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+}
+.hero {
+  position: relative;
+}
+
+.brand {
+  transition: opacity 0.3s;
+}
+.brand:hover {
+  opacity: 0.8;
+}
+
+.card, .type {
+  will-change: transform;
+}
+
+#ptt .ch {
+  display: inline-block;
 }

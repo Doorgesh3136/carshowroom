@@ -8,31 +8,48 @@
 @use "tokens" as *;
 @use "mixins" as *;
 
-// ---------- brushed-steel animated gradient ----------
+// ---------- living steel background ----------
+// layers: gradient base → drifting light (scroll-reactive) → brushed-metal
+// texture → cursor spotlight → periodic light sweep → edge vignette
 .bgfx {
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
-  background: linear-gradient(135deg, #e3e8ee 0%, steel(200) 26%, steel(400) 52%, steel(500) 66%, steel(300) 82%, #dde2e8 100%);
+  background: linear-gradient(135deg, #eef1f5 0%, #c9d1da 24%, #9da8b5 48%, #7b8797 64%, #a9b3bf 82%, #e2e7ed 100%);
   background-size: 260% 260%;
-  animation: steel-shift 24s ease-in-out infinite alternate;
+  animation: steel-shift 26s ease-in-out infinite alternate;
 
+  .layer { position: absolute; inset: -20%; will-change: transform; }
   i {
     position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform;
-    &:nth-child(1) { width: 72vmax; height: 72vmax; left: -24vmax; top: -32vmax; background: radial-gradient(circle, rgba(255, 255, 255, 0.85), transparent 60%); mix-blend-mode: soft-light; animation: drift-1 20s ease-in-out infinite alternate; }
-    &:nth-child(2) { width: 64vmax; height: 64vmax; right: -24vmax; bottom: -30vmax; background: radial-gradient(circle, rgba(steel(700), 0.7), transparent 62%); mix-blend-mode: multiply; animation: drift-2 26s ease-in-out infinite alternate; }
-    &:nth-child(3) { width: 40vmax; height: 40vmax; right: 6vmax; top: 8vmax; background: radial-gradient(circle, rgba($red, 0.18), transparent 62%); animation: drift-3 18s ease-in-out infinite alternate; }
+    &:nth-child(1) { width: 72vmax; height: 72vmax; left: -10vmax; top: -18vmax; background: radial-gradient(circle, rgba(255, 255, 255, 0.95), transparent 60%); mix-blend-mode: soft-light; animation: drift-1 20s ease-in-out infinite alternate; }
+    &:nth-child(2) { width: 64vmax; height: 64vmax; right: -8vmax; bottom: -14vmax; background: radial-gradient(circle, rgba(#2c3a4c, 0.75), transparent 62%); mix-blend-mode: multiply; animation: drift-2 26s ease-in-out infinite alternate; }
+    &:nth-child(3) { width: 42vmax; height: 42vmax; right: 18vmax; top: 22vmax; background: radial-gradient(circle, rgba($red, 0.22), transparent 62%); animation: drift-3 18s ease-in-out infinite alternate; }
+    &:nth-child(4) { width: 50vmax; height: 50vmax; left: 10vmax; bottom: -6vmax; background: radial-gradient(circle, rgba(#9fb6d1, 0.55), transparent 62%); mix-blend-mode: overlay; animation: drift-1 30s ease-in-out infinite alternate-reverse; }
   }
-  // periodic light sweep, like light running across brushed metal
+  // brushed-metal hairlines
+  .brush {
+    position: absolute; inset: 0; opacity: 0.5; mix-blend-mode: overlay;
+    background:
+      repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 3px),
+      repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 7px);
+  }
+  // soft light that follows the cursor
+  .spot {
+    position: absolute; inset: 0; mix-blend-mode: soft-light;
+    background: radial-gradient(520px circle at var(--mx, 70%) var(--my, 30%), rgba(255, 255, 255, 0.75), transparent 60%);
+  }
+  .vig { position: absolute; inset: 0; background: radial-gradient(130% 100% at 50% 40%, transparent 55%, rgba(#1b2430, 0.32) 100%); }
+  // periodic light sweep across the metal
   &::after {
-    content: ""; position: absolute; top: -50%; bottom: -50%; width: 40vw; left: -50vw;
-    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+    content: ""; position: absolute; top: -50%; bottom: -50%; width: 36vw; left: -50vw;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent);
     transform: rotate(12deg);
     animation: sweep 11s $ease-io infinite;
   }
 }
 @keyframes steel-shift { 0% { background-position: 0% 0%; } 50% { background-position: 60% 80%; } 100% { background-position: 100% 30%; } }
-@keyframes drift-1 { to { transform: translate(30vmax, 22vmax) scale(1.15); } }
-@keyframes drift-2 { to { transform: translate(-26vmax, -18vmax) scale(0.9); } }
-@keyframes drift-3 { to { transform: translate(-46vmax, 34vmax) scale(1.25); } }
+@keyframes drift-1 { to { transform: translate(26vmax, 18vmax) scale(1.15); } }
+@keyframes drift-2 { to { transform: translate(-22vmax, -16vmax) scale(0.9); } }
+@keyframes drift-3 { to { transform: translate(-36vmax, 24vmax) scale(1.25); } }
 @keyframes sweep { 0%, 55% { left: -50vw; } 100% { left: 130vw; } }
 
 // ---------- scroll progress ----------
@@ -49,20 +66,41 @@
 }
 #ptt { @include type(clamp(40px, 7vw, 100px), 1.15, -0.04em); overflow: hidden; padding: 0 0.1em 0.1em; > span { display: inline-block; } }
 
-// ---------- loader ----------
+// ---------- loader: tachometer → redline → iris reveal ----------
+$dial: min(56vmin, 440px);
 #ld {
-  position: fixed; inset: 0; z-index: 300; overflow: hidden; color: #fff;
-  .lp { position: absolute; inset: 0; }
-  .lp-a { background: $charcoal; }
-  .lp-b { background: linear-gradient(170deg, color.adjust($red, $lightness: 6%) 0%, $red 50%, $red-deep 100%); }
+  position: fixed; inset: 0; z-index: 300; overflow: hidden; color: $frost;
+  background: radial-gradient(90% 80% at 50% 46%, #252b34 0%, #14171c 70%);
+  // the iris: GSAP grows --r to open a hole from the dial centre
+  -webkit-mask-image: radial-gradient(circle at 50% 46%, transparent var(--r, 0px), #000 calc(var(--r, 0px) + 1px));
+  mask-image: radial-gradient(circle at 50% 46%, transparent var(--r, 0px), #000 calc(var(--r, 0px) + 1px));
+  .ld-glow { position: absolute; left: 50%; top: 46%; width: 120vmin; height: 120vmin; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle, rgba($red, 0.28), transparent 60%); opacity: 0; filter: blur(10px); }
+  .flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 46%, rgba(255, 255, 255, 0.9), transparent 55%); opacity: 0; pointer-events: none; }
 }
-.lw {
-  position: absolute; left: 0; right: 0; top: 36%; height: clamp(72px, 13vw, 170px); overflow: hidden;
-  span { position: absolute; left: 0; right: 0; top: 0; text-align: center; @include type(clamp(54px, 11vw, 150px), 1.12, -0.045em); white-space: nowrap; }
+.rev {
+  position: absolute; left: 50%; top: 46%; width: $dial; aspect-ratio: 1; translate: -50% -50%;
+  svg { width: 100%; height: 100%; overflow: visible; }
+  .track { fill: none; stroke: rgba($frost, 0.12); stroke-width: 2; }
+  .red-zone { fill: none; stroke: rgba($red, 0.35); stroke-width: 10; }
+  .fill { fill: none; stroke: $red; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 8px rgba($red, 0.8)); }
+  .tick { stroke: rgba($frost, 0.35); stroke-width: 2; stroke-linecap: round; transition: stroke 0.2s; &.major { stroke-width: 3; } &.lit { stroke: $frost; } &.hot { stroke: $red; } }
+  .needle { stroke: $red; stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba($red, 0.9)); }
+  .hub { fill: $frost; }
+  .hub-ring { fill: none; stroke: rgba($frost, 0.25); stroke-width: 1; }
 }
-.lbr { position: absolute; left: $pad; right: $pad; bottom: 28px; display: flex; justify-content: space-between; align-items: end; gap: 20px; font-size: 14px; color: rgba(255, 255, 255, 0.85); }
-#cnt { @include type(clamp(56px, 7vw, 100px), 0.8, -0.05em); font-variant-numeric: tabular-nums; color: #fff; }
-.lgf { position: absolute; left: 50%; top: 46%; width: min(360px, 70vw); opacity: 0; color: #fff; z-index: 2; .l8 { fill: $charcoal; } }
+.rev-num {
+  position: absolute; left: 50%; top: calc(46% + #{$dial} * 0.2); translate: -50% 0; text-align: center;
+  #cnt { display: block; @include type(clamp(40px, 5.4vw, 72px), 1, -0.05em); font-variant-numeric: tabular-nums; }
+  small { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba($frost, 0.5); }
+}
+.ld-word {
+  position: absolute; left: 0; right: 0; top: calc(46% + #{$dial} * 0.5 + 24px); height: 1.25em; overflow: hidden;
+  font-size: clamp(26px, 3.4vw, 46px); font-weight: 500; letter-spacing: -0.03em; text-align: center; perspective: 600px;
+  .w { position: absolute; left: 0; right: 0; top: 0; white-space: nowrap; }
+  .ch { display: inline-block; transform-origin: 50% 100%; backface-visibility: hidden; }
+}
+.lbr { position: absolute; left: $pad; right: $pad; bottom: 28px; display: flex; justify-content: space-between; align-items: end; gap: 20px; font-size: 13px; color: rgba($frost, 0.6); }
+.lgf { position: absolute; left: 50%; top: 46%; width: min(380px, 66vw); opacity: 0; color: $frost; z-index: 2; }
 
 // ---------- section dots ----------
 .dots {

@@ -32,7 +32,7 @@ window.V8 = window.V8 || {};
   /* ---------- shared chrome ---------- */
   document.body.insertAdjacentHTML(
     "afterbegin",
-    `<div class="bgfx" aria-hidden="true"><i></i><i></i><i></i></div>
+    `<div class="bgfx" aria-hidden="true"><div class="layer"><i></i><i></i><i></i><i></i></div><div class="brush"></div><div class="spot"></div><div class="vig"></div></div>
      <header class="nav" id="nav">
        <a class="brand" href="index.html" id="brand">${V8.logo}</a>
        <nav class="nav-links" aria-label="Main">${PAGES.map(([k, h, t]) => `<a href="${h}" class="${k === page || (page === "car" && k === "cars") ? "on" : ""}">${t}</a>`).join("")}</nav>
@@ -191,24 +191,34 @@ window.V8 = window.V8 || {};
     sessionStorage.setItem("v8-pt", labelFor(href));
     if (!FX) return (location.href = href);
     if (sheet.classList.contains("open")) menuBtn.click();
-    ptt.firstElementChild.innerHTML = labelFor(href);
+    const chs = setTitle(labelFor(href));
     pt.classList.add("on");
     G.timeline({ onComplete: () => (location.href = href) })
-      .fromTo(pbs, { yPercent: 100 }, { yPercent: 0, duration: 0.72, stagger: 0.08, ease: "expo.inOut" })
-      .fromTo(ptt.firstElementChild, { yPercent: 110 }, { yPercent: 0, duration: 0.7, ease: "expo.out" }, "-=0.35");
+      .to("main", { scale: 0.96, yPercent: -2, opacity: 0.5, duration: 0.8, ease: "expo.inOut", transformOrigin: "50% 30%" }, 0)
+      .fromTo(pbs, { yPercent: 100 }, { yPercent: 0, duration: 0.72, stagger: 0.08, ease: "expo.inOut" }, 0)
+      .fromTo(chs, { yPercent: 110, rotationX: -70, opacity: 0 }, { yPercent: 0, rotationX: 0, opacity: 1, duration: 0.6, stagger: 0.02, ease: "expo.out" }, "-=0.35");
+  }
+
+  // page title split into letters for the transition
+  function setTitle(text) {
+    const box = ptt.firstElementChild;
+    box.innerHTML = [...text.replace(/&amp;/g, "&")].map((c) => `<span class="ch">${c === " " ? "&nbsp;" : c === "&" ? "&amp;" : c}</span>`).join("");
+    box.style.perspective = "600px";
+    return $$(".ch", box);
   }
 
   function arrive() {
     const label = sessionStorage.getItem("v8-pt");
     sessionStorage.removeItem("v8-pt");
     if (!label || !FX) { H.classList.remove("pt-in"); return false; }
-    ptt.firstElementChild.innerHTML = label;
+    const chs = setTitle(label);
     pt.classList.add("on");
     G.set(pbs, { yPercent: 0 });
     H.classList.remove("pt-in"); // panels now cover the page — drop the pre-paint cover
     G.timeline({ delay: 0.05, onComplete: () => { pt.classList.remove("on"); G.set(pbs, { yPercent: 100 }); } })
-      .to(ptt.firstElementChild, { yPercent: -110, duration: 0.45, ease: "expo.in" })
+      .to(chs, { yPercent: -110, rotationX: 70, opacity: 0, duration: 0.4, stagger: 0.015, ease: "power3.in" })
       .to(pbs.slice().reverse(), { yPercent: -100, duration: 1, stagger: 0.1, ease: "expo.inOut" }, "-=0.1")
+      .fromTo("main", { scale: 1.03, yPercent: 2 }, { scale: 1, yPercent: 0, duration: 1.3, ease: "expo.out", clearProps: "transform" }, "<")
       .add(() => V8.pageIn(), "-=0.75");
     return true;
   }
@@ -470,6 +480,34 @@ window.V8 = window.V8 || {};
       });
     });
   }
+
+  /* =========================================================
+     BACKGROUND INTERACTION + PHOTO FADE-INS
+     ========================================================= */
+  const bg = $(".bgfx");
+  if (FX) {
+    // light follows the cursor (eased)
+    const spot = { x: innerWidth * 0.7, y: innerHeight * 0.3 };
+    const tgt = { ...spot };
+    addEventListener("pointermove", (e) => { tgt.x = e.clientX; tgt.y = e.clientY; }, { passive: true });
+    G.ticker.add(() => {
+      spot.x += (tgt.x - spot.x) * 0.08;
+      spot.y += (tgt.y - spot.y) * 0.08;
+      bg.style.setProperty("--mx", spot.x + "px");
+      bg.style.setProperty("--my", spot.y + "px");
+    });
+    // the light layers drift and turn as you scroll down the page
+    G.to(".bgfx .layer", { yPercent: -12, rotation: 14, scale: 1.08, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 1.2 } });
+  }
+
+  // photos fade in once loaded instead of popping in
+  const markIn = (img) => img.classList.add("is-in");
+  document.addEventListener("load", (e) => { if (e.target.tagName === "IMG") markIn(e.target); }, true);
+  document.addEventListener("error", (e) => { if (e.target.tagName === "IMG") markIn(e.target); }, true);
+  const sweepImgs = () => $$("img:not(.is-in)").forEach((i) => { if (i.complete) markIn(i); });
+  sweepImgs();
+  new MutationObserver(() => requestAnimationFrame(sweepImgs)).observe(document.body, { childList: true, subtree: true });
+  setTimeout(() => $$("img").forEach(markIn), 5000); // never leave a photo hidden
 
   // safety net: never leave content hidden if something above throws later
   addEventListener("error", () => H.classList.remove("js"));
